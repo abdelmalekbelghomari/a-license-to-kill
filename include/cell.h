@@ -51,6 +51,7 @@ struct cell_s {
     int column;           /*!< Column of the cell. */
     int row;              /*!< Row of the cell. */
     cell_type_t type;     /*!< Type of the cell (@see \enum e_cell_type). */
+    int current_capacity;
     int nb_of_characters; /*!< Max. number of characters on the cell. */
 };
 
