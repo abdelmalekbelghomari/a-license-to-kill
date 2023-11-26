@@ -18,6 +18,7 @@
 #ifndef CELL_H
 #define CELL_H
 
+
 /**
  * \file cell.h
  *
@@ -53,6 +54,7 @@ struct cell_s {
     cell_type_t type;     /*!< Type of the cell (@see \enum e_cell_type). */
     int current_capacity;
     int nb_of_characters; /*!< Max. number of characters on the cell. */
+    citizen_t *occupants;
 };
 
 #endif /* CELL_H */
