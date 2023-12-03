@@ -13,8 +13,7 @@ struct Agent {
     int id;                 // Unique identifier for the agent
     int type;               // 0 for citizen, 1 for officer traitant, 2 for agent source
     int hasLicense;         // 1 if the agent has a license to kill, 0 otherwise
-    int positionX;          // X-coordinate in the city grid
-    int positionY;          // Y-coordinate in the city grid
+    int position[2]         // coordinates in the city grid
     int health;             // Current health points
     int maxHealth;          // Maximum health points
     int state;              // 0 for healthy, 1 for injured, 2 for dead
