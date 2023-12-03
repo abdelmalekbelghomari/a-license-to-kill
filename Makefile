@@ -34,6 +34,23 @@ src/monitor/monitor.o: src/monitor/monitor.c include/monitor.h
 src/monitor/monitor_common.o: src/monitor/monitor_common.c include/monitor_common.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
 
+# ----------------------------------------------------------------------------
+# Citizen_manager
+# ----------------------------------------------------------------------------
+bin/monitor: src/monitor/main.o \
+             src/monitor/monitor.o \
+             src/monitor/monitor_common.o \
+             src/common/logger.o
+	$(CC) $^ -o $@ $(LDFLAGS)
+
+src/monitor/main.o: src/monitor/main.c include/monitor.h include/monitor_common.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
+
+src/monitor/monitor.o: src/monitor/monitor.c include/monitor.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
+
+src/monitor/monitor_common.o: src/monitor/monitor_common.c include/monitor_common.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
 
 # ----------------------------------------------------------------------------
 # COMMON OBJECTS FILES

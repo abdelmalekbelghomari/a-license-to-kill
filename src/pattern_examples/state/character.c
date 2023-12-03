@@ -93,7 +93,6 @@ character_t *new_character(state_t *resting_at_home,
     c->going_back_home = going_back_home;
     c->going_to_supermarket = going_to_supermarket;
     c->doing_some_shopping = doing_some_shopping;
-
     c->change_state = character_change_state;
     c->begin = character_begin;
     c->step = character_step;
