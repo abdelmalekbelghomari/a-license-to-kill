@@ -4,16 +4,18 @@
 #include <sys/shm.h>
 
 void use_shared_memory() {
-    key_t shm_key = ftok("shmfile", 65);
-    int shm_id = shmget(shm_key, sizeof(citizen) * NUM_CITIZENS, 0666);
-    if (shm_id < 0) {
-        perror("shmget error");
-        exit(1);
-    }
-    citizen *caracters_list = (citizen *)shmat(shm_id, NULL, 0);
-    if (citizens == (citizen *)(-1)) {
-        perror("shmat error");
-        exit(1);
+    int shmd = shm_open(SHARED_MEMORY_NAME, O_RDWR,  S_IRUSR | S_IWUSR);
+    if (shmd == -1) {
+        perror("shm_open");
+        exit(EXIT_FAILURE);
+    } else {
+        citizen *caracters_list = mmap(NULL, sizeof(citizen*MAX_CITIZENS), PROT_READ | PROT_WRITE, MAP_SHARED, shmd, 0);
+        if (citizens == MAP_FAILED) {
+            perror("mmap");
+            exit(EXIT_FAILURE);
+        } else {
+            start_citizen_threads();
+        }
     }
 }
 
