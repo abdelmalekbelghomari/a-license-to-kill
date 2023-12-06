@@ -25,6 +25,16 @@ void *citizen_behavior(void *arg) {
         if (currentTime == 8) { 
             move_citizen_to_work(character);
             go_to_company(character);
+        } else if (currentTime == 17) {
+            if ((character->workplace_position != supermarket_position)){
+                int random = rand() % 4;
+                if (random == 0) {
+                    move_citizen_to_supermarket(character);
+                    go_to_supermarket(character);
+                }
+                move_citizen_to_home(character);
+                go_to_home(character);
+            }
         }
         if(character->going_to_company == 1){
             go_to_company(character);
@@ -42,6 +52,13 @@ void move_citizen_to_work(citizen *character) {
     character->workplace_position = wp_position;
     char_postion[0], char_position[1] = wp_position[0], wp_position[1];
 }
+
+void move_citizen_to_supermarket(citizen *character) {
+    character->position = char_position;
+    int random = rand() % 2;
+    char_postion[0], char_position[1] = supermarket_position[random][0], supermarket_position[random][1];
+}
+
 
 void start_citizen_threads() {
     for (int i = 0; i < NUM_CITIZENS; i++) {
