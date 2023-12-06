@@ -24,26 +24,24 @@ void *citizen_behavior(void *arg) {
         int currentTime = get_current_simulation_time(); // Function to get the current time in the simulation
         if (currentTime == 8) { 
             move_citizen_to_work(character);
-            go_to_company(character);
+            citizen_change_state(character,go_to_company(character));
         } else if (currentTime == 17) {
-            if ((character->workplace_position != supermarket_position)){
+            if ((character->workplace_position != supermarket_position[0] 
+            || character->workplace_position != supermarket_position[1])){
                 int random = rand() % 4;
                 if (random == 0) {
+                    citizen_change_state(character,go_to_supermarket(character));
                     move_citizen_to_supermarket(character);
-                    go_to_supermarket(character);
+                    citizen_change_state(character,do_some_shopping(character));
                 }
                 move_citizen_to_home(character);
-                go_to_home(character);
+                citizen_change_state(character,go_back_home(character));
             }
-        }
-        if(character->going_to_company == 1){
-            go_to_company(character);
-        }
-        if(character->resting_at_home == 1){
-            rest_at_home(character);
-        }
-        else if(character->going_to_home == 1){
-        }
+        } else if(currentTime == 19,5 && character->workplace_position == (supermarket_position[0] || supermarket_position[1])){
+                move_citizen_to_home(character);
+                citizen_change_state(character,go_to_home(character));
+            }
+        } 
     return NULL;
 }
 
@@ -67,7 +65,8 @@ void start_citizen_threads() {
 }
 
 int main() {
-    // Code à ajouter ici
+    use_shared_memory();
+    
 
     return 0;
 }
