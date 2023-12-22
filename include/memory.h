@@ -21,6 +21,8 @@
 #include "cell.h"
 #include "common.h"
 
+#define CITIZENS_COUNT 131
+
 /**
  * \file memory.h
  *
@@ -39,6 +41,49 @@ struct map_s {
     cell_t cells[MAX_COLUMNS][MAX_ROWS]; /*!< Cells that constitute the city map. */
 };
 
+
+enum citizen_type_e {
+    NORMAL,
+    SPY,
+    CASE_OFFICER,
+    COUNTER_INTELLIGENCE_OFFICER
+};
+
+typedef enum citizen_type_e citizen_type_t;
+
+struct Citizen {
+    int id;
+    citizen_type_t type;
+    int health;
+    int positionX;
+    int positionY;
+    cell_type_t currentBuilding;
+    state_t state;
+};
+
+typedef struct Citizen citizen_t;
+
+// Structure for surveillance devices on each cell
+typedef struct {
+    int standard_camera; // Status of the standard camera (enabled/disabled)
+    int infrared_camera; // Status of the infrared camera (enabled/disabled)
+    int lidar; // Status of the lidar (enabled/disabled)
+} SurveillanceDevices;
+
+// Structure for the surveillance AI
+typedef struct {
+    int suspicious_movement; // Indicator of suspicious movement (boolean)
+} SurveillanceAI;
+
+// Global structure for surveillance network
+struct SurveillanceNetwork {
+    SurveillanceDevices devices[MAX_ROWS][MAX_COLUMNS]; // 2D array covering all cells of the city
+    SurveillanceAI surveillanceAI; // Surveillance AI
+};
+
+typedef struct SurveillanceNetwork surveillanceNetwork_t;
+
+
 /**
  * \brief Shared memory used by all processes.
  */
@@ -51,7 +96,12 @@ struct memory_s {
                                 * - 3: the counterintelligence officer did not discover the mailbox. The spy network
                                 *      wins!
                                 */
-    /* TO COMPLETE */
+                               
+    map_t cityMap; 
+    citizen_t citizens[CITIZENS_COUNT];
+    surveillanceNetwork_t surveillanceNetwork;
+    
+
 };
 
 #endif /* MEMORY_H */
