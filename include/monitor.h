@@ -25,7 +25,7 @@
  */
 
 #include <ncurses.h>
-
+#include <pthread.h>
 #include "memory.h"
 
 /** The number of fields to display for a spy. */
@@ -59,6 +59,8 @@ void create_color_pairs();
  * \param columns The number of columns of the main window.
  */
 void init_monitor_elements(WINDOW *window, memory_t *mem, int rows, int columns);
+
+mq_t init_mq();
 
 /**
  * \brief Sets the given window with the given title.
@@ -153,7 +155,34 @@ void display_citizen_information(WINDOW *window, memory_t *mem, int row, int col
  * \param column The column to start.
  * \param number The number of the spy (0, 1 or 2)
  */
-void display_spy_information(WINDOW *window, memory_t *mem, int row, int column, int number);
+void display_spy1_information(WINDOW *window, memory_t *mem, int row, int column, int number);
+
+/**
+ * \brief Displays the information of the spy whose number is given starting
+ * at the given row and column.
+ *
+ * \param window The sub-window.
+ * \param mem The given shared memory.
+ * \param row The row to start.
+ * \param column The column to start.
+ * \param number The number of the spy (0, 1 or 2)
+ */
+void display_spy2_information(WINDOW *window, memory_t *mem, int row, int column, int number);
+
+
+/**
+ * \brief Displays the information of the spy whose number is given starting
+ * at the given row and column.
+ *
+ * \param window The sub-window.
+ * \param mem The given shared memory.
+ * \param row The row to start.
+ * \param column The column to start.
+ * \param number The number of the spy (0, 1 or 2)
+ */
+void display_spy3_information(WINDOW *window, memory_t *mem, int row, int column, int number);
+
+
 
 /**
  * \brief Displays the information of case officer starting at the given row
