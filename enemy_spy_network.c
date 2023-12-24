@@ -170,6 +170,7 @@ void spy_move_around_company(spy_t* spy, cell_t pos){
   memory->memory_has_changed = 1;
 }
 
+
 /* Return 1 if the spy wants to steal the company */
 int consider_theft(spy_t* spy, int* pos){
   cell_t company_pos;
@@ -205,3 +206,95 @@ void move_spy(spy_t* spy){
   spy->location_row = spy->location_row + (pow(-1, rand()%4))*(rand()%2);
   check_position(memory, spy->id);
 }
+
+
+spyInfo* get_info_spy(int is_killer, int id){
+  spyInfo* data = (spyInfo*)malloc(sizeof(spyInfo));
+  int random = rand()%11;
+
+  data->id                     = id ;
+  data->health_point           = 10 ;
+  data->location_row           = 1  ;
+  data->location_column        = 0  ;
+  data->home_row               = 1  ;
+  data->home_column            = 0  ;
+  data->nb_of_stolen_companies = 0  ;
+  data->has_license_to_kill = is_killer;
+  strcpy(data->stolen_message_content, "...");
+
+
+  return data;
+}
+
+caseOfficerInfo* get_info_case_officer(){
+  caseOfficerInfo* data = (caseOfficerInfo*)malloc(sizeof(caseOfficerInfo));
+
+  data->id                     = 4  ;
+  data->health_point           = 10 ;
+  data->location_row           = 4  ;
+  data->location_column        = 1  ;
+  data->home_row               = 4  ;
+  data->home_column            = 1  ;
+  data->mailbox_row            = 6  ;
+  data->mailbox_column         = 6  ;
+
+  return data;
+}
+
+void fill_company_spy(memory_t* memory, int n){
+  int i, j, k;
+
+  k = 0;
+  for(i = 0; i < 7; i++){
+    for(j = 0; j < 7; j++){
+      if(memory->map.cells[i][j].type == COMPANY){
+        memory->spies[n].allowed_company[k] = memory->map.cells[i][j];
+        k++;
+      }
+    }
+  }
+}
+
+void go_to_mail_box(memory_t* memory, int choice){
+  int row, column;
+  int move_row, move_column;
+  cell_t mail_box;
+  mail_box = memory->map.cells[6][6];
+  
+  if(choice == 0 || choice == 1 || choice == 2){
+    row = memory->spies[choice].location_row;
+    column = memory->spies[choice].location_column;
+  }else if(choice == 3){
+    row = memory->case_officer.location_row;
+    column = memory->case_officer.location_column;
+  }else if(choice == 4){
+    row = memory->counterintelligence_officer.location_row;
+    column = memory->counterintelligence_officer.location_column;
+  }else{
+    return;
+  }
+
+  while(!memory->map.cells[column][row].is_mailbox){
+    move_row = mail_box.row - row;
+    move_column = mail_box.column - column;
+
+    if(move_row != 0){
+      row = row + move_row/abs(move_row);
+    }
+    if(move_column != 0){
+      column = column + move_column/abs(move_column);
+    }
+
+    if(choice == 0 || choice == 1 || choice == 2){
+      memory->spies[choice].location_row = row;
+      memory->spies[choice].location_column = column;
+    }else if(choice == 3){
+      memory->case_officer.location_row = row;
+      memory->case_officer.location_column = column;
+    }else if(choice == 4){
+      memory->counterintelligence_officer.location_row = row;
+      memory->counterintelligence_officer.location_column = column;
+    }
+  }
+}
+
