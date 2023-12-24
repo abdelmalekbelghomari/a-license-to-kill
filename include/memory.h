@@ -39,7 +39,6 @@
 #include <sys/mman.h>
 
 
-#include "enemy_country.h"
 #include "cell.h"
 #include "citizen_manager.h"
 

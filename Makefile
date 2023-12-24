@@ -17,6 +17,14 @@ endif
 all: bin/monitor
 
 # ----------------------------------------------------------------------------
+# SPY SIMULATION
+# ----------------------------------------------------------------------------
+bin/spy_simulation: src/spy_simulation/spy_simulation.o 
+	$(CC) $^ -o $@ $(LDFLAGS)
+
+src/spy_simulation/spy_simulation.o : src/spy_simulation/spy_simulation.c include/spy_simulation.h include/memory.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
+# ----------------------------------------------------------------------------
 # MONITOR
 # ----------------------------------------------------------------------------
 bin/monitor: src/monitor/main.o \
