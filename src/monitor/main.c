@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 {
     int rows;
     int cols;
-    int key;
+    int key;*
 
     argv = argv;//to avoid warnings
     argc = argc;//to avoid warnings
