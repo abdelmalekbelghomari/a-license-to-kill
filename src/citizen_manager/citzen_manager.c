@@ -4,14 +4,14 @@
 #include <sys/shm.h>
 #include "memory.h"
 
-#define SHARED_MEMORY_NAME "/spy_simulation"
+#define SHARED_MEMORY "/spy_simulation"
 
 memory_t *memory;  // Pointer to the shared memory
 pthread_barrier_t barrier;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void use_shared_memory() {
-    int shmd = shm_open(SHARED_MEMORY_NAME, O_RDWR,  S_IRUSR | S_IWUSR);
+    int shmd = shm_open(SHARED_MEMORY, O_RDWR,  S_IRUSR | S_IWUSR);
     if (shmd == -1) {
         perror("shm_open");
         exit(EXIT_FAILURE);
@@ -31,22 +31,23 @@ void use_shared_memory() {
     }
 }
 
-int get_current_simulation_time() {
+double get_current_simulation_time() {
     return memory->timer.hours + round(memory->timer.minutes/60, 2);
     /*TO DO in timer*/
 }
 
+int is_at_supermarket(citizen_t *character) {
+    return (character->position == character->supermarket->position);
+}
 
-void *citizen_behavior(void *arg) {
-    citizen_t *character = (citizen_t *)arg;
-    while ("simulation_running") {
-        int currentTime = /*TO DO*/get_current_simulation_time(); // Function to get the current time in the simulation
-        if (currentTime == 8) { 
+void *citizen_behavior(citizen_t *character) {
+    while (memory->turns < MAX_STEPS) {
+        double currentTime = /*TO DO*/get_current_simulation_time(); // Function to get the current time in the simulation
+        if (currentTime == 8.00) { 
             move_citizen_to_work(character);
             citizen_change_state(character,go_to_company(character));
-        } else if (currentTime == 17) {
-            if ((character->workplace->position != character->supermarket->position 
-            || character->workplace->position != character->supermarket->position)){
+        } else if (currentTime == 17.00) {
+            if (!(is_at_supermarket(character))){
                 int random = rand() % 4;
                 if (random == 0) {
                     citizen_change_state(character,go_to_supermarket(character));
@@ -56,7 +57,7 @@ void *citizen_behavior(void *arg) {
                 move_citizen_to_home(character);
                 citizen_change_state(character,go_back_home(character));
             }
-        } else if(currentTime == 19.5 && character->workplace->position == character->supermarket->position){
+        } else if(currentTime == 19.50 && is_at_supermarket(character)){
                 move_citizen_to_home(character);
                 citizen_change_state(character,go_to_home(character));
             }

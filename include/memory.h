@@ -198,11 +198,11 @@ typedef enum citizen_type_e {
     SPY,
     CASE_OFFICER,
     COUNTER_INTELLIGENCE_OFFICER
-} citizen_type;
+} citizen_type_t;
 
 struct Citizen {
     int id;
-    citizen_type type;
+    citizen_type_t type;
     int health;
     int positionX;
     int positionY;

@@ -19,6 +19,7 @@
 #define CELL_H
 
 #include "memory.h"
+#include "citizen_manager.h"
 /**
  * \file cell.h
  *
