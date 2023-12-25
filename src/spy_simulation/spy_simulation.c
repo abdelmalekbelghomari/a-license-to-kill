@@ -17,8 +17,7 @@ int main(){
 }
 
 
-void handle_fatal_error(const char *message)
-{
+void handle_fatal_error(const char *message){
   perror(message);
   exit(EXIT_FAILURE);
 }
@@ -133,7 +132,7 @@ struct memory_s *create_shared_memory(const char *name) {
 }
 
 
-int start_citizen_manager() {
+int start_citizen_manager(){
     int pid_citizen_manager = fork();
 
     if (pid_citizen_manager == -1) {

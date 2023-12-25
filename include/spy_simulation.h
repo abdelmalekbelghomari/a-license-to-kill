@@ -12,10 +12,16 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-
+void handle_fatal_error(const char *message);
 void init_map(map_t * cityMap);
 void init_citizens(citizen_t *citizens);
 void init_surveillance(surveillanceNetwork_t *surveillance);
 struct memory_s *create_shared_memory(const char *name);
+int start_citizen_manager();
+int start_monitor();
+int start_enemy_spy_network();
+int start_counterintelligence_officer();
+int start_enemy_country();
+int start_timer();
 
 #endif
