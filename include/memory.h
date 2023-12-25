@@ -40,7 +40,8 @@
 
 
 #include "cell.h"
-#include "../src/pattern_examples/state/character.h"
+#include "character.h"
+#include "citizen_manager.h"
 
 #define NB_CITIZEN 127 /* 127 citizens in the city */
 #define CITIZENS_COUNT 127 /* 127 citizens in the city */
@@ -63,6 +64,7 @@ typedef struct counterintelligence_officer_s counterintelligence_officer_t;
 typedef struct SpyInfo spyInfo;
 typedef struct CaseOfficerInfo caseOfficerInfo;
 typedef struct CounterIntelligenceOfficer counterIntelligenceOfficer;
+typedef struct SurveillanceNetwork surveillanceNetwork_t;
 
 /**
  * \brief The city map.
@@ -107,7 +109,7 @@ struct CounterIntelligenceOfficer {
     int city_hall_column;                                 /*!< The counterintelligence_officer home column.*/  
     int mailbox_row;                                      /*!< The counterintelligence_officer home row.*/
     int mailbox_column;                                   /*!< The counterintelligence_officer home column.*/
-    int targeted_character_id                             /*!< The targeted character id.*/  
+    int targeted_character_id;                           /*!< The targeted character id.*/
 }; 
 
 /**
@@ -153,7 +155,7 @@ struct counterintelligence_officer_s {
     int city_hall_column;                                 /*!< The counterintelligence_officer home column.*/  
     int mailbox_row;                                      /*!< The counterintelligence_officer home row.*/
     int mailbox_column;                                   /*!< The counterintelligence_officer home column.*/
-    int targeted_character_id                             /*!< The targeted character id.*/  
+    int targeted_character_id;                            /*!< The targeted character id.*/
 }; 
 
 typedef struct time_s {
@@ -162,10 +164,6 @@ typedef struct time_s {
     int minutes;
     int days;
 }time_s;
-
-struct mq_s{
-    mqd_t mq;
-};
 
 /**
  * \brief Shared memory used by all processes.
@@ -192,28 +190,8 @@ typedef struct memory_s {
     int walking_citizens;
     int at_home_citizens;
     int at_work_citizens;
+    surveillanceNetwork_t surveillanceNetwork;
 };
-
-#endif /* MEMORY_H */
-
-
-
-
-
-
-/**
- * \file memory.h
- *
- * Defines structures and functions used to manipulate our shared memory.
- */
-
-typedef struct map_s map_t;
-typedef struct memory_s memory_t;
-
-/**
- * \brief The city map.
- */
-
 
 typedef enum citizen_type_e {
     NORMAL,
@@ -222,9 +200,7 @@ typedef enum citizen_type_e {
     COUNTER_INTELLIGENCE_OFFICER
 } citizen_type;
 
-
-
-typedef struct Citizen {
+struct Citizen {
     int id;
     citizen_type type;
     int health;
@@ -234,6 +210,7 @@ typedef struct Citizen {
     state_t state;
 };
 
+typedef struct Citizen citizen_t;
 
 // Structure for surveillance devices on each cell
 typedef struct {
@@ -253,25 +230,6 @@ struct SurveillanceNetwork {
     SurveillanceAI surveillanceAI; // Surveillance AI
 };
 
-typedef struct SurveillanceNetwork surveillanceNetwork_t;
+#endif /* MEMORY_H */
 
 
-/**
- * \brief Shared memory used by all processes.
- */
-struct memory_s {
-    int memory_has_changed;    /*!< This flag is set to 1 when the memory has changed. */
-    int simulation_has_ended;  /*!< This flag is set to the following values:
-                                * - 0: has not ended;
-                                * - 1: the spy network ran away. He wins!
-                                * - 2: the counterintelligence officer has discovered the mailbox. He wins.
-                                * - 3: the counterintelligence officer did not discover the mailbox. The spy network
-                                *      wins!
-                                */
-                               
-    map_t cityMap; 
-    citizen_t citizens[CITIZENS_COUNT];
-    surveillanceNetwork_t surveillanceNetwork;
-    
-
-};

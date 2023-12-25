@@ -22,7 +22,7 @@ all: bin/monitor
 bin/spy_simulation: src/spy_simulation/spy_simulation.o 
 	$(CC) $^ -o $@ $(LDFLAGS)
 
-src/spy_simulation/main.o: src/spy_simulation/main.c include/spy_simulation.h include/memory.h
+src/spy_simulation/main.o: src/spy_simulation/main.c src/spy_simulation/spy_simulation.c include/spy_simulation.h include/memory.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
 
 src/spy_simulation/spy_simulation.o : src/spy_simulation/spy_simulation.c include/spy_simulation.h include/memory.h

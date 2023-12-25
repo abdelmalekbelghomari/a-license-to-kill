@@ -16,23 +16,23 @@ void use_shared_memory() {
         perror("shm_open");
         exit(EXIT_FAILURE);
     } else {
-        citizen_t *caracters_list = mmap(NULL, 
-                                sizeof(citizen_t*MAX_CITIZENS), 
+        citizen_t *characters_list = mmap(NULL, 
+                                sizeof(citizen_t) * NUM_CITIZENS, 
                                 PROT_READ | PROT_WRITE, 
                                 MAP_SHARED, 
                                 shmd, 
                                 0);
-        if (citizens == MAP_FAILED) {
+        if (characters_list == MAP_FAILED) {
             perror("mmap");
             exit(EXIT_FAILURE);
         } else {
-            start_citizen_threads(caracters_list);
+            start_citizen_threads(characters_list);
         }
     }
 }
 
 int get_current_simulation_time() {
-    return memory->time.hours + round(memory->time.minutes/60, 2);
+    return memory->timer.hours + round(memory->timer.minutes/60, 2);
     /*TO DO in timer*/
 }
 
@@ -45,8 +45,8 @@ void *citizen_behavior(void *arg) {
             move_citizen_to_work(character);
             citizen_change_state(character,go_to_company(character));
         } else if (currentTime == 17) {
-            if ((character->workplace_position != character->supermarket_position 
-            || character->workplace_position != character->supermarket_position)){
+            if ((character->workplace->position != character->supermarket->position 
+            || character->workplace->position != character->supermarket->position)){
                 int random = rand() % 4;
                 if (random == 0) {
                     citizen_change_state(character,go_to_supermarket(character));
@@ -56,7 +56,7 @@ void *citizen_behavior(void *arg) {
                 move_citizen_to_home(character);
                 citizen_change_state(character,go_back_home(character));
             }
-        } else if(currentTime == 19.5 && character->workplace_position == character->supermarket_position){
+        } else if(currentTime == 19.5 && character->workplace->position == character->supermarket->position){
                 move_citizen_to_home(character);
                 citizen_change_state(character,go_to_home(character));
             }
@@ -67,14 +67,25 @@ void *citizen_behavior(void *arg) {
 void move_citizen_to_work(citizen_t *character) {
     /*Do the A* or BFS*/
     int char_position[] = character->position;
-    int wp_position[] = character->workplace_position; 
-    char_position[0], char_position[1] = wp_position[0], wp_position[1];
+    int wp_position[] = character->workplace->position;
+    if(character->workplace->capacity > character->workplace->size){
+        char_position[0], char_position[1] = wp_position[0], wp_position[1];
+        character->workplace->size++;
+    } else {
+        printf(stderr,"The workplace is full\n");
+    }
+    
 }
 
 void move_citizen_to_supermarket(citizen_t *character) {
-    /*do the A* or BFS*/
-    character->position[0] = character->supermarket_position[0]; 
-    character->position[1] = character->supermarket_position[1];  
+    if(character->supermarket->capacity > character->supermarket->size){
+        character->position[0] = character->supermarket->position[0]; 
+        character->position[1] = character->supermarket->position[1]; 
+        character->supermarket->size++;
+    } else {
+        printf(stderr,"The supermarket is full\n");
+    }
+     
 }
 
 

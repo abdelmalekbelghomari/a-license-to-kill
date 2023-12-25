@@ -1,5 +1,5 @@
 #include "memory.h"
-#include "citizen_manager.h"
+#include "../../include/citizen_manager.h"
 
 
 /*A utiliser dans citizen manager ou dans les .c correspondant
@@ -14,13 +14,6 @@ void signal_handler(int signal, memory_t *shared_memory) {
     }
 }
 
-void spy_simulation(map_t * cityMap, Citizen *citizens, surveillanceNetwork_t *surveillanceNetwork, const char *name){
-    init_map(cityMap);
-    init_citizens(citizens);
-    init_surveillance(surveillanceNetwork);
-    create_shared_memory(name);
-    start_simulation_processes();
-}
 
 void init_map(map_t * cityMap){
     /* Init all cells as empty terrain*/
@@ -72,7 +65,7 @@ void init_map(map_t * cityMap){
 }
 
 
-void init_citizens(Citizen *citizens){
+void init_citizens(citizen_t *citizens){
     int i;
     for (i = 0; i < CITIZENS_COUNT; i++){
         citizens[i].type = NORMAL;
@@ -130,7 +123,7 @@ memory_t *create_shared_memory(const char *name) {
     // Initialize the shared memory as necessary
     shared_memory->memory_has_changed = 0;
     shared_memory->simulation_has_ended = 0;
-    init_map(&shared_memory->cityMap);
+    init_map(&shared_memory->map);
     init_citizens(&shared_memory->citizens);
     init_surveillance(&shared_memory->surveillanceNetwork);
 
@@ -153,7 +146,7 @@ void start_simulation_processes(){
         }
     }
     
-    pid_citizen_manager = fork();
+    /*pid_citizen_manager = fork();
     if (pid_citizen_manager == -1) {
         perror("Error [fork()] citizen_manager: ");
         exit(EXIT_FAILURE);
@@ -163,7 +156,7 @@ void start_simulation_processes(){
             perror("Error [execl] citizen_manager: ");
             exit(EXIT_FAILURE);
         }
-    }
+    }*/
 
     /*pid_counterintelligence_officer = fork();
     if (pid_counterintelligence_officer == -1) {
@@ -177,7 +170,7 @@ void start_simulation_processes(){
         }
     }*/
 
-    pid_enemy_country = fork();
+    /*pid_enemy_country = fork();
     if (pid_enemy_country == -1) {
         perror("Error [fork()] enemy_country: ");
         exit(EXIT_FAILURE);
@@ -187,9 +180,9 @@ void start_simulation_processes(){
             perror("Error [execl] enemy_country: ");
             exit(EXIT_FAILURE);
         }
-    }
+    }*/
 
-    pid_enemy_spy_network = fork();
+    /*pid_enemy_spy_network = fork();
     if (pid_enemy_spy_network == -1) {
         perror("Error [fork()] enemy_spy_network: ");
         exit(EXIT_FAILURE);
@@ -199,9 +192,9 @@ void start_simulation_processes(){
             perror("Error [execl] enemy_spy_network: ");
             exit(EXIT_FAILURE);
         }
-    }
+    }*/
     
-    pid_timer = fork();
+    /*pid_timer = fork();
     if (pid_timer == -1) {
         perror("Error [fork()] timer: ");
         exit(EXIT_FAILURE);
@@ -211,5 +204,5 @@ void start_simulation_processes(){
             perror("Error [execl] timer: ");
             exit(EXIT_FAILURE);
         }
-    }
+    }*/
 }

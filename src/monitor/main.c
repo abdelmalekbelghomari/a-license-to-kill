@@ -62,7 +62,6 @@ int main(int argc, char **argv)
     set_timer();
     set_signals();
 
-
     if ((main_window = initscr()) == NULL) {
         quit_after_error("Error initializing library ncurses!");
     }

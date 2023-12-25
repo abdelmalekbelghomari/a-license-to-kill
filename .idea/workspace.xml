@@ -17,15 +17,17 @@
   <component name="ChangeListManager">
     <list default="true" id="ebd3a55b-f55f-49ea-a946-fcb169568ccc" name="Changes" comment="configuring memory.h and spy_simulation.c">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/citizen_manager.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/citizen_manager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/memory.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/memory.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/citizen_manager/citzen_manager.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/citizen_manager/citzen_manager.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/enemy_spy_network/enemy_spy_network.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/enemy_spy_network/enemy_spy_network.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/monitor/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/monitor/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c" afterDir="false" />
     </list>
     <list id="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" name="Changes by sriha" comment="">
-      <change beforePath="$PROJECT_DIR$/include/spy_simulation.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/spy_simulation.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/monitor/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/monitor/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/cell.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/cell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/memory.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/memory.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/spy_simulation/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/spy_simulation/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,13 +47,36 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/include/memory.h">
+      <ranges>
+        <range start1="42" end1="43" start2="42" end2="44" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="65" end1="65" start2="66" end2="67" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="109" end1="110" start2="111" end2="112" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="155" end1="156" start2="157" end2="158" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="164" end1="168" start2="166" end2="166" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="194" end1="194" start2="192" end2="193" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="195" end1="216" start2="194" end2="194" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="223" end1="225" start2="201" end2="201" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="226" end1="227" start2="202" end2="203" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="236" end1="236" start2="212" end2="213" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="255" end1="257" start2="232" end2="233" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="258" end1="277" start2="234" end2="235" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+      </ranges>
+    </file>
     <file path="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c">
       <ranges>
-        <range start1="1" end1="1" start2="1" end2="2" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
-        <range start1="14" end1="14" start2="15" end2="23" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
-        <range start1="15" end1="18" start2="24" end2="24" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
-        <range start1="68" end1="69" start2="74" end2="75" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
-        <range start1="133" end1="133" start2="139" end2="215" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="1" end1="2" start2="1" end2="2" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="16" end1="23" start2="16" end2="16" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="74" end1="75" start2="67" end2="68" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="132" end1="133" start2="125" end2="126" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="155" end1="156" start2="148" end2="149" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="165" end1="166" start2="158" end2="159" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="179" end1="180" start2="172" end2="173" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="189" end1="190" start2="182" end2="183" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="191" end1="192" start2="184" end2="185" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="201" end1="202" start2="194" end2="195" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="203" end1="204" start2="196" end2="197" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="213" end1="214" start2="206" end2="207" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
       </ranges>
     </file>
   </component>
@@ -101,37 +126,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;C/C++ File.main.c.executor&quot;: &quot;Run&quot;,
-    &quot;Makefile Target.all.executor&quot;: &quot;Run&quot;,
-    &quot;Makefile Target.src/monitor/main.o.executor&quot;: &quot;Run&quot;,
-    &quot;Makefile Target.src/spy_simulation/main.o.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;abdel&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/abdelmalek/Bureau/ENSI/2024/OS/a-license-to-kill/include&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "C/C++ File.main.c.executor": "Run",
+    "Makefile Target.all.executor": "Run",
+    "Makefile Target.src/monitor/main.o.executor": "Run",
+    "Makefile Target.src/spy_simulation/main.o.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "abdel",
+    "last_opened_file_path": "/home/abdelmalek/Bureau/ENSI/2024/OS/a-license-to-kill/include",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/include" />
     </key>
   </component>
-  <component name="RunManager" selected="Makefile Target.src/monitor/main.o">
+  <component name="RunManager" selected="C/C++ File.main.c">
     <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="a-license-to-kill" TARGET_NAME="all" CONFIG_NAME="all" version="1" RUN_PATH="$PROJECT_DIR$/bin/monitor">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
@@ -186,10 +211,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="C/C++ File.main.c" />
+        <item itemvalue="Makefile Target.src/spy_simulation/main.o" />
         <item itemvalue="Makefile Target.src/monitor/main.o" />
         <item itemvalue="Makefile Target.all" />
-        <item itemvalue="Makefile Target.src/spy_simulation/main.o" />
-        <item itemvalue="C/C++ File.main.c" />
       </list>
     </recent_temporary>
   </component>
@@ -207,7 +232,7 @@
       <workItem from="1699372517814" duration="1478000" />
       <workItem from="1703510817853" duration="1284000" />
       <workItem from="1703512125893" duration="54000" />
-      <workItem from="1703512193081" duration="10206000" />
+      <workItem from="1703512193081" duration="13437000" />
     </task>
     <task id="LOCAL-00001" summary="configuring memory.h and spy_simulation.c">
       <option name="closed" value="true" />

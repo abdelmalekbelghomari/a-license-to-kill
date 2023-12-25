@@ -18,7 +18,7 @@
 #ifndef CELL_H
 #define CELL_H
 
-
+#include "memory.h"
 /**
  * \file cell.h
  *

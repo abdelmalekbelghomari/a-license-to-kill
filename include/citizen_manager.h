@@ -1,11 +1,15 @@
 
 #ifndef CITIZEN_MANAGER_H
 #define CITIZEN_MANAGER_H
+#include "memory.h"
 #define MAX_STEPS 2016
 #define NUM_CITIZENS 127
 
 typedef struct state_s state_t;
 typedef struct citizen_s citizen_t;
+typedef struct building_s building_t;
+typedef struct home_s home_t;
+typedef enum citizen_type citizen_type;
 
 struct state_s {
     int id;
@@ -17,9 +21,9 @@ struct state_s {
 struct citizen_s {
     int position [2];
     int health ;
-    int workplace_position [2];
-    int home_position[2];
-    int supermarket_position[2]; /*the nearest supermarket from his company*/
+    citizen_type type;
+    building_t *workplace, *supermarket; /*the nearest supermarket from his company*/
+    home_t *home; 
 
     state_t *current_state;
     state_t *next_state;
@@ -57,5 +61,31 @@ void citizen_begin(citizen_t *c);
 void citizen_step(citizen_t *c);
 void citizen_end(citizen_t *c);
 void citizen_change_state(citizen_t *c, state_t *new_state);
+
+
+enum citizen_type {
+    COORPORATION,
+    STORE,
+    HALL
+};
+
+struct building_s {
+    int position[2];
+    int type;
+    int size;
+    int capacity;
+    citizen_t *citizens[NUM_CITIZENS];
+    void (*add_citizen)(building_t *, citizen_t *);
+    void (*remove_citizen)(building_t *, citizen_t *);
+};
+
+struct home_s {
+    int position[2];
+    int size;
+    int capacity;
+    citizen_t *citizens[NUM_CITIZENS];
+    void (*add_citizen)(home_t *, citizen_t *);
+    void (*remove_citizen)(home_t *, citizen_t *);
+};
 
 #endif // CITIZEN_MANAGER_H
