@@ -224,9 +224,9 @@ typedef enum citizen_type_e {
 
 
 
-struct Citizen {
+typedef struct Citizen {
     int id;
-    citizen_type_t type;
+    citizen_type type;
     int health;
     int positionX;
     int positionY;
@@ -234,7 +234,6 @@ struct Citizen {
     state_t state;
 };
 
-typedef struct Citizen citizen_t;
 
 // Structure for surveillance devices on each cell
 typedef struct {

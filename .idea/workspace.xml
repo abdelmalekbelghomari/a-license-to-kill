@@ -15,20 +15,17 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ebd3a55b-f55f-49ea-a946-fcb169568ccc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/a-license-to-kill.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/character.h" afterDir="false" />
+    <list default="true" id="ebd3a55b-f55f-49ea-a946-fcb169568ccc" name="Changes" comment="configuring memory.h and spy_simulation.c">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/cell.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/cell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/citizen_manager.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/citizen_manager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/memory.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/memory.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/spy_simulation.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/spy_simulation.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/citizen_manager/citzen_manager.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/citizen_manager/citzen_manager.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/logger.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/monitor/main.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/monitor/monitor.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/monitor/monitor_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/enemy_spy_network/enemy_spy_network.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/enemy_spy_network/enemy_spy_network.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c" afterDir="false" />
+    </list>
+    <list id="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" name="Changes by sriha" comment="">
+      <change beforePath="$PROJECT_DIR$/include/spy_simulation.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/spy_simulation.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/monitor/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/monitor/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +43,17 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c">
+      <ranges>
+        <range start1="1" end1="1" start2="1" end2="2" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="14" end1="14" start2="15" end2="23" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="15" end1="18" start2="24" end2="24" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="68" end1="69" start2="74" end2="75" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="133" end1="133" start2="139" end2="215" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+      </ranges>
+    </file>
   </component>
   <component name="MakefileLocalSettings">
     <option name="availableProjects">
@@ -76,6 +84,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
@@ -166,12 +177,12 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Native Application.all" />
-      <item itemvalue="Native Application.distclean" />
       <item itemvalue="C/C++ File.main.c" />
       <item itemvalue="Makefile Target.all" />
       <item itemvalue="Makefile Target.src/monitor/main.o" />
       <item itemvalue="Makefile Target.src/spy_simulation/main.o" />
+      <item itemvalue="Native Application.all" />
+      <item itemvalue="Native Application.distclean" />
     </list>
     <recent_temporary>
       <list>
@@ -196,7 +207,17 @@
       <workItem from="1699372517814" duration="1478000" />
       <workItem from="1703510817853" duration="1284000" />
       <workItem from="1703512125893" duration="54000" />
+      <workItem from="1703512193081" duration="10206000" />
     </task>
+    <task id="LOCAL-00001" summary="configuring memory.h and spy_simulation.c">
+      <option name="closed" value="true" />
+      <created>1703513181561</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1703513181561</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,5 +245,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="configuring memory.h and spy_simulation.c" />
+    <option name="LAST_COMMIT_MESSAGE" value="configuring memory.h and spy_simulation.c" />
   </component>
 </project>

@@ -1,4 +1,5 @@
 #include "memory.h"
+#include "citizen_manager.h"
 
 
 /*A utiliser dans citizen manager ou dans les .c correspondant
@@ -13,8 +14,13 @@ void signal_handler(int signal, memory_t *shared_memory) {
     }
 }
 
-
-
+void spy_simulation(map_t * cityMap, Citizen *citizens, surveillanceNetwork_t *surveillanceNetwork, const char *name){
+    init_map(cityMap);
+    init_citizens(citizens);
+    init_surveillance(surveillanceNetwork);
+    create_shared_memory(name);
+    start_simulation_processes();
+}
 
 void init_map(map_t * cityMap){
     /* Init all cells as empty terrain*/
@@ -66,7 +72,7 @@ void init_map(map_t * cityMap){
 }
 
 
-void init_citizens(citizen_t *citizens){
+void init_citizens(Citizen *citizens){
     int i;
     for (i = 0; i < CITIZENS_COUNT; i++){
         citizens[i].type = NORMAL;
@@ -129,4 +135,81 @@ memory_t *create_shared_memory(const char *name) {
     init_surveillance(&shared_memory->surveillanceNetwork);
 
     return shared_memory;
+}
+
+void start_simulation_processes(){
+    pid_t pid_monitor, pid_enemy_spy_network, pid_citizen_manager, pid_enemy_country,
+    pid_counterintelligence_officer, pid_timer;
+
+    pid_monitor = fork();
+    if (pid_monitor == -1) {
+        perror("Error [fork()] monitor:");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_monitor == 0) {
+        if (execl("./bin/monitor", "monitor", NULL) == -1) {
+            perror("Error [execl] monitor: ");
+            exit(EXIT_FAILURE);
+        }
+    }
+    
+    pid_citizen_manager = fork();
+    if (pid_citizen_manager == -1) {
+        perror("Error [fork()] citizen_manager: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_citizen_manager == 0) {
+        if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
+            perror("Error [execl] citizen_manager: ");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    /*pid_counterintelligence_officer = fork();
+    if (pid_counterintelligence_officer == -1) {
+        perror("Error [fork()] counterintelligence_officer: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_counterintelligence_officer == 0) {
+        if (execl("./bin/counterintelligence_officer", "counterintelligence_officer", NULL) == -1) {
+            perror("Error [execl] counterintelligence_officer: ");
+            exit(EXIT_FAILURE);
+        }
+    }*/
+
+    pid_enemy_country = fork();
+    if (pid_enemy_country == -1) {
+        perror("Error [fork()] enemy_country: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_enemy_country == 0) {
+        if (execl("./bin/enemy_country", "enemy_country", NULL) == -1) {
+            perror("Error [execl] enemy_country: ");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    pid_enemy_spy_network = fork();
+    if (pid_enemy_spy_network == -1) {
+        perror("Error [fork()] enemy_spy_network: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_enemy_spy_network == 0) {
+        if (execl("./bin/enemy_spy_network", "enemy_spy_network", NULL) == -1) {
+            perror("Error [execl] enemy_spy_network: ");
+            exit(EXIT_FAILURE);
+        }
+    }
+    
+    pid_timer = fork();
+    if (pid_timer == -1) {
+        perror("Error [fork()] timer: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_timer == 0) {
+        if (execl("./bin/timer", "timer", NULL) == -1) {
+            perror("Error [execl] timer: ");
+            exit(EXIT_FAILURE);
+        }
+    }
 }

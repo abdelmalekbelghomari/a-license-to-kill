@@ -62,6 +62,7 @@ int main(int argc, char **argv)
     set_timer();
     set_signals();
 
+
     if ((main_window = initscr()) == NULL) {
         quit_after_error("Error initializing library ncurses!");
     }
@@ -78,7 +79,8 @@ int main(int argc, char **argv)
     if (!is_terminal_size_larger_enough(&rows, &cols)) {
         quit_after_error("Minimal terminal dimensions: 45 rows and 140 columns!");
     }
-
+    /*Initialize the spy simulation*/
+    //spy_simulation(cityMap,citizens,surveillanceNetwork,name);
     /* Initialize terminal user interface elements */
     init_monitor_elements(main_window, memory, rows, cols);
 

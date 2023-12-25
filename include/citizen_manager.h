@@ -17,8 +17,9 @@ struct state_s {
 struct citizen_s {
     int position [2];
     int health ;
-    int worlkplace_position [2];
+    int workplace_position [2];
     int home_position[2];
+    int supermarket_position[2]; /*the nearest supermarket from his company*/
 
     state_t *current_state;
     state_t *next_state;
