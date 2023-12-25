@@ -89,6 +89,49 @@ void move_citizen_to_supermarket(citizen_t *character) {
      
 }
 
+state_t *new_state(int id, state_t *(*action)(citizen_t *)) {
+    state_t *state = malloc(sizeof(state_t));
+    state->id = id;
+    state->action = action;
+    return state;
+}
+
+void state_change_state(citizen_t *c, state_t *s) {
+    c->current_state = s;
+}
+
+state_t *rest_at_home(citizen_t *c) {
+
+    return c->resting_at_home;
+}
+
+state_t *go_to_company(citizen_t *c) {
+
+    return c->going_to_company;
+}
+
+state_t *work(citizen_t *c) {
+
+    return c->working;
+}
+
+state_t *go_to_supermarket(citizen_t *c) {
+
+    return c->going_to_supermarket;
+}
+
+state_t *go_back_home(citizen_t *c) {
+
+    return c->going_back_home;
+}
+
+state_t *do_some_shopping(citizen_t *c) {
+    return c->doing_some_shopping;
+}
+
+void citizen_change_state(citizen_t *c, state_t *new_state) {
+    c->current_state->change_state(c, new_state);
+}
 
 void start_citizen_threads(citizen_t *characters_list) {
     pthread_t thread_citizen[NUM_CITIZENS];
