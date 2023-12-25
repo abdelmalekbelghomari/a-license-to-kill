@@ -40,6 +40,12 @@ void go_to_mail_box(memory_t* memory, int choice);
 
 int* is_around(int row, int column, int cell_type);
 
+void case_officer_go_shopping(case_officer_t* case_officer);
+
+void case_officer_go_home(case_officer_t* case_officer);
+
+void* spy_life(void* thread);
+
 
 #endif /* ENEMY_SPY_NETWORK_H */
 
