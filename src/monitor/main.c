@@ -41,13 +41,12 @@ extern int old_cursor;
  * - The "enemy country monitor" window (bottom-right)
  * 'Q', 'q' and 'Esc' keys are used to exit from the TUI.
  */
-int main(int argc, char **argv)
+int main(int argc, char **argv __attribute__((unused)))
 {
     int rows;
     int cols;
-    int key;*
+    int key;
 
-    argv = argv;//to avoid warnings
     argc = argc;//to avoid warnings
     memory_t *memory;
     monitor_t *monitor;
