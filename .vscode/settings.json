@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "pthread.h": "c",
-        "shm.h": "c"
+        "shm.h": "c",
+        "monitor_common.h": "c"
     }
 }

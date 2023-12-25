@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "spy_simulation.c"
+#include "memory.h"
 
 #include <stdlib.h>
 #include <string.h>

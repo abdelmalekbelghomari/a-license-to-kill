@@ -2,7 +2,6 @@
 #define SPY_SIMULATION 
 
 #include "memory.h"
-#include "character.h"
 #include <stdlib.h>
 #include <time.h>
 /*#include <sys/mmap.h>*/

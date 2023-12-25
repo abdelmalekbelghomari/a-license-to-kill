@@ -37,10 +37,10 @@
 #include <sys/ipc.h>
 #include <sys/types.h>
 #include <sys/mman.h>
+#include <mqueue.h>
 
 
 #include "cell.h"
-#include "character.h"
 #include "citizen_manager.h"
 
 #define NB_CITIZEN 127 /* 127 citizens in the city */
@@ -57,6 +57,7 @@
 
 typedef struct map_s map_t;
 typedef struct mq_s mq_t;
+typedef struct memory_s memory_t;
 
 typedef struct spy_s spy_t;
 typedef struct case_officer_s case_officer_t;
@@ -64,6 +65,25 @@ typedef struct counterintelligence_officer_s counterintelligence_officer_t;
 typedef struct SpyInfo spyInfo;
 typedef struct CaseOfficerInfo caseOfficerInfo;
 typedef struct CounterIntelligenceOfficer counterIntelligenceOfficer;
+
+
+// Structure for surveillance devices on each cell
+typedef struct {
+    int standard_camera; // Status of the standard camera (enabled/disabled)
+    int infrared_camera; // Status of the infrared camera (enabled/disabled)
+    int lidar; // Status of the lidar (enabled/disabled)
+} SurveillanceDevices;
+
+// Structure for the surveillance AI
+typedef struct {
+    int suspicious_movement; // Indicator of suspicious movement (boolean)
+} SurveillanceAI;
+
+// Global structure for surveillance network
+struct SurveillanceNetwork {
+    SurveillanceDevices devices[MAX_ROWS][MAX_COLUMNS]; // 2D array covering all cells of the city
+    SurveillanceAI surveillanceAI; // Surveillance AI
+};
 typedef struct SurveillanceNetwork surveillanceNetwork_t;
 
 /**
@@ -165,10 +185,14 @@ typedef struct time_s {
     int days;
 }time_s;
 
+struct mq_s{
+    mqd_t mq;
+};
+
 /**
  * \brief Shared memory used by all processes.
  */
-typedef struct memory_s {
+struct memory_s {
     int memory_has_changed;    /*!< This flag is set to 1 when the memory has changed. */
     int simulation_has_ended;  /*!< This flag is set to the following values:
                                 * - 0: has not ended;
@@ -200,35 +224,6 @@ typedef enum citizen_type_e {
     COUNTER_INTELLIGENCE_OFFICER
 } citizen_type;
 
-struct Citizen {
-    int id;
-    citizen_type type;
-    int health;
-    int positionX;
-    int positionY;
-    cell_type_t currentBuilding;
-    state_t state;
-};
-
-typedef struct Citizen citizen_t;
-
-// Structure for surveillance devices on each cell
-typedef struct {
-    int standard_camera; // Status of the standard camera (enabled/disabled)
-    int infrared_camera; // Status of the infrared camera (enabled/disabled)
-    int lidar; // Status of the lidar (enabled/disabled)
-} SurveillanceDevices;
-
-// Structure for the surveillance AI
-typedef struct {
-    int suspicious_movement; // Indicator of suspicious movement (boolean)
-} SurveillanceAI;
-
-// Global structure for surveillance network
-struct SurveillanceNetwork {
-    SurveillanceDevices devices[MAX_ROWS][MAX_COLUMNS]; // 2D array covering all cells of the city
-    SurveillanceAI surveillanceAI; // Surveillance AI
-};
 
 #endif /* MEMORY_H */
 

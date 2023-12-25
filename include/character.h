@@ -1,4 +1,4 @@
-#ifndef CHARACTER_H
+/*#ifndef CHARACTER_H
 #define CHARACTER_H
 
 #define MAX_STEPS 2016
@@ -49,6 +49,6 @@ character_t *new_character(state_t *resting_at_home,
 void character_begin(character_t *c);
 void character_step(character_t *c);
 void character_end(character_t *c);
-void character_change_state(character_t *c, state_t *new_state);
+void character_change_state(character_t *c, state_t *new_state);*/
 
-#endif /* CHARACTER_H */
+//#endif /* CHARACTER_H */
