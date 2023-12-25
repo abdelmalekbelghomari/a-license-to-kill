@@ -44,6 +44,9 @@
 
 #define NB_CITIZEN 127 /* 127 citizens in the city */
 #define CITIZENS_COUNT 127 /* 127 citizens in the city */
+#define MAX_ROWS 7
+#define MAX_COLUMNS 7
+
 
 /**
  * \file memory.h
@@ -52,7 +55,6 @@
  */
 
 typedef struct map_s map_t;
-typedef struct memory_s memory_t;
 typedef struct mq_s mq_t;
 
 typedef struct spy_s spy_t;
@@ -68,7 +70,6 @@ typedef struct CounterIntelligenceOfficer counterIntelligenceOfficer;
 struct map_s {
     int columns;                         /*!< The number of columns of the city map. */
     int rows;                            /*!< The number of rows of the city map.*/
-    cell_t homes[11];
     cell_t cells[MAX_COLUMNS][MAX_ROWS]; /*!< Cells that constitute the city map. */
 };
 
@@ -212,21 +213,16 @@ typedef struct memory_s memory_t;
 /**
  * \brief The city map.
  */
-struct map_s {
-    int columns;                         /*!< The number of columns of the city map. */
-    int rows;                            /*!< The number of rows of the city map.*/
-    cell_t cells[MAX_COLUMNS][MAX_ROWS]; /*!< Cells that constitute the city map. */
-};
 
 
-enum citizen_type_e {
+typedef enum citizen_type_e {
     NORMAL,
     SPY,
     CASE_OFFICER,
     COUNTER_INTELLIGENCE_OFFICER
-};
+} citizen_type;
 
-typedef enum citizen_type_e citizen_type_t;
+
 
 struct Citizen {
     int id;

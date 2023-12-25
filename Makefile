@@ -22,6 +22,9 @@ all: bin/monitor
 bin/spy_simulation: src/spy_simulation/spy_simulation.o 
 	$(CC) $^ -o $@ $(LDFLAGS)
 
+src/spy_simulation/main.o: src/spy_simulation/main.c include/spy_simulation.h include/memory.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
+
 src/spy_simulation/spy_simulation.o : src/spy_simulation/spy_simulation.c include/spy_simulation.h include/memory.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
 # ----------------------------------------------------------------------------
@@ -40,15 +43,6 @@ src/monitor/monitor.o: src/monitor/monitor.c include/monitor.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
 
 src/monitor/monitor_common.o: src/monitor/monitor_common.c include/monitor_common.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
-
-# ----------------------------------------------------------------------------
-# Citizen_manager
-# ----------------------------------------------------------------------------
-bin/citizen_manager: src/citizen_manager.o
-	$(CC) $^ -o $@ $(LDFLAGS)
-
-src/monitor/main.o: src/citizen_manager/citizen_manager.c include/citizen_manager.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
 
 # ----------------------------------------------------------------------------

@@ -4,10 +4,8 @@
 #include "memory.h"
 #include "character.h"
 #include <stdlib.h>
-#include <stdio.h>
 #include <time.h>
-/*#include <sys/mmap.h>*/ /* i m working on Windows so this line is given me an error
-                             but if u re working on Linux i guess that's not gonna be a problem */
+/*#include <sys/mmap.h>*/
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>

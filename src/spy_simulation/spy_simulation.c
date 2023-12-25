@@ -1,7 +1,8 @@
-#include "spy_simulation.h"
+#include "memory.h"
 
 
-/*A mettre dans citizen manager pour la gestion des blessures*/
+/*A utiliser dans citizen manager ou dans les .c correspondant
+aux protagonistes et antagonistes pour la gestion des blessures*/
 void signal_handler(int signal, memory_t *shared_memory) {
     if (signal == SIGUSR1) {
         shared_memory->memory_has_changed = 1;
@@ -11,6 +12,8 @@ void signal_handler(int signal, memory_t *shared_memory) {
         /*Print info*/
     }
 }
+
+
 
 
 void init_map(map_t * cityMap){
