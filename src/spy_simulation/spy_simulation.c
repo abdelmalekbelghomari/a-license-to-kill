@@ -1,5 +1,27 @@
 #include "spy_simulation.h"
 
+int main(){
+    memory_t* memory;
+    pid_t pid_monitor, pid_enemy_spy_network, pid_citizen_manager, pid_enemy_country, pid_counterintelligence_officer, pid_timer;
+    
+    memory = create_shared_memory("/spy_simulation");
+
+    pid_citizen_manager = start_citizen_manager();
+    pid_monitor = start_monitor();
+    pid_counterintelligence_officer = start_counterintelligence_officer();
+    pid_enemy_country = start_enemy_country();
+    pid_enemy_spy_network = start_enemy_spy_network();
+    pid_timer = start_timer();
+
+    return EXIT_SUCCESS;
+}
+
+
+void handle_fatal_error(const char *message)
+{
+  perror(message);
+  exit(EXIT_FAILURE);
+}
 
 void init_map(map_t * cityMap){
     /* Init all cells as empty terrain*/
@@ -84,22 +106,18 @@ void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
 struct memory_s *create_shared_memory(const char *name) {
     int shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666);
     if (shm_fd == -1) {
-        perror("shm_open");
-        exit(EXIT_FAILURE);
+        handle_fatal_error("shm_open")
     }
 
-    // Calculate the size from the structure size
     size_t size = sizeof(struct memory_s);
 
     if (ftruncate(shm_fd, size) == -1) {
-        perror("ftruncate");
-        exit(EXIT_FAILURE);
+        handle_fatal_error("ftruncate");
     }
 
     struct memory_s *shared_memory = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
     if (shared_memory == MAP_FAILED) {
-        perror("mmap");
-        exit(EXIT_FAILURE);
+        handle_fatal_error("mmap");
     }
 
     close(shm_fd);
@@ -113,3 +131,101 @@ struct memory_s *create_shared_memory(const char *name) {
 
     return shared_memory;
 }
+
+
+int start_citizen_manager() {
+    int pid_citizen_manager = fork();
+
+    if (pid_citizen_manager == -1) {
+      handle_fatal_error("Error creating fork()\n");
+    }
+
+    if (pid_citizen_manager == 0) {
+        if (execl("./bin/manager", "citizen_manager", NULL) == -1){
+            handle_fatal_error("Failed to start citizen_manager\n");
+        }
+    }
+    return pid_citizen_manager;
+}
+
+int start_monitor(){
+    int pid_monitor = fork();
+
+    if (pid_monitor == -1) {
+      handle_fatal_error("Error creating fork()\n");
+    }
+
+    if (pid_monitor == 0) {
+        if (execl("./bin/monitor", "monitor", NULL) == -1) {
+            handle_fatal_error("Failed to start monitor\n");
+        }
+    }
+
+    return pid_monitor;
+}
+
+int start_enemy_spy_network(){
+    int pid_enemy_spy_network = fork();
+
+    if (pid_enemy_spy_network == -1) {
+      handle_fatal_error("Error creating fork()\n");
+    }
+
+    if (pid_enemy_spy_network == 0) {
+        if (execl("./bin/enemy_spy_network", "enemy_spy_network", NULL) == -1) {
+            handle_fatal_error("Failed to start enemy_spy_network\n");
+        }
+    }
+
+    return pid_enemy_spy_network;
+}
+
+int start_counterintelligence_officer(){
+    int pid_counterintelligence_officer = fork();
+
+    if (pid_counterintelligence_officer == -1) {
+       handle_fatal_error("Error creating fork()\n");
+    }
+
+    if (pid_counterintelligence_officer == 0) {
+        if (execl("./bin/counterintelligence_officer", "counterintelligence_officer", NULL) == -1) {
+            handle_fatal_error("Failed to start counterintelligence_officer\n");
+        }
+    }
+
+    return pid_counterintelligence_officer;
+}
+
+int start_enemy_country(){
+    int pid_enemy_country = fork();
+
+    if (pid_enemy_country == -1) {
+      handle_fatal_error("Error creating fork()\n");
+    }
+
+    if (pid_enemy_country == 0) {
+        if (execl("./bin/menemy_country", "enemy_country", NULL) == -1) {
+            handle_fatal_error("Failed to start enemy_country\n");
+        }
+    }
+
+    return pid_enemy_country;
+}
+
+int start_timer(){
+    int pid_timer = fork();
+
+    if (pid_timer == -1) {
+      handle_fatal_error("Error creating fork()\n");
+    }
+
+    if (pid_timer == 0) {
+        if (execl("./bin/timer", "timer", NULL) == -1) {
+            handle_fatal_error("Failed to start timer\n");
+        }
+    }
+
+    return pid_timer;
+}
+
+
