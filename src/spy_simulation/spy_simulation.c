@@ -1,6 +1,18 @@
 #include "spy_simulation.h"
 
 
+/*A mettre dans citizen manager pour la gestion des blessures*/
+void signal_handler(int signal, memory_t *shared_memory) {
+    if (signal == SIGUSR1) {
+        shared_memory->memory_has_changed = 1;
+    } else if (signal == SIGUSR2) {
+        shared_memory->simulation_has_ended = 1;
+        /*TO DO*/
+        /*Print info*/
+    }
+}
+
+
 void init_map(map_t * cityMap){
     /* Init all cells as empty terrain*/
     int i,j;
@@ -26,6 +38,7 @@ void init_map(map_t * cityMap){
 
     /* 8 Companies */
     int companies_count = 0;
+    srand(time(NULL));
     while (companies_count != 8) {
         i = rand() % MAX_ROWS;
         j = rand() % MAX_COLUMNS;
@@ -81,10 +94,11 @@ void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
 }
 
 
-struct memory_s *create_shared_memory(const char *name) {
+
+memory_t *create_shared_memory(const char *name) {
     int shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666);
     if (shm_fd == -1) {
-        perror("shm_open");
+        perror("shm_open error");
         exit(EXIT_FAILURE);
     }
 
@@ -92,13 +106,13 @@ struct memory_s *create_shared_memory(const char *name) {
     size_t size = sizeof(struct memory_s);
 
     if (ftruncate(shm_fd, size) == -1) {
-        perror("ftruncate");
+        perror("ftruncate error");
         exit(EXIT_FAILURE);
     }
 
-    struct memory_s *shared_memory = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
+    memory_t *shared_memory = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
     if (shared_memory == MAP_FAILED) {
-        perror("mmap");
+        perror("mmap error");
         exit(EXIT_FAILURE);
     }
 

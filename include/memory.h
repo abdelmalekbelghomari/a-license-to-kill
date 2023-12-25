@@ -40,8 +40,10 @@
 
 
 #include "cell.h"
-#include "citizen_manager.h"
+#include "../src/pattern_examples/state/character.h"
 
+#define NB_CITIZEN 127 /* 127 citizens in the city */
+#define CITIZENS_COUNT 127 /* 127 citizens in the city */
 
 /**
  * \file memory.h
@@ -197,6 +199,7 @@ typedef struct memory_s {
 
 
 
+
 /**
  * \file memory.h
  *
@@ -265,7 +268,7 @@ struct memory_s {
     int memory_has_changed;    /*!< This flag is set to 1 when the memory has changed. */
     int simulation_has_ended;  /*!< This flag is set to the following values:
                                 * - 0: has not ended;
-                                * - 1: the spy network has fled. It wins!
+                                * - 1: the spy network ran away. He wins!
                                 * - 2: the counterintelligence officer has discovered the mailbox. He wins.
                                 * - 3: the counterintelligence officer did not discover the mailbox. The spy network
                                 *      wins!
@@ -277,5 +280,3 @@ struct memory_s {
     
 
 };
-
-#endif /* MEMORY_H */
