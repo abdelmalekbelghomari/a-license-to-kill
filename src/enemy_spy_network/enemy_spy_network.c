@@ -6,8 +6,6 @@
 #include <sys/shm.h>
 
 #include "enemy_spy_network.h"
-#define NUM_AGENTS 3
-
 
 void handle_fatal_error(const char *message)
 {
@@ -297,4 +295,142 @@ void go_to_mail_box(memory_t* memory, int choice){
     }
   }
 }
+
+
+int* is around(int row, int column, int cell_type) {
+  int i,j ;
+  int pos_row, pos_column;
+  int pos[2];
+  pos[0] = 0;
+  pos[1] = 0;
+
+  for(i = -1; i <= 1; i++) {
+    for(j = -1; j <= 1; j++) {
+      pos_row = column + i;
+      pos_column = row + j;
+      if(!(0 <= pos_row && pos_row <= 6)){
+        pos_row = row;
+      }
+      if(!(0 <= pos_column && pos_column <= 6)){
+        pos_column = pos_column;
+      }
+      if(memory->map.cells[pos_column][pos_row].type == cell_type) {
+        pos[0] = pos_column;
+        pos[1] = pos_row;
+        return pos;
+      }
+    }
+  }
+  return pos;
+}
+
+void case_officer_go_shopping(case_officer_t* case_officer){
+  int row, column;
+  int move_row, move_column;
+  cell_t market = memory->map.cells[3][4];
+  
+  row = case_officer->location_row;
+  column = case_officer->location_column;
+
+  while(memory->map.cells[column][row].type != SUPERMARKET){
+    move_row = market.row - row;
+    move_column = market.column - column;
+
+    if(move_row != 0){
+      row = row + move_row/abs(move_row);
+    }
+    if(move_column != 0){
+      column = column + move_column/abs(move_column);
+    }
+    case_officer->location_row = row;
+    case_officer->location_column = column;
+  }
+}
+
+void case_officer_go_home(case_officer_t* case_officer){
+  int row, column;
+  int move_row, move_column;
+  
+  row = case_officer->location_row;
+  column = case_officer->location_column;
+
+  while(!(column == case_officer->home_column && row == case_officer->home_row)){
+    move_row = case_officer->home_row - row;
+    move_column = case_officer->home_column - column;
+
+    if(move_row != 0){
+      row = row + move_row/abs(move_row);
+    }
+    if(move_column != 0){
+      column = column + move_column/abs(move_column);
+    }
+    case_officer->location_row = row;
+    case_officer->location_column = column;
+  }
+}
+
+void* spy_life(void* thread) {
+  spyInfo* thread_data = (spyInfo*) thread;
+  /* INIT */
+  int spy_row, spy_column, theft_round;
+  int *pos, tmp[2];
+  sem_t *sem = sem_open (MY_SEM, O_CREAT, 0666, 1);
+
+  if(sem == SEM_FAILED) {
+    perror("sem_open");
+    exit(EXIT_FAILURE);
+  }
+
+  pos = (int*)malloc(2*sizeof(int));
+  tmp[0] = 0;
+  tmp[1] = 0;
+
+  sem_wait(&sem);
+  memory->spies[thread_data->id].id                         = thread_data->id;
+  memory->spies[thread_data->id].health_point               = thread_data->health_point;
+  memory->spies[thread_data->id].location_row               = thread_data->location_row;
+  memory->spies[thread_data->id].location_column            = thread_data->location_column;
+  memory->spies[thread_data->id].home_row                   = thread_data->home_row;
+  memory->spies[thread_data->id].home_column                = thread_data->home_column;
+  memory->spies[thread_data->id].nb_of_stolen_companies     = thread_data->nb_of_stolen_companies;
+  memory->spies[thread_data->id].has_license_to_kill        = thread_data->has_license_to_kill;
+  strcpy(memory->spies[thread_data->id].stolen_message_content, thread_data->stolen_message_content);
+  fill_company_spy(memory, thread_data->id);
+  memory->map.cells[thread_data->location_column][thread_data->home_row].characters++;
+  sem_post(&sem);
+
+  while(!memory->simulation_has_ended){
+    sem_wait(&sem);
+    spy_row = memory->spies[thread_data->id].location_row;
+    spy_column = memory->spies[thread_data->id].location_column;
+    sem_post(&sem);
+    pos = is_around(spy_row, spy_column, COMPANY); 
+    if(pos != tmp){
+      theft_round = memory->timer.round%144;
+      if(possible_theft(memory->spies[thread_data->id], theft_round)){
+        if(consider_theft(&memory->spies[thread_data->id], pos)){
+          sem_wait(&sem);
+          theft(&memory->spies[thread_data->id]);
+          go_to_mail_box(memory, thread_data->id);
+          /* Depose là un message dans la mail box*/
+          sem_post(&sem);
+          }
+      }else{
+        sem_wait(&sem);
+        move_spy(&memory->spies[thread_data->id]);
+        sem_post(&sem);
+      }
+    }else{
+      sem_wait(&sem);
+      move_spy(&memory->spies[thread_data->id]);
+      sem_post(&sem);
+    }
+    sem_wait(&sem);
+    memory->memory_has_changed = 1;
+    sem_post(&sem);
+  }
+  return NULL;
+
+}
+
 
