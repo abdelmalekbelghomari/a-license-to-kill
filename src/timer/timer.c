@@ -29,9 +29,7 @@ void update_timer(memory_t *memory){
 
 void tick_clock(int sig, memory_t *memory){
     if(sig == SIGALRM){
-        pthread_mutex_lock(&mutex);
         update_timer(memory);
-        pthread_mutex_unlock(&mutex);
         alarm(1);
     }
     

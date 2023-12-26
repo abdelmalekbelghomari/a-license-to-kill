@@ -6,6 +6,7 @@ pthread_mutex_t mutexTimer1 = PTHREAD_MUTEX_INITIALIZER;
 int main() {
     int shm_fd;
     memory_t *memory;
+    pthread_mutex_init(&mutexTimer1, NULL);
 
     // Ouvrir la mémoire partagée
     shm_fd = shm_open(SHARED_MEMORY, O_CREAT | O_RDWR, 0666);
@@ -48,10 +49,13 @@ int main() {
     // Configurer le gestionnaire de signal pour SIGALRM
     struct sigaction sa_clock;
     sa_clock.sa_handler = &tick_clock;
+    pthread_mutex_lock(&mutexTimer1);
     sigaction(SIGALRM, &sa_clock, NULL);
+    pthread_mutex_unlock(&mutexTimer1);
 
     // Démarrer le timer
     setitimer(ITIMER_REAL, &it, NULL);
+    pthread_mutex_destroy(&mutexTimer1);
 
     return 0;
 }
