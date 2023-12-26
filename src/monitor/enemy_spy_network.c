@@ -434,3 +434,63 @@ void* spy_life(void* thread) {
 }
 
 
+void* case_officer_life(void* thread) {
+  caseOfficerInfo* thread_data = (caseOfficerInfo*) thread;
+  int mailbox_outing = 0;
+  int shopping = 0;
+  int day;
+
+  sem_t *sem = sem_open (MY_SEM, O_CREAT, 0666, 1);
+
+  if(sem == SEM_FAILED) {
+    perror("sem_open");
+    exit(EXIT_FAILURE);
+  }
+
+  /* INIT */
+  sem_wait(&sem);
+
+  memory->case_officer.id              = thread_data->id              ;
+  memory->case_officer.health_point    = thread_data->health_point    ;
+  memory->case_officer.location_row    = thread_data->location_row    ;
+  memory->case_officer.location_column = thread_data->location_column ;
+  memory->case_officer.home_row        = thread_data->home_row        ;
+  memory->case_officer.home_column     = thread_data->home_column     ;
+  memory->case_officer.mailbox_row     = thread_data->mailbox_row     ;
+  memory->case_officer.mailbox_column  = thread_data->mailbox_column  ;
+  memory->case_officer.nb_of_outing    = 0;
+  memory->map.cells[1][4].characters++;  
+  sem_post(&sem);
+
+  while(!memory->simulation_has_ended){
+
+    if(memory->case_officer.nb_of_outing != 3){
+      day = memory->timer.days;
+      if(rand()%2){
+        if(8 <= memory->timer.hours && memory->timer.hours < 17 && mailbox_outing != 2){
+          sem_wait(&sem);
+          case_officer_go_shopping(&memory->case_officer);
+          case_officer_go_home(&memory->case_officer);
+          memory->case_officer.nb_of_outing++;
+          mailbox_outing++;
+          sem_post(&sem);
+        }else if(17 <= memory->timer.hours && memory->timer.hours < 19 && shopping != 1){
+          /*aller voir la boîte aux lettres*/
+          sem_wait(&sem);
+          go_to_mail_box(memory, 3);
+          case_officer_go_home(&memory->case_officer);
+          memory->case_officer.nb_of_outing++;
+          sem_post(&sem);
+          shopping++;
+        }
+      }
+    }else{
+      if(day != memory->timer.days){
+        sem_wait(&sem);
+        memory->case_officer.nb_of_outing = 0;
+        sem_post(&sem);
+      }
+    }
+  }
+}
+
