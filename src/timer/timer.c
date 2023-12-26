@@ -4,8 +4,8 @@
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-simulated_clock_t new_timer(memory_t *memory){
-    simulated_clock_t time = memory->timer;
+simulated_clock_t new_timer(){
+    simulated_clock_t time;
     time.round = 0;
     time.hours = 0;
     time.minutes = 0;
@@ -35,17 +35,6 @@ void tick_clock(int sig, memory_t *memory){
         alarm(1);
     }
     
-}
-
-void access_memory(memory_t *memory){
-    memory = (memory_t *)malloc(sizeof(memory_t));
-    int shm_fd = shm_open(SHARED_MEMORY, O_CREAT | O_RDWR, 0666);
-    if(shm_fd == -1){
-        perror("Error when shm_open");
-    }
-    memory = mmap(NULL,sizeof(memory_t*), PROT_READ | PROT_WRITE, 
-                                                MAP_SHARED,shm_fd,0);
-    //close(shmd);
 }
 
 

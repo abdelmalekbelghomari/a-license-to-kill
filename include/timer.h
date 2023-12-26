@@ -16,7 +16,7 @@
 #define STEP 1000000
 
 
-simulated_clock_t new_timer(memory_t *memory);
+simulated_clock_t new_timer();
 void update_timer(memory_t *memory);
 void tick_clock(int sig, memory_t *memory);
 void access_memory(memory_t *memory);

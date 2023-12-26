@@ -1,34 +1,57 @@
 #include "timer.h"
-
 #define SHARED_MEMORY "/spy_simulation"
 
-memory_t *memory;  // Pointer to the shared memory
+pthread_mutex_t mutexTimer1 = PTHREAD_MUTEX_INITIALIZER;
 
-int main()
-{
+int main() {
+    int shm_fd;
+    memory_t *memory;
 
-    access_memory(memory);
-
-    simulated_clock_t timer = new_timer(memory);
-    memory->timer = timer;
-
-    struct itimerval it;
-    if(STEP >= 1000000) {
-        it.it_interval.tv_sec = STEP/1000000;
-        it.it_value.tv_sec = STEP/1000000;
+    // Ouvrir la mémoire partagée
+    shm_fd = shm_open(SHARED_MEMORY, O_CREAT | O_RDWR, 0666);
+    if (shm_fd == -1) {
+        perror("Error when shm_open");
+        exit(EXIT_FAILURE);
     }
-    else {
+    if (ftruncate(shm_fd, sizeof(memory_t)) == -1) {
+        perror("Error in ftruncate");
+        close(shm_fd);
+        exit(EXIT_FAILURE);
+    }
+    // Mapper la mémoire partagée
+    memory = mmap(NULL, sizeof(memory_t), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
+    if (memory == MAP_FAILED) {
+        perror("mmap failed");
+        close(shm_fd);
+        exit(EXIT_FAILURE);
+    }
+
+    // Fermer le file descriptor de la mémoire partagée
+    close(shm_fd);
+
+    // Initialiser le timer
+    simulated_clock_t timer = new_timer();
+    pthread_mutex_lock(&mutexTimer1);
+    memory->timer = timer;
+    pthread_mutex_unlock(&mutexTimer1);
+
+    // Configurer le timer
+    struct itimerval it;
+    if (STEP >= 1000000) {
+        it.it_interval.tv_sec = STEP / 1000000;
+        it.it_value.tv_sec = STEP / 1000000;
+    } else {
         it.it_interval.tv_usec = STEP;
         it.it_value.tv_usec = STEP;
     }
-    
+
+    // Configurer le gestionnaire de signal pour SIGALRM
     struct sigaction sa_clock;
     sa_clock.sa_handler = &tick_clock;
     sigaction(SIGALRM, &sa_clock, NULL);
-    setitimer(ITIMER_REAL, &it, NULL);
 
-    while(1) {
-    }
+    // Démarrer le timer
+    setitimer(ITIMER_REAL, &it, NULL);
 
     return 0;
 }
