@@ -1,6 +1,7 @@
 #include "memory.h"
 #include "../../include/citizen_manager.h"
 #include <time.h>
+#include <stdbool.h>
 
 
 /*A utiliser dans citizen manager ou dans les .c correspondant
@@ -15,82 +16,65 @@ void signal_handler(int signal, memory_t *shared_memory) {
     }
 }
 
+bool is_valid_move(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col) {
+    return (row >= 0) && (row < MAX_ROWS) && (col >= 0) && (col < MAX_COLUMNS) 
+           && (cityMap->cells[row][col].type == WASTELAND || cityMap->cells[row][col].type == RESIDENTIAL_BUILDING) 
+           && !visited[row][col];
+}
 
-void init_map(map_t *cityMap) {
-    int i, j, attempt, success;
-    int placements[MAX_ROWS][MAX_COLUMNS] = {0};
+bool dfs(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col, int endRow, int endCol) {
+    if (row == endRow && col == endCol) return true;
 
-    srand(time(NULL));
+    visited[row][col] = true;
 
-    // Initialize all cells as wasteland
-    for (i = 0; i < MAX_ROWS; ++i) {
-        for (j = 0; j < MAX_COLUMNS; ++j) {
+    int rowOffsets[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+    int colOffsets[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+    for (int k = 0; k < 8; k++) {
+        int newRow = row + rowOffsets[k];
+        int newCol = col + colOffsets[k];
+        if (is_valid_move(cityMap, visited, newRow, newCol) && dfs(cityMap, visited, newRow, newCol, endRow, endCol)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool is_path_available(map_t *cityMap, int startRow, int startCol, int endRow, int endCol) {
+    bool visited[MAX_ROWS][MAX_COLUMNS] = {{false}};
+    return dfs(cityMap, visited, startRow, startCol, endRow, endCol);
+}
+void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb_of_characters) {
+    int placed_count = 0;
+    int i, j;
+    while (placed_count != count) {
+        i = rand() % MAX_ROWS;
+        j = rand() % MAX_COLUMNS;
+        if (cityMap->cells[i][j].type == WASTELAND){
+            cityMap->cells[i][j].type = buildingType;
+            cityMap->cells[i][j].nb_of_characters = nb_of_characters;
+            placed_count++;
+        }
+    }
+}
+
+void init_map(map_t *cityMap){
+    int i, j;
+    for (i = 0; i < MAX_ROWS; i++){
+        for (j = 0; j < MAX_COLUMNS; j++){
             cityMap->cells[i][j].type = WASTELAND;
             cityMap->cells[i][j].current_capacity = 0;
             cityMap->cells[i][j].nb_of_characters = 0;
         }
     }
 
-    // Place City Hall
     cityMap->cells[3][3].type = CITY_HALL;
     cityMap->cells[3][3].nb_of_characters = 20;
-    placements[3][3] = CITY_HALL;
 
-    // Place Supermarkets
-    cityMap->cells[1][2].type = SUPERMARKET;
-    cityMap->cells[1][2].nb_of_characters = 30;
-    placements[1][2] = SUPERMARKET;
-
-    cityMap->cells[4][3].type = SUPERMARKET;
-    cityMap->cells[4][3].nb_of_characters = 30;
-    placements[4][3] = SUPERMARKET;
-
-    // Place other buildings with CSP check for connectivity
-    int required_companies = 8;
-    int required_buildings = 11;
-    int buildings_placed = 0;
-    int companies_placed = 0;
-    for (attempt = 0; attempt < 1000 && (buildings_placed < required_buildings || companies_placed < required_companies); ++attempt) {
-        i = rand() % MAX_ROWS;
-        j = rand() % MAX_COLUMNS;
-
-        // Skip if the cell is already occupied
-        if (placements[i][j] != WASTELAND) continue;
-
-        // Check if at least one neighboring cell is not WASTELAND
-        success = 0;
-        for (int di = -1; di <= 1; ++di) {
-            for (int dj = -1; dj <= 1; ++dj) {
-                int ni = i + di;
-                int nj = j + dj;
-                if (ni >= 0 && ni < MAX_ROWS && nj >= 0 && nj < MAX_COLUMNS) {
-                    if (placements[ni][nj] != WASTELAND) {
-                        success = 1;
-                    }
-                }
-            }
-        }
-
-        // Place a company or a residential building if the cell is connected
-        if (success) {
-            if (companies_placed < required_companies) {
-                cityMap->cells[i][j].type = COMPANY;
-                cityMap->cells[i][j].nb_of_characters = 50;
-                placements[i][j] = COMPANY;
-                companies_placed++;
-            } else {
-                cityMap->cells[i][j].type = RESIDENTIAL_BUILDING;
-                cityMap->cells[i][j].nb_of_characters = 15;
-                placements[i][j] = RESIDENTIAL_BUILDING;
-                buildings_placed++;
-            }
-        }
-    }
-
-    // Check if all buildings were placed successfully
-    if (buildings_placed < required_buildings || companies_placed < required_companies) {
-        fprintf(stderr, "Failed to place all buildings with connectivity constraints.\n");
-    }
+    place_building_randomly(cityMap, SUPERMARKET, 2, 30);
+    place_building_randomly(cityMap, COMPANY, 8, 50);
+    place_building_randomly(cityMap, RESIDENTIAL_BUILDING, 11, 15);
 }
 
 
