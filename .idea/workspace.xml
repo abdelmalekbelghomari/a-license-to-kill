@@ -15,9 +15,20 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ebd3a55b-f55f-49ea-a946-fcb169568ccc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/citizen_manager/citzen_manager.c" afterDir="false" />
+    <list default="true" id="ebd3a55b-f55f-49ea-a946-fcb169568ccc" name="Changes" comment="configuring memory.h and spy_simulation.c">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/citizen_manager.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/citizen_manager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/memory.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/memory.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/citizen_manager/citzen_manager.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/citizen_manager/citzen_manager.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/monitor/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/monitor/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c" afterDir="false" />
+    </list>
+    <list id="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" name="Changes by sriha" comment="">
+      <change beforePath="$PROJECT_DIR$/include/cell.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/cell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/memory.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/memory.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/spy_simulation/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/spy_simulation/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +45,40 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/include/memory.h">
+      <ranges>
+        <range start1="42" end1="43" start2="42" end2="44" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="65" end1="65" start2="66" end2="67" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="109" end1="110" start2="111" end2="112" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="155" end1="156" start2="157" end2="158" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="164" end1="168" start2="166" end2="166" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="194" end1="194" start2="192" end2="193" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="195" end1="216" start2="194" end2="194" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="223" end1="225" start2="201" end2="201" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="226" end1="227" start2="202" end2="203" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="236" end1="236" start2="212" end2="213" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="255" end1="257" start2="232" end2="233" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="258" end1="277" start2="234" end2="235" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/spy_simulation/spy_simulation.c">
+      <ranges>
+        <range start1="1" end1="2" start2="1" end2="2" changelist="ebd3a55b-f55f-49ea-a946-fcb169568ccc" />
+        <range start1="16" end1="23" start2="16" end2="16" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="74" end1="75" start2="67" end2="68" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="132" end1="133" start2="125" end2="126" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="155" end1="156" start2="148" end2="149" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="165" end1="166" start2="158" end2="159" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="179" end1="180" start2="172" end2="173" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="189" end1="190" start2="182" end2="183" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="191" end1="192" start2="184" end2="185" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="201" end1="202" start2="194" end2="195" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="203" end1="204" start2="196" end2="197" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+        <range start1="213" end1="214" start2="206" end2="207" changelist="9bb1f6ea-3ade-4fd1-a0d7-370e607c16bb" />
+      </ranges>
+    </file>
   </component>
   <component name="MakefileLocalSettings">
     <option name="availableProjects">
@@ -65,6 +110,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
     <option name="majorVersion" value="2023" />
@@ -80,13 +128,20 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "C/C++ File.main.c.executor": "Run",
+    "Makefile Target.all.executor": "Run",
+    "Makefile Target.src/monitor/main.o.executor": "Run",
+    "Makefile Target.src/spy_simulation/main.o.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "citizen__manager",
+    "git-widget-placeholder": "abdel",
+    "last_opened_file_path": "/home/abdelmalek/Bureau/ENSI/2024/OS/a-license-to-kill/include",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -96,7 +151,17 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Makefile Application.all">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/include" />
+    </key>
+  </component>
+  <component name="RunManager" selected="C/C++ File.main.c">
+    <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="a-license-to-kill" TARGET_NAME="all" CONFIG_NAME="all" version="1" RUN_PATH="$PROJECT_DIR$/bin/monitor">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="a-license-to-kill" TARGET_NAME="all" CONFIG_NAME="all" version="1" RUN_PATH="$PROJECT_DIR$/bin/monitor">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
@@ -107,10 +172,51 @@
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
+    <configuration name="distclean" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="a-license-to-kill" TARGET_NAME="distclean" CONFIG_NAME="distclean" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="main.c" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="a-license-to-kill" TARGET_NAME="main.c" CONFIG_NAME="main.c">
+      <option name="sourceFile" value="src/spy_simulation/main.c" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="all" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="all" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="src/monitor/main.o" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="src/monitor/main.o" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="src/spy_simulation/main.o" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="src/spy_simulation/main.o" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Makefile Application.all" />
-      <item itemvalue="Makefile Application.distclean" />
+      <item itemvalue="C/C++ File.main.c" />
+      <item itemvalue="Makefile Target.all" />
+      <item itemvalue="Makefile Target.src/monitor/main.o" />
+      <item itemvalue="Makefile Target.src/spy_simulation/main.o" />
+      <item itemvalue="Native Application.all" />
+      <item itemvalue="Native Application.distclean" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="C/C++ File.main.c" />
+        <item itemvalue="Makefile Target.src/spy_simulation/main.o" />
+        <item itemvalue="Makefile Target.src/monitor/main.o" />
+        <item itemvalue="Makefile Target.all" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -124,7 +230,19 @@
       <workItem from="1699372374665" duration="40000" />
       <workItem from="1699372423964" duration="82000" />
       <workItem from="1699372517814" duration="1478000" />
+      <workItem from="1703510817853" duration="1284000" />
+      <workItem from="1703512125893" duration="54000" />
+      <workItem from="1703512193081" duration="13437000" />
     </task>
+    <task id="LOCAL-00001" summary="configuring memory.h and spy_simulation.c">
+      <option name="closed" value="true" />
+      <created>1703513181561</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1703513181561</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,7 +259,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/citizen_manager" />
+                        <option value="origin/abdel" />
                       </list>
                     </value>
                   </entry>
@@ -152,5 +270,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="configuring memory.h and spy_simulation.c" />
+    <option name="LAST_COMMIT_MESSAGE" value="configuring memory.h and spy_simulation.c" />
   </component>
 </project>

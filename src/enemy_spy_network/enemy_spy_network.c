@@ -15,7 +15,7 @@ void handle_fatal_error(const char *message)
     exit(EXIT_FAILURE);
 }
 
-memory_t* memory
+memory_t* memory;
 
 int spy_choice(spy_t spy){
   if(rand()%100 < 10){

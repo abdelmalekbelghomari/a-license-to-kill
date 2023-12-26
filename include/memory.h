@@ -37,10 +37,16 @@
 #include <sys/ipc.h>
 #include <sys/types.h>
 #include <sys/mman.h>
+#include <mqueue.h>
 
 
 #include "cell.h"
 #include "citizen_manager.h"
+
+#define NB_CITIZEN 127 /* 127 citizens in the city */
+#define CITIZENS_COUNT 127 /* 127 citizens in the city */
+#define MAX_ROWS 7
+#define MAX_COLUMNS 7
 
 #define CITIZENS_COUNT 132
 #define CITY_HALL_ROW 3
@@ -53,8 +59,8 @@
  */
 
 typedef struct map_s map_t;
-typedef struct memory_s memory_t;
 typedef struct mq_s mq_t;
+typedef struct memory_s memory_t;
 
 typedef struct spy_s spy_t;
 typedef struct case_officer_s case_officer_t;
@@ -63,13 +69,32 @@ typedef struct SpyInfo spyInfo;
 typedef struct CaseOfficerInfo caseOfficerInfo;
 typedef struct CounterIntelligenceOfficer counterIntelligenceOfficer;
 
+
+// Structure for surveillance devices on each cell
+typedef struct {
+    int standard_camera; // Status of the standard camera (enabled/disabled)
+    int infrared_camera; // Status of the infrared camera (enabled/disabled)
+    int lidar; // Status of the lidar (enabled/disabled)
+} SurveillanceDevices;
+
+// Structure for the surveillance AI
+typedef struct {
+    int suspicious_movement; // Indicator of suspicious movement (boolean)
+} SurveillanceAI;
+
+// Global structure for surveillance network
+struct SurveillanceNetwork {
+    SurveillanceDevices devices[MAX_ROWS][MAX_COLUMNS]; // 2D array covering all cells of the city
+    SurveillanceAI surveillanceAI; // Surveillance AI
+};
+typedef struct SurveillanceNetwork surveillanceNetwork_t;
+
 /**
  * \brief The city map.
  */
 struct map_s {
     int columns;                         /*!< The number of columns of the city map. */
     int rows;                            /*!< The number of rows of the city map.*/
-    cell_t homes[11];
     cell_t cells[MAX_COLUMNS][MAX_ROWS]; /*!< Cells that constitute the city map. */
     int mailbox_row;                     /*!< The mailbox row. */
     int mailbox_column;                  /*!< The mailbox column. */
@@ -109,7 +134,7 @@ struct CounterIntelligenceOfficer {
     int city_hall_column;                                 /*!< The counterintelligence_officer home column.*/  
     int mailbox_row;                                      /*!< The counterintelligence_officer home row.*/
     int mailbox_column;                                   /*!< The counterintelligence_officer home column.*/
-    int targeted_character_id                             /*!< The targeted character id.*/  
+    int targeted_character_id;                           /*!< The targeted character id.*/
 }; 
 
 /**
@@ -155,7 +180,7 @@ struct counterintelligence_officer_s {
     int city_hall_column;                                 /*!< The counterintelligence_officer home column.*/  
     int mailbox_row;                                      /*!< The counterintelligence_officer home row.*/
     int mailbox_column;                                   /*!< The counterintelligence_officer home column.*/
-    int targeted_character_id                             /*!< The targeted character id.*/  
+    int targeted_character_id;                            /*!< The targeted character id.*/
 }; 
 
 typedef struct time_s {
@@ -172,7 +197,7 @@ struct mq_s{
 /**
  * \brief Shared memory used by all processes.
  */
-typedef struct memory_s {
+struct memory_s {
     int memory_has_changed;    /*!< This flag is set to 1 when the memory has changed. */
     int simulation_has_ended;  /*!< This flag is set to the following values:
                                 * - 0: has not ended;
@@ -194,96 +219,17 @@ typedef struct memory_s {
     int walking_citizens;
     int at_home_citizens;
     int at_work_citizens;
+    surveillanceNetwork_t surveillanceNetwork;
 };
 
-#endif /* MEMORY_H */
-
-
-
-
-
-/**
- * \file memory.h
- *
- * Defines structures and functions used to manipulate our shared memory.
- */
-
-typedef struct map_s map_t;
-typedef struct memory_s memory_t;
-
-/**
- * \brief The city map.
- */
-struct map_s {
-    int columns;                         /*!< The number of columns of the city map. */
-    int rows;                            /*!< The number of rows of the city map.*/
-    cell_t cells[MAX_COLUMNS][MAX_ROWS]; /*!< Cells that constitute the city map. */
-};
-
-
-enum citizen_type_e {
+typedef enum citizen_type_e {
     NORMAL,
     SPY,
     CASE_OFFICER,
     COUNTER_INTELLIGENCE_OFFICER
-};
+} citizen_type;
 
-typedef enum citizen_type_e citizen_type_t;
-
-struct Citizen {
-    int id;
-    citizen_type_t type;
-    int health_point;
-    int location_row;
-    int location_column;
-    cell_type_t currentBuilding;
-    int at_home;
-    int at_work;
-    int in_store;
-    int waking;
-};
-
-typedef struct Citizen citizen_t;
-
-// Structure for surveillance devices on each cell
-typedef struct {
-    int standard_camera; // Status of the standard camera (enabled/disabled)
-    int infrared_camera; // Status of the infrared camera (enabled/disabled)
-    int lidar; // Status of the lidar (enabled/disabled)
-} SurveillanceDevices;
-
-// Structure for the surveillance AI
-typedef struct {
-    int suspicious_movement; // Indicator of suspicious movement (boolean)
-} SurveillanceAI;
-
-// Global structure for surveillance network
-struct SurveillanceNetwork {
-    SurveillanceDevices devices[MAX_ROWS][MAX_COLUMNS]; // 2D array covering all cells of the city
-    SurveillanceAI surveillanceAI; // Surveillance AI
-};
-
-typedef struct SurveillanceNetwork surveillanceNetwork_t;
-
-
-/**
- * \brief Shared memory used by all processes.
- */
-struct memory_s {
-    int memory_has_changed;    /*!< This flag is set to 1 when the memory has changed. */
-    int simulation_has_ended;  /*!< This flag is set to the following values:
-                                * - 0: has not ended;
-                                * - 1: the spy network has fled. It wins!
-                                * - 2: the counterintelligence officer has discovered the mailbox. He wins.
-                                * - 3: the counterintelligence officer did not discover the mailbox. The spy network
-                                *      wins!
-                                */
-                               
-    map_t cityMap; 
-    citizen_t citizens[CITIZENS_COUNT];
-    surveillanceNetwork_t surveillanceNetwork;
-    
-
-};
 
 #endif /* MEMORY_H */
+
+

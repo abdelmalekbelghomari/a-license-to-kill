@@ -1,8 +1,8 @@
 {
   "files.associations": {
-    "cwchar": "cpp",
-    "cmath": "cpp",
-    "type_traits": "cpp"
+    "pthread.h": "c",
+    "shm.h": "c",
+    "monitor_common.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

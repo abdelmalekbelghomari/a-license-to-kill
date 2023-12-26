@@ -14,57 +14,43 @@ endif
 
 .PHONY: all clean distclean
 
-all: bin/monitor
+all: bin/spy_simulation bin/monitor
 
 # ----------------------------------------------------------------------------
 # SPY SIMULATION
 # ----------------------------------------------------------------------------
-bin/spy_simulation: src/spy_simulation/spy_simulation.o 
+bin/spy_simulation: src/spy_simulation/main.o src/spy_simulation/spy_simulation.o 
 	$(CC) $^ -o $@ $(LDFLAGS)
 
-src/spy_simulation/spy_simulation.o : src/spy_simulation/spy_simulation.c include/spy_simulation.h include/memory.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
+src/spy_simulation/main.o: src/spy_simulation/main.c include/spy_simulation.h include/memory.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+src/spy_simulation/spy_simulation.o: src/spy_simulation/spy_simulation.c include/spy_simulation.h include/memory.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
 # ----------------------------------------------------------------------------
 # MONITOR
 # ----------------------------------------------------------------------------
-bin/monitor: src/monitor/main.o \
-             src/monitor/monitor.o \
-             src/monitor/monitor_common.o \
-             src/common/logger.o
+bin/monitor: src/monitor/main.o src/monitor/monitor.o src/monitor/monitor_common.o src/common/logger.o
 	$(CC) $^ -o $@ $(LDFLAGS)
 
 src/monitor/main.o: src/monitor/main.c include/monitor.h include/monitor_common.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 src/monitor/monitor.o: src/monitor/monitor.c include/monitor.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 src/monitor/monitor_common.o: src/monitor/monitor_common.c include/monitor_common.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
-
-# ----------------------------------------------------------------------------
-# Citizen_manager
-# ----------------------------------------------------------------------------
-bin/citizen_manager: src/citizen_manager.o
-	$(CC) $^ -o $@ $(LDFLAGS)
-
-src/monitor/main.o: src/citizen_manager/citizen_manager.c include/citizen_manager.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
-
-# ----------------------------------------------------------------------------
-# COMMON OBJECTS FILES
-# ----------------------------------------------------------------------------
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 src/common/logger.o: src/common/logger.c include/logger.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
-
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 # ----------------------------------------------------------------------------
 # CLEANING
 # ----------------------------------------------------------------------------
 clean:
-	rm src/monitor/*.o src/common/*.o
+	rm src/spy_simulation/*.o src/monitor/*.o src/common/*.o
 
 distclean: clean
-	rm bin/monitor
-
+	rm bin/spy_simulation bin/monitor

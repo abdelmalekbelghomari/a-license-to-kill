@@ -1,4 +1,18 @@
-#include "spy_simulation.h"
+#include "memory.h"
+#include "../../include/citizen_manager.h"
+
+
+/*A utiliser dans citizen manager ou dans les .c correspondant
+aux protagonistes et antagonistes pour la gestion des blessures*/
+void signal_handler(int signal, memory_t *shared_memory) {
+    if (signal == SIGUSR1) {
+        shared_memory->memory_has_changed = 1;
+    } else if (signal == SIGUSR2) {
+        shared_memory->simulation_has_ended = 1;
+        /*TO DO*/
+        /*Print info*/
+    }
+}
 
 int main(){
     memory_t* memory;
@@ -47,6 +61,7 @@ void init_map(map_t * cityMap){
 
     /* 8 Companies */
     int companies_count = 0;
+    srand(time(NULL));
     while (companies_count != 8) {
         i = rand() % MAX_ROWS;
         j = rand() % MAX_COLUMNS;
@@ -68,64 +83,25 @@ void init_map(map_t * cityMap){
             buildings_count++;
         }
     }
+}
 
-    /* Adding mailbox */
-    int mailboxPlaced = 0;
-    while (!mailboxPlaced) {
-        i = rand() % MAX_ROWS;
-        j = rand() % MAX_COLUMNS;
-        if (cityMap->cells[i][j].type == WASTELAND){
-            cityMap->cells[i][j].has_mailbox = 1;
-            cityMap->mailbox_row = i;
-            cityMap->mailbox_column = j;
-            mailboxPlaced = 1;
-        }
+
+void init_citizens(citizen_t *citizens){
+    int i;
+    int k = rand() % MAX_ROWS;
+    int j = rand() % MAX_COLUMNS;
+    for (i = 0; i < CITIZENS_COUNT; i++){
+        citizens[i].type = NORMAL;
+        citizens[i].health = 10;
+        citizens[i].position[0] = k;
+        citizens[i].position[1] = j;
     }
+
+    /* Counter intelligence officer is in the city Hall */
+    citizens[0].type = COUNTER_INTELLIGENCE_OFFICER;
+    citizens[0].position[0] = 3;
+    citizens[0].position[1] = 3;
 }
-
-
-void place_citizens_on_map(map_t *cityMap, Citizen *citizens){
-    /* The counter intelligence officer is in the city hall */
-    citizens[CI_OFFICER_INDEX].location_row = CITY_HALL_ROW;
-    citizens[CI_OFFICER_INDEX].location_column = CITY_HALL_COLUMN;
-    citizens[CI_OFFICER_INDEX].currentBuilding = CITY_HALL;
-    citizens[CI_OFFICER_INDEX].at_home = 0;
-
-    for (int i = 0; i < CITIZENS_COUNT; i++) {
-        if (i != CI_OFFICER_INDEX) {
-            int placed = 0;
-            while (!placed) {
-                int x = rand() % MAX_ROWS;
-                int y = rand() % MAX_COLUMNS;
-
-                if (cityMap->cells[x][y].type == RESIDENTIAL_BUILDING && !(cityMap->cells[x][y].has_mailbox)) {
-                    if (!is_spy(citizens[i]) || is_within_distance(cityMap, x, y, 4)) {
-                        citizens[i].location_row = x;
-                        citizens[i].location_column = y;
-                        citizens[i].currentBuilding = RESIDENTIAL_BUILDING;
-                        citizens[i].at_home = 1;
-                        cityMap->cells[x][y].nb_of_characters++;
-                        placed = 1;
-                    }
-                }
-            }
-        }
-    }
-}
-
-int is_spy(citizen_t citizen){
-    return citizen.type == SPY;
-}
-
-int is_within_distance(map_t *cityMap, int x, int y, int max_distance){
-    int mailbox_x = cityMap->mailbox_row;
-    int mailbox_y = cityMap->mailbox_column;
-
-    int distance = abs(x - mailbox_x) + abs(y - mailbox_y);
-
-    return distance <= max_distance;
-}
-
 
 void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
     for (int i = 0; i < MAX_ROWS; ++i) {
@@ -140,21 +116,25 @@ void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
 }
 
 
-struct memory_s *create_shared_memory(const char *name) {
+
+memory_t *create_shared_memory(const char *name) {
     int shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666);
     if (shm_fd == -1) {
-        handle_fatal_error("shm_open")
+        perror("shm_open");
+        exit(EXIT_FAILURE);
     }
 
     size_t size = sizeof(struct memory_s);
 
     if (ftruncate(shm_fd, size) == -1) {
-        handle_fatal_error("ftruncate");
+        perror("ftruncate");
+        exit(EXIT_FAILURE);
     }
 
-    struct memory_s *shared_memory = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
+    memory_t *shared_memory = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
     if (shared_memory == MAP_FAILED) {
-        handle_fatal_error("mmap");
+        perror("mmap");
+        exit(EXIT_FAILURE);
     }
 
     close(shm_fd);
@@ -163,7 +143,7 @@ struct memory_s *create_shared_memory(const char *name) {
     shared_memory->memory_has_changed = 0;
     shared_memory->simulation_has_ended = 0;
     init_map(&shared_memory->cityMap);
-    place_citizens_on_map(&shared_memory->cityMap, &shared_memory->citizens);
+    init_citizens(&shared_memory->citizens);
     init_surveillance(&shared_memory->surveillanceNetwork);
     shared_memory->mqInfo = init_mq();
 
@@ -288,4 +268,81 @@ void signals(){
     /* Set signal handlers */
     sigaction(SIGUSR1, &action, NULL);
     sigaction(SIGUSR2, &action, NULL);
+}
+
+void start_simulation_processes(){
+    pid_t pid_monitor, pid_enemy_spy_network, pid_citizen_manager, pid_enemy_country,
+    pid_counterintelligence_officer, pid_timer;
+
+    pid_monitor = fork();
+    if (pid_monitor == -1) {
+        perror("Error [fork()] monitor:");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_monitor == 0) {
+        if (execl("./bin/monitor", "monitor", NULL) == -1) {
+            perror("Error [execl] monitor: ");
+            exit(EXIT_FAILURE);
+        }
+    }
+    
+    /*pid_citizen_manager = fork();
+    if (pid_citizen_manager == -1) {
+        perror("Error [fork()] citizen_manager: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_citizen_manager == 0) {
+        if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
+            perror("Error [execl] citizen_manager: ");
+            exit(EXIT_FAILURE);
+        }
+    }*/
+
+    /*pid_counterintelligence_officer = fork();
+    if (pid_counterintelligence_officer == -1) {
+        perror("Error [fork()] counterintelligence_officer: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_counterintelligence_officer == 0) {
+        if (execl("./bin/counterintelligence_officer", "counterintelligence_officer", NULL) == -1) {
+            perror("Error [execl] counterintelligence_officer: ");
+            exit(EXIT_FAILURE);
+        }
+    }*/
+
+    /*pid_enemy_country = fork();
+    if (pid_enemy_country == -1) {
+        perror("Error [fork()] enemy_country: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_enemy_country == 0) {
+        if (execl("./bin/enemy_country", "enemy_country", NULL) == -1) {
+            perror("Error [execl] enemy_country: ");
+            exit(EXIT_FAILURE);
+        }
+    }*/
+
+    /*pid_enemy_spy_network = fork();
+    if (pid_enemy_spy_network == -1) {
+        perror("Error [fork()] enemy_spy_network: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_enemy_spy_network == 0) {
+        if (execl("./bin/enemy_spy_network", "enemy_spy_network", NULL) == -1) {
+            perror("Error [execl] enemy_spy_network: ");
+            exit(EXIT_FAILURE);
+        }
+    }*/
+    
+    /*pid_timer = fork();
+    if (pid_timer == -1) {
+        perror("Error [fork()] timer: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_timer == 0) {
+        if (execl("./bin/timer", "timer", NULL) == -1) {
+            perror("Error [execl] timer: ");
+            exit(EXIT_FAILURE);
+        }
+    }*/
 }

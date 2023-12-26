@@ -1,7 +1,7 @@
 /*
  * The License to Kill Project
  *
- * Copyright (C) 1995-2022 Alain Lebret <alain.lebret [at] ensicaen [dot] fr>
+ * Copyright (C) 1995-2023 Alain Lebret <alain.lebret [at] ensicaen [dot] fr>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 #ifndef CELL_H
 #define CELL_H
 
-
+#include "memory.h"
 /**
  * \file cell.h
  *
@@ -30,6 +30,8 @@
  * - SUPERMARKET (\e SUPERMARKET).
  */
 
+
+#include "citizen_manager.h"
 
 /**
  * The type of cells within the city map.
