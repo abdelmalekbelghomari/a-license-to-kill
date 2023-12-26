@@ -8,6 +8,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 typedef struct memory_s memory_t;
 
@@ -17,5 +18,7 @@ void init_citizens(citizen_t *citizens);
 void init_surveillance(surveillanceNetwork_t *surveillance);
 void start_simulation_processes();
 struct memory_s *create_shared_memory(const char *name);
+bool isConnected(map_t *cityMap);
+void dfs(map_t *cityMap, int x, int y, bool visited[MAX_ROWS][MAX_COLUMNS]);
 
 #endif // SPY_SIMULATION

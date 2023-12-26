@@ -2,7 +2,8 @@
   "files.associations": {
     "pthread.h": "c",
     "shm.h": "c",
-    "monitor_common.h": "c"
+    "monitor_common.h": "c",
+    "citizen_manager.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

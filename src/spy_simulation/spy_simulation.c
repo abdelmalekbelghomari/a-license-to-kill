@@ -1,5 +1,6 @@
 #include "memory.h"
 #include "../../include/citizen_manager.h"
+#include <time.h>
 
 
 /*A utiliser dans citizen manager ou dans les .c correspondant
@@ -15,52 +16,80 @@ void signal_handler(int signal, memory_t *shared_memory) {
 }
 
 
-void init_map(map_t * cityMap){
-    /* Init all cells as empty terrain*/
-    int i,j;
-    for (i = 0; i < MAX_ROWS; i++){
-        for (j = 0; j < MAX_COLUMNS; j++){
+void init_map(map_t *cityMap) {
+    int i, j, attempt, success;
+    int placements[MAX_ROWS][MAX_COLUMNS] = {0};
+
+    srand(time(NULL));
+
+    // Initialize all cells as wasteland
+    for (i = 0; i < MAX_ROWS; ++i) {
+        for (j = 0; j < MAX_COLUMNS; ++j) {
             cityMap->cells[i][j].type = WASTELAND;
             cityMap->cells[i][j].current_capacity = 0;
             cityMap->cells[i][j].nb_of_characters = 0;
         }
     }
 
-    /* City hall */
+    // Place City Hall
     cityMap->cells[3][3].type = CITY_HALL;
     cityMap->cells[3][3].nb_of_characters = 20;
+    placements[3][3] = CITY_HALL;
 
-    /* 2 Supermarkets */
-
+    // Place Supermarkets
     cityMap->cells[1][2].type = SUPERMARKET;
     cityMap->cells[1][2].nb_of_characters = 30;
+    placements[1][2] = SUPERMARKET;
 
     cityMap->cells[4][3].type = SUPERMARKET;
     cityMap->cells[4][3].nb_of_characters = 30;
+    placements[4][3] = SUPERMARKET;
 
-    /* 8 Companies */
-    int companies_count = 0;
-    srand(time(NULL));
-    while (companies_count != 8) {
+    // Place other buildings with CSP check for connectivity
+    int required_companies = 8;
+    int required_buildings = 11;
+    int buildings_placed = 0;
+    int companies_placed = 0;
+    for (attempt = 0; attempt < 1000 && (buildings_placed < required_buildings || companies_placed < required_companies); ++attempt) {
         i = rand() % MAX_ROWS;
         j = rand() % MAX_COLUMNS;
-        if (cityMap->cells[i][j].type == WASTELAND){
-            cityMap->cells[i][j].type = COMPANY;
-            cityMap->cells[i][j].nb_of_characters = 50;
-            companies_count++;
+
+        // Skip if the cell is already occupied
+        if (placements[i][j] != WASTELAND) continue;
+
+        // Check if at least one neighboring cell is not WASTELAND
+        success = 0;
+        for (int di = -1; di <= 1; ++di) {
+            for (int dj = -1; dj <= 1; ++dj) {
+                int ni = i + di;
+                int nj = j + dj;
+                if (ni >= 0 && ni < MAX_ROWS && nj >= 0 && nj < MAX_COLUMNS) {
+                    if (placements[ni][nj] != WASTELAND) {
+                        success = 1;
+                    }
+                }
+            }
+        }
+
+        // Place a company or a residential building if the cell is connected
+        if (success) {
+            if (companies_placed < required_companies) {
+                cityMap->cells[i][j].type = COMPANY;
+                cityMap->cells[i][j].nb_of_characters = 50;
+                placements[i][j] = COMPANY;
+                companies_placed++;
+            } else {
+                cityMap->cells[i][j].type = RESIDENTIAL_BUILDING;
+                cityMap->cells[i][j].nb_of_characters = 15;
+                placements[i][j] = RESIDENTIAL_BUILDING;
+                buildings_placed++;
+            }
         }
     }
 
-    /* 11 residential buildings */
-    int buildings_count = 0;
-    while (buildings_count != 11) {
-        i = rand() % MAX_ROWS;
-        j = rand() % MAX_COLUMNS;
-        if (cityMap->cells[i][j].type == WASTELAND){
-            cityMap->cells[i][j].type = RESIDENTIAL_BUILDING;
-            cityMap->cells[i][j].nb_of_characters = 15;
-            buildings_count++;
-        }
+    // Check if all buildings were placed successfully
+    if (buildings_placed < required_buildings || companies_placed < required_companies) {
+        fprintf(stderr, "Failed to place all buildings with connectivity constraints.\n");
     }
 }
 
