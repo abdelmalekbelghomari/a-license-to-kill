@@ -1,11 +1,12 @@
 #include "timer.h"
-#define SHARED_MEMORY "/spy_simulation"
+#define SHARED_MEMORY "/SharedMemory"
 
 pthread_mutex_t mutexTimer1 = PTHREAD_MUTEX_INITIALIZER;
+memory_t *memory = NULL;
 
 int main() {
+
     int shm_fd;
-    memory_t *memory;
     pthread_mutex_init(&mutexTimer1, NULL);
 
     // Ouvrir la mémoire partagée
@@ -38,6 +39,8 @@ int main() {
 
     // Configurer le timer
     struct itimerval it;
+    memset(&it, 0, sizeof(it));
+
     if (STEP >= 1000000) {
         it.it_interval.tv_sec = STEP / 1000000;
         it.it_value.tv_sec = STEP / 1000000;
@@ -48,13 +51,14 @@ int main() {
 
     // Configurer le gestionnaire de signal pour SIGALRM
     struct sigaction sa_clock;
+    memset(&sa_clock, 0, sizeof(sa_clock)); // Initialiser la structure à 0
     sa_clock.sa_handler = &tick_clock;
-    pthread_mutex_lock(&mutexTimer1);
     sigaction(SIGALRM, &sa_clock, NULL);
-    pthread_mutex_unlock(&mutexTimer1);
-
-    // Démarrer le timer
     setitimer(ITIMER_REAL, &it, NULL);
+    while (1) {
+        pause();
+    }
+    
     pthread_mutex_destroy(&mutexTimer1);
 
     return 0;

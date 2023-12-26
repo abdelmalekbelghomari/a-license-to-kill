@@ -5,7 +5,7 @@ CFLAGS=-Wall -Wextra -pedantic -O2 -g
 UNAME=$(shell uname -s)
 ifeq ($(UNAME),Darwin)
     CPPFLAGS=-D_REENTRANT -I./include -I/usr/local/Cellar/ncurses/6.3/include
-    LDFLAGS=-L/usr/local/Cellar/ncurses/6.3/lib -lncurses -lpthread -lm
+    LDFLAGS=-L/usr/local/Cellar/ncurses/6.3/lib -lncurses -lpthread -g -lm
 endif
 ifeq ($(UNAME),Linux)
     CPPFLAGS=-D_REENTRANT -I./include
@@ -43,7 +43,7 @@ src/monitor/monitor.o: src/monitor/monitor.c include/monitor.h include/timer.h
 # ----------------------------------------------------------------------------
 # TIMER
 # ----------------------------------------------------------------------------
-bin/timer: src/timer/timer.o src/timer/main.o
+bin/timer: src/timer/main.o src/timer/timer.o 
 	$(CC) $^ -o $@ $(LDFLAGS)
 
 src/timer/main.o: src/timer/main.c src/timer/timer.c include/timer.h include/memory.h
