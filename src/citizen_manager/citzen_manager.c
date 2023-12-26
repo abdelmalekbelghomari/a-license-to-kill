@@ -2,7 +2,7 @@
 #include "citizen_manager.h"
 #include <pthread.h>
 #include <sys/shm.h>
-#include "memory.h"
+#include "../../include/memory.h"
 
 #define SHARED_MEMORY "/spy_simulation"
 
@@ -79,25 +79,7 @@ void *citizen_behavior(void *arg) {
 
         double currentTime = get_current_simulation_time();
 
-        // Logique spécifique à chaque type de personnage
-        switch (character->type) {
-            case NORMAL:
-                // Logique pour les citoyens normaux
-                handle_normal_citizen_actions(character, currentTime);
-                break;
-            case SPY:
-                // Logique pour les espions
-                handle_spy_actions(character, currentTime);
-                break;
-            case CASE_OFFICER:
-                // Logique pour l'officier traitant
-                handle_case_officer_actions(character, currentTime);
-                break;
-            case COUNTER_INTELLIGENCE_OFFICER:
-                // Logique pour l'officier de contre-espionnage
-                handle_counter_intelligence_actions(character, currentTime);
-                break;
-        }
+        handle_normal_citizen_actions(character, currentTime);
 
         // Attendre la fin du tour
         pthread_barrier_wait(&end_barrier);
@@ -112,35 +94,10 @@ void handle_normal_citizen_actions(citizen_t *character, double currentTime) {
         move_citizen_to_work(character);
         citizen_change_state(character, go_to_company(character));
     } else if (currentTime == 17.00) {
-        // Condition pour aller au supermarché et rentrer à la maison
         handle_citizen_shopping_and_return_home(character);
     } else if (currentTime == 19.50) {
         move_citizen_to_home(character);
         citizen_change_state(character, go_to_home(character));
-    }
-}
-
-void handle_spy_actions(citizen_t *character, double currentTime) {
-    // Logique pour les espions
-    if (character->type == SPY) {
-        // Implémenter les actions spécifiques des espions
-        // Exemple: collecte d'informations, dépôt de messages, etc.
-    }
-}
-
-void handle_case_officer_actions(citizen_t *character, double currentTime) {
-    // Logique pour l'officier traitant
-    if (character->type == CASE_OFFICER) {
-        // Implémenter les actions spécifiques de l'officier traitant
-        // Exemple: collecte de messages, transmission d'informations, etc.
-    }
-}
-
-void handle_counter_intelligence_actions(citizen_t *character, double currentTime) {
-    // Logique pour l'officier du contre-espionnage
-    if (character->type == COUNTER_INTELLIGENCE_OFFICER) {
-        // Implémenter les actions spécifiques de l'officier du contre-espionnage
-        // Exemple: surveillance, recherche de la boîte aux lettres, etc.
     }
 }
 
@@ -161,9 +118,9 @@ void move_citizen_to_work(citizen_t *character) {
     /*Do the A* or BFS*/
     int char_position[] = character->position;
     int wp_position[] = character->workplace->position;
-    if(character->workplace->capacity > character->workplace->size){
+    if(character->workplace->max_capacity > character->workplace->nb_citizen){
         char_position[0], char_position[1] = wp_position[0], wp_position[1];
-        character->workplace->size++;
+        character->workplace->nb_citizen++;
     } else {
         printf(stderr,"The workplace is full\n");
     }
@@ -171,10 +128,10 @@ void move_citizen_to_work(citizen_t *character) {
 }
 
 void move_citizen_to_supermarket(citizen_t *character) {
-    if(character->supermarket->capacity > character->supermarket->size){
+    if(character->supermarket->max_capacity > character->supermarket->nb_citizen){
         character->position[0] = character->supermarket->position[0]; 
         character->position[1] = character->supermarket->position[1]; 
-        character->supermarket->size++;
+        character->supermarket->nb_citizen++;
     } else {
         printf(stderr,"The supermarket is full\n");
     }
@@ -243,18 +200,14 @@ void initialize_synchronization_tools() {
 void manage_citizens(citizen_t *characters_list) {
     pthread_t thread_citizen[NUM_CITIZENS];
 
-    // Création des threads
     for (int i = 0; i < NUM_CITIZENS; i++) {
         pthread_create(&thread_citizen[i], NULL, citizen_behavior, &characters_list[i]);
     }
 
-    // Attente que tous les threads soient prêts
     pthread_barrier_wait(&start_barrier);
 
     // Traitement du tour
-    // ... (logique spécifique à chaque tour)
 
-    // Attente que tous les threads aient terminé leur traitement
     pthread_barrier_wait(&end_barrier);
 
     // Nettoyage

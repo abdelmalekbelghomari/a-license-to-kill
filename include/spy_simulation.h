@@ -2,6 +2,7 @@
 #define SPY_SIMULATION 
 
 #include "memory.h"
+#include "citizen_manager.h"
 #include "character.h"
 #include <stdlib.h>
 #include <time.h>

@@ -32,8 +32,8 @@ typedef enum building_type_e {
 struct building_s {
     unsigned int position[2];
     building_type_t type;
-    unsigned int size;
-    unsigned int capacity;
+    unsigned int nb_citizen;
+    unsigned int max_capacity;
     citizen_t *citizens[NUM_CITIZENS];
     void (*add_citizen)(building_t *, citizen_t *);
     void (*remove_citizen)(building_t *, citizen_t *);
@@ -41,8 +41,8 @@ struct building_s {
 
 struct home_s {
     unsigned int position[2];
-    unsigned int size;
-    unsigned int capacity;
+    unsigned int nb_citizen;
+    unsigned int max_capacity;
     citizen_t *citizens[NUM_CITIZENS];
     void (*add_citizen)(home_t *, citizen_t *);
     void (*remove_citizen)(home_t *, citizen_t *);

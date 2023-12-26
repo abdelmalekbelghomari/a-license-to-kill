@@ -70,16 +70,14 @@ void init_citizens(citizen_t *citizens){
     for (i = 0; i < CITIZENS_COUNT; i++){
         citizens[i].type = NORMAL;
         citizens[i].health = 10;
-        citizens[i].positionX = 0;
-        citizens[i].positionY = 0;
-        citizens[i].currentBuilding = WASTELAND;
+        citizens[i].position[0], citizens[i].position[1] = 0,0;
+        citizens[i].home = WASTELAND;
     }
 
     /* Counter intelligence officer is in the city Hall */
     citizens[0].type = COUNTER_INTELLIGENCE_OFFICER;
-    citizens[0].positionX = 3;
-    citizens[0].positionY = 3;
-    citizens[0].currentBuilding = CITY_HALL;
+    citizens[0].position[0], citizens[i].position[1] = 3,3;
+    citizens[0].workplace = CITY_HALL;
 }
 
 
