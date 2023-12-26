@@ -21,6 +21,7 @@
 #include "monitor.h"
 #include "monitor_common.h"
 #include "memory.h"
+#include "timer.h"
 
 WINDOW *main_window;
 WINDOW *city_window;

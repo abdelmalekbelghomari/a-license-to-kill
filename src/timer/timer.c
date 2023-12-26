@@ -3,10 +3,9 @@
 
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-memory_t* memory // Pointer to the shared memory
 
-time_t new_timer(memory_t *memory){
-    time_t time = memory->timer;
+simulated_clock_t new_timer(memory_t *memory){
+    simulated_clock_t time = memory->timer;
     time.round = 0;
     time.hours = 0;
     time.minutes = 0;
@@ -14,7 +13,7 @@ time_t new_timer(memory_t *memory){
     return time;
 }
 
-void update_timer(){
+void update_timer(memory_t *memory){
     memory->timer.round++;
     memory->timer.minutes += 10;
     if (memory->timer.minutes == 60){
@@ -28,17 +27,17 @@ void update_timer(){
 }
 
 
-void tick_clock(int sig){
+void tick_clock(int sig, memory_t *memory){
     if(sig == SIGALRM){
         pthread_mutex_lock(&mutex);
-        update_timer();
+        update_timer(memory);
         pthread_mutex_unlock(&mutex);
         alarm(1);
     }
     
 }
 
-void access_memory(){
+void access_memory(memory_t *memory){
     memory = (memory_t *)malloc(sizeof(memory_t));
     int shm_fd = shm_open(SHARED_MEMORY, O_CREAT | O_RDWR, 0666);
     if(shm_fd == -1){
@@ -49,32 +48,4 @@ void access_memory(){
     //close(shmd);
 }
 
-int main() {
 
-    access_memory();
-
-    time_t timer = new_timer(memory);
-    memory->timer = timer;
-
-    struct itimerval it;
-    if(STEP >= 1000000) {
-        it.it_interval.tv_sec = STEP/1000000;
-        it.it_value.tv_sec = STEP/1000000;
-    }
-    else {
-        it.it_interval.tv_usec = STEP;
-        it.it_value.tv_usec = STEP;
-    }
-    
-    struct sigaction sa_clock;
-    sa_clock.sa_handler = &tick_simulated_clock;
-    sa_clock.sa_flags = SA_RESTART;
-    sigaction(SIGALRM, &sa_clock, NULL);
-
-    setitimer(ITIMER_REAL, &it, NULL);
-
-    while(1) {
-    }
-
-    return 0;
-}

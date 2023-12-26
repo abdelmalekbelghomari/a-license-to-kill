@@ -17,9 +17,9 @@
 
 
 simulated_clock_t new_timer(memory_t *memory);
-void update_timer();
-void tick_simulated_clock(int sig);
-void access_memory();
+void update_timer(memory_t *memory);
+void tick_clock(int sig, memory_t *memory);
+void access_memory(memory_t *memory);
 
 
 #endif // TIMER_H

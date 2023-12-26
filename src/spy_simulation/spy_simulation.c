@@ -157,6 +157,7 @@ void start_simulation_processes(){
             exit(EXIT_FAILURE);
         }
     }
+    wait(NULL);
     
     /*pid_citizen_manager = fork();
     if (pid_citizen_manager == -1) {
