@@ -88,7 +88,7 @@ void init_monitor_elements(WINDOW *window, memory_t *mem, int rows, int columns)
 {
     /* --------------------------------------------------------------------- */
     /*                 Get information from mem to get the map               */
-	map_t map;
+	//map_t map;
    /* ---------------------------------------------------------------------- */
 
     set_monitor_title(window, "LICENSE TO KILL (v. 0.2)");
@@ -104,7 +104,7 @@ void init_monitor_elements(WINDOW *window, memory_t *mem, int rows, int columns)
     box(enemy_country_monitor, 0, 0);
 
     show_general_information(city_window);
-    display_city(city_window, map, rows, columns);
+    display_city(city_window, mem->map, rows, columns);
     display_character_information(character_window, mem);
     display_mailbox_content(mailbox_content_window, mem);
     display_enemy_country_monitor(enemy_country_monitor);
@@ -164,6 +164,7 @@ void display_city(WINDOW *window, map_t map, int rows, int columns)
         for (int j = 0; j < map_rows; j++) {
             row_offset = (rows / 6) + j;
             col_offset = (columns / 5) + (i * 3);
+            type = map.cells[i][j].type;
             switch (type) {
                 case SUPERMARKET:
                     wattron(window, colored_text[COLOR_YELLOW]);
@@ -264,9 +265,9 @@ void display_citizen_information(WINDOW *window, memory_t *mem, int row, int col
     int number_of_citizens_at_work;
     int number_of_citizens_walking;
 
-    number_of_citizens_at_home = 128;
-    number_of_citizens_at_work = 0;
-    number_of_citizens_walking = 0;
+    number_of_citizens_at_home = mem->at_home_citizens; //128;
+    number_of_citizens_at_work = mem->at_work_citizens; //0;
+    number_of_citizens_walking = mem->walking_citizens; //0;
    /* ---------------------------------------------------------------------- */
 
     wattron(window, A_BOLD);
@@ -493,6 +494,6 @@ void update_values(memory_t *mem) {
     display_character_information(character_window, mem);
     display_mailbox_content(mailbox_content_window, mem);
     display_enemy_country_monitor(enemy_country_monitor);
-	mem->memory_has_changed = 0;
+	mem->memory_has_changed = 1;
 }
 

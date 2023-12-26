@@ -1,5 +1,7 @@
 #include "memory.h"
 #include "../../include/citizen_manager.h"
+#include <time.h>
+#include <stdbool.h>
 
 
 /*A utiliser dans citizen manager ou dans les .c correspondant
@@ -14,10 +16,51 @@ void signal_handler(int signal, memory_t *shared_memory) {
     }
 }
 
+bool is_valid_move(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col) {
+    return (row >= 0) && (row < MAX_ROWS) && (col >= 0) && (col < MAX_COLUMNS) 
+           && (cityMap->cells[row][col].type == WASTELAND || cityMap->cells[row][col].type == RESIDENTIAL_BUILDING) 
+           && !visited[row][col];
+}
 
-void init_map(map_t * cityMap){
-    /* Init all cells as empty terrain*/
-    int i,j;
+bool dfs(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col, int endRow, int endCol) {
+    if (row == endRow && col == endCol) return true;
+
+    visited[row][col] = true;
+
+    int rowOffsets[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+    int colOffsets[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+    for (int k = 0; k < 8; k++) {
+        int newRow = row + rowOffsets[k];
+        int newCol = col + colOffsets[k];
+        if (is_valid_move(cityMap, visited, newRow, newCol) && dfs(cityMap, visited, newRow, newCol, endRow, endCol)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool is_path_available(map_t *cityMap, int startRow, int startCol, int endRow, int endCol) {
+    bool visited[MAX_ROWS][MAX_COLUMNS] = {{false}};
+    return dfs(cityMap, visited, startRow, startCol, endRow, endCol);
+}
+void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb_of_characters) {
+    int placed_count = 0;
+    int i, j;
+    while (placed_count != count) {
+        i = rand() % MAX_ROWS;
+        j = rand() % MAX_COLUMNS;
+        if (cityMap->cells[i][j].type == WASTELAND){
+            cityMap->cells[i][j].type = buildingType;
+            cityMap->cells[i][j].nb_of_characters = nb_of_characters;
+            placed_count++;
+        }
+    }
+}
+
+void init_map(map_t *cityMap){
+    int i, j;
     for (i = 0; i < MAX_ROWS; i++){
         for (j = 0; j < MAX_COLUMNS; j++){
             cityMap->cells[i][j].type = WASTELAND;
@@ -26,60 +69,31 @@ void init_map(map_t * cityMap){
         }
     }
 
-    /* City hall */
     cityMap->cells[3][3].type = CITY_HALL;
     cityMap->cells[3][3].nb_of_characters = 20;
 
-    /* 2 Supermarkets */
-
-    cityMap->cells[1][2].type = SUPERMARKET;
-    cityMap->cells[1][2].nb_of_characters = 30;
-
-    cityMap->cells[4][3].type = SUPERMARKET;
-    cityMap->cells[4][3].nb_of_characters = 30;
-
-    /* 8 Companies */
-    int companies_count = 0;
-    srand(time(NULL));
-    while (companies_count != 8) {
-        i = rand() % MAX_ROWS;
-        j = rand() % MAX_COLUMNS;
-        if (cityMap->cells[i][j].type == WASTELAND){
-            cityMap->cells[i][j].type = COMPANY;
-            cityMap->cells[i][j].nb_of_characters = 50;
-            companies_count++;
-        }
-    }
-
-    /* 11 residential buildings */
-    int buildings_count = 0;
-    while (buildings_count != 11) {
-        i = rand() % MAX_ROWS;
-        j = rand() % MAX_COLUMNS;
-        if (cityMap->cells[i][j].type == WASTELAND){
-            cityMap->cells[i][j].type = RESIDENTIAL_BUILDING;
-            cityMap->cells[i][j].nb_of_characters = 15;
-            buildings_count++;
-        }
-    }
+    place_building_randomly(cityMap, SUPERMARKET, 2, 30);
+    place_building_randomly(cityMap, COMPANY, 8, 50);
+    place_building_randomly(cityMap, RESIDENTIAL_BUILDING, 11, 15);
 }
 
 
 void init_citizens(citizen_t *citizens){
     int i;
+    int k = rand() % MAX_ROWS;
+    int j = rand() % MAX_COLUMNS;
     for (i = 0; i < CITIZENS_COUNT; i++){
         citizens[i].type = NORMAL;
         citizens[i].health = 10;
-        citizens[i].position[0], citizens[i].position[1] = 0,0;
-        citizens[i].home = WASTELAND;
+        citizens[i].position[0] = k;
+        citizens[i].position[1] = j;
     }
 
     /* Counter intelligence officer is in the city Hall */
     citizens[0].type = COUNTER_INTELLIGENCE_OFFICER;
-    citizens[0].position[0], citizens[i].position[1] = 3,3;
-    citizens[0].workplace = CITY_HALL;
+    citizens[0].position[0] = 3;
+    citizens[0].position[1] = 3;
 }
-
 
 void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
     for (int i = 0; i < MAX_ROWS; ++i) {
