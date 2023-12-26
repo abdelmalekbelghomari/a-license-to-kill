@@ -52,9 +52,9 @@ struct cell_s {
     int column;           /*!< Column of the cell. */
     int row;              /*!< Row of the cell. */
     cell_type_t type;     /*!< Type of the cell (@see \enum e_cell_type). */
-    int current_capacity;
+    int current_occupents; /*!< Number of citizens in the the cell. */
     int nb_of_characters; /*!< Max. number of characters on the cell. */
-    citizen_t *occupants;
+    int has_mailbox;       /*!< Is the mail box in this building. */
 };
 
 #endif /* CELL_H */
