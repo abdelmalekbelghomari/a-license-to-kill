@@ -48,6 +48,9 @@
 #define MAX_ROWS 7
 #define MAX_COLUMNS 7
 
+#define CITIZENS_COUNT 132
+#define CITY_HALL_ROW 3
+#define CITY_HALL_COLUMN 3
 
 /**
  * \file memory.h
@@ -93,11 +96,13 @@ struct map_s {
     int columns;                         /*!< The number of columns of the city map. */
     int rows;                            /*!< The number of rows of the city map.*/
     cell_t cells[MAX_COLUMNS][MAX_ROWS]; /*!< Cells that constitute the city map. */
+    int mailbox_row;                     /*!< The mailbox row. */
+    int mailbox_column;                  /*!< The mailbox column. */
 };
 
 struct SpyInfo{
     int id;                                               /*!< The spy identification number. */
-    int health_point;                                     /*!< The spy health point.*/
+    int health_point;                                     /*!< The spy health_point point.*/
     int location_row;                                     /*!< The spy location row.*/
     int location_column;                                  /*!< The spy location column.*/
     int home_row;                                         /*!< The spy home row.*/
@@ -111,7 +116,7 @@ struct SpyInfo{
 
 struct CaseOfficerInfo {
     int id;                                               /*!< The case_officer identification number. */
-    int health_point;                                     /*!< The case_officer health point.*/
+    int health_point;                                     /*!< The case_officer health_point point.*/
     int location_row;                                     /*!< The case_officer location row.*/
     int location_column;                                  /*!< The case_officer location column.*/
     int home_row;                                         /*!< The case_officer home row.*/
@@ -122,7 +127,7 @@ struct CaseOfficerInfo {
 
 struct CounterIntelligenceOfficer {
     int id;                                               /*!< The counterintelligence_officer identification number. */
-    int health_point;                                     /*!< The counterintelligence_officer health point.*/
+    int health_point;                                     /*!< The counterintelligence_officer health_point point.*/
     int location_row;                                     /*!< The counterintelligence_officer location row.*/
     int location_column;                                  /*!< The counterintelligence_officer location column.*/
     int city_hall_row;                                    /*!< The counterintelligence_officer home row.*/
@@ -137,7 +142,7 @@ struct CounterIntelligenceOfficer {
  */
 struct spy_s {
     int id;                                               /*!< The spy identification number. */
-    int health_point;                                     /*!< The spy health point.*/
+    int health_point;                                     /*!< The spy health_point point.*/
     int location_row;                                     /*!< The spy location row.*/
     int location_column;                                  /*!< The spy location column.*/
     int home_row;                                         /*!< The spy home row.*/
@@ -153,7 +158,7 @@ struct spy_s {
  */
 struct case_officer_s {
     int id;                                               /*!< The case_officer identification number. */
-    int health_point;                                     /*!< The case_officer health point.*/
+    int health_point;                                     /*!< The case_officer health_point point.*/
     int location_row;                                     /*!< The case_officer location row.*/
     int location_column;                                  /*!< The case_officer location column.*/
     int home_row;                                         /*!< The case_officer home row.*/
@@ -168,7 +173,7 @@ struct case_officer_s {
  */
 struct counterintelligence_officer_s {
     int id;                                               /*!< The counterintelligence_officer identification number. */
-    int health_point;                                     /*!< The counterintelligence_officer health point.*/
+    int health_point;                                     /*!< The counterintelligence_officer health_point point.*/
     int location_row;                                     /*!< The counterintelligence_officer location row.*/
     int location_column;                                  /*!< The counterintelligence_officer location column.*/
     int city_hall_row;                                    /*!< The counterintelligence_officer home row.*/
