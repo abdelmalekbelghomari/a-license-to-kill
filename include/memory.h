@@ -67,7 +67,9 @@ typedef struct SpyInfo spyInfo;
 typedef struct CaseOfficerInfo caseOfficerInfo;
 typedef struct CounterIntelligenceOfficer counterIntelligenceOfficer;
 
-
+struct mq_s {
+    mqd_t mq;
+};
 // Structure for surveillance devices on each cell
 typedef struct {
     int standard_camera; // Status of the standard camera (enabled/disabled)
@@ -86,6 +88,13 @@ struct SurveillanceNetwork {
     SurveillanceAI surveillanceAI; // Surveillance AI
 };
 typedef struct SurveillanceNetwork surveillanceNetwork_t;
+
+typedef struct simulated_clock_s {
+    int round;
+    int hours;
+    int minutes;
+    int days;
+} simulated_clock_t;
 
 /**
  * \brief The city map.
@@ -179,13 +188,6 @@ struct counterintelligence_officer_s {
     int targeted_character_id;                            /*!< The targeted character id.*/
 }; 
 
-typedef struct time_s {
-    int round;
-    int hours;
-    int minutes;
-    int days;
-}time_t;
-
 /**
  * \brief Shared memory used by all processes.
  */
@@ -213,8 +215,4 @@ struct memory_s {
     surveillanceNetwork_t surveillanceNetwork;
 };
 
-
-
-
 #endif /* MEMORY_H */
-
