@@ -172,7 +172,7 @@ typedef struct time_s {
  */
 typedef struct memory_s {
     int memory_has_changed;    /*!< This flag is set to 1 when the memory has changed. */
-    int end_of_simulation;  /*!< This flag is set to the following values:
+    int simulation_has_ended;  /*!< This flag is set to the following values:
                                 * - 0: has not ended;
                                 * - 1: the spy network has fled. It wins!
                                 * - 2: the counterintelligence officer has discovered the mailbox. He wins.

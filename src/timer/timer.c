@@ -2,20 +2,15 @@
 #define SHARED_MEMORY "/spy_simulation"
 
 
-memory_t *memory;  // Pointer to the shared memory
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-time_t new_timer(){
+time_t new_timer(memory_t *memory){
     time_t time = memory->timer;
     time.round = 0;
     time.hours = 0;
     time.minutes = 0;
     time.days = 0;
     return time;
-}
-
-void set_timer(){
-    memory->timer = new_timer(memory);
 }
 
 void update_timer(){

@@ -9,15 +9,13 @@ int main()
 
     access_memory();
 
-    time_t timer = new_timer();
+    time_t timer = new_timer(memory);
     memory->timer = timer;
 
     struct sigaction sa_clock;
     sa_clock.sa_handler = &tick_clock;
-
-    while(1) {
-
-        if(timer.round < MAX_ROUNDS){
+    
+    if(timer.round < MAX_ROUNDS){
             sigaction(SIGALRM, &sa_clock, NULL);
             //fin de la partie on arrête le timer
         }else{
@@ -25,7 +23,7 @@ int main()
                 memory->end_of_simulation = 1;
                 kill(memory->pids[0],SIGUSR2);
                 kill(memory->pids[1],SIGUSR2);
-                //terminer les autres processus
+                //terminer les autres process
                 /*
                 for(int i=0;i<7;i++){
                     kill(memory->pids[i],SIGUSR2);
@@ -37,8 +35,10 @@ int main()
                 perror("Error when accessing memory");
                 exit(EXIT_FAILURE);
         }
-        }
-        pause();
+
+    }
+
+    while(1) {
     }
 
     return 0;
