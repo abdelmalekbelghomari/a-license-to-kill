@@ -2,12 +2,13 @@
 #include "citizen_manager.h"
 #include <pthread.h>
 #include <sys/shm.h>
-#include "../../include/memory.h"
+#include "memory.h"
 
 #define SHARED_MEMORY "/spy_simulation"
 
 memory_t *memory;  // Pointer to the shared memory
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_barrier_t start_barrier, end_barrier;
 
 void use_shared_memory() {
     int shmd = shm_open(SHARED_MEMORY, O_RDWR,  S_IRUSR | S_IWUSR);
@@ -189,7 +190,6 @@ void start_citizen_threads(citizen_t *characters_list) {
     }
 }
 
-pthread_barrier_t start_barrier, end_barrier;
 
 void initialize_synchronization_tools() {
     pthread_barrier_init(&start_barrier, NULL, NUM_CITIZENS);
