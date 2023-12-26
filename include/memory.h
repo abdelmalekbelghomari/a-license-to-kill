@@ -47,6 +47,7 @@
 #define CITIZENS_COUNT 127 /* 127 citizens in the city */
 #define MAX_ROWS 7
 #define MAX_COLUMNS 7
+#define MAX_ROUNDS 2016
 
 
 /**
@@ -183,7 +184,7 @@ typedef struct time_s {
     int hours;
     int minutes;
     int days;
-}time_s;
+}time_t;
 
 struct mq_s{
     mqd_t mq;
@@ -205,10 +206,9 @@ struct memory_s {
     spy_t spies[3];
     case_officer_t case_officer;
     counterintelligence_officer_t counterintelligence_officer;
-    time_s timer;
+    time_t timer;
     int end_round;
     pid_t pids[7];
-    int turns; /* count <!compte le nombre de tours/ le temps écoulé*/
     mq_t mqInfo;
     citizen_t citizens[NB_CITIZEN];
     int walking_citizens;
@@ -222,7 +222,7 @@ typedef enum citizen_type_e {
     SPY,
     CASE_OFFICER,
     COUNTER_INTELLIGENCE_OFFICER
-} citizen_type;
+} citizen_type_t;
 
 
 #endif /* MEMORY_H */

@@ -9,7 +9,6 @@ typedef struct citizen_s citizen_t;
 typedef struct building_s building_t;
 typedef struct home_s home_t;
 
-
 struct state_s {
     int id;
 
@@ -17,17 +16,24 @@ struct state_s {
     state_t *(*action)(citizen_t *);
 };
 
-enum type_e {
-    COORPORATION,
+typedef enum citizen_type_e {
+    NORMAL,
+    SPY,
+    CASE_OFFICER,
+    COUNTER_INTELLIGENCE_OFFICER
+} citizen_type_t;
+
+typedef enum building_type_e {
+    CORPORATION,
     STORE,
     HALL
-};
-typedef enum type_e type_t;
+}building_type_t;
+
 struct building_s {
     unsigned int position[2];
-    type_t type;
-    unsigned int size;
-    unsigned int capacity;
+    building_type_t type;
+    unsigned int nb_citizen;
+    unsigned int max_capacity;
     citizen_t *citizens[NUM_CITIZENS];
     void (*add_citizen)(building_t *, citizen_t *);
     void (*remove_citizen)(building_t *, citizen_t *);
@@ -35,8 +41,8 @@ struct building_s {
 
 struct home_s {
     unsigned int position[2];
-    unsigned int size;
-    unsigned int capacity;
+    unsigned int nb_citizen;
+    unsigned int max_capacity;
     citizen_t *citizens[NUM_CITIZENS];
     void (*add_citizen)(home_t *, citizen_t *);
     void (*remove_citizen)(home_t *, citizen_t *);
@@ -46,7 +52,7 @@ struct citizen_s {
     unsigned int id;
     unsigned int position [2];
     unsigned int health ;
-    type_t type;
+    citizen_type_t type;
     building_t *workplace, *supermarket; /*the nearest supermarket from his company*/
     home_t *home; 
 

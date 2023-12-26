@@ -21,6 +21,7 @@
 #include "monitor.h"
 #include "monitor_common.h"
 #include "memory.h"
+#include "timer.h"
 
 WINDOW *main_window;
 WINDOW *city_window;
@@ -222,17 +223,15 @@ void show_general_information(WINDOW *window)
 void display_general_information_values(WINDOW *window, memory_t *mem)
 {
     /* --------------------------------------------------------------------- */
-    /*                 Get information from mem about simulation             */
-    double elapsed_time;
-    int simulation_has_ended;
-    int hour;
-    int minutes;
+    /*                 Get information from mem about simulation    
+    */
+    time_t timer = new_timer(mem);
+    double elapsed_time = timer.round * 10.0;
+    int simulation_has_ended = mem->simulation_has_ended;
+    int hour = timer.hours;
+    int minutes = timer.minutes;
     char *result = NULL;
 
-    elapsed_time         = 0;
-    simulation_has_ended = 0;
-    hour                 = 0;
-    minutes              = 0;
    /* ---------------------------------------------------------------------- */
 
     mvwprintw(window, 20, 8, "%f", elapsed_time);

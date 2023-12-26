@@ -47,6 +47,19 @@ src/common/logger.o: src/common/logger.c include/logger.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 # ----------------------------------------------------------------------------
+# TIMER
+# ----------------------------------------------------------------------------
+bin/timer: src/timer/timer.o 
+	$(CC) $^ -o $@ $(LDFLAGS)
+
+src/timer/main.o: src/timer/main.c src/rimer/timer.c include/timer.h.h include/memory.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
+
+src/timer/timer.o : src/timer/timer.c include/timer.h include/memory.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
+
+
+# ----------------------------------------------------------------------------
 # CLEANING
 # ----------------------------------------------------------------------------
 clean:
