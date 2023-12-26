@@ -41,19 +41,75 @@ extern int old_cursor;
  * - The "enemy country monitor" window (bottom-right)
  * 'Q', 'q' and 'Esc' keys are used to exit from the TUI.
  */
-int main(int argc, char **argv)
+int main()
 {
     int rows;
     int cols;
     int key;
+    int shm;
+
     memory_t *memory;
     monitor_t *monitor;
 
     /* ---------------------------------------------------------------------- */ 
     /* The following code only allows to avoid segmentation fault !           */ 
     /* Change it to access to the real shared memory.                         */
-    memory = (memory_t *)malloc(sizeof(memory_t)); 
-    memory->memory_has_changed =  1;
+    shm = shm_open("SharedMemory", O_RDONLY, 0666);
+    if (shm == -1) {
+        perror("shm_open error");
+        exit(EXIT_FAILURE);
+    }
+
+    memory = (memory_t *)mmap(NULL, sizeof(memory_t), PROT_READ, MAP_SHARED, shm, 0);
+    if (memory == MAP_FAILED) {
+        perror("mmap error");
+        exit(EXIT_FAILURE);
+    }
+    // Après avoir mappé la mémoire partagée
+    if (memory != MAP_FAILED) {
+        printf("Memory mapping successful.\n");
+
+        printf("Memory has changed: %d\n", memory->memory_has_changed);
+        printf("Simulation has ended: %d\n", memory->simulation_has_ended);
+        
+        // Afficher des informations sur la carte
+        printf("Map details:\n");
+        for (int i = 0; i < MAX_ROWS; i++) {
+            for (int j = 0; j < MAX_COLUMNS; j++) {
+                printf("Cell[%d][%d] Type: %d, Capacity: %d\n", i, j, memory->map.cells[i][j].type, memory->map.cells[i][j].current_capacity);
+            }
+        }
+
+        // Afficher des informations sur les espions
+        printf("Spy details:\n");
+        for (int i = 0; i < 3; i++) {
+            printf("Spy %d - Health: %d, Location: (%d, %d)\n", i, memory->spies[i].health_point, memory->spies[i].location_row, memory->spies[i].location_column);
+        }
+
+        // Afficher des informations sur l'officier de cas
+        printf("Case Officer - Health: %d, Location: (%d, %d)\n", memory->case_officer.health_point, memory->case_officer.location_row, memory->case_officer.location_column);
+
+        // Afficher des informations sur l'officier du contre-espionnage
+        printf("Counterintelligence Officer - Health: %d, Location: (%d, %d)\n", memory->counterintelligence_officer.health_point, memory->counterintelligence_officer.location_row, memory->counterintelligence_officer.location_column);
+
+        // Afficher des informations sur les citoyens
+        printf("Citizen details:\n");
+        for (int i = 0; i < NB_CITIZEN; i++) {
+            printf("Citizen %d - Type: %d, Health: %d, Location: (%d, %d)\n", i, memory->citizens[i].type, memory->citizens[i].health, memory->citizens[i].position[0], memory->citizens[i].position[1]);
+        }
+
+        // Afficher des informations sur le réseau de surveillance
+        printf("Surveillance network status:\n");
+        for (int i = 0; i < MAX_ROWS; i++) {
+            for (int j = 0; j < MAX_COLUMNS; j++) {
+                printf("Cell[%d][%d] - Standard camera: %d, Infrared camera: %d, Lidar: %d\n", i, j, memory->surveillanceNetwork.devices[i][j].standard_camera, memory->surveillanceNetwork.devices[i][j].infrared_camera, memory->surveillanceNetwork.devices[i][j].lidar);
+            }
+        }
+    } else {
+        perror("Memory mapping failed");
+    }
+
+    close(shm);
     /* ---------------------------------------------------------------------- */ 
 
     monitor = (monitor_t *)malloc(sizeof(monitor_t));
@@ -78,7 +134,7 @@ int main(int argc, char **argv)
     if (!is_terminal_size_larger_enough(&rows, &cols)) {
         quit_after_error("Minimal terminal dimensions: 45 rows and 140 columns!");
     }
-
+    /*Initialize the spy simulation*/
     /* Initialize terminal user interface elements */
     init_monitor_elements(main_window, memory, rows, cols);
 
