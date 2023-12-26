@@ -4,8 +4,8 @@
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-time_t new_timer(memory_t *memory){
-    time_t time = memory->timer;
+simulated_clock_t new_timer(memory_t *memory){
+    simulated_clock_t time = memory->timer;
     time.round = 0;
     time.hours = 0;
     time.minutes = 0;
@@ -13,7 +13,7 @@ time_t new_timer(memory_t *memory){
     return time;
 }
 
-void update_timer(){
+void update_timer(memory_t *memory){
     memory->timer.round++;
     memory->timer.minutes += 10;
     if (memory->timer.minutes == 60){
@@ -27,17 +27,17 @@ void update_timer(){
 }
 
 
-void tick_clock(int sig){
+void tick_clock(int sig, memory_t *memory){
     if(sig == SIGALRM){
         pthread_mutex_lock(&mutex);
-        update_timer();
+        update_timer(memory);
         pthread_mutex_unlock(&mutex);
         alarm(1);
     }
     
 }
 
-void access_memory(){
+void access_memory(memory_t *memory){
     memory = (memory_t *)malloc(sizeof(memory_t));
     int shm_fd = shm_open(SHARED_MEMORY, O_CREAT | O_RDWR, 0666);
     if(shm_fd == -1){

@@ -179,12 +179,12 @@ struct counterintelligence_officer_s {
     int targeted_character_id;                            /*!< The targeted character id.*/
 }; 
 
-typedef struct time_s {
+typedef struct simulated_clock_s {
     int round;
     int hours;
     int minutes;
     int days;
-}time_t;
+}simulated_clock_t;
 
 struct mq_s{
     mqd_t mq;
@@ -206,7 +206,7 @@ struct memory_s {
     spy_t spies[3];
     case_officer_t case_officer;
     counterintelligence_officer_t counterintelligence_officer;
-    time_t timer;
+    simulated_clock_t timer;
     int end_round;
     pid_t pids[7];
     mq_t mqInfo;
@@ -217,12 +217,7 @@ struct memory_s {
     surveillanceNetwork_t surveillanceNetwork;
 };
 
-typedef enum citizen_type_e {
-    NORMAL,
-    SPY,
-    CASE_OFFICER,
-    COUNTER_INTELLIGENCE_OFFICER
-} citizen_type_t;
+
 
 
 #endif /* MEMORY_H */

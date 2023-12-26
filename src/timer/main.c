@@ -7,36 +7,25 @@ memory_t *memory;  // Pointer to the shared memory
 int main()
 {
 
-    access_memory();
+    access_memory(memory);
 
-    time_t timer = new_timer(memory);
+    simulated_clock_t timer = new_timer(memory);
     memory->timer = timer;
 
+    struct itimerval it;
+    if(STEP >= 1000000) {
+        it.it_interval.tv_sec = STEP/1000000;
+        it.it_value.tv_sec = STEP/1000000;
+    }
+    else {
+        it.it_interval.tv_usec = STEP;
+        it.it_value.tv_usec = STEP;
+    }
+    
     struct sigaction sa_clock;
     sa_clock.sa_handler = &tick_clock;
-    
-    if(timer.round < MAX_ROUNDS){
-            sigaction(SIGALRM, &sa_clock, NULL);
-            //fin de la partie on arrête le timer
-        }else{
-            if(memory){
-                memory->end_of_simulation = 1;
-                kill(memory->pids[0],SIGUSR2);
-                kill(memory->pids[1],SIGUSR2);
-                //terminer les autres process
-                /*
-                for(int i=0;i<7;i++){
-                    kill(memory->pids[i],SIGUSR2);
-                }
-                */
-                munmap(memory, sizeof(memory_t*));
-                exit(0);
-            } else{
-                perror("Error when accessing memory");
-                exit(EXIT_FAILURE);
-        }
-
-    }
+    sigaction(SIGALRM, &sa_clock, NULL);
+    setitimer(ITIMER_REAL, &it, NULL);
 
     while(1) {
     }

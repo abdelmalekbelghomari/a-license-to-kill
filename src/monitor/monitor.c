@@ -225,7 +225,7 @@ void display_general_information_values(WINDOW *window, memory_t *mem)
     /* --------------------------------------------------------------------- */
     /*                 Get information from mem about simulation    
     */
-    time_t timer = new_timer(mem);
+    simulated_clock_t timer = new_timer(mem);
     double elapsed_time = timer.round * 10.0;
     int simulation_has_ended = mem->simulation_has_ended;
     int hour = timer.hours;

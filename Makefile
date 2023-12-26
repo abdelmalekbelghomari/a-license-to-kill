@@ -14,7 +14,7 @@ endif
 
 .PHONY: all clean distclean
 
-all: bin/spy_simulation bin/monitor
+all: bin/spy_simulation bin/monitor bin/timer
 
 # ----------------------------------------------------------------------------
 # SPY SIMULATION
@@ -31,31 +31,25 @@ src/spy_simulation/spy_simulation.o: src/spy_simulation/spy_simulation.c include
 # ----------------------------------------------------------------------------
 # MONITOR
 # ----------------------------------------------------------------------------
-bin/monitor: src/monitor/main.o src/monitor/monitor.o src/monitor/monitor_common.o src/common/logger.o
+bin/monitor: src/monitor/main.o src/monitor/monitor.o src/monitor/monitor_common.o src/common/logger.o src/timer/timer.o
 	$(CC) $^ -o $@ $(LDFLAGS)
 
-src/monitor/main.o: src/monitor/main.c include/monitor.h include/monitor_common.h
+src/monitor/main.o: src/monitor/main.c include/monitor.h include/monitor_common.h include/timer.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-src/monitor/monitor.o: src/monitor/monitor.c include/monitor.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
-
-src/monitor/monitor_common.o: src/monitor/monitor_common.c include/monitor_common.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
-
-src/common/logger.o: src/common/logger.c include/logger.h
+src/monitor/monitor.o: src/monitor/monitor.c include/monitor.h include/timer.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 # ----------------------------------------------------------------------------
 # TIMER
 # ----------------------------------------------------------------------------
-bin/timer: src/timer/timer.o 
+bin/timer: src/timer/timer.o src/timer/main.o
 	$(CC) $^ -o $@ $(LDFLAGS)
 
-src/timer/main.o: src/timer/main.c src/rimer/timer.c include/timer.h.h include/memory.h
+src/timer/main.o: src/timer/main.c src/timer/timer.c include/timer.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
 
-src/timer/timer.o : src/timer/timer.c include/timer.h include/memory.h
+src/timer/timer.o : src/timer/timer.c include/timer.h 
 	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
 
 
@@ -63,7 +57,7 @@ src/timer/timer.o : src/timer/timer.c include/timer.h include/memory.h
 # CLEANING
 # ----------------------------------------------------------------------------
 clean:
-	rm src/spy_simulation/*.o src/monitor/*.o src/common/*.o
+	rm -f src/spy_simulation/*.o src/monitor/*.o src/common/*.o src/timer/*.o
 
 distclean: clean
-	rm bin/spy_simulation bin/monitor
+	rm -f bin/spy_simulation bin/monitor bin/timer
