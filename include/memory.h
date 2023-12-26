@@ -179,16 +179,12 @@ struct counterintelligence_officer_s {
     int targeted_character_id;                            /*!< The targeted character id.*/
 }; 
 
-typedef struct simulated_clock_s {
+typedef struct time_s {
     int round;
     int hours;
     int minutes;
     int days;
-}simulated_clock_t;
-
-struct mq_s{
-    mqd_t mq;
-};
+}time_t;
 
 /**
  * \brief Shared memory used by all processes.
@@ -221,5 +217,4 @@ struct memory_s {
 
 
 #endif /* MEMORY_H */
-
 
