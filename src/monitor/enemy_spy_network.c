@@ -494,3 +494,42 @@ void* case_officer_life(void* thread) {
   }
 }
 
+int main() {
+  spyInfo *spy1, *spy2, *spy3;
+  caseOfficerInfo *case_officer;
+  pthread_t thread_spy1, thread_spy2, thread_spy3, thread_case_officer;
+
+  int shmd =shm_open(SHARED_MEMORY, 0_RDWR, 0666);
+  if(shmd == -1) {
+    handle_fatal_error("Error when shm_open in enemy_spy_simulation");
+  }
+
+  memory = mmap(NULL,
+                sizeof(memory_t*),
+                PROT_READ | PROT_WRITE,
+                MAP_SHARED,
+                shmd,
+                0
+                );
+  spy1 = get_info_spy(0,0);
+  spy2 = get_info_spy(0,1);
+  spy3 = get_info_spy(1,1);
+  case_officer = get_info_case_officer();
+
+  pthread_create(&thread_spy1, NULL, spy_life, (void*)spy1);
+  pthread_create(&thread_spy2, NULL, spy_life, (void*)spy2);
+  pthread_create(&thread_spy3, NULL, spy_life, (void*)spy3);
+  pthread_create(&thread_case_officer, NULL, case_officer_life, (void*)case_officer);
+
+  pthread_join(thread_spy1, NULL);
+  pthread_join(thread_spy2, NULL);
+  pthread_join(thread_spy3, NULL);
+  pthread_join(thread_case_officer, NULL);
+
+  munmap(memory,sizeof(meory_t*));
+  close(smhd);
+  shmd_unlink(SHARED_MEMORY);
+  return 0;
+
+}
+
