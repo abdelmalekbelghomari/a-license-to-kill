@@ -46,12 +46,8 @@ src/monitor/monitor.o: src/monitor/monitor.c include/monitor.h include/timer.h
 bin/timer: src/timer/main.o src/timer/timer.o 
 	$(CC) $^ -o $@ $(LDFLAGS)
 
-src/timer/main.o: src/timer/main.c src/timer/timer.c include/timer.h include/memory.h
+src/timer/main.o: src/timer/main.c include/timer.h include/memory.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
-
-src/timer/timer.o : src/timer/timer.c include/timer.h include/memory.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
-
 
 # ----------------------------------------------------------------------------
 # CLEANING
