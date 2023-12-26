@@ -12,9 +12,13 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#define CI_OFFICER_INDEX 4
+
 void handle_fatal_error(const char *message);
 void init_map(map_t * cityMap);
-void init_citizens(citizen_t *citizens);
+void place_citizens_on_map(map_t *cityMap, Citizen *citizens);
+int is_spy(citizen_t citizen);
+int is_within_distance(map_t *cityMap, int x, int y, int max_distance);
 void init_surveillance(surveillanceNetwork_t *surveillance);
 struct memory_s *create_shared_memory(const char *name);
 int start_citizen_manager();
