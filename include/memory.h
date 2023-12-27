@@ -46,6 +46,8 @@
 #define MAX_COLUMNS 7
 #define MAX_ROUNDS 2016
 #define NUM_CITIZENS 127
+#define MAX_MESSAGE_SIZE 128
+
 
 
 /**
@@ -68,6 +70,16 @@ typedef struct state_s state_t;
 typedef struct building_s building_t;
 typedef struct home_s home_t;
 typedef struct citizen_s citizen_t;
+
+
+
+
+typedef struct {
+    int priority;
+    char content[MAX_MESSAGE_SIZE];
+} SpyMessage;
+
+
 
 typedef enum citizen_type_e {
     NORMAL,

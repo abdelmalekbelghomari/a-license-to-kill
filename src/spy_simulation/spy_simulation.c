@@ -142,9 +142,9 @@ memory_t *create_shared_memory(const char *name) {
 }
 
 void start_simulation_processes() {
-    pid_t pid_monitor, pid_timer, pid_citizen_manager;
+    pid_t pid_timer, pid_citizen_manager, pid_enemy_spy_network, pid_enemy_country;
 
-    // Start timer process first
+    // Start timer process
     pid_timer = fork();
     if (pid_timer == 0) {
         execl("./bin/timer", "timer", NULL);
@@ -154,32 +154,45 @@ void start_simulation_processes() {
         perror("Error [fork()] timer: ");
         exit(EXIT_FAILURE);
     }
-    pid_timer = fork();
+
+    // Start citizen manager process
+    /*pid_citizen_manager = fork();
     if (pid_citizen_manager == 0) {
         execl("./bin/citizen_manager", "citizen_manager", NULL);
-        perror("Error [execl] timer: ");
+        perror("Error [execl] citizen_manager: ");
         exit(EXIT_FAILURE);
     } else if (pid_citizen_manager < 0) {
-        perror("Error [fork()] timer: ");
-        exit(EXIT_FAILURE);
-    }
-
-    // Start monitor process
-    /*pid_monitor = fork();
-    if (pid_monitor == 0) {
-        execl("./bin/monitor", "monitor", NULL);
-        perror("Error [execl] monitor: ");
-        exit(EXIT_FAILURE);
-    } else if (pid_monitor < 0) {
-        perror("Error [fork()] monitor:");
+        perror("Error [fork()] citizen_manager: ");
         exit(EXIT_FAILURE);
     }*/
 
-    // Wait for timer and monitor to finish
+    // Start enemy spy network process
+    pid_enemy_spy_network = fork();
+    if (pid_enemy_spy_network == 0) {
+        execl("./bin/enemy_spy_network", "enemy_spy_network", NULL);
+        perror("Error [execl] enemy_spy_network: ");
+        exit(EXIT_FAILURE);
+    } else if (pid_enemy_spy_network < 0) {
+        perror("Error [fork()] enemy_spy_network: ");
+        exit(EXIT_FAILURE);
+    }
+
+    // Start enemy country process
+    pid_enemy_country = fork();
+    if (pid_enemy_country == 0) {
+        execl("./bin/enemy_country", "enemy_country", NULL);
+        perror("Error [execl] enemy_country: ");
+        exit(EXIT_FAILURE);
+    } else if (pid_enemy_country < 0) {
+        perror("Error [fork()] enemy_country: ");
+        exit(EXIT_FAILURE);
+    }
+
+    // Wait for processes to finish
     int status;
     waitpid(pid_timer, &status, 0);
     waitpid(pid_citizen_manager, &status, 0);
-    //waitpid(pid_monitor, &status, 0);
-    
-    // Add other child processes as needed
+    waitpid(pid_enemy_spy_network, &status, 0);
+    waitpid(pid_enemy_country, &status, 0);
 }
+
