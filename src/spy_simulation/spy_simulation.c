@@ -143,7 +143,7 @@ memory_t *create_shared_memory(const char *name) {
 }
 
 void start_simulation_processes() {
-    pid_t pid_monitor, pid_timer;
+    pid_t pid_monitor, pid_timer, pid_citizen_manager;
 
     // Start timer process first
     pid_timer = fork();
@@ -155,9 +155,18 @@ void start_simulation_processes() {
         perror("Error [fork()] timer: ");
         exit(EXIT_FAILURE);
     }
+    pid_timer = fork();
+    if (pid_citizen_manager == 0) {
+        execl("./bin/citizen_manager", "citizen_manager", NULL);
+        perror("Error [execl] timer: ");
+        exit(EXIT_FAILURE);
+    } else if (pid_citizen_manager < 0) {
+        perror("Error [fork()] timer: ");
+        exit(EXIT_FAILURE);
+    }
 
     // Start monitor process
-    pid_monitor = fork();
+    /*pid_monitor = fork();
     if (pid_monitor == 0) {
         execl("./bin/monitor", "monitor", NULL);
         perror("Error [execl] monitor: ");
@@ -165,13 +174,13 @@ void start_simulation_processes() {
     } else if (pid_monitor < 0) {
         perror("Error [fork()] monitor:");
         exit(EXIT_FAILURE);
-    }
+    }*/
 
     // Wait for timer and monitor to finish
     int status;
     waitpid(pid_timer, &status, 0);
-    waitpid(pid_monitor, &status, 0);
+    waitpid(pid_citizen_manager, &status, 0);
+    //waitpid(pid_monitor, &status, 0);
     
     // Add other child processes as needed
 }
->>>>>>> a63e51d (changed the header files so that memory has everything)

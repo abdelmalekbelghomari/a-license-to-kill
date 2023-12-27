@@ -70,7 +70,6 @@ int main()
         perror("mmap error");
         exit(EXIT_FAILURE);
     }
-<<<<<<< HEAD
 
     printf("Memory mapping successful.\n");
     
@@ -157,18 +156,8 @@ int main()
     /*Initialize the spy simulation*/
     /* Initialize terminal user interface elements */
     init_monitor_elements(main_window, memory, rows, cols);
-<<<<<<< HEAD
     
 
-=======
-    sleep(2);
-            update_values(memory);
-            sleep(2);
-            update_values(memory);
-            sleep(2);
-            update_values(memory);
-    
->>>>>>> a63e51d (changed the header files so that memory has everything)
     /*  Loop and get user input  */
     while (true) {
         key = getch();
@@ -185,8 +174,7 @@ int main()
         if (memory->memory_has_changed) {
             update_values(memory);
             memory->memory_has_changed = 0;
-<<<<<<< HEAD
->>>>>>> a63e51d (changed the header files so that memory has everything)
+        } else {
             pause();
         }
         

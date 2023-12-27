@@ -15,6 +15,8 @@
 
 
 int main() {
+    pthread_barrier_t start_barrier, end_barrier;
+    pthread_mutex_t mutex;
     memory_t *memory;
     pthread_barrier_t start_barrier, end_barrier;
     pthread_mutex_t mutex;
@@ -41,7 +43,6 @@ int main() {
 
     // Nettoyer et fermer le programme proprement
     // Attendre la fin des threads
-    finalize_citizen_threads();  // Vous devriez avoir une fonction pour attendre/joindre les threads
 
     // Destruction des outils de synchronisation
     pthread_barrier_destroy(&start_barrier);
