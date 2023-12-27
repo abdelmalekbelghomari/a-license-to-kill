@@ -1,5 +1,4 @@
 #include "memory.h"
-#include "../../include/citizen_manager.h"
 #include <time.h>
 #include <stdbool.h>
 
