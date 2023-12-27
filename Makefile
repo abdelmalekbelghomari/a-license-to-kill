@@ -9,7 +9,7 @@ ifeq ($(UNAME),Darwin)
 endif
 ifeq ($(UNAME),Linux)
     CPPFLAGS=-D_REENTRANT -I./include
-    LDFLAGS=-lncurses -lpthread -lrt -lm
+    LDFLAGS=-lncurses -lpthread -g -lrt -lm
 endif
 
 .PHONY: all clean distclean

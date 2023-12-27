@@ -1,8 +1,9 @@
 #include <stdio.h>
-#include "../../include/citizen_manager.h"
+#include "citizen_manager.h"
 #include <pthread.h>
 #include <sys/shm.h>
-#include "../../include/memory.h"
+#include "memory.h"
+#include <math.h>
 
 #define SHARED_MEMORY "/SharedMemory"
 
@@ -30,8 +31,8 @@ void use_shared_memory(memory_t *memory) {
     }
 }
 
-double get_current_simulation_time() {
-    return memory->timer.hours + round(memory->timer.minutes/60, 2);
+double get_current_simulation_time(memory_t *memory) {
+    return memory->timer.hours + round(memory->timer.minutes / 60.0 * 100) / 100;
     /*TO DO in timer*/
 }
 
@@ -39,33 +40,7 @@ int is_at_supermarket(citizen_t *character) {
     return (character->position == character->supermarket->position);
 }
 
-/*void *citizen_behavior(void *arg) {
-    citizen_t *character = (citizen_t *) arg;
-    while (memory->turns < MAX_STEPS || memory->end_of_simulation == 0) {
-        double currentTime = get_current_simulation_time(); // Function to get the current time in the simulation
-        if (currentTime == 8.00) { 
-            move_citizen_to_work(character);
-            citizen_change_state(character,go_to_company(character));
-        } else if (currentTime == 17.00) {
-            if (!(is_at_supermarket(character))){
-                int random = rand() % 4;
-                if (random == 0) {
-                    citizen_change_state(character,go_to_supermarket(character));
-                    move_citizen_to_supermarket(character);
-                    citizen_change_state(character,do_some_shopping(character));
-                }
-                move_citizen_to_home(character);
-                citizen_change_state(character,go_back_home(character));
-            }
-        } else if(currentTime == 19.50 && is_at_supermarket(character)){
-                move_citizen_to_home(character);
-                citizen_change_state(character,go_to_home(character));
-            }
-        } 
-    return NULL;
-}*/
-
-void *citizen_behavior(void *arg) {
+void *citizen_behavior(void *arg, memory_t *memory) {
     citizen_t *character = (citizen_t *)arg;
 
     while (!memory->simulation_has_ended) {
@@ -77,7 +52,7 @@ void *citizen_behavior(void *arg) {
             break;
         }
 
-        double currentTime = get_current_simulation_time();
+        double currentTime = get_current_simulation_time(memory);
 
         handle_normal_citizen_actions(character, currentTime);
 
@@ -97,7 +72,7 @@ void handle_normal_citizen_actions(citizen_t *character, double currentTime) {
         handle_citizen_shopping_and_return_home(character);
     } else if (currentTime == 19.50) {
         move_citizen_to_home(character);
-        citizen_change_state(character, go_to_home(character));
+        citizen_change_state(character, go_back_home(character));
     }
 }
 
@@ -114,13 +89,28 @@ void handle_citizen_shopping_and_return_home(citizen_t *character) {
     }
 }
 
+void move_citizen_to_home(citizen_t *character) {
+    /*Do the A* or BFS*/
+    if(character->home->max_capacity > character->home->nb_citizen){
+        character->position[0] = character->home->position[0]; 
+        character->position[1] = character->home->position[1]; 
+        character->home->nb_citizen++;
+        printf("Citizen %d moved to  at position (%d, %d)\n", 
+            character->id, character->position[0], character->position[1]);
+    } else {
+        printf(stderr,"home is full\n");
+    }
+    
+}
+
 void move_citizen_to_work(citizen_t *character) {
     /*Do the A* or BFS*/
-    int char_position[] = character->position;
-    int wp_position[] = character->workplace->position;
     if(character->workplace->max_capacity > character->workplace->nb_citizen){
-        char_position[0], char_position[1] = wp_position[0], wp_position[1];
+        character->position[0] = character->workplace->position[0]; 
+        character->position[1] = character->workplace->position[1]; 
         character->workplace->nb_citizen++;
+        printf("Citizen %d moved to work at position (%d, %d)\n", 
+            character->id, character->position[0], character->position[1]);
     } else {
         printf(stderr,"The workplace is full\n");
     }
@@ -132,6 +122,8 @@ void move_citizen_to_supermarket(citizen_t *character) {
         character->position[0] = character->supermarket->position[0]; 
         character->position[1] = character->supermarket->position[1]; 
         character->supermarket->nb_citizen++;
+        printf("Citizen %d moved to supermarket at position (%d, %d)\n", 
+            character->id, character->position[0], character->position[1]);
     } else {
         printf(stderr,"The supermarket is full\n");
     }
@@ -160,7 +152,7 @@ state_t *go_to_company(citizen_t *c) {
 }
 
 state_t *work(citizen_t *c) {
-
+    
     return c->working;
 }
 

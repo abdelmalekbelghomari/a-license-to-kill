@@ -30,7 +30,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <fcntl.h>
-
+#include <math.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
 #include <sys/time.h>
@@ -40,13 +40,24 @@
 #include <mqueue.h>
 
 
-#define NB_CITIZEN 127 /* 127 citizens in the city */
 #define CITIZENS_COUNT 127 /* 127 citizens in the city */
 #define MAX_ROWS 7
 #define MAX_COLUMNS 7
 #define MAX_ROUNDS 2016
-#define NUM_CITIZENS 127
 
+#define NB_CITIZEN 127
+#define NB_CITIZEN_HALL 10
+#define NB_CITIZEN_STORE 6
+#define NB_CITIZEN_COMPANY 111
+#define NB_HOMES 11
+#define NB_COMPANY 8
+#define NB_STORE 2
+#define NB_BUISNESSES 10 //les supermarches sont aussi des lieux de travail
+#define NB_HALL 1
+#define MAX_IN_BUILDING 15
+#define MAX_IN_HALL 20
+#define MAX_IN_STORE 30
+#define MAX_IN_COMPANY 50
 
 /**
  * \file memory.h
@@ -259,6 +270,29 @@ struct citizen_s {
     void (*step)(citizen_t *);
 };
 
+struct building_s {
+    unsigned int position[2];
+    building_type_t type;
+    cell_t cell_type;
+    unsigned int nb_citizen;
+    unsigned int max_capacity;
+    unsigned int max_workers;
+    unsigned int min_workers;
+    unsigned int nb_workers;
+    citizen_t *citizens[CITIZENS_COUNT];
+    void (*add_citizen)(building_t *, citizen_t *);
+    void (*remove_citizen)(building_t *, citizen_t *);
+};
+
+struct home_s {
+    unsigned int position[2];
+    unsigned int nb_citizen;
+    unsigned int max_capacity;
+    citizen_t *citizens[CITIZENS_COUNT];
+    void (*add_citizen)(home_t *, citizen_t *);
+    void (*remove_citizen)(home_t *, citizen_t *);
+};
+
 /**
  * \brief Shared memory used by all processes.
  */
@@ -279,32 +313,17 @@ struct memory_s {
     int end_round;
     pid_t pids[7];
     mq_t mqInfo;
-    citizen_t citizens[NB_CITIZEN];
+    citizen_t citizens[CITIZENS_COUNT];
     int walking_citizens;
     int at_home_citizens;
     int at_work_citizens;
     surveillanceNetwork_t surveillanceNetwork;
+    home_t homes[NB_HOMES];
+    building_t companies[NB_COMPANY];
 };
 
 
-struct building_s {
-    unsigned int position[2];
-    building_type_t type;
-    unsigned int nb_citizen;
-    unsigned int max_capacity;
-    citizen_t *citizens[NUM_CITIZENS];
-    void (*add_citizen)(building_t *, citizen_t *);
-    void (*remove_citizen)(building_t *, citizen_t *);
-};
 
-struct home_s {
-    unsigned int position[2];
-    unsigned int nb_citizen;
-    unsigned int max_capacity;
-    citizen_t *citizens[NUM_CITIZENS];
-    void (*add_citizen)(home_t *, citizen_t *);
-    void (*remove_citizen)(home_t *, citizen_t *);
-};
 
 
 

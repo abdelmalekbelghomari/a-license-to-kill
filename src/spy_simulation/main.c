@@ -14,8 +14,9 @@ extern int old_cursor;
 
 int main(int argc, char **argv)
 {
+    printf("lol");
     memory_t *memory = create_shared_memory("SharedMemory");
-    start_simulation_processes();
+    //start_simulation_processes();
      // Assurez-vous que toutes les opérations sur la mémoire partagée sont terminées avant de la démmaper
     if (munmap(memory, sizeof(memory_t)) == -1) {
         perror("Error un-mmapping the file");
