@@ -139,7 +139,6 @@ int main()
     //     }
     // }
 
-=======
     close(shm);
     /* ---------------------------------------------------------------------- */ 
     
@@ -148,7 +147,7 @@ int main()
     
     set_timer();
     set_signals();
->>>>>>> a63e51d (changed the header files so that memory has everything)
+    
     if ((main_window = initscr()) == NULL) {
         quit_after_error("Error initializing library ncurses!");
     }
@@ -166,18 +165,7 @@ int main()
     /*Initialize the spy simulation*/
     /* Initialize terminal user interface elements */
     init_monitor_elements(main_window, memory, rows, cols);
-<<<<<<< HEAD
-    
 
-=======
-    sleep(2);
-            update_values(memory);
-            sleep(2);
-            update_values(memory);
-            sleep(2);
-            update_values(memory);
-    
->>>>>>> a63e51d (changed the header files so that memory has everything)
     /*  Loop and get user input  */
     while (!memory->simulation_has_ended) {
         key = getch();
