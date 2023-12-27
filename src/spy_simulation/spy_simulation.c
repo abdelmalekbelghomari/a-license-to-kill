@@ -1,129 +1,177 @@
+#include "memory.h"
+#include "citizen_manager.h"
+#include <time.h>
+#include <stdbool.h>
 #include "spy_simulation.h"
 
-int main(){
-    memory_t* memory;
-    pid_t pid_monitor, pid_enemy_spy_network, pid_citizen_manager, pid_enemy_country, pid_counterintelligence_officer, pid_timer;
-    
-    memory = create_shared_memory("/spy_simulation");
-
-    pid_citizen_manager = start_citizen_manager();
-    pid_monitor = start_monitor();
-    pid_counterintelligence_officer = start_counterintelligence_officer();
-    pid_enemy_country = start_enemy_country();
-    pid_enemy_spy_network = start_enemy_spy_network();
-    pid_timer = start_timer();
-
-    return EXIT_SUCCESS;
-}
-
-
-void handle_fatal_error(const char *message){
+void handle_fatal_error(const char *message)
+{
   perror(message);
   exit(EXIT_FAILURE);
 }
 
-void init_map(map_t * cityMap){
-    /* Init all cells as empty terrain*/
-    int i,j;
+/*A utiliser dans citizen manager ou dans les .c correspondant
+aux protagonistes et antagonistes pour la gestion des blessures*/
+void signal_handler(int signal, memory_t *shared_memory) {
+    if (signal == SIGUSR1) {
+        shared_memory->memory_has_changed = 1;
+    } else if (signal == SIGUSR2) {
+        shared_memory->simulation_has_ended = 1;
+        /*TO DO*/
+        /*Print info*/
+    }
+}
+
+bool is_valid_move(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col) {
+    return (row >= 0) && (row < MAX_ROWS) && (col >= 0) && (col < MAX_COLUMNS) 
+        && (cityMap->cells[row][col].type == WASTELAND || cityMap->cells[row][col].type == RESIDENTIAL_BUILDING) 
+        && !visited[row][col];
+}
+
+bool dfs(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col, int endRow, int endCol) {
+    if (row == endRow && col == endCol) return true;
+
+    visited[row][col] = true;
+
+    int rowOffsets[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+    int colOffsets[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+    for (int k = 0; k < 8; k++) {
+        int newRow = row + rowOffsets[k];
+        int newCol = col + colOffsets[k];
+        if (is_valid_move(cityMap, visited, newRow, newCol) && dfs(cityMap, visited, newRow, newCol, endRow, endCol)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool is_path_available(map_t *cityMap, int startRow, int startCol, int endRow, int endCol) {
+    bool visited[MAX_ROWS][MAX_COLUMNS] = {{false}};
+    return dfs(cityMap, visited, startRow, startCol, endRow, endCol);
+}
+void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb_of_characters) {
+    int placed_count = 0;
+    int i, j;
+    while (placed_count != count) {
+        i = rand() % MAX_ROWS;
+        j = rand() % MAX_COLUMNS;
+        if (cityMap->cells[i][j].type == WASTELAND){
+            cityMap->cells[i][j].type = buildingType;
+            cityMap->cells[i][j].nb_of_characters = nb_of_characters;
+            placed_count++;
+        }
+    }
+}
+
+void init_map(map_t *cityMap){
+    int i, j;
     for (i = 0; i < MAX_ROWS; i++){
         for (j = 0; j < MAX_COLUMNS; j++){
             cityMap->cells[i][j].type = WASTELAND;
             cityMap->cells[i][j].current_capacity = 0;
             cityMap->cells[i][j].nb_of_characters = 0;
-            cityMap->cells[i][j].has_mailbox = 0;
         }
     }
 
-    /* City hall */
     cityMap->cells[3][3].type = CITY_HALL;
     cityMap->cells[3][3].nb_of_characters = 20;
 
-    /* 2 Supermarkets */
-    cityMap->cells[1][2].type = SUPERMARKET;
-    cityMap->cells[1][2].nb_of_characters = 30;
+    place_building_randomly(cityMap, SUPERMARKET, 2, 30);
+    place_building_randomly(cityMap, COMPANY, 8, 50);
+    place_building_randomly(cityMap, RESIDENTIAL_BUILDING, 11, 15);
+}
 
-    cityMap->cells[4][3].type = SUPERMARKET;
-    cityMap->cells[4][3].nb_of_characters = 30;
+void add_citizen(home_t *house, citizen_t *citizen) {
+    if (house->nb_citizen < house->max_capacity) {
+        // Ajoutez le citoyen à la maison
+        house->citizens[house->nb_citizen] = citizen;
+        house->nb_citizen++; // Incrémentez le nombre de citoyens
 
-    /* 8 Companies */
-    int companies_count = 0;
-    while (companies_count != 8) {
-        i = rand() % MAX_ROWS;
-        j = rand() % MAX_COLUMNS;
-        if (cityMap->cells[i][j].type == WASTELAND){
-            cityMap->cells[i][j].type = COMPANY;
-            cityMap->cells[i][j].nb_of_characters = 50;
-            companies_count++;
-        }
-    }
-
-    /* 11 residential buildings */
-    int buildings_count = 0;
-    while (buildings_count != 11) {
-        i = rand() % MAX_ROWS;
-        j = rand() % MAX_COLUMNS;
-        if (cityMap->cells[i][j].type == WASTELAND){
-            cityMap->cells[i][j].type = RESIDENTIAL_BUILDING;
-            cityMap->cells[i][j].nb_of_characters = 15;
-            buildings_count++;
-        }
-    }
-
-    /* Adding mailbox */
-    int mailboxPlaced = 0;
-    while (!mailboxPlaced) {
-        i = rand() % MAX_ROWS;
-        j = rand() % MAX_COLUMNS;
-        if (cityMap->cells[i][j].type == WASTELAND){
-            cityMap->cells[i][j].has_mailbox = 1;
-            cityMap->mailbox_row = i;
-            cityMap->mailbox_column = j;
-            mailboxPlaced = 1;
-        }
+        // Vous pouvez également mettre à jour d'autres attributs du citoyen si nécessaire
+        // par exemple, la position du citoyen, etc.
+    } else {
+        fprintf(stderr, "Erreur : la maison est pleine.\n");
+        // Gérer la situation où la maison est pleine
     }
 }
 
+double distance(unsigned int pos1[2], unsigned int pos2[2]) {
+    return abs((int)pos1[0] - (int)pos2[0]) + abs((int)pos1[1] - (int)pos2[1]);
+}
 
-void place_citizens_on_map(map_t *cityMap, Citizen *citizens){
-    /* The counter intelligence officer is in the city hall */
-    citizens[CI_OFFICER_INDEX].location_row = CITY_HALL_ROW;
-    citizens[CI_OFFICER_INDEX].location_column = CITY_HALL_COLUMN;
-    citizens[CI_OFFICER_INDEX].currentBuilding = CITY_HALL;
-    citizens[CI_OFFICER_INDEX].at_home = 0;
+void assign_home_to_citizen(memory_t* memory, citizen_t* citizen){
+    
+
+    home_t *houses = memory->homes;
+    for(int i = 0; i < NB_HOMES; i++){
+        houses[i].max_capacity = 15;
+    }
+    // Assign a random house, respecting max capacity
+    int house_index;
+    do {
+        house_index = rand() % NB_HOMES;
+    } while (houses[house_index].nb_citizen >= houses[house_index].max_capacity);
+    citizen->home = &houses[house_index];
+    houses[house_index].nb_citizen++;
+}
+
+void assing_company_to_citizen(memory_t* memory, citizen_t* citizen){
+    
+    building_t *buildings = memory->companies;
+    
+    for(int i = 0; i < NB_BUISNESSES; i++){
+        if(i < 2){
+            buildings[i].type = STORE;
+            buildings[i].max_workers = 3;
+            buildings[i].min_workers = 3;
+        } else {
+            buildings[i].min_workers = 5;
+            buildings[i].max_workers = 50;
+            buildings[i].type = CORPORATION;
+        }
+    }
+    // Assign a random company, respecting max capacity
+    int company_index;
+    do {
+        company_index = rand() % NB_BUISNESSES;
+    } while (buildings[company_index].nb_workers >= buildings[company_index].max_workers 
+            && buildings[company_index].nb_workers <= buildings[company_index].min_workers);
+    citizen->workplace = &buildings[company_index];
+    buildings[company_index].nb_workers++;
+}
+
+void assing_nearest_supermarket(memory_t* memory, citizen_t* citizen){
+    
+    // Find nearest supermarket
+    building_t *buildings = memory->companies;
+    // Les deux premiers emplacements sont donnés aux supermarchés
+    double dist1 = distance(buildings[0].position, citizen->workplace->position);
+    double dist2 = distance(buildings[1].position, citizen->workplace->position);
+    citizen->supermarket = dist1 > dist1 ? &buildings[0] : &buildings[1];
+}
+
+void init_citizens(memory_t *memory) {
+    srand(time(NULL));
+
 
     for (int i = 0; i < CITIZENS_COUNT; i++) {
-        if (i != CI_OFFICER_INDEX) {
-            int placed = 0;
-            while (!placed) {
-                int x = rand() % MAX_ROWS;
-                int y = rand() % MAX_COLUMNS;
+        citizen_t *citizen = &memory->citizens[i];
 
-                if (cityMap->cells[x][y].type == RESIDENTIAL_BUILDING && !(cityMap->cells[x][y].has_mailbox)) {
-                    if (!is_spy(citizens[i]) || is_within_distance(cityMap, x, y, 4)) {
-                        citizens[i].location_row = x;
-                        citizens[i].location_column = y;
-                        citizens[i].currentBuilding = RESIDENTIAL_BUILDING;
-                        citizens[i].at_home = 1;
-                        cityMap->cells[x][y].nb_of_characters++;
-                        placed = 1;
-                    }
-                }
-            }
-        }
+        citizen->type = NORMAL;
+        citizen->health = 10;
+        // printf("ftg Haykel ton micro de merde\n");
+
+        assign_home_to_citizen(memory, citizen);
+        printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
+        assing_company_to_citizen(memory, citizen);
+        printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, 
+                                                            citizen->workplace);
+        assing_nearest_supermarket(memory, citizen);
+        printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
     }
-}
-
-int is_spy(citizen_t citizen){
-    return citizen.type == SPY;
-}
-
-int is_within_distance(map_t *cityMap, int x, int y, int max_distance){
-    int mailbox_x = cityMap->mailbox_row;
-    int mailbox_y = cityMap->mailbox_column;
-
-    int distance = abs(x - mailbox_x) + abs(y - mailbox_y);
-
-    return distance <= max_distance;
+        
 }
 
 
@@ -131,7 +179,6 @@ void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
     for (int i = 0; i < MAX_ROWS; ++i) {
         for (int j = 0; j < MAX_COLUMNS; ++j) {
             surveillanceNetwork->devices[i][j].standard_camera = 1; // Standard cameras enabled by default
-            surveillanceNetwork->devices[i][j].infrared_camera = 1; // Infrared cameras enabled by default
             surveillanceNetwork->devices[i][j].lidar = 1; // Lidars enabled by default
         }
     }
@@ -140,34 +187,59 @@ void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
 }
 
 
-struct memory_s *create_shared_memory(const char *name) {
+
+memory_t *create_shared_memory(const char *name) {
     int shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666);
     if (shm_fd == -1) {
-        handle_fatal_error("shm_open")
+        perror("shm_open error");
+        exit(EXIT_FAILURE);
     }
 
+    // Calculate the size from the structure size
     size_t size = sizeof(struct memory_s);
 
     if (ftruncate(shm_fd, size) == -1) {
-        handle_fatal_error("ftruncate");
+        perror("ftruncate error");
+        exit(EXIT_FAILURE);
     }
 
-    struct memory_s *shared_memory = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
+    memory_t *shared_memory = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
     if (shared_memory == MAP_FAILED) {
-        handle_fatal_error("mmap");
+        perror("mmap error");
+        exit(EXIT_FAILURE);
     }
 
     close(shm_fd);
 
+    printf("avant de faire les init");
+
     // Initialize the shared memory as necessary
     shared_memory->memory_has_changed = 0;
     shared_memory->simulation_has_ended = 0;
-    init_map(&shared_memory->cityMap);
-    place_citizens_on_map(&shared_memory->cityMap, &shared_memory->citizens);
+    init_map(&shared_memory->map);
+    init_citizens(shared_memory);
     init_surveillance(&shared_memory->surveillanceNetwork);
-    shared_memory->mqInfo = init_mq();
 
     return shared_memory;
+}
+
+void start_simulation_processes() {
+    pid_t pid_monitor, pid_timer, pid_citizen_manager;
+
+    // Start timer process first
+    // pid_timer = start_timer();
+    // pid_citizen_manager = start_citizen_manager();
+
+    // Start monitor process
+    // pid_monitor = start_monitor(); 
+
+    // Wait for timer and monitor to finish
+    int status;
+    waitpid(pid_timer, &status, 0);
+    waitpid(pid_citizen_manager, &status, 0);
+    //waitpid(pid_monitor, &status, 0);
+    
+    // Add other child processes as needed
 }
 
 
@@ -276,16 +348,4 @@ mq_t init_mq(){
     attr.mq_curmsgs = 0;
     mqs.mq = mq_open("/mq",O_CREAT | O_RDWR,0644,&attr);
     return mqs;
-}
-
-void signals(){
-    struct sigaction action;
-
-    action.sa_handler = handle_signal;
-    action.sa_flags = 0;
-    sigemptyset(&action.sa_mask);
-
-    /* Set signal handlers */
-    sigaction(SIGUSR1, &action, NULL);
-    sigaction(SIGUSR2, &action, NULL);
 }
