@@ -70,7 +70,6 @@ int main()
         perror("mmap error");
         exit(EXIT_FAILURE);
     }
-<<<<<<< HEAD
 
     printf("Memory mapping successful.\n");
     
@@ -180,7 +179,7 @@ int main()
     
 >>>>>>> a63e51d (changed the header files so that memory has everything)
     /*  Loop and get user input  */
-    while (true) {
+    while (!memory->simulation_has_ended) {
         key = getch();
 
         switch (key) {
@@ -195,11 +194,7 @@ int main()
         if (memory->memory_has_changed) {
             update_values(memory);
             memory->memory_has_changed = 0;
-<<<<<<< HEAD
         } else {
-=======
-        } else{
->>>>>>> a63e51d (changed the header files so that memory has everything)
             pause();
         }
         

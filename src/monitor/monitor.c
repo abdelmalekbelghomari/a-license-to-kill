@@ -498,9 +498,9 @@ void display_enemy_country_monitor(WINDOW *window)
 
 void update_values(memory_t *mem) {
     display_general_information_values(city_window, mem);
-    display_character_information(character_window, mem);
-    display_mailbox_content(mailbox_content_window, mem);
-    display_enemy_country_monitor(enemy_country_monitor);
-	mem->memory_has_changed = 1;
+    // display_character_information(character_window, mem);
+    // display_mailbox_content(mailbox_content_window, mem);
+    // display_enemy_country_monitor(enemy_country_monitor);
+	mem->memory_has_changed = 0;
 }
 
