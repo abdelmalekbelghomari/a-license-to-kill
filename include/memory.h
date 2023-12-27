@@ -215,4 +215,5 @@ struct memory_s {
     surveillanceNetwork_t surveillanceNetwork;
 };
 
+
 #endif /* MEMORY_H */

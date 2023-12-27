@@ -6,8 +6,8 @@
 #include <string.h>
 #include <ncurses.h>
 
-#include "../../include/monitor_common.h"
-#include "../../include/monitor.h"
+#include "monitor_common.h"
+#include "monitor.h"
 
 extern WINDOW *main_window;
 extern int old_cursor;

@@ -225,14 +225,20 @@ void display_general_information_values(WINDOW *window, memory_t *mem)
     /* --------------------------------------------------------------------- */
     /*                 Get information from mem about simulation    
     */
+    int simulation_has_ended;
+    int hour;
+    int minutes;
+    double elapsed_time;
+    char *result;
+
+
+    simulation_has_ended = mem->simulation_has_ended;
+    hour = mem->timer.hours;
+    minutes = mem->timer.minutes;
+    elapsed_time = (double)mem->timer.round; // Supposons que chaque round représente 10 minutes
+    result = NULL;
+
     
-    int simulation_has_ended = mem->simulation_has_ended;
-    int hour = mem->timer.hours;
-    int minutes = mem->timer.minutes;
-    double elapsed_time = (double)mem->timer.round; // Supposons que chaque round représente 10 minutes
-    char *result = NULL;
-
-
    /* ---------------------------------------------------------------------- */
 
     mvwprintw(window, 20, 8, "%.f", elapsed_time);

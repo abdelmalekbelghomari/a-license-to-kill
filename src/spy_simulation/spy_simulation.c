@@ -18,8 +18,8 @@ void signal_handler(int signal, memory_t *shared_memory) {
 
 bool is_valid_move(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col) {
     return (row >= 0) && (row < MAX_ROWS) && (col >= 0) && (col < MAX_COLUMNS) 
-           && (cityMap->cells[row][col].type == WASTELAND || cityMap->cells[row][col].type == RESIDENTIAL_BUILDING) 
-           && !visited[row][col];
+        && (cityMap->cells[row][col].type == WASTELAND || cityMap->cells[row][col].type == RESIDENTIAL_BUILDING) 
+        && !visited[row][col];
 }
 
 bool dfs(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col, int endRow, int endCol) {
@@ -143,35 +143,43 @@ memory_t *create_shared_memory(const char *name) {
 }
 
 void start_simulation_processes(){
-    pid_t pid_monitor, pid_enemy_spy_network, pid_citizen_manager, pid_enemy_country,
-    pid_counterintelligence_officer, pid_timer;
+    // pid_t pid_monitor, pid_enemy_spy_network, pid_citizen_manager, pid_enemy_country,
+    // pid_counterintelligence_officer, pid_timer;
+    int num_children =0;
+    pid_t pidExecutables[2];
 
-    pid_monitor = fork();
-    if (pid_monitor == -1) {
+    pidExecutables[num_children] = fork();
+    if (pidExecutables[num_children] == -1) {
+        perror("Error [fork()] timer: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pidExecutables[num_children] == 0) {
+        if (execl("./bin/timer", "timer", NULL) == -1) {
+            perror("Error [execl] timer: ");
+            exit(EXIT_FAILURE);
+        }
+    }
+    num_children++;
+
+    pidExecutables[num_children] = fork();
+    if (pidExecutables[num_children] == -1) {
         perror("Error [fork()] monitor:");
         exit(EXIT_FAILURE);
     }
-    if (pid_monitor == 0) {
+    if (pidExecutables[num_children] == 0) {
         if (execl("./bin/monitor", "monitor", NULL) == -1) {
             perror("Error [execl] monitor: ");
             exit(EXIT_FAILURE);
         }
         
     }
+    num_children++;
     
-    
-    pid_timer = fork();
-    if (pid_timer == -1) {
-        perror("Error [fork()] timer: ");
-        exit(EXIT_FAILURE);
+   
+    for (int i = 0; i < num_children; i++) {
+        int status;
+        waitpid(pidExecutables[i], &status, 0);
     }
-    if (pid_timer == 0) {
-        if (execl("./bin/timer", "timer", NULL) == -1) {
-            perror("Error [execl] timer: ");
-            exit(EXIT_FAILURE);
-        }
-    }
-    wait(NULL);
     
     
     /*pid_citizen_manager = fork();
@@ -224,3 +232,4 @@ void start_simulation_processes(){
     
     
 }
+

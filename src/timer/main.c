@@ -3,7 +3,7 @@
 
 pthread_mutex_t mutexTimer1 = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-memory_t *memory = NULL;
+memory_t *memory;
 
 
 simulated_clock_t new_timer(){
@@ -16,8 +16,8 @@ simulated_clock_t new_timer(){
 }
 
 void update_timer(memory_t *memory){
-    memory->memory_has_changed = 0;
     memory->timer.round++;
+    // printf("Max rounds: %d\n", MAX_ROUNDS);
     if(memory->timer.round == MAX_ROUNDS){
         memory->simulation_has_ended = 1;
     }
@@ -36,6 +36,7 @@ void update_timer(memory_t *memory){
 void tick_clock(int sig){
     if(sig == SIGALRM){
         pthread_mutex_lock(&mutex);
+        memory->memory_has_changed = 1;
         update_timer(memory);
         // printf("Round: %d\n", memory->timer.round);
         // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
@@ -57,11 +58,7 @@ int main() {
         perror("Error when shm_open");
         exit(EXIT_FAILURE);
     }
-    if (ftruncate(shm_fd, sizeof(memory_t)) == -1) {
-        perror("Error in ftruncate");
-        close(shm_fd);
-        exit(EXIT_FAILURE);
-    }
+
     // Mapper la mémoire partagée
     memory = mmap(NULL, sizeof(memory_t), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
     if (memory == MAP_FAILED) {
@@ -69,9 +66,6 @@ int main() {
         close(shm_fd);
         exit(EXIT_FAILURE);
     }
-
-    // Fermer le file descriptor de la mémoire partagée
-    close(shm_fd);
 
     // Initialiser le timer
     simulated_clock_t timer = new_timer();
@@ -81,24 +75,34 @@ int main() {
 
     // Configurer le timer
     struct itimerval it;
-    memset(&it, 0, sizeof(it));
+    memset(&it, 0, sizeof(it)); // Initialize the structure to zeros
 
-    if (STEP >= 1000000) {
-        it.it_interval.tv_sec = STEP / 1000000;
-        it.it_value.tv_sec = STEP / 1000000;
-    } else {
-        it.it_interval.tv_usec = STEP;
-        it.it_value.tv_usec = STEP;
-    }
-    setitimer(ITIMER_REAL, &it, NULL);
+    // Set the timer to go off after 1 second and then every 1 second thereafter
+    it.it_value.tv_sec = 1;    // 1 second until the first timer event
+    it.it_value.tv_usec = 0;   // 0 microseconds
+    it.it_interval.tv_sec = 1; // 1 second between subsequent timer events
+    it.it_interval.tv_usec = 0; // 0 microseconds
 
     // Configurer le gestionnaire de signal pour SIGALRM
     struct sigaction sa_clock;
     memset(&sa_clock, 0, sizeof(sa_clock)); // Initialiser la structure à 0
     sa_clock.sa_handler = &tick_clock;
     sigaction(SIGALRM, &sa_clock, NULL);
-    
-    while (1) {
+    setitimer(ITIMER_REAL, &it, NULL);
+
+    while (1) { 
+        // if(memory->simulation_has_ended){
+        //     break;
+        // } else {
+        //     pthread_mutex_lock(&mutexTimer1);
+        //     update_timer(memory);
+        //     pthread_mutex_unlock(&mutexTimer1);
+        //     // printf("Round: %d\n", memory->timer.round);
+        //     // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
+        // }
+        // sleep(1);
+
+
         pause();
     }
     
