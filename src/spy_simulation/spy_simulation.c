@@ -142,6 +142,7 @@ memory_t *create_shared_memory(const char *name) {
     return shared_memory;
 }
 
+<<<<<<< HEAD
 void start_simulation_processes(){
     // pid_t pid_monitor, pid_enemy_spy_network, pid_citizen_manager, pid_enemy_country,
     // pid_counterintelligence_officer, pid_timer;
@@ -233,3 +234,37 @@ void start_simulation_processes(){
     
 }
 
+=======
+void start_simulation_processes() {
+    pid_t pid_monitor, pid_timer;
+
+    // Start timer process first
+    pid_timer = fork();
+    if (pid_timer == 0) {
+        execl("./bin/timer", "timer", NULL);
+        perror("Error [execl] timer: ");
+        exit(EXIT_FAILURE);
+    } else if (pid_timer < 0) {
+        perror("Error [fork()] timer: ");
+        exit(EXIT_FAILURE);
+    }
+
+    // Start monitor process
+    pid_monitor = fork();
+    if (pid_monitor == 0) {
+        execl("./bin/monitor", "monitor", NULL);
+        perror("Error [execl] monitor: ");
+        exit(EXIT_FAILURE);
+    } else if (pid_monitor < 0) {
+        perror("Error [fork()] monitor:");
+        exit(EXIT_FAILURE);
+    }
+
+    // Wait for timer and monitor to finish
+    int status;
+    waitpid(pid_timer, &status, 0);
+    waitpid(pid_monitor, &status, 0);
+    
+    // Add other child processes as needed
+}
+>>>>>>> a63e51d (changed the header files so that memory has everything)

@@ -1,12 +1,11 @@
 #include <stdio.h>
-#include "citizen_manager.h"
+#include "../../include/citizen_manager.h"
 #include <pthread.h>
 #include <sys/shm.h>
-#include "memory.h"
+#include "../../include/memory.h"
 
-#define SHARED_MEMORY "/spy_simulation"
+#define SHARED_MEMORY "/SharedMemory"
 
-memory_t *memory;  // Pointer to the shared memory
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_barrier_t start_barrier, end_barrier;
 

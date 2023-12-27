@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ncurses.h>
+#include <pthread.h>
 
 #include "monitor_common.h"
 #include "monitor.h"
@@ -28,7 +29,7 @@
 
 extern WINDOW *main_window;
 extern int old_cursor;
-
+pthread_mutex_t mutex;
 /**
  * \file main.c
  *
@@ -52,6 +53,8 @@ int main()
 
     memory_t *memory;
     monitor_t *monitor;
+    
+    
 
     /* ---------------------------------------------------------------------- */ 
     /* The following code only allows to avoid segmentation fault !           */ 
@@ -67,6 +70,7 @@ int main()
         perror("mmap error");
         exit(EXIT_FAILURE);
     }
+<<<<<<< HEAD
 
     printf("Memory mapping successful.\n");
     
@@ -136,10 +140,19 @@ int main()
     //     }
     // }
 
+=======
+    close(shm);
+    /* ---------------------------------------------------------------------- */ 
+    
+    monitor = (monitor_t *)malloc(sizeof(monitor_t));
+    monitor->has_to_update = 0;
+    
+    set_timer();
+    set_signals();
+>>>>>>> a63e51d (changed the header files so that memory has everything)
     if ((main_window = initscr()) == NULL) {
         quit_after_error("Error initializing library ncurses!");
     }
-
     clear();                  /* Start from an empty screen. */
     cbreak();                 /* No line buffering, pass every key pressed. */
     noecho();                 /* Do not echo the keyboard input. */
@@ -154,8 +167,18 @@ int main()
     /*Initialize the spy simulation*/
     /* Initialize terminal user interface elements */
     init_monitor_elements(main_window, memory, rows, cols);
+<<<<<<< HEAD
     
 
+=======
+    sleep(2);
+            update_values(memory);
+            sleep(2);
+            update_values(memory);
+            sleep(2);
+            update_values(memory);
+    
+>>>>>>> a63e51d (changed the header files so that memory has everything)
     /*  Loop and get user input  */
     while (true) {
         key = getch();
@@ -168,13 +191,22 @@ int main()
             default:
                 break;
         }
-
+        
         if (memory->memory_has_changed) {
             update_values(memory);
             memory->memory_has_changed = 0;
+<<<<<<< HEAD
         } else {
+=======
+        } else{
+>>>>>>> a63e51d (changed the header files so that memory has everything)
             pause();
         }
+        
+        //pthread_mutex_lock(&mutex);
+        //update_values(memory);
+        //pthread_mutex_unlock(&mutex);
+    
 
     }
 
