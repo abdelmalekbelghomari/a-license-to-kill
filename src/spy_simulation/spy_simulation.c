@@ -99,6 +99,7 @@ void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
     for (int i = 0; i < MAX_ROWS; ++i) {
         for (int j = 0; j < MAX_COLUMNS; ++j) {
             surveillanceNetwork->devices[i][j].standard_camera = 1; // Standard cameras enabled by default
+            surveillanceNetwork->devices[i][j].lidar = 1; // Lidars enabled by default
         }
     }
     // Initialization of the AI state

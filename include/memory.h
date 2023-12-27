@@ -88,6 +88,7 @@ struct mq_s {
 // Structure for surveillance devices on each cell
 typedef struct {
     int standard_camera; // Status of the standard camera (enabled/disabled)
+    int infrared_camera; // Status of the infrared camera (enabled/disabled)
     int lidar; // Status of the lidar (enabled/disabled)
 } SurveillanceDevices;
 

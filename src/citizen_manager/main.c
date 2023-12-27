@@ -18,8 +18,6 @@ int main() {
     pthread_barrier_t start_barrier, end_barrier;
     pthread_mutex_t mutex;
     memory_t *memory;
-    pthread_barrier_t start_barrier, end_barrier;
-    pthread_mutex_t mutex;
     int shmd;
 
     // Initialiser la mémoire partagée
