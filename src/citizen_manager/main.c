@@ -1,6 +1,6 @@
 #include "../../include/citizen_manager.h"
 #include <stdio.h>
-#include "memory.h"
+#include "../../include/memory.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -11,11 +11,13 @@
 
 #define SHARED_MEMORY "/SharedMemory"
 #define NUM_CITIZENS 127
-//extern memory_t *memory;  
 
 int main() {
+    memory_t *memory;
+    int shmd;
+
     // Initialiser la mémoire partagée
-    use_shared_memory();
+    shmd = use_shared_memory(&memory);  // Cette fonction devrait retourner le descripteur shm
 
     // Initialiser les outils de synchronisation
     initialize_synchronization_tools();
@@ -25,20 +27,28 @@ int main() {
 
     // Boucle principale de gestion des citoyens
     while (!memory->simulation_has_ended) {
-        // Attendre que tous les threads soient prêts
         pthread_barrier_wait(&start_barrier);
 
-        // Ici, vous pouvez ajouter une logique pour gérer les actions des citoyens
+        // Logique de gestion des actions des citoyens
 
-        // Indiquer la fin du tour et attendre que tous les threads aient fini
         pthread_barrier_wait(&end_barrier);
-
-        // (Optionnel) Ajouter une pause pour simuler le temps de simulation
-        sleep(1);
+        sleep(1); // Pause pour simuler le temps de simulation
     }
 
     // Nettoyer et fermer le programme proprement
-    // ...
+    // Attendre la fin des threads
+    finalize_citizen_threads();  // Vous devriez avoir une fonction pour attendre/joindre les threads
+
+    // Destruction des outils de synchronisation
+    pthread_barrier_destroy(&start_barrier);
+    pthread_barrier_destroy(&end_barrier);
+    pthread_mutex_destroy(&mutex);
+
+    // Libération de la mémoire partagée
+    munmap(memory, sizeof(memory_t));  // Assurez-vous que la taille est correcte
+
+    // Fermeture du descripteur de mémoire partagée
+    close(shmd);
 
     return 0;
 }

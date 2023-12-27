@@ -9,7 +9,7 @@
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_barrier_t start_barrier, end_barrier;
 
-void use_shared_memory() {
+void use_shared_memory(memory_t *memory) {
     int shmd = shm_open(SHARED_MEMORY, O_RDWR,  S_IRUSR | S_IWUSR);
     if (shmd == -1) {
         perror("shm_open");

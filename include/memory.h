@@ -286,8 +286,7 @@ struct memory_s {
     surveillanceNetwork_t surveillanceNetwork;
 };
 
-<<<<<<< HEAD
-=======
+
 struct building_s {
     unsigned int position[2];
     building_type_t type;
