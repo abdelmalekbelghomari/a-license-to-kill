@@ -140,16 +140,6 @@ int main()
     //     }
     // }
 
-=======
-    close(shm);
-    /* ---------------------------------------------------------------------- */ 
-    
-    monitor = (monitor_t *)malloc(sizeof(monitor_t));
-    monitor->has_to_update = 0;
-    
-    set_timer();
-    set_signals();
->>>>>>> a63e51d (changed the header files so that memory has everything)
     if ((main_window = initscr()) == NULL) {
         quit_after_error("Error initializing library ncurses!");
     }
@@ -196,9 +186,6 @@ int main()
             update_values(memory);
             memory->memory_has_changed = 0;
 <<<<<<< HEAD
-        } else {
-=======
-        } else{
 >>>>>>> a63e51d (changed the header files so that memory has everything)
             pause();
         }
