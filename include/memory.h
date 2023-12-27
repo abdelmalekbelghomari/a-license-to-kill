@@ -333,6 +333,5 @@ void citizen_change_state(citizen_t *c, state_t *new_state);
 
 
 
->>>>>>> a63e51d (changed the header files so that memory has everything)
 
 #endif /* MEMORY_H */
