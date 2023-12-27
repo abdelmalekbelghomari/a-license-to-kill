@@ -105,6 +105,11 @@ int main()
                 printf("Cell[%d][%d] - Standard camera: %d, Infrared camera: %d, Lidar: %d\n", i, j, memory->surveillanceNetwork.devices[i][j].standard_camera, memory->surveillanceNetwork.devices[i][j].infrared_camera, memory->surveillanceNetwork.devices[i][j].lidar);
             }
         }
+        if(memory->memory_has_changed){
+            printf("Memory has changed: %d\n", memory->memory_has_changed);
+            printf("Timer: %d:%d\n", memory->timer.hours, memory->timer.minutes);
+        }
+
     } else {
         perror("Memory mapping failed");
     }

@@ -37,8 +37,8 @@ void tick_clock(int sig){
     if(sig == SIGALRM){
         pthread_mutex_lock(&mutex);
         update_timer(memory);
-        printf("Round: %d\n", memory->timer.round);
-        printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
+        // printf("Round: %d\n", memory->timer.round);
+        // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
         pthread_mutex_unlock(&mutex);
         alarm(1);
 
@@ -90,13 +90,14 @@ int main() {
         it.it_interval.tv_usec = STEP;
         it.it_value.tv_usec = STEP;
     }
+    setitimer(ITIMER_REAL, &it, NULL);
 
     // Configurer le gestionnaire de signal pour SIGALRM
     struct sigaction sa_clock;
     memset(&sa_clock, 0, sizeof(sa_clock)); // Initialiser la structure à 0
     sa_clock.sa_handler = &tick_clock;
     sigaction(SIGALRM, &sa_clock, NULL);
-    setitimer(ITIMER_REAL, &it, NULL);
+    
     while (1) {
         pause();
     }

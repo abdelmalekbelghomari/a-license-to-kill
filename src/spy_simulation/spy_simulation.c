@@ -156,8 +156,23 @@ void start_simulation_processes(){
             perror("Error [execl] monitor: ");
             exit(EXIT_FAILURE);
         }
+        
+    }
+    
+    
+    pid_timer = fork();
+    if (pid_timer == -1) {
+        perror("Error [fork()] timer: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_timer == 0) {
+        if (execl("./bin/timer", "timer", NULL) == -1) {
+            perror("Error [execl] timer: ");
+            exit(EXIT_FAILURE);
+        }
     }
     wait(NULL);
+    
     
     /*pid_citizen_manager = fork();
     if (pid_citizen_manager == -1) {
@@ -207,15 +222,5 @@ void start_simulation_processes(){
         }
     }*/
     
-    /*pid_timer = fork();
-    if (pid_timer == -1) {
-        perror("Error [fork()] timer: ");
-        exit(EXIT_FAILURE);
-    }
-    if (pid_timer == 0) {
-        if (execl("./bin/timer", "timer", NULL) == -1) {
-            perror("Error [execl] timer: ");
-            exit(EXIT_FAILURE);
-        }
-    }*/
+    
 }

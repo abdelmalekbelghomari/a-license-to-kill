@@ -31,7 +31,7 @@ src/spy_simulation/spy_simulation.o: src/spy_simulation/spy_simulation.c include
 # ----------------------------------------------------------------------------
 # MONITOR
 # ----------------------------------------------------------------------------
-bin/monitor: src/monitor/main.o src/monitor/monitor.o src/monitor/monitor_common.o src/common/logger.o src/timer/timer.o
+bin/monitor: src/monitor/main.o src/monitor/monitor.o src/monitor/monitor_common.o src/common/logger.o 
 	$(CC) $^ -o $@ $(LDFLAGS)
 
 src/monitor/main.o: src/monitor/main.c include/monitor.h include/monitor_common.h include/timer.h
@@ -43,7 +43,7 @@ src/monitor/monitor.o: src/monitor/monitor.c include/monitor.h include/timer.h
 # ----------------------------------------------------------------------------
 # TIMER
 # ----------------------------------------------------------------------------
-bin/timer: src/timer/main.o src/timer/timer.o 
+bin/timer: src/timer/main.o 
 	$(CC) $^ -o $@ $(LDFLAGS)
 
 src/timer/main.o: src/timer/main.c include/timer.h include/memory.h
