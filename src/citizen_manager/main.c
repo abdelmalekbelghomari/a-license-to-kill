@@ -1,6 +1,6 @@
-#include "../../include/citizen_manager.h"
+#include "memory.h"
+#include "citizen_manager.h"
 #include <stdio.h>
-#include "../../include/memory.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -12,8 +12,12 @@
 #define SHARED_MEMORY "/SharedMemory"
 #define NUM_CITIZENS 127
 
+
+
 int main() {
     memory_t *memory;
+    pthread_barrier_t start_barrier, end_barrier;
+    pthread_mutex_t mutex;
     int shmd;
 
     // Initialiser la mémoire partagée
