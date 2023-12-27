@@ -1,9 +1,8 @@
 #include "timer.h"
 #define SHARED_MEMORY "/SharedMemory"
 
-pthread_mutex_t mutexTimer1 = PTHREAD_MUTEX_INITIALIZER;
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 memory_t *memory;
+sem_t *sem;
 
 
 simulated_clock_t new_timer(){
@@ -16,7 +15,6 @@ simulated_clock_t new_timer(){
 }
 
 void update_timer(memory_t *memory){
-    memory->memory_has_changed = 0;
     memory->timer.round++;
     if(memory->timer.round == MAX_ROUNDS){
         memory->simulation_has_ended = 1;
@@ -30,16 +28,15 @@ void update_timer(memory_t *memory){
         memory->timer.days++;
         memory->timer.hours = 0;
     }
-    memory->memory_has_changed = 1;
 }
 
 void tick_clock(int sig){
     if(sig == SIGALRM){
-        pthread_mutex_lock(&mutex);
+        sem_wait(sem);
         update_timer(memory);
-        // printf("Round: %d\n", memory->timer.round);
-        // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
-        pthread_mutex_unlock(&mutex);
+        printf("Round: %d\n", memory->timer.round);
+        printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
+        sem_post(sem);
         alarm(1);
 
     }
@@ -49,17 +46,18 @@ void tick_clock(int sig){
 int main() {
 
     int shm_fd;
-    pthread_mutex_init(&mutexTimer1, NULL);
 
-    // Ouvrir la mémoire partagée
-    shm_fd = shm_open(SHARED_MEMORY, O_CREAT | O_RDWR, 0666);
-    if (shm_fd == -1) {
-        perror("Error when shm_open");
+    sem = sem_open("/timer_sem", 0);
+    if (sem == SEM_FAILED) {
+        perror("sem_open failed in timer process");
         exit(EXIT_FAILURE);
     }
-    if (ftruncate(shm_fd, sizeof(memory_t)) == -1) {
-        perror("Error in ftruncate");
-        close(shm_fd);
+
+
+    // Ouvrir la mémoire partagée
+    shm_fd = shm_open(SHARED_MEMORY, O_RDWR , 0666);
+    if (shm_fd == -1) {
+        perror("Error when shm_open");
         exit(EXIT_FAILURE);
     }
     // Mapper la mémoire partagée
@@ -72,9 +70,9 @@ int main() {
 
     // Initialiser le timer
     simulated_clock_t timer = new_timer();
-    pthread_mutex_lock(&mutexTimer1);
+
     memory->timer = timer;
-    pthread_mutex_unlock(&mutexTimer1);
+
 
     // Configurer le timer
     struct itimerval it;
@@ -109,9 +107,8 @@ int main() {
 
 
         // pause();
-    }
-    
-    pthread_mutex_destroy(&mutexTimer1);
+    }  
+    sem_close(sem);
 
     return 0;
 }

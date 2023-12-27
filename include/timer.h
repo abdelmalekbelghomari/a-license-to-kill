@@ -11,6 +11,8 @@
 #include <sys/time.h>
 #include <pthread.h>
 #include <sys/mman.h>
+#include <semaphore.h>
+
 #include "memory.h"
 
 #define STEP 1000000

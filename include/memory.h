@@ -235,29 +235,29 @@ struct counterintelligence_officer_s {
     int targeted_character_id;                            /*!< The targeted character id.*/
 }; 
 
-// struct citizen_s {
-//     unsigned int id;
-//     unsigned int position [2];
-//     unsigned int health ;
-//     citizen_type_t type;
-//     building_t *workplace, *supermarket; /*the nearest supermarket from his company*/
-//     home_t *home; 
+struct citizen_s {
+    unsigned int id;
+    unsigned int position [2];
+    unsigned int health ;
+    citizen_type_t type;
+    building_t *workplace, *supermarket; /*the nearest supermarket from his company*/
+    home_t *home; 
 
-//     state_t *current_state;
-//     state_t *next_state;
-//     state_t *resting_at_home;
-//     state_t *going_to_company;
-//     state_t *working;
-//     state_t *going_to_supermarket;
-//     state_t *doing_some_shopping;
-//     state_t *going_back_home;
-//     state_t *dying;
+    state_t *current_state;
+    state_t *next_state;
+    state_t *resting_at_home;
+    state_t *going_to_company;
+    state_t *working;
+    state_t *going_to_supermarket;
+    state_t *doing_some_shopping;
+    state_t *going_back_home;
+    state_t *dying;
 
-//     void (*change_state)(citizen_t *, state_t *);
-//     void (*begin)(citizen_t *);
-//     void (*end)(citizen_t *);
-//     void (*step)(citizen_t *);
-// };
+    void (*change_state)(citizen_t *, state_t *);
+    void (*begin)(citizen_t *);
+    void (*end)(citizen_t *);
+    void (*step)(citizen_t *);
+};
 
 /**
  * \brief Shared memory used by all processes.
