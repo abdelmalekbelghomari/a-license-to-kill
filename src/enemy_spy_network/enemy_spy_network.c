@@ -47,9 +47,9 @@ int someone_stolen(int row, int column){
   if(memory->map.cells[row][column].allowed_thief){
     return 0;
   }
-  if(memory->map.cells[row][column].last_thief >= memory->map.cells[row][column].last_thief +"???" ){
+  if(memory->map.cells[row][column].last_thief >= memory->map.cells[row][column].last_thief + 1296 ){
     memory->map.cells[row][column].allowed_thief = 1;
-    memory->map.cells[row][column].allowed_thief = memory->map.cells[row][column].allowed_thief + "???";
+    memory->map.cells[row][column].allowed_thief = memory->map.cells[row][column].allowed_thief + 1296;
     return 1;
   }
   return 1;
