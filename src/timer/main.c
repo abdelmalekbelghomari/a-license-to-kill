@@ -29,30 +29,16 @@ void update_timer(memory_t *memory){
 
 void tick_clock(int sig){
     if(sig == SIGALRM){
+        // memory->memory_has_changed = 1;
         // sem_wait(sem);
-        if(memory->timer.round == MAX_ROUNDS){
-            memory->simulation_has_ended = 1;
-            return;
-        } else {
-            memory->timer.round++;
-            memory->timer.minutes += 10;
-            if (memory->timer.minutes >= 60){
-                memory->timer.hours++;
-                memory->timer.minutes = 0;
-            }
-            if (memory->timer.hours >= 24){
-                memory->timer.days++;
-                memory->timer.hours = 0;
-            }
-            // update_timer(memory);
-            printf("Round: %d\n", memory->timer.round);
-            printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
-            // sem_post(sem);
-            alarm(1);
-        }
-        
+        update_timer(memory);
+        // printf("Round: %d\n", memory->timer.round);
+        // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
+        memory->memory_has_changed = 1;
+        // sem_post(sem);
+        alarm(1);
     }
-    
+        
 }
 
 int main() {
@@ -92,7 +78,7 @@ int main() {
 
     // Configurer le timer
     struct itimerval it;
-    memset(&it, 0, sizeof(it));
+    memset(&it, 0, sizeof(it)); // Initialiser la structure à 0
 
     if (STEP >= 1000000) {
         it.it_interval.tv_sec = STEP / 1000000;
@@ -105,10 +91,11 @@ int main() {
 
     // Configurer le gestionnaire de signal pour SIGALRM
     struct sigaction sa_clock;
-    memset(&sa_clock, 0, sizeof(sa_clock)); // Initialiser la structure à 0
+    memset(&sa_clock, 0, sizeof(sa_clock)); 
     sa_clock.sa_handler = &tick_clock;
     sigaction(SIGALRM, &sa_clock, NULL);
     alarm(1);
+    
     while(1){
         pause();
     }

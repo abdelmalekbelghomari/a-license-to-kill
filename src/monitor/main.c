@@ -167,7 +167,7 @@ int main()
     init_monitor_elements(main_window, memory, rows, cols);
 
     /*  Loop and get user input  */
-    while (!memory->simulation_has_ended) {
+    while (1) {
         key = getch();
 
         switch (key) {
@@ -181,7 +181,7 @@ int main()
         
         if (memory->memory_has_changed) {
             update_values(memory);
-            memory->memory_has_changed = 0;
+            //memory->memory_has_changed = 1;
         }// else {
         //     pause();
         // }

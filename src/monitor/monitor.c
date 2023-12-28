@@ -235,7 +235,7 @@ void display_general_information_values(WINDOW *window, memory_t *mem)
     simulation_has_ended = mem->simulation_has_ended;
     hour = mem->timer.hours;
     minutes = mem->timer.minutes;
-    elapsed_time = (double)mem->timer.round; // Supposons que chaque round représente 10 minutes
+    elapsed_time = (double)mem->timer.round;
     result = NULL;
 
     
@@ -501,6 +501,6 @@ void update_values(memory_t *mem) {
     // display_character_information(character_window, mem);
     // display_mailbox_content(mailbox_content_window, mem);
     // display_enemy_country_monitor(enemy_country_monitor);
-	mem->memory_has_changed = 0;
+	// mem->memory_has_changed = 0;
 }
 
