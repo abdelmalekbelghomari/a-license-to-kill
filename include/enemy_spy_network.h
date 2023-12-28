@@ -46,7 +46,6 @@ void case_officer_go_home(case_officer_t* case_officer);
 
 void* spy_life(void* thread);
   
-void* case_officer_life(void* thread);
 
 #endif /* ENEMY_SPY_NETWORK_H */
 
