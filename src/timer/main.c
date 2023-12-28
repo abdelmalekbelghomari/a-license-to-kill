@@ -16,9 +16,6 @@ simulated_clock_t new_timer(){
 
 void update_timer(memory_t *memory){
     memory->timer.round++;
-    if(memory->timer.round == MAX_ROUNDS){
-        memory->simulation_has_ended = 1;
-    }
     memory->timer.minutes += 10;
     if (memory->timer.minutes >= 60){
         memory->timer.hours++;
@@ -32,13 +29,28 @@ void update_timer(memory_t *memory){
 
 void tick_clock(int sig){
     if(sig == SIGALRM){
-        sem_wait(sem);
-        update_timer(memory);
-        printf("Round: %d\n", memory->timer.round);
-        printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
-        sem_post(sem);
-        alarm(1);
-
+        // sem_wait(sem);
+        if(memory->timer.round == MAX_ROUNDS){
+            memory->simulation_has_ended = 1;
+            return;
+        } else {
+            memory->timer.round++;
+            memory->timer.minutes += 10;
+            if (memory->timer.minutes >= 60){
+                memory->timer.hours++;
+                memory->timer.minutes = 0;
+            }
+            if (memory->timer.hours >= 24){
+                memory->timer.days++;
+                memory->timer.hours = 0;
+            }
+            // update_timer(memory);
+            printf("Round: %d\n", memory->timer.round);
+            printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
+            // sem_post(sem);
+            alarm(1);
+        }
+        
     }
     
 }
@@ -46,13 +58,6 @@ void tick_clock(int sig){
 int main() {
 
     int shm_fd;
-
-    sem = sem_open("/timer_sem", 0);
-    if (sem == SEM_FAILED) {
-        perror("sem_open failed in timer process");
-        exit(EXIT_FAILURE);
-    }
-
 
     // Ouvrir la mémoire partagée
     shm_fd = shm_open(SHARED_MEMORY, O_RDWR , 0666);
@@ -68,11 +73,22 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
+    sem = sem_open("/timer_sem", 0);
+    if (sem == SEM_FAILED) {
+        perror("sem_open failed in timer process");
+        exit(EXIT_FAILURE);
+    }
+    printf("sem_open timer\n");
+
     // Initialiser le timer
     simulated_clock_t timer = new_timer();
 
+    // sem_wait(sem);
+    printf("sem_wait timer\n");
     memory->timer = timer;
-
+    // sem_post(sem);
+    printf("sem_post timer\n");
+    printf("Timer initialized\n");
 
     // Configurer le timer
     struct itimerval it;
@@ -92,23 +108,28 @@ int main() {
     memset(&sa_clock, 0, sizeof(sa_clock)); // Initialiser la structure à 0
     sa_clock.sa_handler = &tick_clock;
     sigaction(SIGALRM, &sa_clock, NULL);
+    alarm(1);
+    while(1){
+        pause();
+    }
     
-    while (1) { 
-        if(memory->simulation_has_ended){
-            break;
-        } else {
-            // pthread_mutex_lock(&mutexTimer1);
-            // update_timer(memory);
-            // pthread_mutex_unlock(&mutexTimer1);
-            // printf("Round: %d\n", memory->timer.round);
-            // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
-        }
-        // sleep(1);
+    // while (memory->simulation_has_ended == 0) { 
+    //     // if(memory->simulation_has_ended){
+    //     //     break;
+    //     // } else {
+    //         // pthread_mutex_lock(&mutexTimer1);
+    //         // update_timer(memory);
+    //         // pthread_mutex_unlock(&mutexTimer1);
+    //         // printf("Round: %d\n", memory->timer.round);
+    //         // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
+    //     // }
+    //     // sleep(1);
 
 
-        // pause();
-    }  
+    //     // pause();
+    // }
+    printf("Timer ended\n");
     sem_close(sem);
-
+    printf("sem_close timer\n");
     return 0;
 }

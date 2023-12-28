@@ -28,7 +28,7 @@ int main(int argc, char **argv)
     }
     start_simulation_processes();
     
-    sem_close(sem);
-    sem_unlink("/timer_sem");
+    // sem_close(sem);
+    // sem_unlink("/timer_sem");
 
 }

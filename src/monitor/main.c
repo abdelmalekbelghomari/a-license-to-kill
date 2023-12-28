@@ -182,9 +182,9 @@ int main()
         if (memory->memory_has_changed) {
             update_values(memory);
             memory->memory_has_changed = 0;
-        } else {
-            pause();
-        }
+        }// else {
+        //     pause();
+        // }
         
         //pthread_mutex_lock(&mutex);
         //update_values(memory);
