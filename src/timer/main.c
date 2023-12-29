@@ -1,4 +1,5 @@
 #include "timer.h"
+#include "spy_simulation.h"
 #define SHARED_MEMORY "/SharedMemory"
 
 memory_t *memory;
