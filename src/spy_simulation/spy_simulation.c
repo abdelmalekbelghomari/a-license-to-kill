@@ -2,6 +2,8 @@
 #include <time.h>
 #include <stdbool.h>
 #include "spy_simulation.h"
+#include <semaphore.h>
+#define MAX_MESSAGE_SIZE 256
 
 
 /*A utiliser dans citizen manager ou dans les .c correspondant
@@ -165,6 +167,21 @@ void init_map(map_t *cityMap) {
     place_building_randomly(cityMap, RESIDENTIAL_BUILDING, 11, 15);
 }
 
+mqd_t init_message_queue() {
+    struct mq_attr attr;
+    attr.mq_flags = 0; // Blocage ou non-blocage
+    attr.mq_maxmsg = 10; // Nombre maximal de messages dans la queue
+    attr.mq_msgsize = MAX_MESSAGE_SIZE; // Taille maximale d'un message
+    attr.mq_curmsgs = 0; // Nombre initial de messages
+
+    mqd_t mq = mq_open("/messageQueue", O_CREAT | O_RDWR, 0666, &attr);
+    if (mq == (mqd_t)-1) {
+        perror("mq_open error");
+        exit(EXIT_FAILURE);
+        
+    }
+    return mq; 
+}
 
 
 
@@ -277,7 +294,17 @@ void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
     surveillanceNetwork->surveillanceAI.suspicious_movement = 0; // No suspicious movement detected initially
 }
 
+sem_t* init_sem() {
+    // Créer un nouveau sémaphore ou ouvrir un existant
+    sem_t *sem = sem_open("/Mysemaphore", O_CREAT | O_RDWR, S_IRUSR | S_IWUSR, 1);
+    if (sem == SEM_FAILED) {
+        perror("sem_open");
+        exit(EXIT_FAILURE);
+    }
+    printf("\nla sémaphore est crée et fonctionne!\n");
 
+    return sem;
+}
 
 memory_t *create_shared_memory(const char *name) {
     int shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666);
@@ -309,6 +336,9 @@ memory_t *create_shared_memory(const char *name) {
     init_map(&shared_memory->map);
     init_surveillance(&shared_memory->surveillanceNetwork);
     //shared_memory->mqInfo = init_mq();
+    shared_memory->mqInfo.mq = init_message_queue();
+    init_sem();
+    
 
     return shared_memory;
 }
@@ -323,6 +353,7 @@ void start_simulation_processes() {
     pid_t pid_timer, pid_citizen_manager, pid_enemy_spy_network, pid_enemy_country;
 
     // Start timer process
+<<<<<<< HEAD
     pid_timer = fork();
     if (pid_timer == 0) {
         execl("./bin/timer", "timer", NULL);
@@ -422,6 +453,17 @@ void start_simulation_processes(){
     /*pid_counterintelligence_officer = fork();
     if (pid_counterintelligence_officer == -1) {
         perror("Error [fork()] counterintelligence_officer: ");
+=======
+    // pid_timer = fork();
+    // if (pid_timer == 0) {
+    //     execl("./bin/timer", "timer", NULL);
+    //     perror("Error [execl] timer: ");
+    //     exit(EXIT_FAILURE);
+    // } else if (pid_timer < 0) {
+    //     perror("Error [fork()] timer: ");
+    //     exit(EXIT_FAILURE);
+    // }
+>>>>>>> 7c4e891 (implemented a semaphore but didin't use it)
 
     // Start citizen manager process
     /*pid_citizen_manager = fork();

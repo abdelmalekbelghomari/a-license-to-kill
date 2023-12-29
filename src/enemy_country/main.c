@@ -5,6 +5,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "../../include/memory.h"
+#include <semaphore.h>
 
 #define MAX_MESSAGE_SIZE 128
 #define SHIFT 3
@@ -25,6 +26,11 @@ void caesar_decipher(char *message) {
 }
 
 int main() {
+    sem_t *sem = sem_open("/Mysemaphore", O_RDWR, 1);
+    if (sem == SEM_FAILED) {
+        perror("sem_open");
+        exit(EXIT_FAILURE);
+    }
     // Open shared memory
     int shm_fd = shm_open("/SharedMemory", O_RDONLY, 0666);
     if (shm_fd == -1) {
@@ -41,8 +47,10 @@ int main() {
     }
 
     SpyMessage received_message;
+    sleep(2);
     while (1) {
         ssize_t bytes_read = mq_receive(memory->mqInfo.mq, (char *)&received_message, sizeof(SpyMessage), NULL);
+        printf("\nDescripteur de la queue de messages: %d\n", memory->mqInfo.mq);
         if (bytes_read >= 0) {
             if (received_message.priority != 1) {
                 caesar_decipher(received_message.content);
