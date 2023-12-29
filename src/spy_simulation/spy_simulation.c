@@ -244,19 +244,6 @@ void start_simulation_processes(){
 
     pidExecutables[num_children] = fork();
     if (pidExecutables[num_children] == -1) {
-        perror("Error [fork()] timer: ");
-        exit(EXIT_FAILURE);
-    }
-    if (pidExecutables[num_children] == 0) {
-        if (execl("./bin/timer", "timer", NULL) == -1) {
-            perror("Error [execl] timer: ");
-            exit(EXIT_FAILURE);
-        }
-    }
-    num_children++;
-
-    pidExecutables[num_children] = fork();
-    if (pidExecutables[num_children] == -1) {
         perror("Error [fork()] monitor:");
         exit(EXIT_FAILURE);
     }
@@ -268,6 +255,21 @@ void start_simulation_processes(){
         
     }
     num_children++;
+
+    pidExecutables[num_children] = fork();
+    if (pidExecutables[num_children] == -1) {
+        perror("Error [fork()] timer: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pidExecutables[num_children] == 0) {
+        if (execl("./bin/timer", "timer", NULL) == -1) {
+            perror("Error [execl] timer: ");
+            exit(EXIT_FAILURE);
+        }
+    }
+    num_children++;
+
+    
     
    
     for (int i = 0; i < num_children; i++) {
