@@ -1,6 +1,7 @@
 #include "memory.h"
 #include <time.h>
 #include <stdbool.h>
+#include "spy_simulation.h"
 
 
 /*A utiliser dans citizen manager ou dans les .c correspondant
@@ -139,6 +140,24 @@ memory_t *create_shared_memory(const char *name) {
     init_surveillance(&shared_memory->surveillanceNetwork);
 
     return shared_memory;
+}
+
+sem_t *create_semaphore(const char *name, int value) {
+    sem_t *sem = sem_open(name, O_CREAT, 0644, value);
+    if (sem == SEM_FAILED) {
+        perror("sem_open failed");
+        exit(EXIT_FAILURE);
+    }
+    return sem;
+}
+
+sem_t *open_semaphore(const char *name) {
+    sem_t *sem = sem_open(name, 0);
+    if (sem == SEM_FAILED) {
+        perror("sem_open failed");
+        exit(EXIT_FAILURE);
+    }
+    return sem;
 }
 
 void start_simulation_processes(){
