@@ -2,6 +2,7 @@
 #include "citizen_manager.h"
 #include <time.h>
 #include <stdbool.h>
+#include "spy_simulation.h"
 
 
 /*A utiliser dans citizen manager ou dans les .c correspondant
@@ -217,45 +218,111 @@ memory_t *create_shared_memory(const char *name) {
     return shared_memory;
 }
 
-void start_simulation_processes() {
-    pid_t pid_monitor, pid_timer, pid_citizen_manager;
-
-    // Start timer process first
-    // pid_timer = fork();
-    // if (pid_timer == 0) {
-    //     execl("./bin/timer", "timer", NULL);
-    //     perror("Error [execl] timer: ");
-    //     exit(EXIT_FAILURE);
-    // } else if (pid_timer < 0) {
-    //     perror("Error [fork()] timer: ");
-    //     exit(EXIT_FAILURE);
-    // }
-    // pid_timer = fork();
-    // if (pid_citizen_manager == 0) {
-    //     execl("./bin/citizen_manager", "citizen_manager", NULL);
-    //     perror("Error [execl] timer: ");
-    //     exit(EXIT_FAILURE);
-    // } else if (pid_citizen_manager < 0) {
-    //     perror("Error [fork()] timer: ");
-    //     exit(EXIT_FAILURE);
-    // }
-
-    // Start monitor process
-    /*pid_monitor = fork();
-    if (pid_monitor == 0) {
-        execl("./bin/monitor", "monitor", NULL);
-        perror("Error [execl] monitor: ");
+sem_t *create_semaphore(const char *name, int value) {
+    sem_t *sem = sem_open(name, O_CREAT, 0644, value);
+    if (sem == SEM_FAILED) {
+        perror("sem_open failed");
         exit(EXIT_FAILURE);
-    } else if (pid_monitor < 0) {
+    }
+    return sem;
+}
+
+sem_t *open_semaphore(const char *name) {
+    sem_t *sem = sem_open(name, 0);
+    if (sem == SEM_FAILED) {
+        perror("sem_open failed");
+        exit(EXIT_FAILURE);
+    }
+    return sem;
+}
+
+void start_simulation_processes(){
+    // pid_t pid_monitor, pid_enemy_spy_network, pid_citizen_manager, pid_enemy_country,
+    // pid_counterintelligence_officer, pid_timer;
+    int num_children =0;
+    pid_t pidExecutables[2];
+
+    pidExecutables[num_children] = fork();
+    if (pidExecutables[num_children] == -1) {
+        perror("Error [fork()] timer: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pidExecutables[num_children] == 0) {
+        if (execl("./bin/timer", "timer", NULL) == -1) {
+            perror("Error [execl] timer: ");
+            exit(EXIT_FAILURE);
+        }
+    }
+    num_children++;
+
+    pidExecutables[num_children] = fork();
+    if (pidExecutables[num_children] == -1) {
         perror("Error [fork()] monitor:");
         exit(EXIT_FAILURE);
+    }
+    if (pidExecutables[num_children] == 0) {
+        if (execl("./bin/monitor", "monitor", NULL) == -1) {
+            perror("Error [execl] monitor: ");
+            exit(EXIT_FAILURE);
+        }
+        
+    }
+    num_children++;
+    
+   
+    for (int i = 0; i < num_children; i++) {
+        int status;
+        waitpid(pidExecutables[i], &status, 0);
+    }
+    
+    
+    /*pid_citizen_manager = fork();
+    if (pid_citizen_manager == -1) {
+        perror("Error [fork()] citizen_manager: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_citizen_manager == 0) {
+        if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
+            perror("Error [execl] citizen_manager: ");
+            exit(EXIT_FAILURE);
+        }
     }*/
 
-    // Wait for timer and monitor to finish
-    int status;
-    waitpid(pid_timer, &status, 0);
-    waitpid(pid_citizen_manager, &status, 0);
-    //waitpid(pid_monitor, &status, 0);
+    /*pid_counterintelligence_officer = fork();
+    if (pid_counterintelligence_officer == -1) {
+        perror("Error [fork()] counterintelligence_officer: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_counterintelligence_officer == 0) {
+        if (execl("./bin/counterintelligence_officer", "counterintelligence_officer", NULL) == -1) {
+            perror("Error [execl] counterintelligence_officer: ");
+            exit(EXIT_FAILURE);
+        }
+    }*/
+
+    /*pid_enemy_country = fork();
+    if (pid_enemy_country == -1) {
+        perror("Error [fork()] enemy_country: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_enemy_country == 0) {
+        if (execl("./bin/enemy_country", "enemy_country", NULL) == -1) {
+            perror("Error [execl] enemy_country: ");
+            exit(EXIT_FAILURE);
+        }
+    }*/
+
+    /*pid_enemy_spy_network = fork();
+    if (pid_enemy_spy_network == -1) {
+        perror("Error [fork()] enemy_spy_network: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_enemy_spy_network == 0) {
+        if (execl("./bin/enemy_spy_network", "enemy_spy_network", NULL) == -1) {
+            perror("Error [execl] enemy_spy_network: ");
+            exit(EXIT_FAILURE);
+        }
+    }*/
     
-    // Add other child processes as needed
+    
 }

@@ -139,6 +139,15 @@ int main()
     //     }
     // }
 
+    close(shm);
+    /* ---------------------------------------------------------------------- */ 
+    
+    monitor = (monitor_t *)malloc(sizeof(monitor_t));
+    monitor->has_to_update = 0;
+    
+    set_timer();
+    set_signals();
+    
     if ((main_window = initscr()) == NULL) {
         quit_after_error("Error initializing library ncurses!");
     }
@@ -156,10 +165,9 @@ int main()
     /*Initialize the spy simulation*/
     /* Initialize terminal user interface elements */
     init_monitor_elements(main_window, memory, rows, cols);
-    
 
     /*  Loop and get user input  */
-    while (true) {
+    while (1) {
         key = getch();
 
         switch (key) {
@@ -173,10 +181,10 @@ int main()
         
         if (memory->memory_has_changed) {
             update_values(memory);
-            memory->memory_has_changed = 0;
-        } else {
-            pause();
-        }
+            //memory->memory_has_changed = 1;
+        }// else {
+        //     pause();
+        // }
         
         //pthread_mutex_lock(&mutex);
         //update_values(memory);

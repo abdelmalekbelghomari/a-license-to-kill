@@ -8,26 +8,21 @@
 
 #include "monitor_common.h"
 #include "monitor.h"
+#include "memory.h"
+#include "spy_simulation.h"
+#include "timer.h"
 
 extern WINDOW *main_window;
 extern int old_cursor;
 
 int main(int argc, char **argv)
 {
-    printf("lol");
     memory_t *memory = create_shared_memory("SharedMemory");
-    //start_simulation_processes();
-     // Assurez-vous que toutes les opérations sur la mémoire partagée sont terminées avant de la démmaper
-    if (munmap(memory, sizeof(memory_t)) == -1) {
-        perror("Error un-mmapping the file");
-    }
-
-    // Supprimer l'objet de mémoire partagée
-    if (shm_unlink("SharedMemory") == -1) {
-        perror("Error removing the shared memory object");
-        return EXIT_FAILURE;
-    }
-
-    return EXIT_SUCCESS;
+    //initialiser le semaphore du timer 
+    sem_t* sem = create_semaphore("/timer_sem", 1);
+    start_simulation_processes();
+    
+    // sem_close(sem);
+    // sem_unlink("/timer_sem");
 
 }
