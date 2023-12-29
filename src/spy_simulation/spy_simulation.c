@@ -269,17 +269,17 @@ void start_simulation_processes(){
     }
     num_children++;
 
-    pidExecutables[num_children] = fork();
-    if (pidExecutables[num_children] == -1) {
-        perror("Error [fork()] citizen_manager: ");
-        exit(EXIT_FAILURE);
-    }
-    if (pidExecutables[num_children] == 0) {
-        if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
-            perror("Error [execl] citizen_manager: ");
-            exit(EXIT_FAILURE);
-        }
-    }
+    // pidExecutables[num_children] = fork();
+    // if (pidExecutables[num_children] == -1) {
+    //     perror("Error [fork()] citizen_manager: ");
+    //     exit(EXIT_FAILURE);
+    // }
+    // if (pidExecutables[num_children] == 0) {
+    //     if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
+    //         perror("Error [execl] citizen_manager: ");
+    //         exit(EXIT_FAILURE);
+    //     }
+    // }
     
    
     for (int i = 0; i < num_children; i++) {
@@ -287,7 +287,17 @@ void start_simulation_processes(){
         waitpid(pidExecutables[i], &status, 0);
     }
     
-    
+    int statusSharedMemory;
+
+    // Replace 'file_name.txt' with the name of the file you want to delete
+    statusSharedMemory = remove("/dev/shm/SharedMemory");
+
+    if (statusSharedMemory == 0)
+        printf("File deleted successfully\n");
+    else
+        printf("Error: unable to delete the file\n");
+
+    return 0;
     
 
     /*pid_counterintelligence_officer = fork();

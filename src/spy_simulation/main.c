@@ -24,5 +24,7 @@ int main(int argc, char **argv)
     
     sem_close(sem);
     sem_unlink("/timer_sem");
+    shm_unlink("SharedMemory");
+    return 0;
 
 }
