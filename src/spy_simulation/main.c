@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     sem_t* sem = create_semaphore("/timer_sem", 1);
     start_simulation_processes();
     
-    // sem_close(sem);
-    // sem_unlink("/timer_sem");
+    sem_close(sem);
+    sem_unlink("/timer_sem");
 
 }
