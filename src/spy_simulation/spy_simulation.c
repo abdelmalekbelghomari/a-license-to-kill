@@ -240,7 +240,7 @@ void start_simulation_processes(){
     // pid_t pid_monitor, pid_enemy_spy_network, pid_citizen_manager, pid_enemy_country,
     // pid_counterintelligence_officer, pid_timer;
     int num_children =0;
-    pid_t pidExecutables[2];
+    pid_t pidExecutables[3];
 
     pidExecutables[num_children] = fork();
     if (pidExecutables[num_children] == -1) {
@@ -269,7 +269,17 @@ void start_simulation_processes(){
     }
     num_children++;
 
-    
+    pidExecutables[num_children] = fork();
+    if (pidExecutables[num_children] == -1) {
+        perror("Error [fork()] citizen_manager: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pidExecutables[num_children] == 0) {
+        if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
+            perror("Error [execl] citizen_manager: ");
+            exit(EXIT_FAILURE);
+        }
+    }
     
    
     for (int i = 0; i < num_children; i++) {
@@ -278,17 +288,7 @@ void start_simulation_processes(){
     }
     
     
-    /*pid_citizen_manager = fork();
-    if (pid_citizen_manager == -1) {
-        perror("Error [fork()] citizen_manager: ");
-        exit(EXIT_FAILURE);
-    }
-    if (pid_citizen_manager == 0) {
-        if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
-            perror("Error [execl] citizen_manager: ");
-            exit(EXIT_FAILURE);
-        }
-    }*/
+    
 
     /*pid_counterintelligence_officer = fork();
     if (pid_counterintelligence_officer == -1) {

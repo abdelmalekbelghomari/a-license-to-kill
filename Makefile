@@ -14,7 +14,7 @@ endif
 
 .PHONY: all clean distclean
 
-all: bin/spy_simulation bin/monitor bin/timer 
+all: bin/spy_simulation bin/monitor bin/timer bin/citizen_manager
 
 # ----------------------------------------------------------------------------
 # SPY SIMULATION
