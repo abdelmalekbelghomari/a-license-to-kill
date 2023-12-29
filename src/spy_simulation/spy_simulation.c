@@ -1,5 +1,5 @@
 #include "memory.h"
-#include "citizen_manager.h"
+// #include "citizen_manager.h"
 #include <time.h>
 #include <stdbool.h>
 #include "spy_simulation.h"
