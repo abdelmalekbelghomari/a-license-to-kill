@@ -58,7 +58,6 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
         }
     }
 }
-
 void init_map(map_t *cityMap){
     int i, j;
     for (i = 0; i < MAX_ROWS; i++){
@@ -78,22 +77,192 @@ void init_map(map_t *cityMap){
 }
 
 
-void init_citizens(citizen_t *citizens){
-    int i;
-    int k = rand() % MAX_ROWS;
-    int j = rand() % MAX_COLUMNS;
-    for (i = 0; i < CITIZENS_COUNT; i++){
-        citizens[i].type = NORMAL;
-        citizens[i].health = 10;
-        citizens[i].position[0] = k;
-        citizens[i].position[1] = j;
+double distance(unsigned int pos1[2], unsigned int pos2[2]) {
+    return abs((int)pos1[0] - (int)pos2[0]) + abs((int)pos1[1] - (int)pos2[1]);
+}
+
+void init_house(memory_t *memory){
+    int fakeHome = rand() % NB_HOMES;
+    printf("=====================================\n");
+    printf("fake home %d\n", fakeHome);
+    printf("La maison %p est la maison avec la boite au lettre piégee\n", &memory->homes[fakeHome]);
+    printf("\n\n=====================================\n");
+    for(int i = 0; i < NB_HOMES; i++){
+        if (i == fakeHome){
+            memory->homes[i].max_capacity = 0;
+        }
+        else{
+            memory->homes[i].max_capacity = 15;
+        }
+    }
+}
+
+void init_building(memory_t *memory){
+    for(int i = 0; i < NB_WORKPLACES; i++){
+        if(i < NB_STORE){
+            memory->companies[i].type = STORE;
+            memory->companies[i].max_workers = 3;
+            memory->companies[i].min_workers = 3;
+        } else if (i == NB_STORE) {
+            memory->companies[i].min_workers = 10;
+            memory->companies[i].max_workers = 10;
+            memory->companies[i].type = CITY_HALL;
+        } else {
+            memory->companies[i].min_workers = 5;
+            memory->companies[i].max_workers = 50;
+            memory->companies[i].type = CORPORATION;
+        }
+    }
+}
+
+void assign_home_to_citizen(memory_t* memory, citizen_t* citizen){
+
+    home_t *houses = memory->homes;
+    // Assign a random house, respecting max capacity
+    int house_index;
+    int attempts = 0;
+    while (attempts < NB_HOMES) {
+        house_index = rand() % NB_HOMES;
+        if (houses[house_index].nb_citizen < houses[house_index].max_capacity) {
+            citizen->home = &houses[house_index];
+            houses[house_index].nb_citizen++;
+            break;  // Sortie de la boucle une fois qu'une maison est trouvée
+        }
+        attempts++;
+    }
+}
+
+
+
+void assign_company_to_citizen(memory_t* memory, citizen_t* citizen){
+    
+    building_t *company_list = memory->companies;
+    // Assign a random company, respecting max capacity
+    int company_index;
+    int attempts = 0;  // Compteur pour éviter une boucle infinie
+
+    if(company_list[0].nb_workers < company_list[0].max_workers){
+        citizen->workplace = &company_list[0];
+        company_list[0].nb_workers++;
+    } else if (company_list[1].nb_workers < company_list[1].max_workers){
+        citizen->workplace = &company_list[1];
+        company_list[1].nb_workers++;
+    } else if (company_list[2].nb_workers < company_list[2].max_workers){
+        citizen->workplace = &company_list[2];
+        company_list[2].nb_workers++;
+    } else {
+        while (attempts < NB_COMPANY) {
+            company_index = 3 + rand() % NB_COMPANY;
+            building_t *company = &company_list[company_index];
+            if (company->nb_workers < company->max_workers 
+            && company->nb_workers < company->min_workers) {
+                citizen->workplace = &company;
+                company->nb_workers++;
+                break; 
+            }
+            attempts++;
+        }
     }
 
-    /* Counter intelligence officer is in the city Hall */
-    citizens[0].type = COUNTER_INTELLIGENCE_OFFICER;
-    citizens[0].position[0] = 3;
-    citizens[0].position[1] = 3;
+//     while (1) {
+//         company_index = rand() % NB_WORKPLACES;
+//         building_t *company = &company_list[company_index];
+
+//         if (company->type == STORE && company->nb_workers < company->max_workers) {
+//             citizen->workplace = company;
+//             company->nb_workers++;
+//             break;
+//         if (company->type == CITY_HALL && company->nb_workers < company->max_workers) {
+//             citizen->workplace = company;
+//             company->nb_workers++;
+//             break;
+//         } else if (company->nb_workers < company->max_workers ||
+//                    company->nb_workers < company->min_workers) {
+//             citizen->workplace = company;
+//             company->nb_workers++;
+//             break;
+//         }
+//     }
 }
+
+// void assign_company_to_citizen(memory_t* memory, citizen_t* citizen) {
+//     building_t *buildings = memory->companies;
+//     int company_index;
+//     int found = 0;  // Indicateur pour savoir si une entreprise a été trouvée
+
+//     for (int attempts = 0; attempts < NB_WORKPLACES; attempts++) {
+//         company_index = rand() % NB_WORKPLACES;
+
+//         if (buildings[company_index].nb_workers < buildings[company_index].max_workers &&
+//             buildings[company_index].nb_workers < buildings[company_index].min_workers) {
+//             citizen->workplace = &buildings[company_index];
+//             buildings[company_index].nb_workers++;
+//             found = 1; 
+//             break;
+//         }
+//     }
+
+//     if (!found) {
+//         printf("No company found for citizen %d\n", citizen->id);
+//     }
+// }
+
+
+// void assing_company_to_citizen(memory_t* memory, citizen_t* citizen){
+    
+//     building_t *buildings = memory->companies;
+//     // Assign a random company, respecting max capacity
+//     int company_index;
+//     do {
+//         company_index = rand() % NB_WORKPLACES;
+//     } while (buildings[company_index].nb_workers >= buildings[company_index].max_workers 
+//             && buildings[company_index].nb_workers <= buildings[company_index].min_workers);
+//     citizen->workplace = &buildings[company_index];
+//     buildings[company_index].nb_workers++;
+// }
+
+void assign_random_supermarket(memory_t* memory, citizen_t* citizen){
+    
+    // Find nearest supermarket
+    building_t supermaket_list[NB_STORE] = {memory->companies[0], memory->companies[1]};
+    // Les deux premiers emplacements sont donnés aux supermarchés
+    double dist1 = distance(supermaket_list[0].position, citizen->workplace->position);
+    double dist2 = distance(supermaket_list[1].position, citizen->workplace->position);
+    int supermaketChoice = rand() % NB_STORE;
+    if(supermaketChoice == 0){
+        citizen->supermarket = &supermaket_list[0];
+    } else {
+        citizen->supermarket = &supermaket_list[1];
+    }
+    
+}
+
+
+
+void init_citizens(memory_t *memory) {
+    srand(time(NULL));
+
+    init_house(memory);
+    init_building(memory);
+
+    for (int i = 0; i < CITIZENS_COUNT; i++) {
+        citizen_t *citizen = &memory->citizens[i];
+
+        citizen->type = NORMAL;
+        citizen->health = 10;
+        // // printf("ftg Haykel ton micro de merde\n");
+
+        assign_home_to_citizen(memory, citizen);
+        printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
+        assign_company_to_citizen(memory, citizen);
+        printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, 
+                                                     citizen->workplace);
+        assign_random_supermarket(memory, citizen);
+        printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
+    }
+        
+}
+
 
 void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
     for (int i = 0; i < MAX_ROWS; ++i) {

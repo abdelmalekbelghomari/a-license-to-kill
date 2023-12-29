@@ -40,12 +40,25 @@
 #include <mqueue.h>
 
 
-#define NB_CITIZEN 127 /* 127 citizens in the city */
 #define CITIZENS_COUNT 127 /* 127 citizens in the city */
 #define MAX_ROWS 7
 #define MAX_COLUMNS 7
 #define MAX_ROUNDS 2016
-#define NUM_CITIZENS 127
+
+#define NB_CITIZEN 127
+#define NB_CITIZEN_HALL 10
+#define NB_CITIZEN_STORE 6
+#define NB_CITIZEN_COMPANY 111
+#define NB_HOMES 11
+#define NB_COMPANY 8
+#define NB_STORE 2
+#define NB_WORKPLACES 11 // 8 companies + 1 city hall + 2 supermarkets
+#define NB_HALL 1
+#define MAX_IN_BUILDING 15
+#define MAX_IN_HALL 20
+#define MAX_IN_STORE 30
+#define MAX_IN_COMPANY 50
+
 
 
 /**
@@ -235,12 +248,37 @@ struct counterintelligence_officer_s {
     int targeted_character_id;                            /*!< The targeted character id.*/
 }; 
 
+struct building_s {
+    unsigned int position[2];
+    building_type_t type;
+    cell_t cell_type;
+    unsigned int nb_citizen;
+    unsigned int max_capacity;
+    unsigned int max_workers;
+    unsigned int min_workers;
+    unsigned int nb_workers;
+    citizen_t *citizens[CITIZENS_COUNT];
+    void (*add_citizen)(building_t *, citizen_t *);
+    void (*remove_citizen)(building_t *, citizen_t *);
+};
+
+struct home_s {
+    unsigned int position[2];
+    unsigned int nb_citizen;
+    unsigned int max_capacity;
+    citizen_t *citizens[CITIZENS_COUNT];
+    void (*add_citizen)(home_t *, citizen_t *);
+    void (*remove_citizen)(home_t *, citizen_t *);
+};
+
+
 struct citizen_s {
     unsigned int id;
     unsigned int position [2];
     unsigned int health ;
     citizen_type_t type;
-    building_t *workplace, *supermarket; /*the nearest supermarket from his company*/
+    building_t *workplace;
+    building_t *supermarket; /*a random supermarket of the city*/
     home_t *home; 
 
     state_t *current_state;
@@ -284,6 +322,9 @@ struct memory_s {
     int at_home_citizens;
     int at_work_citizens;
     surveillanceNetwork_t surveillanceNetwork;
+    home_t homes[NB_HOMES];
+    building_t companies[NB_WORKPLACES];
+
 };
 
 #endif /* MEMORY_H */

@@ -14,7 +14,7 @@ endif
 
 .PHONY: all clean distclean
 
-all: bin/spy_simulation bin/monitor bin/timer 
+all: bin/spy_simulation bin/monitor bin/timer bin/citizen_manager
 
 # ----------------------------------------------------------------------------
 # SPY SIMULATION
@@ -26,6 +26,18 @@ src/spy_simulation/main.o: src/spy_simulation/main.c include/spy_simulation.h in
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 src/spy_simulation/spy_simulation.o: src/spy_simulation/spy_simulation.c include/spy_simulation.h include/memory.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+# ----------------------------------------------------------------------------
+# CITIZEN MANAGER
+# ----------------------------------------------------------------------------
+bin/citizen_manager: src/citizen_manager/main.o src/citizen_manager/citizen_manager.o 
+	$(CC) $^ -o $@ $(LDFLAGS)
+
+src/citizen_manager/main.o: src/citizen_manager/main.c include/spy_simulation.h include/memory.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+src/citizen_manager/citizen_manager.o: src/citizen_manager/citizen_manager.c include/spy_simulation.h include/memory.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 # ----------------------------------------------------------------------------
