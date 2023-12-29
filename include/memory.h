@@ -30,7 +30,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <fcntl.h>
-
+#include <math.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
 #include <sys/time.h>
@@ -40,13 +40,24 @@
 #include <mqueue.h>
 
 
-#define NB_CITIZEN 127 /* 127 citizens in the city */
 #define CITIZENS_COUNT 127 /* 127 citizens in the city */
 #define MAX_ROWS 7
 #define MAX_COLUMNS 7
 #define MAX_ROUNDS 2016
-#define NUM_CITIZENS 127
 
+#define NB_CITIZEN 127
+#define NB_CITIZEN_HALL 10
+#define NB_CITIZEN_STORE 6
+#define NB_CITIZEN_COMPANY 111
+#define NB_HOMES 11
+#define NB_COMPANY 8
+#define NB_STORE 2
+#define NB_BUISNESSES 10 //les supermarches sont aussi des lieux de travail
+#define NB_HALL 1
+#define MAX_IN_BUILDING 15
+#define MAX_IN_HALL 20
+#define MAX_IN_STORE 30
+#define MAX_IN_COMPANY 50
 
 /**
  * \file memory.h
@@ -259,6 +270,29 @@ struct citizen_s {
     void (*step)(citizen_t *);
 };
 
+struct building_s {
+    unsigned int position[2];
+    building_type_t type;
+    cell_t cell_type;
+    unsigned int nb_citizen;
+    unsigned int max_capacity;
+    unsigned int max_workers;
+    unsigned int min_workers;
+    unsigned int nb_workers;
+    citizen_t *citizens[CITIZENS_COUNT];
+    void (*add_citizen)(building_t *, citizen_t *);
+    void (*remove_citizen)(building_t *, citizen_t *);
+};
+
+struct home_s {
+    unsigned int position[2];
+    unsigned int nb_citizen;
+    unsigned int max_capacity;
+    citizen_t *citizens[CITIZENS_COUNT];
+    void (*add_citizen)(home_t *, citizen_t *);
+    void (*remove_citizen)(home_t *, citizen_t *);
+};
+
 /**
  * \brief Shared memory used by all processes.
  */
@@ -279,11 +313,43 @@ struct memory_s {
     int end_round;
     pid_t pids[7];
     mq_t mqInfo;
-    citizen_t citizens[NB_CITIZEN];
+    citizen_t citizens[CITIZENS_COUNT];
     int walking_citizens;
     int at_home_citizens;
     int at_work_citizens;
     surveillanceNetwork_t surveillanceNetwork;
+    home_t homes[NB_HOMES];
+    building_t companies[NB_COMPANY];
 };
+
+
+
+
+
+
+state_t *new_state(int id, state_t *(*action)(citizen_t *));
+state_t *rest_at_home(citizen_t *c);
+state_t *go_to_company(citizen_t *c);
+state_t *work(citizen_t *c);
+state_t *go_to_supermarket(citizen_t *c);
+state_t *go_back_home(citizen_t *c);
+state_t *do_some_shopping(citizen_t *c);
+
+void state_change_state(citizen_t *c, state_t *s);
+
+citizen_t *new_citizen(state_t *resting_at_home,
+                           state_t *going_to_company,
+                           state_t *working,
+                           state_t *going_back_home,
+                           state_t *going_to_supermarket,
+                           state_t *doing_some_shopping);
+void citizen_begin(citizen_t *c);
+void citizen_step(citizen_t *c);
+void citizen_end(citizen_t *c);
+void citizen_change_state(citizen_t *c, state_t *new_state);
+
+
+
+
 
 #endif /* MEMORY_H */

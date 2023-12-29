@@ -1,4 +1,5 @@
 #include "memory.h"
+// #include "citizen_manager.h"
 #include <time.h>
 #include <stdbool.h>
 #include "spy_simulation.h"
@@ -77,29 +78,102 @@ void init_map(map_t *cityMap){
     place_building_randomly(cityMap, RESIDENTIAL_BUILDING, 11, 15);
 }
 
+void add_citizen(home_t *house, citizen_t *citizen) {
+    if (house->nb_citizen < house->max_capacity) {
+        // Ajoutez le citoyen à la maison
+        house->citizens[house->nb_citizen] = citizen;
+        house->nb_citizen++; // Incrémentez le nombre de citoyens
 
-void init_citizens(citizen_t *citizens){
-    int i;
-    int k = rand() % MAX_ROWS;
-    int j = rand() % MAX_COLUMNS;
-    for (i = 0; i < CITIZENS_COUNT; i++){
-        citizens[i].type = NORMAL;
-        citizens[i].health = 10;
-        citizens[i].position[0] = k;
-        citizens[i].position[1] = j;
+        // Vous pouvez également mettre à jour d'autres attributs du citoyen si nécessaire
+        // par exemple, la position du citoyen, etc.
+    } else {
+        fprintf(stderr, "Erreur : la maison est pleine.\n");
+        // Gérer la situation où la maison est pleine
     }
-
-    /* Counter intelligence officer is in the city Hall */
-    citizens[0].type = COUNTER_INTELLIGENCE_OFFICER;
-    citizens[0].position[0] = 3;
-    citizens[0].position[1] = 3;
 }
+
+double distance(unsigned int pos1[2], unsigned int pos2[2]) {
+    return abs((int)pos1[0] - (int)pos2[0]) + abs((int)pos1[1] - (int)pos2[1]);
+}
+
+void assign_home_to_citizen(memory_t* memory, citizen_t* citizen){
+    
+
+    home_t *houses = memory->homes;
+    for(int i = 0; i < NB_HOMES; i++){
+        houses[i].max_capacity = 15;
+    }
+    // Assign a random house, respecting max capacity
+    int house_index;
+    do {
+        house_index = rand() % NB_HOMES;
+    } while (houses[house_index].nb_citizen >= houses[house_index].max_capacity);
+    citizen->home = &houses[house_index];
+    houses[house_index].nb_citizen++;
+}
+
+void assing_company_to_citizen(memory_t* memory, citizen_t* citizen){
+    
+    building_t *buildings = memory->companies;
+    
+    for(int i = 0; i < NB_BUISNESSES; i++){
+        if(i < 2){
+            buildings[i].type = STORE;
+            buildings[i].max_workers = 3;
+            buildings[i].min_workers = 3;
+        } else {
+            buildings[i].min_workers = 5;
+            buildings[i].max_workers = 50;
+            buildings[i].type = CORPORATION;
+        }
+    }
+    // Assign a random company, respecting max capacity
+    int company_index;
+    do {
+        company_index = rand() % NB_BUISNESSES;
+    } while (buildings[company_index].nb_workers >= buildings[company_index].max_workers 
+            && buildings[company_index].nb_workers <= buildings[company_index].min_workers);
+    citizen->workplace = &buildings[company_index];
+    buildings[company_index].nb_workers++;
+}
+
+void assing_nearest_supermarket(memory_t* memory, citizen_t* citizen){
+    
+    // Find nearest supermarket
+    building_t *buildings = memory->companies;
+    // Les deux premiers emplacements sont donnés aux supermarchés
+    double dist1 = distance(buildings[0].position, citizen->workplace->position);
+    double dist2 = distance(buildings[1].position, citizen->workplace->position);
+    citizen->supermarket = dist1 > dist1 ? &buildings[0] : &buildings[1];
+}
+
+void init_citizens(memory_t *memory) {
+    srand(time(NULL));
+
+
+    for (int i = 0; i < CITIZENS_COUNT; i++) {
+        citizen_t *citizen = &memory->citizens[i];
+
+        citizen->type = NORMAL;
+        citizen->health = 10;
+        // printf("ftg Haykel ton micro de merde\n");
+
+        assign_home_to_citizen(memory, citizen);
+        printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
+        assing_company_to_citizen(memory, citizen);
+        printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, 
+                                                            citizen->workplace);
+        assing_nearest_supermarket(memory, citizen);
+        printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
+    }
+        
+}
+
 
 void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
     for (int i = 0; i < MAX_ROWS; ++i) {
         for (int j = 0; j < MAX_COLUMNS; ++j) {
             surveillanceNetwork->devices[i][j].standard_camera = 1; // Standard cameras enabled by default
-            surveillanceNetwork->devices[i][j].infrared_camera = 1; // Infrared cameras enabled by default
             surveillanceNetwork->devices[i][j].lidar = 1; // Lidars enabled by default
         }
     }
@@ -132,11 +206,13 @@ memory_t *create_shared_memory(const char *name) {
 
     close(shm_fd);
 
+    printf("avant de faire les init");
+
     // Initialize the shared memory as necessary
     shared_memory->memory_has_changed = 0;
     shared_memory->simulation_has_ended = 0;
     init_map(&shared_memory->map);
-    init_citizens(&shared_memory->citizens);
+    init_citizens(shared_memory);
     init_surveillance(&shared_memory->surveillanceNetwork);
 
     return shared_memory;
@@ -168,19 +244,6 @@ void start_simulation_processes(){
 
     pidExecutables[num_children] = fork();
     if (pidExecutables[num_children] == -1) {
-        perror("Error [fork()] timer: ");
-        exit(EXIT_FAILURE);
-    }
-    if (pidExecutables[num_children] == 0) {
-        if (execl("./bin/timer", "timer", NULL) == -1) {
-            perror("Error [execl] timer: ");
-            exit(EXIT_FAILURE);
-        }
-    }
-    num_children++;
-
-    pidExecutables[num_children] = fork();
-    if (pidExecutables[num_children] == -1) {
         perror("Error [fork()] monitor:");
         exit(EXIT_FAILURE);
     }
@@ -192,6 +255,21 @@ void start_simulation_processes(){
         
     }
     num_children++;
+
+    pidExecutables[num_children] = fork();
+    if (pidExecutables[num_children] == -1) {
+        perror("Error [fork()] timer: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pidExecutables[num_children] == 0) {
+        if (execl("./bin/timer", "timer", NULL) == -1) {
+            perror("Error [execl] timer: ");
+            exit(EXIT_FAILURE);
+        }
+    }
+    num_children++;
+
+    
     
    
     for (int i = 0; i < num_children; i++) {

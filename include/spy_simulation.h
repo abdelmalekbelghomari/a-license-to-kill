@@ -15,7 +15,7 @@ typedef struct memory_s memory_t;
 
 
 void init_map(map_t * cityMap);
-void init_citizens(citizen_t *citizens);
+void init_citizens(memory_t *memory);
 void init_surveillance(surveillanceNetwork_t *surveillance);
 void start_simulation_processes();
 struct memory_s *create_shared_memory(const char *name);
