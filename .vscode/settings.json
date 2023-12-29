@@ -60,6 +60,7 @@
     "spy_simulation.h": "c",
     "string.h": "c",
     "mqueue.h": "c",
-    "memory.h": "c"
+    "memory.h": "c",
+    "cstdlib": "c"
   }
 }

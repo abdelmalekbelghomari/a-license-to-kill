@@ -38,6 +38,7 @@
 #include <sys/types.h>
 #include <sys/mman.h>
 #include <mqueue.h>
+#include <semaphore.h>
 
 
 #define NB_CITIZEN 127 /* 127 citizens in the city */

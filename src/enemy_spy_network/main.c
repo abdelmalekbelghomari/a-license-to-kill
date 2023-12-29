@@ -6,6 +6,7 @@
 #include <sys/mman.h>
 #include "memory.h" 
 
+
 #define MAX_MESSAGE_SIZE 128
 #define SHIFT 3
 
@@ -25,6 +26,12 @@ void caesar_cipher(char *message) {
 }
 
 int main() {
+
+    sem_t *sem = sem_open("/Mysemaphore", O_RDWR, 1);
+    if (sem == SEM_FAILED) {
+        perror("sem_open");
+        exit(EXIT_FAILURE);
+    }
     int shm_fd;
     memory_t *shared_memory;
     SpyMessage messages[6];
@@ -68,6 +75,9 @@ int main() {
 
     // Envoyer les messages à la queue de messages de la mémoire partagée
     for (int i = 0; i < 6; ++i) {
+        printf("\nDescripteur de la queue de messages: %d\n", shared_memory->mqInfo.mq);
+        printf("sizeof(SpyMessage : %ld)" , sizeof(SpyMessage));
+        printf("priority : %d", messages[i].priority);
         if (mq_send(shared_memory->mqInfo.mq, (char *)&messages[i], sizeof(SpyMessage), messages[i].priority) == -1) {
             perror("mq_send");
             exit(EXIT_FAILURE);
