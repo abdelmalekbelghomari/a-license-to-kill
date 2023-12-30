@@ -82,14 +82,14 @@ bool is_path_available(map_t *cityMap, int startRow, int startCol, int endRow, i
             }
         }
     }
-
+    printf("no path is avaiable from (%d, %d) to (%d, %d)\n", startRow, startCol, endRow, endCol);
     checked[endRow][endCol] = false;
     return false;
 }
 
 
 void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb_of_characters) {
-    int max_attempts = 1000;
+    int max_attempts = 100;
     for (int placed_count = 0; placed_count < count; ) {
         int attempts = 0;
         bool placed = false;
@@ -106,14 +106,23 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
 
                 bool allConnected = true;
                 bool checked[MAX_ROWS][MAX_COLUMNS] = {{false}};
+
+                // Vérifier si chaque bâtiment est accessible depuis chaque autre bâtiment
                 for (int m = 0; m < MAX_ROWS && allConnected; ++m) {
                     for (int n = 0; n < MAX_COLUMNS && allConnected; ++n) {
-                        if (cityMap->cells[m][n].type != WASTELAND && (m != i || n != j)) {
-                            if (!is_path_available(cityMap, i, j, m, n, checked)) {
-                                allConnected = false;
-                                printf("place_building_randomly: No path from (%d, %d) to (%d, %d). Retrying...\n", i, j, m, n);
-                                cityMap->cells[i][j].type = WASTELAND;
-                                cityMap->cells[i][j].nb_of_characters = 0;
+                        if (cityMap->cells[m][n].type != WASTELAND) {
+                            for (int p = 0; p < MAX_ROWS && allConnected; ++p) {
+                                for (int q = 0; q < MAX_COLUMNS && allConnected; ++q) {
+                                    if (cityMap->cells[p][q].type != WASTELAND && (m != p || n != q)) {
+                                        if (!is_path_available(cityMap, m, n, p, q, checked)) {
+                                            allConnected = false;
+                                            printf("place_building_randomly: No path from (%d, %d) to (%d, %d). Retrying...\n", m, n, p, q);
+                                            cityMap->cells[i][j].type = WASTELAND;
+                                            cityMap->cells[i][j].nb_of_characters = 0;
+                                            break;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
