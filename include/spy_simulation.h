@@ -13,7 +13,11 @@
 
 typedef struct memory_s memory_t;
 
+typedef struct memory_s memory_t;
 
+#define CI_OFFICER_INDEX 4
+
+void handle_fatal_error(const char *message);
 void init_map(map_t * cityMap);
 double distance(unsigned int pos1[2], unsigned int pos2[2]);
 void init_house(memory_t *memory);

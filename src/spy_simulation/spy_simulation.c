@@ -66,6 +66,7 @@ void init_map(map_t *cityMap){
             cityMap->cells[i][j].type = WASTELAND;
             cityMap->cells[i][j].current_capacity = 0;
             cityMap->cells[i][j].nb_of_characters = 0;
+            cityMap->cells[i][j].has_mailbox = 0;
         }
     }
 
@@ -285,21 +286,20 @@ void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
 memory_t *create_shared_memory(const char *name) {
     int shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666);
     if (shm_fd == -1) {
-        perror("shm_open error");
+        perror("shm_open");
         exit(EXIT_FAILURE);
     }
 
-    // Calculate the size from the structure size
     size_t size = sizeof(struct memory_s);
 
     if (ftruncate(shm_fd, size) == -1) {
-        perror("ftruncate error");
+        perror("ftruncate");
         exit(EXIT_FAILURE);
     }
 
     memory_t *shared_memory = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
     if (shared_memory == MAP_FAILED) {
-        perror("mmap error");
+        perror("mmap");
         exit(EXIT_FAILURE);
     }
 
@@ -313,6 +313,7 @@ memory_t *create_shared_memory(const char *name) {
     init_map(&shared_memory->map);
     init_citizens(shared_memory);
     init_surveillance(&shared_memory->surveillanceNetwork);
+    shared_memory->mqInfo = init_mq();
 
     return shared_memory;
 }
