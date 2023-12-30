@@ -17,9 +17,7 @@
  */
 #ifndef CELL_H
 #define CELL_H
-
 #include "memory.h"
-#include "citizen_manager.h"
 /**
  * \file cell.h
  *
@@ -32,32 +30,6 @@
  */
 
 
-#include "citizen_manager.h"
 
-/**
- * The type of cells within the city map.
- */
-enum cell_type_e {
-    WASTELAND,            /*!< An empty cell. */
-    RESIDENTIAL_BUILDING, /*!< A cell that contains a residential building. */
-    CITY_HALL,            /*!< A cell that contains the City Hall. */
-    COMPANY,              /*!< A cell that contains a company. */
-    SUPERMARKET           /*!< A cell that contains a supermarket. */
-};
-
-typedef enum cell_type_e cell_type_t;
-typedef struct cell_s cell_t;
-
-/**
- * \brief A cell within the map of the city.
- */
-struct cell_s {
-    int column;           /*!< Column of the cell. */
-    int row;              /*!< Row of the cell. */
-    cell_type_t type;     /*!< Type of the cell (@see \enum e_cell_type). */
-    int current_capacity;
-    int nb_of_characters; /*!< Max. number of characters on the cell. */
-    citizen_t *occupants;
-};
 
 #endif /* CELL_H */
