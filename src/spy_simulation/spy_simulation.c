@@ -66,7 +66,7 @@ void init_map(map_t *cityMap){
             cityMap->cells[i][j].type = WASTELAND;
             cityMap->cells[i][j].current_capacity = 0;
             cityMap->cells[i][j].nb_of_characters = 0;
-            cityMap->cells[i][j].has_mailbox = 0;
+            //cityMap->cells[i][j].has_mailbox = 0;
         }
     }
 
@@ -313,7 +313,7 @@ memory_t *create_shared_memory(const char *name) {
     init_map(&shared_memory->map);
     init_citizens(shared_memory);
     init_surveillance(&shared_memory->surveillanceNetwork);
-    shared_memory->mqInfo = init_mq();
+    //shared_memory->mqInfo = init_mq();
 
     return shared_memory;
 }
