@@ -165,6 +165,7 @@ int main()
     /*Initialize the spy simulation*/
     /* Initialize terminal user interface elements */
     init_monitor_elements(main_window, memory, rows, cols);
+    int statusSharedMemory;
 
     /*  Loop and get user input  */
     while (1) {
@@ -172,8 +173,37 @@ int main()
 
         switch (key) {
             case 'Q':
+                
+
+                // Replace 'file_name.txt' with the name of the file you want to delete
+                statusSharedMemory = remove("/dev/shm/SharedMemory");
+
+                if (statusSharedMemory == 0)
+                    printf("File deleted successfully\n");
+                else
+                    printf("Error: unable to delete the file\n");
+
+                return 0;
             case 'q':
+
+                // Replace 'file_name.txt' with the name of the file you want to delete
+                statusSharedMemory = remove("/dev/shm/SharedMemory");
+
+                if (statusSharedMemory == 0)
+                    printf("File deleted successfully\n");
+                else
+                    printf("Error: unable to delete the file\n");
+
+                return 0;
             case 27:
+
+                // Replace 'file_name.txt' with the name of the file you want to delete
+                statusSharedMemory = remove("/dev/shm/SharedMemory");
+
+                if (statusSharedMemory == 0)
+                    printf("File deleted successfully\n");
+                else
+                    printf("Error: unable to delete the file\n");
                 quit_nicely(NO_PARTICULAR_REASON);
             default:
                 break;

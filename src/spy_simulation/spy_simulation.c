@@ -1,4 +1,5 @@
 #include "memory.h"
+// #include "citizen_manager.h"
 #include <time.h>
 #include <stdbool.h>
 #include "spy_simulation.h"
@@ -272,7 +273,6 @@ void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
     for (int i = 0; i < MAX_ROWS; ++i) {
         for (int j = 0; j < MAX_COLUMNS; ++j) {
             surveillanceNetwork->devices[i][j].standard_camera = 1; // Standard cameras enabled by default
-            surveillanceNetwork->devices[i][j].infrared_camera = 1; // Infrared cameras enabled by default
             surveillanceNetwork->devices[i][j].lidar = 1; // Lidars enabled by default
         }
     }
@@ -305,11 +305,13 @@ memory_t *create_shared_memory(const char *name) {
 
     close(shm_fd);
 
+    printf("avant de faire les init");
+
     // Initialize the shared memory as necessary
     shared_memory->memory_has_changed = 0;
     shared_memory->simulation_has_ended = 0;
     init_map(&shared_memory->map);
-    init_citizens(&shared_memory->citizens);
+    init_citizens(shared_memory);
     init_surveillance(&shared_memory->surveillanceNetwork);
 
     return shared_memory;
@@ -337,20 +339,7 @@ void start_simulation_processes(){
     // pid_t pid_monitor, pid_enemy_spy_network, pid_citizen_manager, pid_enemy_country,
     // pid_counterintelligence_officer, pid_timer;
     int num_children =0;
-    pid_t pidExecutables[2];
-
-    pidExecutables[num_children] = fork();
-    if (pidExecutables[num_children] == -1) {
-        perror("Error [fork()] timer: ");
-        exit(EXIT_FAILURE);
-    }
-    if (pidExecutables[num_children] == 0) {
-        if (execl("./bin/timer", "timer", NULL) == -1) {
-            perror("Error [execl] timer: ");
-            exit(EXIT_FAILURE);
-        }
-    }
-    num_children++;
+    pid_t pidExecutables[3];
 
     pidExecutables[num_children] = fork();
     if (pidExecutables[num_children] == -1) {
@@ -365,6 +354,31 @@ void start_simulation_processes(){
         
     }
     num_children++;
+
+    pidExecutables[num_children] = fork();
+    if (pidExecutables[num_children] == -1) {
+        perror("Error [fork()] timer: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pidExecutables[num_children] == 0) {
+        if (execl("./bin/timer", "timer", NULL) == -1) {
+            perror("Error [execl] timer: ");
+            exit(EXIT_FAILURE);
+        }
+    }
+    num_children++;
+
+    // pidExecutables[num_children] = fork();
+    // if (pidExecutables[num_children] == -1) {
+    //     perror("Error [fork()] citizen_manager: ");
+    //     exit(EXIT_FAILURE);
+    // }
+    // if (pidExecutables[num_children] == 0) {
+    //     if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
+    //         perror("Error [execl] citizen_manager: ");
+    //         exit(EXIT_FAILURE);
+    //     }
+    // }
     
    
     for (int i = 0; i < num_children; i++) {
@@ -372,18 +386,18 @@ void start_simulation_processes(){
         waitpid(pidExecutables[i], &status, 0);
     }
     
+    int statusSharedMemory;
+
+    // Replace 'file_name.txt' with the name of the file you want to delete
+    statusSharedMemory = remove("/dev/shm/SharedMemory");
+
+    if (statusSharedMemory == 0)
+        printf("File deleted successfully\n");
+    else
+        printf("Error: unable to delete the file\n");
+
+    return 0;
     
-    /*pid_citizen_manager = fork();
-    if (pid_citizen_manager == -1) {
-        perror("Error [fork()] citizen_manager: ");
-        exit(EXIT_FAILURE);
-    }
-    if (pid_citizen_manager == 0) {
-        if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
-            perror("Error [execl] citizen_manager: ");
-            exit(EXIT_FAILURE);
-        }
-    }*/
 
     /*pid_counterintelligence_officer = fork();
     if (pid_counterintelligence_officer == -1) {

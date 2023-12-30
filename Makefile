@@ -9,7 +9,7 @@ ifeq ($(UNAME),Darwin)
 endif
 ifeq ($(UNAME),Linux)
     CPPFLAGS=-D_REENTRANT -I./include
-    LDFLAGS=-lncurses -lpthread -lrt -lm
+    LDFLAGS=-lncurses -lpthread -g -lrt -lm
 endif
 
 .PHONY: all clean distclean
@@ -60,6 +60,18 @@ bin/timer: src/timer/main.o
 
 src/timer/main.o: src/timer/main.c include/timer.h include/memory.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) $< -o $@ -c
+
+# ----------------------------------------------------------------------------
+# CITIZEN MANAGER
+# ----------------------------------------------------------------------------
+bin/citizen_manager: src/citizen_manager/main.o src/citizen_manager/citizen_manager.o 
+	$(CC) $^ -o $@ $(LDFLAGS)
+
+src/citizen_manager/main.o: src/citizen_manager/main.c include/memory.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+src/citizen_manager/citizen_manager.o: src/citizen_manager/citizen_manager.c include/spy_simulation.h include/memory.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 
 # ----------------------------------------------------------------------------

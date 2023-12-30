@@ -30,7 +30,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <fcntl.h>
-
+#include <math.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
 #include <sys/time.h>
@@ -297,6 +297,29 @@ struct citizen_s {
     void (*step)(citizen_t *);
 };
 
+struct building_s {
+    unsigned int position[2];
+    building_type_t type;
+    cell_t cell_type;
+    unsigned int nb_citizen;
+    unsigned int max_capacity;
+    unsigned int max_workers;
+    unsigned int min_workers;
+    unsigned int nb_workers;
+    citizen_t *citizens[CITIZENS_COUNT];
+    void (*add_citizen)(building_t *, citizen_t *);
+    void (*remove_citizen)(building_t *, citizen_t *);
+};
+
+struct home_s {
+    unsigned int position[2];
+    unsigned int nb_citizen;
+    unsigned int max_capacity;
+    citizen_t *citizens[CITIZENS_COUNT];
+    void (*add_citizen)(home_t *, citizen_t *);
+    void (*remove_citizen)(home_t *, citizen_t *);
+};
+
 /**
  * \brief Shared memory used by all processes.
  */
@@ -317,7 +340,7 @@ struct memory_s {
     int end_round;
     pid_t pids[7];
     mq_t mqInfo;
-    citizen_t citizens[NB_CITIZEN];
+    citizen_t citizens[CITIZENS_COUNT];
     int walking_citizens;
     int at_home_citizens;
     int at_work_citizens;
