@@ -11,3 +11,4 @@
 ### 25/12 :
 - Travail sur spy simulation : gestion de la shared memory
 - Voir la fonction de gestion des blessures laisée dans spy_simulation
+- Création de nouvelles structures dans citizen manager
