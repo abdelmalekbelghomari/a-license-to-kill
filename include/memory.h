@@ -248,28 +248,7 @@ struct counterintelligence_officer_s {
     int targeted_character_id;                            /*!< The targeted character id.*/
 }; 
 
-struct building_s {
-    unsigned int position[2];
-    building_type_t type;
-    cell_t cell_type;
-    unsigned int nb_citizen;
-    unsigned int max_capacity;
-    unsigned int max_workers;
-    unsigned int min_workers;
-    unsigned int nb_workers;
-    citizen_t *citizens[CITIZENS_COUNT];
-    void (*add_citizen)(building_t *, citizen_t *);
-    void (*remove_citizen)(building_t *, citizen_t *);
-};
 
-struct home_s {
-    unsigned int position[2];
-    unsigned int nb_citizen;
-    unsigned int max_capacity;
-    citizen_t *citizens[CITIZENS_COUNT];
-    void (*add_citizen)(home_t *, citizen_t *);
-    void (*remove_citizen)(home_t *, citizen_t *);
-};
 
 
 struct citizen_s {
