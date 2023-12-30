@@ -144,12 +144,15 @@ void assign_company_to_citizen(memory_t* memory, citizen_t* citizen){
     if(company_list[0].nb_workers < company_list[0].max_workers){
         citizen->workplace = &company_list[0];
         company_list[0].nb_workers++;
+
     } else if (company_list[1].nb_workers < company_list[1].max_workers){
         citizen->workplace = &company_list[1];
         company_list[1].nb_workers++;
+
     } else if (company_list[2].nb_workers < company_list[2].max_workers){
         citizen->workplace = &company_list[2];
         company_list[2].nb_workers++;
+
     } else {
         while (attempts < NB_COMPANY) {
             company_index = 3 + rand() % NB_COMPANY;
@@ -158,9 +161,10 @@ void assign_company_to_citizen(memory_t* memory, citizen_t* citizen){
             && company->nb_workers < company->min_workers) {
                 citizen->workplace = &company;
                 company->nb_workers++;
-                break; 
+                break;
+            }else{
+                attempts++;
             }
-            attempts++;
         }
     }
 

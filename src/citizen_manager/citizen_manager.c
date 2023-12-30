@@ -17,7 +17,7 @@ void use_shared_memory(memory_t *memory) {
         exit(EXIT_FAILURE);
     } else {
         citizen_t *characters_list = mmap(NULL, 
-                                sizeof(citizen_t) * NB_CITIZEN, 
+                                sizeof(citizen_t) * CITIZENS_COUNT, 
                                 PROT_READ | PROT_WRITE, 
                                 MAP_SHARED, 
                                 shmd, 
@@ -108,8 +108,8 @@ void *citizen_behavior(void *arg, memory_t *memory) {
 }
 
 void start_citizen_threads(citizen_t *characters_list) {
-    pthread_t thread_citizen[NB_CITIZEN];
-    for (int i = 0; i < NB_CITIZEN; i++) {
+    pthread_t thread_citizen[CITIZENS_COUNT];
+    for (int i = 0; i < CITIZENS_COUNT; i++) {
         pthread_create(thread_citizen[i], NULL, citizen_behavior, &characters_list[i]);
     }
 }
@@ -184,15 +184,15 @@ void move_citizen_to_supermarket(citizen_t *character) {
 
 
 void initialize_synchronization_tools() {
-    pthread_barrier_init(&start_barrier, NULL, NB_CITIZEN);
-    pthread_barrier_init(&end_barrier, NULL, NB_CITIZEN);
+    pthread_barrier_init(&start_barrier, NULL, CITIZENS_COUNT);
+    pthread_barrier_init(&end_barrier, NULL, CITIZENS_COUNT);
     pthread_mutex_init(&mutex, NULL);
 }
 
 void manage_citizens(citizen_t *characters_list) {
-    pthread_t thread_citizen[NB_CITIZEN];
+    pthread_t thread_citizen[CITIZENS_COUNT];
 
-    for (int i = 0; i < NB_CITIZEN; i++) {
+    for (int i = 0; i < CITIZENS_COUNT; i++) {
         pthread_create(&thread_citizen[i], NULL, citizen_behavior, &characters_list[i]);
     }
 
@@ -203,7 +203,7 @@ void manage_citizens(citizen_t *characters_list) {
     pthread_barrier_wait(&end_barrier);
 
     // Nettoyage
-    for (int i = 0; i < NB_CITIZEN; i++) {
+    for (int i = 0; i < CITIZENS_COUNT; i++) {
         pthread_join(thread_citizen[i], NULL);
     }
 }
