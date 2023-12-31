@@ -12,3 +12,10 @@
 - Travail sur spy simulation : gestion de la shared memory
 - Voir la fonction de gestion des blessures laisée dans spy_simulation
 - Création de nouvelles structures dans citizen manager
+
+### 31/12 :
+- J'ai oublié de noter les jours d'avant
+- timer fonctionnel avec test des sémaphores 
+- j'ai du reprendre toutes les fonctions d'initialisation des citizen pour utiliser citizen_manager proprement
+- Haykel a codé un CSP pour la génération de map. (il est chaud)
+- bonne compréhension des mutex et barrieres

@@ -59,6 +59,7 @@
   "files.associations": {
     "*.py": "python",
     "spy_simulation.h": "c",
-    "cstdlib": "c"
+    "cstdlib": "c",
+    "mman.h": "c"
   }
 }
