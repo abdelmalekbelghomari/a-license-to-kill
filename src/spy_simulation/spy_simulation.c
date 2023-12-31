@@ -99,7 +99,7 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
             int i = rand() % MAX_ROWS;
             int j = rand() % MAX_COLUMNS;
 
-            printf("place_building_randomly: Attempt %d to place building at (%d, %d)\n", attempts, i, j);
+            //printf("place_building_randomly: Attempt %d to place building at (%d, %d)\n", attempts, i, j);
             if (cityMap->cells[i][j].type == WASTELAND) {
                 cityMap->cells[i][j].type = buildingType;
                 cityMap->cells[i][j].nb_of_characters = nb_of_characters;
@@ -116,7 +116,7 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
                                     if (cityMap->cells[p][q].type != WASTELAND && (m != p || n != q)) {
                                         if (!is_path_available(cityMap, m, n, p, q, checked)) {
                                             allConnected = false;
-                                            printf("place_building_randomly: No path from (%d, %d) to (%d, %d). Retrying...\n", m, n, p, q);
+                                            //printf("place_building_randomly: No path from (%d, %d) to (%d, %d). Retrying...\n", m, n, p, q);
                                             cityMap->cells[i][j].type = WASTELAND;
                                             cityMap->cells[i][j].nb_of_characters = 0;
                                             break;
@@ -129,7 +129,7 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
                 }
 
                 if (allConnected) {
-                    printf("place_building_randomly: Building placed at (%d, %d)\n", i, j);
+                    //printf("place_building_randomly: Building placed at (%d, %d)\n", i, j);
                     placed = true;
                     placed_count++;
                 }
