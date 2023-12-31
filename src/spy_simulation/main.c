@@ -17,6 +17,7 @@ extern int old_cursor;
 
 int main(int argc, char **argv)
 {
+    srand(time(NULL));
     memory_t *memory = create_shared_memory("SharedMemory");
     //initialiser le semaphore du timer 
     sem_t* sem = create_semaphore("/timer_sem", 1);

@@ -17,67 +17,150 @@ void signal_handler(int signal, memory_t *shared_memory) {
     }
 }
 
-bool is_valid_move(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col) {
-    return (row >= 0) && (row < MAX_ROWS) && (col >= 0) && (col < MAX_COLUMNS) 
-        && (cityMap->cells[row][col].type == WASTELAND || cityMap->cells[row][col].type == RESIDENTIAL_BUILDING) 
-        && !visited[row][col];
+bool is_neighbor(int row, int col, int endRow, int endCol) {
+    // Vérifie si la case (row, col) est voisine de la case (endRow, endCol)
+    return (abs(row - endRow) <= 1 && abs(col - endCol) <= 1);
 }
 
 bool dfs(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col, int endRow, int endCol) {
-    if (row == endRow && col == endCol) return true;
+    // Vérifier si la position actuelle est valide
+    if (row < 0 || row >= MAX_ROWS || col < 0 || col >= MAX_COLUMNS || visited[row][col] || cityMap->cells[row][col].type != WASTELAND) {
+        return false;
+    }
 
+    // Si une case WASTELAND voisine de la case d'arrivée est atteinte
+    if (is_neighbor(row, col, endRow, endCol)) {
+    
+        // printf("dfs: Wasteland neighbor found at (%d, %d) for end (%d, %d)\n", row, col, endRow, endCol);
+        return true;
+    }
+
+    // Marquer la case actuelle comme visitée
     visited[row][col] = true;
 
-    int rowOffsets[] = {-1, -1, -1, 0, 0, 1, 1, 1};
-    int colOffsets[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+    // Définir les 8 directions de l'exploration (incluant les diagonales)
+    int rowOffsets[] = {-1, -1, -1, 0, 1, 1, 1, 0};
+    int colOffsets[] = {-1, 0, 1, 1, 1, 0, -1, -1};
 
+    // Explorer toutes les directions possibles
     for (int k = 0; k < 8; k++) {
         int newRow = row + rowOffsets[k];
         int newCol = col + colOffsets[k];
-        if (is_valid_move(cityMap, visited, newRow, newCol) && dfs(cityMap, visited, newRow, newCol, endRow, endCol)) {
+
+        if (dfs(cityMap, visited, newRow, newCol, endRow, endCol)) {
             return true;
         }
     }
 
+    // Backtracking: Désélectionner la case actuelle avant de revenir en arrière
+    visited[row][col] = false;
+
     return false;
 }
 
-bool is_path_available(map_t *cityMap, int startRow, int startCol, int endRow, int endCol) {
+bool is_path_available(map_t *cityMap, int startRow, int startCol, int endRow, int endCol, bool checked[MAX_ROWS][MAX_COLUMNS]) {
+    if (checked[endRow][endCol]) {
+        // printf("is_path_available: Path already checked from (%d, %d) to (%d, %d)\n", startRow, startCol, endRow, endCol);
+        return true;
+    }
+    // printf("is_path_available: Checking path from (%d, %d) to (%d, %d)\n", startRow, startCol, endRow, endCol);
+
     bool visited[MAX_ROWS][MAX_COLUMNS] = {{false}};
-    return dfs(cityMap, visited, startRow, startCol, endRow, endCol);
+    int rowOffsets[] = {-1, -1, -1, 0, 1, 1, 1, 0};
+    int colOffsets[] = {-1, 0, 1, 1, 1, 0, -1, -1};
+
+    for (int k = 0; k < 8; k++) {
+        int newRow = startRow + rowOffsets[k];
+        int newCol = startCol + colOffsets[k];
+
+        // Check if the neighboring cell is a WASTELAND and not visited
+        if (newRow >= 0 && newRow < MAX_ROWS && newCol >= 0 && newCol < MAX_COLUMNS &&
+            !visited[newRow][newCol] && cityMap->cells[newRow][newCol].type == WASTELAND) {
+            if (dfs(cityMap, visited, newRow, newCol, endRow, endCol)) {
+                checked[endRow][endCol] = true;
+                return true;
+            }
+        }
+    }
+    // printf("no path is avaiable from (%d, %d) to (%d, %d)\n", startRow, startCol, endRow, endCol);
+    checked[endRow][endCol] = false;
+    return false;
 }
+
+
 void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb_of_characters) {
-    int placed_count = 0;
-    int i, j;
-    while (placed_count != count) {
-        i = rand() % MAX_ROWS;
-        j = rand() % MAX_COLUMNS;
-        if (cityMap->cells[i][j].type == WASTELAND){
-            cityMap->cells[i][j].type = buildingType;
-            cityMap->cells[i][j].nb_of_characters = nb_of_characters;
-            placed_count++;
+    int max_attempts = 100;
+    for (int placed_count = 0; placed_count < count; ) {
+        int attempts = 0;
+        bool placed = false;
+
+        while (!placed && attempts < max_attempts) {
+            attempts++;
+            int i = rand() % MAX_ROWS;
+            int j = rand() % MAX_COLUMNS;
+
+            // printf("place_building_randomly: Attempt %d to place building at (%d, %d)\n", attempts, i, j);
+            if (cityMap->cells[i][j].type == WASTELAND) {
+                cityMap->cells[i][j].type = buildingType;
+                cityMap->cells[i][j].nb_of_characters = nb_of_characters;
+
+                bool allConnected = true;
+                bool checked[MAX_ROWS][MAX_COLUMNS] = {{false}};
+
+                // Vérifier si chaque bâtiment est accessible depuis chaque autre bâtiment
+                for (int m = 0; m < MAX_ROWS && allConnected; ++m) {
+                    for (int n = 0; n < MAX_COLUMNS && allConnected; ++n) {
+                        if (cityMap->cells[m][n].type != WASTELAND) {
+                            for (int p = 0; p < MAX_ROWS && allConnected; ++p) {
+                                for (int q = 0; q < MAX_COLUMNS && allConnected; ++q) {
+                                    if (cityMap->cells[p][q].type != WASTELAND && (m != p || n != q)) {
+                                        if (!is_path_available(cityMap, m, n, p, q, checked)) {
+                                            allConnected = false;
+                                            // printf("place_building_randomly: No path from (%d, %d) to (%d, %d). Retrying...\n", m, n, p, q);
+                                            cityMap->cells[i][j].type = WASTELAND;
+                                            cityMap->cells[i][j].nb_of_characters = 0;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (allConnected) {
+                    //printf("place_building_randomly: Building placed at (%d, %d)\n", i, j);
+                    placed = true;
+                    placed_count++;
+                }
+            }
+        }
+
+        if (!placed) {
+            // printf("Unable to place all buildings after %d attempts. Resetting...\n", max_attempts);
+            break;
         }
     }
 }
-void init_map(map_t *cityMap){
-    int i, j;
-    for (i = 0; i < MAX_ROWS; i++){
-        for (j = 0; j < MAX_COLUMNS; j++){
+
+void init_map(map_t *cityMap) {
+    // printf("init_map: Initializing the map\n");
+    for (int i = 0; i < MAX_ROWS; i++) {
+        for (int j = 0; j < MAX_COLUMNS; j++) {
             cityMap->cells[i][j].type = WASTELAND;
-            cityMap->cells[i][j].current_capacity = 0;
             cityMap->cells[i][j].nb_of_characters = 0;
-            //cityMap->cells[i][j].has_mailbox = 0;
         }
     }
 
+    // printf("init_map: Placing City Hall at (3, 3)\n");
     cityMap->cells[3][3].type = CITY_HALL;
     cityMap->cells[3][3].nb_of_characters = 20;
 
+    // printf("init_map: Placing other buildings\n");
     place_building_randomly(cityMap, SUPERMARKET, 2, 30);
     place_building_randomly(cityMap, COMPANY, 8, 50);
     place_building_randomly(cityMap, RESIDENTIAL_BUILDING, 11, 15);
 }
-
 
 double distance(unsigned int pos1[2], unsigned int pos2[2]) {
     return abs((int)pos1[0] - (int)pos2[0]) + abs((int)pos1[1] - (int)pos2[1]);
@@ -85,10 +168,10 @@ double distance(unsigned int pos1[2], unsigned int pos2[2]) {
 
 void init_house(memory_t *memory){
     int fakeHome = rand() % NB_HOMES;
-    printf("=====================================\n");
-    printf("fake home %d\n", fakeHome);
-    printf("La maison %p est la maison avec la boite au lettre piégee\n", &memory->homes[fakeHome]);
-    printf("\n\n=====================================\n");
+    // printf("=====================================\n");
+    // printf("fake home %d\n", fakeHome);
+    // printf("La maison %p est la maison avec la boite au lettre piégee\n", &memory->homes[fakeHome]);
+    // printf("\n\n=====================================\n");
     for(int i = 0; i < NB_HOMES; i++){
         if (i == fakeHome){
             memory->homes[i].max_capacity = 0;
@@ -246,7 +329,6 @@ void assign_random_supermarket(memory_t* memory, citizen_t* citizen){
 
 
 void init_citizens(memory_t *memory) {
-    srand(time(NULL));
 
     init_house(memory);
     init_building(memory);
@@ -259,12 +341,12 @@ void init_citizens(memory_t *memory) {
         // // printf("ftg Haykel ton micro de merde\n");
 
         assign_home_to_citizen(memory, citizen);
-        printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
+        //printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
         assign_company_to_citizen(memory, citizen);
-        printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, 
-                                                     citizen->workplace);
+        // printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, 
+                                                    //  citizen->workplace);
         assign_random_supermarket(memory, citizen);
-        printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
+        // printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
     }
         
 }

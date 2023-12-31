@@ -146,10 +146,10 @@ void move_citizen_to_home(citizen_t *character) {
         character->position[0] = character->home->position[0]; 
         character->position[1] = character->home->position[1]; 
         character->home->nb_citizen++;
-        printf("Citizen %d moved to  at position (%d, %d)\n", 
-            character->id, character->position[0], character->position[1]);
+        // printf("Citizen %d moved to  at position (%d, %d)\n", 
+            // character->id, character->position[0], character->position[1]);
     } else {
-        printf(stderr,"home is full\n");
+        // printf(stderr,"home is full\n");
     }
     
 }
@@ -160,10 +160,10 @@ void move_citizen_to_work(citizen_t *character) {
         character->position[0] = character->workplace->position[0]; 
         character->position[1] = character->workplace->position[1]; 
         character->workplace->nb_citizen++;
-        printf("Citizen %d moved to work at position (%d, %d)\n", 
-            character->id, character->position[0], character->position[1]);
+        // printf("Citizen %d moved to work at position (%d, %d)\n", 
+        //     character->id, character->position[0], character->position[1]);
     } else {
-        printf(stderr,"The workplace is full\n");
+        // printf(stderr,"The workplace is full\n");
     }
     
 }
@@ -173,10 +173,10 @@ void move_citizen_to_supermarket(citizen_t *character) {
         character->position[0] = character->supermarket->position[0]; 
         character->position[1] = character->supermarket->position[1]; 
         character->supermarket->nb_citizen++;
-        printf("Citizen %d moved to supermarket at position (%d, %d)\n", 
-            character->id, character->position[0], character->position[1]);
+        // printf("Citizen %d moved to supermarket at position (%d, %d)\n", 
+        //     character->id, character->position[0], character->position[1]);
     } else {
-        printf(stderr,"The supermarket is full\n");
+        // printf(stderr,"The supermarket is full\n");
     }
      
 }
