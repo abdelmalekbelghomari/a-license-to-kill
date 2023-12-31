@@ -60,6 +60,8 @@
     "*.py": "python",
     "spy_simulation.h": "c",
     "cstdlib": "c",
-    "mman.h": "c"
+    "mman.h": "c",
+    "fcntl.h": "c",
+    "memory.h": "c"
   }
 }

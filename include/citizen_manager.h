@@ -23,9 +23,9 @@ double get_current_simulation_time(memory_t *memory);
 int is_at_supermarket(citizen_t *character);
 memory_t open_shared_memory();
 
-void character_begin(character_t *c);
-void character_step(character_t *c);
-void character_end(character_t *c);
-void character_change_state(character_t *c, state_t *new_state);
+// void character_begin(character_t *c);
+// void character_step(character_t *c);
+// void character_end(character_t *c);
+// void character_change_state(character_t *c, state_t *new_state);
 
 #endif // CITIZEN_MANAGER_H
