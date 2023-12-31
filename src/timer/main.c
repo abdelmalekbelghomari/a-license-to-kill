@@ -9,9 +9,10 @@ sem_t *sem;
 simulated_clock_t new_timer(){
     simulated_clock_t time;
     time.round = 0;
-    time.hours = 0;
+    time.hours = 8;
     time.minutes = 0;
     time.days = 0;
+    memory->memory_has_changed = 1;
     return time;
 }
 

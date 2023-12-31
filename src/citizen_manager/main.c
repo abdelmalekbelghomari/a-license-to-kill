@@ -12,6 +12,9 @@
 #define SHARED_MEMORY "/SharedMemory"
 #define NUM_CITIZENS 127
 
+extern pthread_mutex_t mutex;
+extern pthread_barrier_t start_barrier, end_barrier;
+memory_t *memory; 
 
 
 int main() {

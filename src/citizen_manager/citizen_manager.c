@@ -31,6 +31,27 @@ void use_shared_memory(memory_t *memory) {
     }
 }
 
+memory_t open_shared_memory() {
+    int shmd = shm_open(SHARED_MEMORY, O_RDWR,  S_IRUSR | S_IWUSR);
+    if (shmd == -1) {
+        perror("shm_open");
+        exit(EXIT_FAILURE);
+    } else {
+        memory_t *memory = mmap(NULL, 
+                                sizeof(memory_t), 
+                                PROT_READ | PROT_WRITE, 
+                                MAP_SHARED, 
+                                shmd, 
+                                0);
+        if (memory == MAP_FAILED) {
+            perror("mmap");
+            exit(EXIT_FAILURE);
+        } else {
+            return *memory;
+        }
+    }
+}
+
 double get_current_simulation_time(memory_t *memory) {
     return memory->timer.hours + round(memory->timer.minutes / 60.0 * 100) / 100;
     /*TO DO in timer*/
