@@ -45,7 +45,6 @@
 #define MAX_COLUMNS 7
 #define MAX_ROUNDS 2016
 
-#define NB_CITIZEN 127
 #define NB_CITIZEN_HALL 10
 #define NB_CITIZEN_STORE 6
 #define NB_CITIZEN_COMPANY 111
@@ -59,8 +58,6 @@
 #define MAX_IN_STORE 30
 #define MAX_IN_COMPANY 50
 
-
-#define CITIZENS_COUNT 132
 #define CITY_HALL_ROW 3
 #define CITY_HALL_COLUMN 3
 
@@ -290,7 +287,7 @@ struct building_s {
     unsigned int max_workers;
     unsigned int min_workers;
     unsigned int nb_workers;
-    citizen_t *citizens[CITIZENS_COUNT];
+    citizen_t *citizens;
     void (*add_citizen)(building_t *, citizen_t *);
     void (*remove_citizen)(building_t *, citizen_t *);
 };
@@ -299,7 +296,7 @@ struct home_s {
     unsigned int position[2];
     unsigned int nb_citizen;
     unsigned int max_capacity;
-    citizen_t *citizens[CITIZENS_COUNT];
+    citizen_t *citizens;
     void (*add_citizen)(home_t *, citizen_t *);
     void (*remove_citizen)(home_t *, citizen_t *);
 };
