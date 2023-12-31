@@ -1,4 +1,3 @@
-#include "memory.h"
 #include "citizen_manager.h"
 #include <time.h>
 #include <stdbool.h>
@@ -147,8 +146,7 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
     }
 }
 
-void init_map(memory_t *memory) {
-    map_t *cityMap = &memory->map;
+void init_map(map_t *cityMap) {
     // printf("init_map: Initializing the map\n");
     for (int i = 0; i < MAX_ROWS; i++) {
         for (int j = 0; j < MAX_COLUMNS; j++) {
@@ -167,117 +165,14 @@ void init_map(memory_t *memory) {
     place_building_randomly(cityMap, RESIDENTIAL_BUILDING, 11, 15);
 }
 
-double distance(unsigned int pos1[2], unsigned int pos2[2]) {
-    return abs((int)pos1[0] - (int)pos2[0]) + abs((int)pos1[1] - (int)pos2[1]);
-}
-
-void init_house(memory_t *memory){
-    int fakeHome = rand() % NB_HOMES;
-    // printf("=====================================\n");
-    // printf("fake home %d\n", fakeHome);
-    // printf("La maison %p est la maison avec la boite au lettre piégee\n", &memory->homes[fakeHome]);
-    // printf("\n\n=====================================\n");
-    for(int i = 0; i < NB_HOMES; i++){
-        if (i == fakeHome){
-            memory->homes[i].max_capacity = 0;
-        }
-        else{
-            memory->homes[i].max_capacity = 15;
-        }
-    }
-}
-
-void init_building(memory_t *memory){
-    for(int i = 0; i < NB_WORKPLACES; i++){
-        if(i < NB_STORE){
-            memory->companies[i].type = STORE;
-            memory->companies[i].max_workers = 3;
-            memory->companies[i].min_workers = 3;
-        } else if (i == NB_STORE) {
-            memory->companies[i].min_workers = 10;
-            memory->companies[i].max_workers = 10;
-            memory->companies[i].type = CITY_HALL;
-        } else {
-            memory->companies[i].min_workers = 5;
-            memory->companies[i].max_workers = 50;
-            memory->companies[i].type = CORPORATION;
-        }
-    }
-}
-
-void assign_home_to_citizen(memory_t* memory, citizen_t* citizen){
-
-    home_t *houses = memory->homes;
-    // Assign a random house, respecting max capacity
-    int house_index;
-    int attempts = 0;
-    while (attempts < NB_HOMES) {
-        house_index = rand() % NB_HOMES;
-        if (houses[house_index].nb_citizen < houses[house_index].max_capacity) {
-            citizen->home = &houses[house_index];
-            houses[house_index].nb_citizen++;
-            break;  // Sortie de la boucle une fois qu'une maison est trouvée
-        }
-        attempts++;
-    }
-}
 
 
 
-void assign_company_to_citizen(memory_t* memory, citizen_t* citizen){
-    
-    building_t *company_list = memory->companies;
-    // Assign a random company, respecting max capacity
-    int company_index;
-    int attempts = 0;  // Compteur pour éviter une boucle infinie
 
-    if(company_list[0].nb_workers < company_list[0].max_workers){
-        citizen->workplace = &company_list[0];
-        company_list[0].nb_workers++;
 
-    } else if (company_list[1].nb_workers < company_list[1].max_workers){
-        citizen->workplace = &company_list[1];
-        company_list[1].nb_workers++;
 
-    } else if (company_list[2].nb_workers < company_list[2].max_workers){
-        citizen->workplace = &company_list[2];
-        company_list[2].nb_workers++;
 
-    } else {
-        while (attempts < NB_COMPANY) {
-            company_index = 3 + rand() % NB_COMPANY;
-            building_t *company = &company_list[company_index];
-            if (company->nb_workers < company->max_workers 
-            && company->nb_workers < company->min_workers) {
-                citizen->workplace = &company;
-                company->nb_workers++;
-                break;
-            }else{
-                attempts++;
-            }
-        }
-    }
 
-//     while (1) {
-//         company_index = rand() % NB_WORKPLACES;
-//         building_t *company = &company_list[company_index];
-
-//         if (company->type == STORE && company->nb_workers < company->max_workers) {
-//             citizen->workplace = company;
-//             company->nb_workers++;
-//             break;
-//         if (company->type == CITY_HALL && company->nb_workers < company->max_workers) {
-//             citizen->workplace = company;
-//             company->nb_workers++;
-//             break;
-//         } else if (company->nb_workers < company->max_workers ||
-//                    company->nb_workers < company->min_workers) {
-//             citizen->workplace = company;
-//             company->nb_workers++;
-//             break;
-//         }
-//     }
-}
 
 // void assign_company_to_citizen(memory_t* memory, citizen_t* citizen) {
 //     building_t *buildings = memory->companies;
@@ -315,21 +210,7 @@ void assign_company_to_citizen(memory_t* memory, citizen_t* citizen){
 //     buildings[company_index].nb_workers++;
 // }
 
-void assign_random_supermarket(memory_t* memory, citizen_t* citizen){
-    
-    // Find nearest supermarket
-    building_t supermaket_list[NB_STORE] = {memory->companies[0], memory->companies[1]};
-    // Les deux premiers emplacements sont donnés aux supermarchés
-    double dist1 = distance(supermaket_list[0].position, citizen->workplace->position);
-    double dist2 = distance(supermaket_list[1].position, citizen->workplace->position);
-    int supermaketChoice = rand() % NB_STORE;
-    if(supermaketChoice == 0){
-        citizen->supermarket = &supermaket_list[0];
-    } else {
-        citizen->supermarket = &supermaket_list[1];
-    }
-    
-}
+
 
 // void init_states(citizen_t *citizen) {
 //     state_t *current_state;
@@ -359,42 +240,31 @@ void assign_random_supermarket(memory_t* memory, citizen_t* citizen){
 
 
 
-void init_citizens(memory_t *memory) {
 
-    init_house(memory);
-    init_building(memory);
 
-    for (int i = 0; i < CITIZENS_COUNT; i++) {
-        citizen_t *citizen = &memory->citizens[i];
-        citizen->id = i ;
-        citizen->type = NORMAL;
-        citizen->health = 10;
-        citizen->type = NORMAL;
-        // citizen->current_state = create_state(citizen->id, current_state);
-        // citizen->next_state = create_state(citizen->id, next_state);
-        // citizen->resting_at_home = create_state(citizen->id, resting_at_home);
-        // citizen->going_to_company = create_state(citizen->id, going_to_company);
-        // citizen->working = create_state(citizen->id, working);
-        // citizen->going_to_supermarket = create_state(citizen->id, going_to_supermarket);
-        // citizen->doing_some_shopping = create_state(citizen->id, doing_some_shopping);
-        // citizen->going_back_home = create_state(citizen->id, going_back_home);
-        // citizen->dying = create_state(citizen->id, dying);
-        // citizen->change_state = change_state;
-        // citizen->begin = citizen_begin;
-        // citizen->end = citizen_end;
-        // citizen->step = citizen_step;
+// void citizen_begin(citizen_t *citizen) {
+//     citizen->change_state(citizen, citizen->resting_at_home);
+// }
 
-        assign_home_to_citizen(memory, citizen);
-        //printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
-        assign_company_to_citizen(memory, citizen);
-        // printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, 
-                                                    //  citizen->workplace);
-        assign_random_supermarket(memory, citizen);
-        // printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
-    }
-        
-}
+// void citizen_step(citizen_t *citizen) {
+//     citizen->change_state(citizen, citizen->next_state);
+// }
 
+// void citizen_end(citizen_t *citizen) {
+//     citizen->change_state(citizen, citizen->resting_at_home);
+// }
+
+// state_t *rest_at_home(citizen_t *citizen) {
+//     return citizen->going_to_company;
+// }
+
+// state_t *go_to_company(citizen_t *citizen) {
+//     return citizen->working;
+// }
+
+// state_t *work(citizen_t *citizen) {
+//     return citizen->going_to_supermarket;
+// }
 
 void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
     for (int i = 0; i < MAX_ROWS; ++i) {
@@ -437,7 +307,6 @@ memory_t *create_shared_memory(const char *name) {
     shared_memory->memory_has_changed = 0;
     shared_memory->simulation_has_ended = 0;
     init_map(&shared_memory->map);
-    init_citizens(shared_memory);
     init_surveillance(&shared_memory->surveillanceNetwork);
     //shared_memory->mqInfo = init_mq();
 

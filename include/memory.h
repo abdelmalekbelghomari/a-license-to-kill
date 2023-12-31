@@ -275,16 +275,16 @@ struct citizen_s {
     state_t *finished;
     // state_t change_state[DAILY_CITIZEN_STATES]
 
-    void (*change_state)(citizen_t *, state_t *);
-    void (*begin)(citizen_t *);
-    void (*end)(citizen_t *);
-    void (*step)(citizen_t *);
+    // void (*change_state)(citizen_t *, state_t *);
+    // void (*begin)(citizen_t *);
+    // void (*end)(citizen_t *);
+    // void (*step)(citizen_t *);
 };
 
 struct building_s {
     unsigned int position[2];
     building_type_t type;
-    cell_t cell_type;
+    cell_type_t cell_type;
     unsigned int nb_citizen;
     unsigned int max_capacity;
     unsigned int max_workers;

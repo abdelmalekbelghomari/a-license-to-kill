@@ -62,6 +62,7 @@
     "cstdlib": "c",
     "mman.h": "c",
     "fcntl.h": "c",
-    "memory.h": "c"
+    "memory.h": "c",
+    "stdbool.h": "c"
   }
 }
