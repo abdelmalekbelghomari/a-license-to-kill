@@ -1,5 +1,5 @@
 #include "memory.h"
-// #include "citizen_manager.h"
+#include "citizen_manager.h"
 #include <time.h>
 #include <stdbool.h>
 #include "spy_simulation.h"
@@ -88,8 +88,9 @@ bool is_path_available(map_t *cityMap, int startRow, int startCol, int endRow, i
 }
 
 
-void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb_of_characters) {
+void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb_of_characters, memory_t *memory) {
     int max_attempts = 100;
+    int companyCount = 0;
     for (int placed_count = 0; placed_count < count; ) {
         int attempts = 0;
         bool placed = false;
@@ -103,6 +104,8 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
             if (cityMap->cells[i][j].type == WASTELAND) {
                 cityMap->cells[i][j].type = buildingType;
                 cityMap->cells[i][j].nb_of_characters = nb_of_characters;
+                memory->companies[companyCount].position[0] = i;
+                memory->companies[companyCount].position[1] = j;
 
                 bool allConnected = true;
                 bool checked[MAX_ROWS][MAX_COLUMNS] = {{false}};
@@ -134,6 +137,7 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
                     placed_count++;
                 }
             }
+            companyCount++;
         }
 
         if (!placed) {
@@ -326,6 +330,32 @@ void assign_random_supermarket(memory_t* memory, citizen_t* citizen){
     
 }
 
+void init_states(citizen_t *citizen) {
+    state_t *current_state;
+    state_t *next_state;
+    state_t *resting_at_home;
+    state_t *going_to_company;
+    state_t *working;
+    state_t *going_to_supermarket;
+    state_t *doing_some_shopping;
+    state_t *going_back_home;
+    state_t *dying;
+    state_t *finished;
+
+    current_state = new_state(citizen->id, citizen->current_state->action);
+    next_state = new_state(citizen->id, citizen->next_state->action);
+    resting_at_home = new_state(citizen->id, citizen->resting_at_home->action);
+    going_to_company = new_state(citizen->id, citizen->going_to_company->action);
+    working = new_state(citizen->id, citizen->working->action);
+    going_to_supermarket = new_state(citizen->id, citizen->going_to_supermarket->action);
+    doing_some_shopping = new_state(citizen->id, citizen->doing_some_shopping->action);
+    going_back_home = new_state(citizen->id, citizen->going_back_home->action);
+    dying = new_state(citizen->id, citizen->dying->action);
+    finished = new_state(citizen->id, citizen->finished->action);
+
+}
+
+
 
 
 void init_citizens(memory_t *memory) {
@@ -335,9 +365,23 @@ void init_citizens(memory_t *memory) {
 
     for (int i = 0; i < CITIZENS_COUNT; i++) {
         citizen_t *citizen = &memory->citizens[i];
-
+        citizen->id = i ;
         citizen->type = NORMAL;
         citizen->health = 10;
+        citizen->type = NORMAL;
+        citizen->current_state = create_state(citizen->id, current_state);
+        citizen->next_state = create_state(citizen->id, next_state);
+        citizen->resting_at_home = create_state(citizen->id, resting_at_home);
+        citizen->going_to_company = create_state(citizen->id, going_to_company);
+        citizen->working = create_state(citizen->id, working);
+        citizen->going_to_supermarket = create_state(citizen->id, going_to_supermarket);
+        citizen->doing_some_shopping = create_state(citizen->id, doing_some_shopping);
+        citizen->going_back_home = create_state(citizen->id, going_back_home);
+        citizen->dying = create_state(citizen->id, dying);
+        citizen->change_state = change_state;
+        citizen->begin = citizen_begin;
+        citizen->end = citizen_end;
+        citizen->step = citizen_step;
         // // printf("ftg Haykel ton micro de merde\n");
 
         assign_home_to_citizen(memory, citizen);

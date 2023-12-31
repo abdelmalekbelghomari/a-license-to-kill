@@ -1,5 +1,4 @@
-#include "memory.h"
-// #include "citizen_manager.h"
+#include "citizen_manager.h"
 #include <stdio.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,29 +13,12 @@
 
 extern pthread_mutex_t mutex;
 extern pthread_barrier_t start_barrier, end_barrier;
-memory_t *memory; 
+ 
 
 
 int main() {
-    // pthread_barrier_t start_barrier, end_barrier;
-    // pthread_mutex_t mutex;
-    // memory_t *memory;
-    // int shm_fd;
-
-    // // Initialiser la mémoire partagée
-    // shm_fd = shm_open(SHARED_MEMORY, O_RDWR , 0666);
-    // if (shm_fd == -1) {
-    //     perror("Error when shm_open");
-    //     exit(EXIT_FAILURE);
-    // }  // Cette fonction devrait retourner le descripteur shm
-
-    // memory = mmap(NULL, sizeof(memory_t), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
-    // if (memory == MAP_FAILED) {
-    //     perror("mmap failed");
-    //     close(shm_fd);
-    //     exit(EXIT_FAILURE);
-    // }
-
+    // // Ouvrir la mémoire partagée
+    memory_t memory = open_shared_memory();
     // // Initialiser les outils de synchronisation
     // initialize_synchronization_tools();
 

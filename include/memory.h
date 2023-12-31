@@ -57,6 +57,7 @@
 #define MAX_IN_HALL 20
 #define MAX_IN_STORE 30
 #define MAX_IN_COMPANY 50
+#define NB_CITIZEN_STATES 6
 
 #define CITY_HALL_ROW 3
 #define CITY_HALL_COLUMN 3
@@ -76,7 +77,6 @@ typedef struct counterintelligence_officer_s counterintelligence_officer_t;
 typedef struct SpyInfo spyInfo;
 typedef struct CaseOfficerInfo caseOfficerInfo;
 typedef struct CounterIntelligenceOfficer counterIntelligenceOfficer;
-typedef struct state_s state_t;
 typedef struct state_s state_t;
 typedef struct building_s building_t;
 typedef struct home_s home_t;
@@ -256,7 +256,7 @@ struct counterintelligence_officer_s {
 struct citizen_s {
     unsigned int id;
     unsigned int position [2];
-    unsigned int health ;
+    unsigned int health;
     citizen_type_t type;
     building_t *workplace;
     building_t *supermarket; /*a random supermarket of the city*/
@@ -271,6 +271,8 @@ struct citizen_s {
     state_t *doing_some_shopping;
     state_t *going_back_home;
     state_t *dying;
+    state_t *finished;
+    // state_t change_state[DAILY_CITIZEN_STATES]
 
     void (*change_state)(citizen_t *, state_t *);
     void (*begin)(citizen_t *);
