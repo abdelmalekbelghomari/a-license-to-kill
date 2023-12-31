@@ -82,7 +82,7 @@ bool is_path_available(map_t *cityMap, int startRow, int startCol, int endRow, i
             }
         }
     }
-    printf("no path is avaiable from (%d, %d) to (%d, %d)\n", startRow, startCol, endRow, endCol);
+    // printf("no path is avaiable from (%d, %d) to (%d, %d)\n", startRow, startCol, endRow, endCol);
     checked[endRow][endCol] = false;
     return false;
 }
@@ -99,7 +99,7 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
             int i = rand() % MAX_ROWS;
             int j = rand() % MAX_COLUMNS;
 
-            printf("place_building_randomly: Attempt %d to place building at (%d, %d)\n", attempts, i, j);
+            // printf("place_building_randomly: Attempt %d to place building at (%d, %d)\n", attempts, i, j);
             if (cityMap->cells[i][j].type == WASTELAND) {
                 cityMap->cells[i][j].type = buildingType;
                 cityMap->cells[i][j].nb_of_characters = nb_of_characters;
@@ -116,7 +116,7 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
                                     if (cityMap->cells[p][q].type != WASTELAND && (m != p || n != q)) {
                                         if (!is_path_available(cityMap, m, n, p, q, checked)) {
                                             allConnected = false;
-                                            printf("place_building_randomly: No path from (%d, %d) to (%d, %d). Retrying...\n", m, n, p, q);
+                                            // printf("place_building_randomly: No path from (%d, %d) to (%d, %d). Retrying...\n", m, n, p, q);
                                             cityMap->cells[i][j].type = WASTELAND;
                                             cityMap->cells[i][j].nb_of_characters = 0;
                                             break;
@@ -129,7 +129,7 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
                 }
 
                 if (allConnected) {
-                    printf("place_building_randomly: Building placed at (%d, %d)\n", i, j);
+                    //printf("place_building_randomly: Building placed at (%d, %d)\n", i, j);
                     placed = true;
                     placed_count++;
                 }
@@ -137,14 +137,14 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
         }
 
         if (!placed) {
-            printf("Unable to place all buildings after %d attempts. Resetting...\n", max_attempts);
+            // printf("Unable to place all buildings after %d attempts. Resetting...\n", max_attempts);
             break;
         }
     }
 }
 
 void init_map(map_t *cityMap) {
-    printf("init_map: Initializing the map\n");
+    // printf("init_map: Initializing the map\n");
     for (int i = 0; i < MAX_ROWS; i++) {
         for (int j = 0; j < MAX_COLUMNS; j++) {
             cityMap->cells[i][j].type = WASTELAND;
@@ -152,11 +152,11 @@ void init_map(map_t *cityMap) {
         }
     }
 
-    printf("init_map: Placing City Hall at (3, 3)\n");
+    // printf("init_map: Placing City Hall at (3, 3)\n");
     cityMap->cells[3][3].type = CITY_HALL;
     cityMap->cells[3][3].nb_of_characters = 20;
 
-    printf("init_map: Placing other buildings\n");
+    // printf("init_map: Placing other buildings\n");
     place_building_randomly(cityMap, SUPERMARKET, 2, 30);
     place_building_randomly(cityMap, COMPANY, 8, 50);
     place_building_randomly(cityMap, RESIDENTIAL_BUILDING, 11, 15);
@@ -168,10 +168,10 @@ double distance(unsigned int pos1[2], unsigned int pos2[2]) {
 
 void init_house(memory_t *memory){
     int fakeHome = rand() % NB_HOMES;
-    printf("=====================================\n");
-    printf("fake home %d\n", fakeHome);
-    printf("La maison %p est la maison avec la boite au lettre piégee\n", &memory->homes[fakeHome]);
-    printf("\n\n=====================================\n");
+    // printf("=====================================\n");
+    // printf("fake home %d\n", fakeHome);
+    // printf("La maison %p est la maison avec la boite au lettre piégee\n", &memory->homes[fakeHome]);
+    // printf("\n\n=====================================\n");
     for(int i = 0; i < NB_HOMES; i++){
         if (i == fakeHome){
             memory->homes[i].max_capacity = 0;
@@ -341,12 +341,12 @@ void init_citizens(memory_t *memory) {
         // // printf("ftg Haykel ton micro de merde\n");
 
         assign_home_to_citizen(memory, citizen);
-        printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
+        //printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
         assign_company_to_citizen(memory, citizen);
-        printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, 
-                                                     citizen->workplace);
+        // printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, 
+                                                    //  citizen->workplace);
         assign_random_supermarket(memory, citizen);
-        printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
+        // printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
     }
         
 }
