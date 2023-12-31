@@ -1,9 +1,9 @@
 #include <stdio.h>
 // #include "citizen_manager.h"
 #include <pthread.h>
-#include <sys/shm.h>
 #include "memory.h"
 #include <math.h>
+#include <bits/pthreadtypes.h>
 
 #define SHARED_MEMORY "/SharedMemory"
 
