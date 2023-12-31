@@ -264,7 +264,6 @@ struct citizen_s {
     home_t *home; 
 
     state_t *current_state;
-    state_t *next_state;
     state_t *resting_at_home;
     state_t *going_to_company;
     state_t *working;

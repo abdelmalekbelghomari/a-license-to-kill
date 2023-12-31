@@ -3,6 +3,7 @@
 #include <pthread.h>
 #include <math.h>
 #include <bits/pthreadtypes.h>
+#include <float.h>
 
 #define SHARED_MEMORY "/SharedMemory"
 
@@ -271,12 +272,11 @@ void assign_random_supermarket(memory_t* memory, citizen_t* citizen){
 
 double get_current_simulation_time(memory_t *memory) {
     return memory->timer.hours + round(memory->timer.minutes / 60.0 * 100) / 100;
-    /*TO DO in timer*/
 }
 
-int is_at_supermarket(citizen_t *character) {
-    return (character->position == character->supermarket->position);
-}
+// int is_at_supermarket(citizen_t *character) {
+//     return (character->position == character->supermarket->position);
+// }
 
 state_t *new_state(int id, state_t *(*action)(citizen_t *)) {
     state_t *state = malloc(sizeof(state_t));
@@ -287,32 +287,46 @@ state_t *new_state(int id, state_t *(*action)(citizen_t *)) {
 
 state_t *rest_at_home(citizen_t *c) {
     if(get_current_simulation_time(memory) == 8.00){
-        return c->current_state;
+        return c->resting_at_home;
     }
-    return c->resting_at_home;
+    return c->going_to_company;
 }
 
 state_t *go_to_company(citizen_t *c) {
-
+    //step(c->position , c->workplace);
+    if (c->position[0] == c->workplace->position[0]  && c->position[1] == c->workplace->position[1]){
+        return c->working;
+    }
     return c->going_to_company;
 }
 
 state_t *work(citizen_t *c) {
-    
-    return c->working;
-}
-
-state_t *go_to_supermarket(citizen_t *c) {
-
+    if(get_current_simulation_time(memory) == 17.00){
+        return c->working;
+    }
     return c->going_to_supermarket;
 }
 
-state_t *go_back_home(citizen_t *c) {
+state_t *go_to_supermarket(citizen_t *c) {
+    //step(c->position , c->supermarket);
+    if (c->position[0] == c->supermarket->position[0]  && c->position[1] == c->supermarket->position[1]){
+        return c->working;
+    }
+    return c->doing_some_shopping;
+}
 
+state_t *go_back_home(citizen_t *c) {
+    //step(c->position , c->home);
+    if (c->position[0] == c->home->position[0]  && c->position[1] == c->home->position[1]){
+        return c->resting_at_home;
+    }
     return c->going_back_home;
 }
 
 state_t *do_some_shopping(citizen_t *c) {
+    if (get_current_simulation_time(memory) == 19.00){
+        return c->going_back_home;
+    }
     return c->doing_some_shopping;
 }
 
@@ -323,6 +337,9 @@ state_t *dying(citizen_t *c){
 state_t *finished(citizen_t *c){
     return c->finished;
 }
+
+
+  
 
 // void *change_state(citizen_t *c, state_t *state) {
 //     // int id = state->id;
@@ -397,46 +414,46 @@ state_t *finished(citizen_t *c){
 //     }
 // }
 
-void move_citizen_to_home(citizen_t *character) {
-    /*Do the A* or BFS*/
-    if(character->home->max_capacity > character->home->nb_citizen){
-        character->position[0] = character->home->position[0]; 
-        character->position[1] = character->home->position[1]; 
-        character->home->nb_citizen++;
-        // printf("Citizen %d moved to  at position (%d, %d)\n", 
-            // character->id, character->position[0], character->position[1]);
-    } else {
-        // printf(stderr,"home is full\n");
-    }
+// void move_citizen_to_home(citizen_t *character) {
+//     /*Do the A* or BFS*/
+//     if(character->home->max_capacity > character->home->nb_citizen){
+//         character->position[0] = character->home->position[0]; 
+//         character->position[1] = character->home->position[1]; 
+//         character->home->nb_citizen++;
+//         // printf("Citizen %d moved to  at position (%d, %d)\n", 
+//             // character->id, character->position[0], character->position[1]);
+//     } else {
+//         // printf(stderr,"home is full\n");
+//     }
     
-}
+// }
 
-void move_citizen_to_work(citizen_t *character) {
-    /*Do the A* or BFS*/
-    if(character->workplace->max_capacity > character->workplace->nb_citizen){
-        character->position[0] = character->workplace->position[0]; 
-        character->position[1] = character->workplace->position[1]; 
-        character->workplace->nb_citizen++;
-        // printf("Citizen %d moved to work at position (%d, %d)\n", 
-        //     character->id, character->position[0], character->position[1]);
-    } else {
-        // printf(stderr,"The workplace is full\n");
-    }
+// void move_citizen_to_work(citizen_t *character) {
+//     /*Do the A* or BFS*/
+//     if(character->workplace->max_capacity > character->workplace->nb_citizen){
+//         character->position[0] = character->workplace->position[0]; 
+//         character->position[1] = character->workplace->position[1]; 
+//         character->workplace->nb_citizen++;
+//         // printf("Citizen %d moved to work at position (%d, %d)\n", 
+//         //     character->id, character->position[0], character->position[1]);
+//     } else {
+//         // printf(stderr,"The workplace is full\n");
+//     }
     
-}
+// }
 
-void move_citizen_to_supermarket(citizen_t *character) {
-    if(character->supermarket->max_capacity > character->supermarket->nb_citizen){
-        character->position[0] = character->supermarket->position[0]; 
-        character->position[1] = character->supermarket->position[1]; 
-        character->supermarket->nb_citizen++;
-        // printf("Citizen %d moved to supermarket at position (%d, %d)\n", 
-        //     character->id, character->position[0], character->position[1]);
-    } else {
-        // printf(stderr,"The supermarket is full\n");
-    }
+// void move_citizen_to_supermarket(citizen_t *character) {
+//     if(character->supermarket->max_capacity > character->supermarket->nb_citizen){
+//         character->position[0] = character->supermarket->position[0]; 
+//         character->position[1] = character->supermarket->position[1]; 
+//         character->supermarket->nb_citizen++;
+//         // printf("Citizen %d moved to supermarket at position (%d, %d)\n", 
+//         //     character->id, character->position[0], character->position[1]);
+//     } else {
+//         // printf(stderr,"The supermarket is full\n");
+//     }
      
-}
+// }
 
 
 // void initialize_synchronization_tools() {
