@@ -38,6 +38,7 @@
 #include <sys/types.h>
 #include <sys/mman.h>
 #include <mqueue.h>
+#include <semaphore.h>
 
 
 #define CITIZENS_COUNT 127 /* 127 citizens in the city */
@@ -66,6 +67,7 @@
  *
  * Defines structures and functions used to manipulate our shared memory.
  */
+
 
 typedef struct map_s map_t;
 typedef struct mq_s mq_t;

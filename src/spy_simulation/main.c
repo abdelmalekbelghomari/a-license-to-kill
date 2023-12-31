@@ -15,6 +15,9 @@
 extern WINDOW *main_window;
 extern int old_cursor;
 
+
+
+
 int main(int argc, char **argv)
 {
     srand(time(NULL));
@@ -22,7 +25,9 @@ int main(int argc, char **argv)
     //initialiser le semaphore du timer 
     sem_t* sem = create_semaphore("/timer_sem", 1);
     start_simulation_processes();
-    
+    memory->walking_citizens = 0;
+    memory->at_home_citizens = 127;
+    memory->at_work_citizens = 0;
     sem_close(sem);
     sem_unlink("/timer_sem");
     shm_unlink("SharedMemory");
