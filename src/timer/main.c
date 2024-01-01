@@ -39,7 +39,7 @@ void tick_clock(int sig){
         // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
         memory->memory_has_changed = 1;
         // sem_post(sem);
-        alarm(1);
+        ualarm(100000,0);
     }
         
 }
@@ -97,7 +97,7 @@ int main() {
     memset(&sa_clock, 0, sizeof(sa_clock)); 
     sa_clock.sa_handler = &tick_clock;
     sigaction(SIGALRM, &sa_clock, NULL);
-    alarm(1);
+    ualarm(100000,0);
     
     while(1){
         pause();

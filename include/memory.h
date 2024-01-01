@@ -219,6 +219,27 @@ struct spy_s {
     int has_license_to_kill;                              /*!< The spy's authorization to kill.*/
     char stolen_message_content[MAX_LENGTH_OF_MESSAGE];   /*!< The content of stolen message.*/
     cell_t allowed_company[8];                            /*!< The allowed cells around a targer company */
+    int leaving_hour;
+    int leaving_minute;
+
+    state_t *current_state;
+    state_t *resting_at_home;
+    state_t *going_to_spot;
+    state_t *spotting;
+    state_t *stealing;
+    state_t *going_to_send_fake_message;
+    state_t *going_back_home;
+    state_t *going_to_send_message;
+    state_t *sending_message;
+    state_t *resting_at_home_before_going_to_send_message;
+    state_t *waiting_for_residence_to_be_clear;
+    state_t *going_to_supermarket;
+    state_t *doing_some_shopping;
+    state_t *is_hurt;
+    state_t *riposte;
+    state_t *is_in_conflict;
+    state_t *dying;
+    state_t *finished;
 };
 
 /**

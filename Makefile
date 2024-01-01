@@ -14,7 +14,7 @@ endif
 
 .PHONY: all clean distclean
 
-all: bin/spy_simulation bin/monitor bin/timer bin/citizen_manager
+all: bin/spy_simulation bin/monitor bin/timer bin/citizen_manager bin/enemy_spy_network
 
 # ----------------------------------------------------------------------------
 # SPY SIMULATION
@@ -61,12 +61,23 @@ src/citizen_manager/main.o: src/citizen_manager/main.c include/memory.h
 src/citizen_manager/citizen_manager.o: src/citizen_manager/citizen_manager.c include/spy_simulation.h include/memory.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
+# ----------------------------------------------------------------------------
+# ENEMY SPY NETWORK
+# ----------------------------------------------------------------------------
+bin/enemy_spy_network: src/enemy_spy_network/main.o src/enemy_spy_network/enemy_spy_network.o 
+	$(CC) $^ -o $@ $(LDFLAGS)
+
+src/enemy_spy_network/main.o: src/enemy_spy_network/main.c include/enemy_spy_network.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+src/enemy_spy_network/enemy_spy_network.o: src/enemy_spy_network/enemy_spy_network.c include/enemy_spy_network.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 # ----------------------------------------------------------------------------
 # CLEANING
 # ----------------------------------------------------------------------------
 clean:
-	rm -f src/spy_simulation/*.o src/monitor/*.o src/common/*.o src/timer/*.o src/citizen_manager/*.o
+	rm -f src/spy_simulation/*.o src/monitor/*.o src/common/*.o src/timer/*.o src/citizen_manager/*.o src/enemy_spy_network/*.o
 
 distclean: clean
 	rm -f bin/*
