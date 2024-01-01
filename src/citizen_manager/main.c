@@ -49,9 +49,10 @@ void* citizen_thread(void* arg) {
         if (last_round_checked != current_round) {
             pthread_mutex_lock(&shared_memory_mutex);
             //modifie ca pour implémenter le patron état
-        
+            printf("\n");
             sem_wait(sem);
-            
+            state_t *next_state = memory->citizens[citizen_id].current_state->action(&memory->citizens[citizen_id]);
+            memory->citizens[citizen_id].current_state = next_state;
             sem_post(sem);
 
             last_round_checked = current_round;
