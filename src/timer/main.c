@@ -1,10 +1,11 @@
 #include "timer.h"
 #include "spy_simulation.h"
 #define SHARED_MEMORY "/SharedMemory"
-#define SEMAPHORE_NAME "/sem"
+#define SEMAPHORE_PRODUCER "/semProducer"
+#define SEMAPHORE_CONSUMER "/semConsumer"
 
 memory_t *memory;
-sem_t *sem;
+sem_t *sem_producer, *sem_consumer;
 
 
 simulated_clock_t new_timer(){
@@ -33,16 +34,16 @@ void update_timer(memory_t *memory){
 void tick_clock(int sig){
     if(sig == SIGALRM){
         // memory->memory_has_changed = 1;
-        // sem_wait(sem);
+        //sem_wait(sem_consumer);
         update_timer(memory);
         // printf("Round: %d\n", memory->timer.round);
         // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
         memory->memory_has_changed = 1;
-        // sem_post(sem);
+        //sem_post(sem_producer);
         alarm(1);
     }
         
-}
+}   
 
 int main() {
 
@@ -62,17 +63,22 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    // sem = sem_open(SEMAPHORE_NAME, 0);
-    // if (sem == SEM_FAILED) {
-    //     perror("sem_open failed in timer process");
-    //     exit(EXIT_FAILURE);
-    // }
+    sem_producer = sem_open(SEMAPHORE_PRODUCER, 0);
+    if (sem_producer == SEM_FAILED) {
+        perror("sem_open failed in timer process");
+        exit(EXIT_FAILURE);
+    }
+    sem_consumer = sem_open(SEMAPHORE_CONSUMER, 0);
+    if (sem_consumer == SEM_FAILED) {
+        perror("sem_open failed in timer process");
+        exit(EXIT_FAILURE);
+    }
     // printf("sem_open timer\n");
 
     // Initialiser le timer
     simulated_clock_t timer = new_timer();
 
-    // sem_wait(sem);
+    //sem_wait(sem);
     // printf("sem_wait timer\n");
     memory->timer = timer;
     // sem_post(sem);
@@ -119,7 +125,8 @@ int main() {
     //     // pause();
     // }
     // printf("Timer ended\n");
-    // sem_close(sem);
+    sem_close(sem_consumer);
+    sem_close(sem_producer);
     // printf("sem_close timer\n");
     return 0;
 }

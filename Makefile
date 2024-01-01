@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -pedantic -O2 -g
+CFLAGS=-Wall -Wextra -pedantic -O2 -g -DMUTEX
 
 # Compilation under MacOS X or Linux
 UNAME=$(shell uname -s)
