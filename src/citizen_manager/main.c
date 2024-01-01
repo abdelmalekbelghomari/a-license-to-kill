@@ -40,7 +40,6 @@ void* citizen_thread(void* arg) {
     int citizen_id = *(int*)arg;
     int last_round_checked = -1;
 
-    srand(time(NULL) ^ (getpid() + citizen_id)); // Initialisation du générateur aléatoire
     int current_round = memory->timer.round;
     while(current_round != 2016) {
         sem_wait(sem); // Attente pour accéder à la mémoire partagée
@@ -50,22 +49,9 @@ void* citizen_thread(void* arg) {
         if (last_round_checked != current_round) {
             pthread_mutex_lock(&shared_memory_mutex);
             //modifie ca pour implémenter le patron état
-            int action = rand() % 4; // Générer un nombre aléatoire entre 0 et 2
+        
             sem_wait(sem);
-            if (action == 0 /*&& memory->at_home_citizens != 0*/) {
-                memory->walking_citizens++;
-                memory->at_home_citizens--;
-            } else if (action == 1 /*&& memory->walking_citizens !=0*/) {
-                memory->at_home_citizens++;
-                memory->walking_citizens--;
-            } else if (action == 2 /*&& memory->walking_citizens !=0*/) {
-                memory->at_work_citizens++;
-                memory->walking_citizens--;
-            } else if (action == 3 /*&& memory->at_work_citizens !=0*/) {
-                memory->walking_citizens++;
-                memory->at_work_citizens--;
-            }
-            memory->memory_has_changed = 1;
+            
             sem_post(sem);
 
             last_round_checked = current_round;

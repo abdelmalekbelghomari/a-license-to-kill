@@ -210,23 +210,22 @@ void assign_company_to_citizen(memory_t* memory, citizen_t* citizen){
         // printf("\nje travaille dans l'hotel de ville\n");
 
     } else {
-        for (company_index = 3; company_index < NB_COMPANY; company_index++) {
+        for (company_index = 3; company_index < NB_COMPANY + 3; company_index++) {
             if (company_list[company_index].nb_workers < 5) {
                 citizen->workplace = &company_list[company_index];
                 company_list[company_index].nb_workers++;
-                // printf("\nJe travaille dans l'entreprise %d de la ville\n", company_index);
+                //printf("\nJe travaille dans l'entreprise %d de la ville\n", company_index);
                 return; 
             }
         }
         while (attempts < NB_COMPANY) {
             company_index = 3 + rand() % NB_COMPANY;
-            building_t *company = &company_list[company_index];
-            if (company->nb_workers < company->max_workers) { 
-                citizen->workplace = &company;
-                company->nb_workers++;
-                // printf("\nje travaille dans l'entreprise %d de ville\n",company_index);
+            if (company_list[company_index].nb_workers < company_list[company_index].max_workers) { 
+                citizen->workplace = &company_list[company_index]; 
+                company_list[company_index].nb_workers++;
+                //printf("\nJe travaille dans l'entreprise %d de la ville\n", company_index);
                 break;
-            }else{
+            } else {
                 attempts++;
             }
         }
