@@ -20,11 +20,11 @@ int main(int argc, char **argv)
     srand(time(NULL));
     memory_t *memory = create_shared_memory("SharedMemory");
     //initialiser le semaphore du timer 
-    sem_t* sem = create_semaphore("/timer_sem", 1);
+    sem_t* sem = create_semaphore("/sem", 1);
     start_simulation_processes();
     
     sem_close(sem);
-    sem_unlink("/timer_sem");
+    sem_unlink("/sem");
     shm_unlink("SharedMemory");
     return 0;
 

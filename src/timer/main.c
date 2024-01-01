@@ -1,6 +1,7 @@
 #include "timer.h"
 #include "spy_simulation.h"
 #define SHARED_MEMORY "/SharedMemory"
+#define SEMAPHORE_NAME "/sem"
 
 memory_t *memory;
 sem_t *sem;
@@ -61,7 +62,7 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    // sem = sem_open("/timer_sem", 0);
+    // sem = sem_open(SEMAPHORE_NAME, 0);
     // if (sem == SEM_FAILED) {
     //     perror("sem_open failed in timer process");
     //     exit(EXIT_FAILURE);

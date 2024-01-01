@@ -66,7 +66,7 @@ src/citizen_manager/citizen_manager.o: src/citizen_manager/citizen_manager.c inc
 # CLEANING
 # ----------------------------------------------------------------------------
 clean:
-	rm -f src/spy_simulation/*.o src/monitor/*.o src/common/*.o src/timer/*.o
+	rm -f src/spy_simulation/*.o src/monitor/*.o src/common/*.o src/timer/*.o src/citizen_manager/*.o
 
 distclean: clean
 	rm -f bin/*
