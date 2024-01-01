@@ -2,6 +2,8 @@
 #define CITIZEN_MANAGER_H
 #include "memory.h"
 
+memory_t *memory;
+
 void assign_home_to_citizen(memory_t* memory, citizen_t* citizen);
 void assign_company_to_citizen(memory_t* memory, citizen_t* citizen);
 void assign_random_supermarket(memory_t* memory, citizen_t* citizen);

@@ -1,20 +1,20 @@
 #include "timer.h"
 #include "spy_simulation.h"
 #define SHARED_MEMORY "/SharedMemory"
-#define SEMAPHORE_PRODUCER "/semProducer"
-#define SEMAPHORE_CONSUMER "/semConsumer"
+#define SEMAPHORE_PRODUCER "/semTimerProducer"
+#define SEMAPHORE_CONSUMER "/semTimerConsumer"
 
 memory_t *memory;
-sem_t *sem_producer, *sem_consumer;
+sem_t *sem_producer_timer, *sem_consumer_timer;
 
 
 simulated_clock_t new_timer(){
     simulated_clock_t time;
     time.round = 0;
-    time.hours = 8;
-    time.minutes = 0;
+    time.hours = 7;
+    time.minutes = 50;
     time.days = 0;
-    memory->memory_has_changed = 1;
+    // memory->memory_has_changed = 1;
     return time;
 }
 
@@ -34,16 +34,30 @@ void update_timer(memory_t *memory){
 void tick_clock(int sig){
     if(sig == SIGALRM){
         // memory->memory_has_changed = 1;
-        //sem_wait(sem_consumer);
+        sem_wait(sem_consumer_timer);
         update_timer(memory);
         // printf("Round: %d\n", memory->timer.round);
         // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
         memory->memory_has_changed = 1;
-        //sem_post(sem_producer);
-        alarm(1);
+        sem_post(sem_producer_timer);
+        ualarm(100000, 0);
     }
         
 }   
+
+void set_timer(void)
+{
+    struct itimerval it;
+
+    /* Clear itimerval struct members */
+    timerclear(&it.it_interval);
+    timerclear(&it.it_value);
+
+    /* Set timer */
+    it.it_interval.tv_usec = TIME_STEP;
+    it.it_value.tv_usec = TIME_STEP;
+    setitimer(ITIMER_REAL, &it, NULL);
+}
 
 int main() {
 
@@ -63,13 +77,13 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    sem_producer = sem_open(SEMAPHORE_PRODUCER, 0);
-    if (sem_producer == SEM_FAILED) {
+    sem_producer_timer = sem_open(SEMAPHORE_PRODUCER, 0);
+    if (sem_producer_timer == SEM_FAILED) {
         perror("sem_open failed in timer process");
         exit(EXIT_FAILURE);
     }
-    sem_consumer = sem_open(SEMAPHORE_CONSUMER, 0);
-    if (sem_consumer == SEM_FAILED) {
+    sem_consumer_timer = sem_open(SEMAPHORE_CONSUMER, 0);
+    if (sem_consumer_timer == SEM_FAILED) {
         perror("sem_open failed in timer process");
         exit(EXIT_FAILURE);
     }
@@ -86,25 +100,16 @@ int main() {
     // printf("Timer initialized\n");
 
     // Configurer le timer
-    struct itimerval it;
-    memset(&it, 0, sizeof(it)); // Initialiser la structure à 0
-
-    if (STEP >= 1000000) {
-        it.it_interval.tv_sec = STEP / 1000000;
-        it.it_value.tv_sec = STEP / 1000000;
-    } else {
-        it.it_interval.tv_usec = STEP;
-        it.it_value.tv_usec = STEP;
-    }
-    setitimer(ITIMER_REAL, &it, NULL);
+    set_timer();
 
     // Configurer le gestionnaire de signal pour SIGALRM
     struct sigaction sa_clock;
     memset(&sa_clock, 0, sizeof(sa_clock)); 
     sa_clock.sa_handler = &tick_clock;
     sigaction(SIGALRM, &sa_clock, NULL);
-    alarm(1);
+    ualarm(100000, 0);
     
+
     while(1){
         pause();
     }
@@ -125,8 +130,8 @@ int main() {
     //     // pause();
     // }
     // printf("Timer ended\n");
-    sem_close(sem_consumer);
-    sem_close(sem_producer);
+    sem_close(sem_consumer_timer);
+    sem_close(sem_producer_timer);
     // printf("sem_close timer\n");
     return 0;
 }

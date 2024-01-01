@@ -7,7 +7,7 @@
 
 #define SHARED_MEMORY "/SharedMemory"
 
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t mutex;
 pthread_barrier_t start_barrier, end_barrier;
 extern memory_t *memory;
 
@@ -161,6 +161,7 @@ void init_citizens(memory_t *memory) {
 
         // Initialiser l'état actuel et le prochain état
         citizen->current_state = citizen->resting_at_home;
+        memory->at_home_citizens++;
 
         assign_home_to_citizen(memory, citizen);
         //printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
@@ -310,6 +311,15 @@ state_t *new_state(int id, state_t *(*action)(citizen_t *)) {
 state_t *rest_at_home(citizen_t *c) {
     // printf("je me repose chez oim : heure : %d\n" , memory->timer.hours);
     if (memory->timer.hours == 8 && memory->timer.minutes == 0) { 
+        // pthread_mutex_lock(&mutex);
+        
+        memory->at_home_citizens--;
+        if(memory->at_home_citizens < 0){
+            memory->at_home_citizens = 0;
+        }
+        memory->walking_citizens++;
+
+        // pthread_mutex_unlock(&mutex);
         return c->going_to_company;
     }
     return c->resting_at_home;
@@ -321,6 +331,13 @@ state_t *go_to_company(citizen_t *c) {
     // if (c->position[0] == c->workplace->position[0]  && c->position[1] == c->workplace->position[1]){
     //     return c->working;
     // }
+    // pthread_mutex_lock(&mutex);
+    memory->walking_citizens--;
+    if(memory->walking_citizens < 0){
+        memory->walking_citizens = 0;
+    }
+    memory->at_work_citizens++;
+    // pthread_mutex_unlock(&mutex);
     return c->working;
 }
 
@@ -328,17 +345,36 @@ state_t *work(citizen_t *c) {
     // printf("je travaille comme un esclave : heure : %d\n", memory->timer.hours);
     if(c->workplace->type == SUPERMARKET){
         if(memory->timer.hours == 19 && memory->timer.minutes == 30){
+            // pthread_mutex_lock(&mutex);
+            memory->at_work_citizens--;
+            if(memory->at_work_citizens < 0){
+                memory->at_work_citizens = 0;
+            }
+            memory->walking_citizens++;
+            // pthread_mutex_unlock(&mutex);
             return c->going_back_home;
         }else {
             return c->working;
         }
-    }   else if (memory->timer.hours == 17) { 
+    } else if (memory->timer.hours == 17) { 
         //printf("je vais faire du shopping\n");
         int value = rand() % 4;
-        if (value == 2){
+        if (value == 2){ /* 2 car haykel est spécial alors qu'une personne sain d'esprit aurait choisit 0 */
+            pthread_mutex_lock(&mutex);
+            memory->at_work_citizens--;
+            if(memory->at_work_citizens < 0){
+                memory->at_work_citizens = 0;
+            }
+            memory->walking_citizens++;
+            pthread_mutex_unlock(&mutex);
             return c->going_to_supermarket;
         } else {
-            return c->working;
+            memory->at_work_citizens--;
+            if(memory->at_work_citizens < 0){
+                memory->at_work_citizens = 0;
+            }
+            memory->walking_citizens++;
+            return c->going_back_home;
         }
     } else {
         return c->working;
@@ -348,27 +384,46 @@ state_t *work(citizen_t *c) {
 state_t *go_to_supermarket(citizen_t *c) {
     // printf("je vais au marché\n");
     // step(c->position , c->supermarket->position);
-    // if (c->position[0] == c->supermarket->position[0]  && c->position[1] == c->supermarket->position[1]){
+    // if (c->position[0] == c->supermarket->position[0] && c->position[1] == c->supermarket->position[1]){
     //     return c->working;
     // }
+    pthread_mutex_lock(&mutex);
+    memory->walking_citizens--;
+    if(memory->walking_citizens < 0){
+        memory->walking_citizens = 0;
+    }
+    pthread_mutex_unlock(&mutex);
     return c->doing_some_shopping;
 }
 
 state_t *go_back_home(citizen_t *c) {
     // printf("je rentre chez oim\n");
-    //step(c->position , c->home);
-    // if (c->position[0] == c->home->position[0]  && c->position[1] == c->home->position[1]){
+    // step(c->position , c->home);
+    // if (c->position[0] == c->home->position[0] && c->position[1] == c->home->position[1]){
     //     return c->resting_at_home;
     // }
+    pthread_mutex_lock(&mutex);
+    memory->walking_citizens--;
+    if(memory->walking_citizens < 0){
+        memory->walking_citizens = 0;
+    }
+    memory->at_home_citizens++;
+    pthread_mutex_unlock(&mutex);
     return c->resting_at_home;
 }
 
 state_t *do_some_shopping(citizen_t *c) {
     // printf("je fais du shoppinje\n");
-    // if (get_current_simulation_time(memory) == 19.00){
-    //     return c->going_back_home;
-    // }
-    return c->going_back_home;
+    if (get_current_simulation_time(memory) == 19.00){
+        return c->going_back_home;
+    }
+    pthread_mutex_lock(&mutex);
+    memory->walking_citizens--;
+    if(memory->walking_citizens < 0){
+        memory->walking_citizens = 0;
+    }
+    pthread_mutex_unlock(&mutex);
+    return c->doing_some_shopping;
 }
 
 state_t *dying(citizen_t *c){

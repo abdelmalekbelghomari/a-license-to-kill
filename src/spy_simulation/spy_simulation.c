@@ -168,12 +168,6 @@ void init_map(map_t *cityMap) {
 
 
 
-
-
-
-
-
-
 // void assign_company_to_citizen(memory_t* memory, citizen_t* citizen) {
 //     building_t *buildings = memory->companies;
 //     int company_index;

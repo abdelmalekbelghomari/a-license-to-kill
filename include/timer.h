@@ -15,11 +15,12 @@
 
 #include "memory.h"
 
-#define STEP 1000000
+#define TIME_STEP 200000
 
 simulated_clock_t new_timer();
 void update_timer(memory_t *memory);
 void tick_clock(int sig);
+void set_timer(void);
 
 
 #endif // TIMER_H

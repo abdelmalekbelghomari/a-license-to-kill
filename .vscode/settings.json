@@ -63,6 +63,9 @@
     "mman.h": "c",
     "fcntl.h": "c",
     "memory.h": "c",
-    "stdbool.h": "c"
+    "stdbool.h": "c",
+    "timer.h": "c",
+    "monitor_common.h": "c",
+    "string.h": "c"
   }
 }
