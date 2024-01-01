@@ -67,6 +67,7 @@ void init_house(memory_t *memory){
 
 void init_building(memory_t *memory){
     for(int i = 0; i < NB_WORKPLACES; i++){
+        memory->companies[i].nb_workers = 0;
         if(i < NB_STORE){
             memory->companies[i].type = STORE;
             memory->companies[i].max_workers = 3;
@@ -83,7 +84,6 @@ void init_building(memory_t *memory){
     }
 
     int supermarket_counter = 0, city_hall_counter = NB_STORE, company_counter = NB_STORE + NB_HALL; 
-
     for (int i=0; i < MAX_ROWS; i++){
         for (int j = 0; j < MAX_COLUMNS; j++){
             cell_t cell =memory->map.cells[j][i];
@@ -107,6 +107,22 @@ void init_building(memory_t *memory){
             }
         }
     }
+    // printf("Liste des types de bâtiments dans l'ordre :\n");
+    // for (int i = 0; i < NB_WORKPLACES; i++) {
+    //     const char *type_str = "Inconnu";
+    //     switch (memory->companies[i].type) {
+    //         case SUPERMARKET:
+    //             type_str = "Supermarché";
+    //             break;
+    //         case CITY_HALL:
+    //             type_str = "Hôtel de Ville";
+    //             break;
+    //         case COMPANY:
+    //             type_str = "Entreprise";
+    //             break;
+    //     }
+    //     printf("Bâtiment %d: %s\n", i, type_str);
+    // }
 }
 
 void init_citizens(memory_t *memory) {
@@ -146,12 +162,12 @@ void init_citizens(memory_t *memory) {
         citizen->current_state = citizen->resting_at_home;
 
         assign_home_to_citizen(memory, citizen);
-        //printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
+        printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
         assign_company_to_citizen(memory, citizen);
-        // printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, 
-                                                    //  citizen->workplace);
+        printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, citizen->workplace);
+                                                     
         assign_random_supermarket(memory, citizen);
-        // printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
+        printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
     }
         
 }
@@ -174,39 +190,48 @@ void assign_home_to_citizen(memory_t* memory, citizen_t* citizen){
 }
 
 void assign_company_to_citizen(memory_t* memory, citizen_t* citizen){
-    
     building_t *company_list = memory->companies;
     // Assign a random company, respecting max capacity
     int company_index;
     int attempts = 0;  // Compteur pour éviter une boucle infinie
-
     if(company_list[0].nb_workers < company_list[0].max_workers){
         citizen->workplace = &company_list[0];
         company_list[0].nb_workers++;
+        // printf("\nje travaille dans le premier marché\n");
 
     } else if (company_list[1].nb_workers < company_list[1].max_workers){
         citizen->workplace = &company_list[1];
         company_list[1].nb_workers++;
+        // printf("\nje travaille dans le second marché\n");
 
     } else if (company_list[2].nb_workers < company_list[2].max_workers){
         citizen->workplace = &company_list[2];
         company_list[2].nb_workers++;
+        // printf("\nje travaille dans l'hotel de ville\n");
 
     } else {
+        for (company_index = 3; company_index < NB_COMPANY; company_index++) {
+            if (company_list[company_index].nb_workers < 5) {
+                citizen->workplace = &company_list[company_index];
+                company_list[company_index].nb_workers++;
+                // printf("\nJe travaille dans l'entreprise %d de la ville\n", company_index);
+                return; 
+            }
+        }
         while (attempts < NB_COMPANY) {
             company_index = 3 + rand() % NB_COMPANY;
             building_t *company = &company_list[company_index];
-            if (company->nb_workers < company->max_workers 
-            && company->nb_workers < company->min_workers) {
+            if (company->nb_workers < company->max_workers) { 
                 citizen->workplace = &company;
                 company->nb_workers++;
+                // printf("\nje travaille dans l'entreprise %d de ville\n",company_index);
                 break;
             }else{
                 attempts++;
             }
         }
     }
-
+}
 //     while (1) {
 //         company_index = rand() % NB_WORKPLACES;
 //         building_t *company = &company_list[company_index];
@@ -226,15 +251,15 @@ void assign_company_to_citizen(memory_t* memory, citizen_t* citizen){
 //             break;
 //         }
 //     }
-}
+
 
 void assign_random_supermarket(memory_t* memory, citizen_t* citizen){
     
     // Find nearest supermarket
     building_t supermaket_list[NB_STORE] = {memory->companies[0], memory->companies[1]};
     // Les deux premiers emplacements sont donnés aux supermarchés
-    double dist1 = distance(supermaket_list[0].position, citizen->workplace->position);
-    double dist2 = distance(supermaket_list[1].position, citizen->workplace->position);
+    // double dist1 = distance(supermaket_list[0].position, citizen->workplace->position);
+    // double dist2 = distance(supermaket_list[1].position, citizen->workplace->position);
     int supermaketChoice = rand() % NB_STORE;
     if(supermaketChoice == 0){
         citizen->supermarket = &supermaket_list[0];
@@ -309,24 +334,25 @@ state_t *work(citizen_t *c) {
 
 state_t *go_to_supermarket(citizen_t *c) {
     //step(c->position , c->supermarket);
-    if (c->position[0] == c->supermarket->position[0]  && c->position[1] == c->supermarket->position[1]){
-        return c->working;
-    }
+    // if (c->position[0] == c->supermarket->position[0]  && c->position[1] == c->supermarket->position[1]){
+    //     return c->working;
+    // }
     return c->doing_some_shopping;
 }
 
 state_t *go_back_home(citizen_t *c) {
+    
     //step(c->position , c->home);
-    if (c->position[0] == c->home->position[0]  && c->position[1] == c->home->position[1]){
-        return c->resting_at_home;
-    }
+    // if (c->position[0] == c->home->position[0]  && c->position[1] == c->home->position[1]){
+    //     return c->resting_at_home;
+    // }
     return c->going_back_home;
 }
 
 state_t *do_some_shopping(citizen_t *c) {
-    if (get_current_simulation_time(memory) == 19.00){
-        return c->going_back_home;
-    }
+    // if (get_current_simulation_time(memory) == 19.00){
+    //     return c->going_back_home;
+    // }
     return c->doing_some_shopping;
 }
 

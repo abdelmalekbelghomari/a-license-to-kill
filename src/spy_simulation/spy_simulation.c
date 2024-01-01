@@ -337,18 +337,18 @@ void start_simulation_processes(){
     int num_children =0;
     pid_t pidExecutables[3];
 
-    pidExecutables[num_children] = fork();
-    if (pidExecutables[num_children] == -1) {
-        perror("Error [fork()] monitor:");
-        exit(EXIT_FAILURE);
-    }
-    if (pidExecutables[num_children] == 0) {
-        if (execl("./bin/monitor", "monitor", NULL) == -1) {
-            perror("Error [execl] monitor: ");
-            exit(EXIT_FAILURE);
-        }
+    // pidExecutables[num_children] = fork();
+    // if (pidExecutables[num_children] == -1) {
+    //     perror("Error [fork()] monitor:");
+    //     exit(EXIT_FAILURE);
+    // }
+    // if (pidExecutables[num_children] == 0) {
+    //     if (execl("./bin/monitor", "monitor", NULL) == -1) {
+    //         perror("Error [execl] monitor: ");
+    //         exit(EXIT_FAILURE);
+    //     }
         
-    }
+    // }
     num_children++;
 
     pidExecutables[num_children] = fork();
@@ -364,17 +364,17 @@ void start_simulation_processes(){
     }
     num_children++;
 
-    // pidExecutables[num_children] = fork();
-    // if (pidExecutables[num_children] == -1) {
-    //     perror("Error [fork()] citizen_manager: ");
-    //     exit(EXIT_FAILURE);
-    // }
-    // if (pidExecutables[num_children] == 0) {
-    //     if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
-    //         perror("Error [execl] citizen_manager: ");
-    //         exit(EXIT_FAILURE);
-    //     }
-    // }
+    pidExecutables[num_children] = fork();
+    if (pidExecutables[num_children] == -1) {
+        perror("Error [fork()] citizen_manager: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pidExecutables[num_children] == 0) {
+        if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
+            perror("Error [execl] citizen_manager: ");
+            exit(EXIT_FAILURE);
+        }
+    }
     
    
     for (int i = 0; i < num_children; i++) {

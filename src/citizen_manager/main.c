@@ -48,19 +48,20 @@ void* citizen_thread(void* arg) {
         sem_post(sem);
 
         if (last_round_checked != current_round) {
+            pthread_mutex_lock(&shared_memory_mutex);
             //modifie ca pour implémenter le patron état
             int action = rand() % 4; // Générer un nombre aléatoire entre 0 et 2
             sem_wait(sem);
-            if (action == 0 && memory->at_home_citizens != 0) {
+            if (action == 0 /*&& memory->at_home_citizens != 0*/) {
                 memory->walking_citizens++;
                 memory->at_home_citizens--;
-            } else if (action == 1 && memory->walking_citizens !=0) {
+            } else if (action == 1 /*&& memory->walking_citizens !=0*/) {
                 memory->at_home_citizens++;
                 memory->walking_citizens--;
-            } else if (action == 2 && memory->walking_citizens !=0) {
+            } else if (action == 2 /*&& memory->walking_citizens !=0*/) {
                 memory->at_work_citizens++;
                 memory->walking_citizens--;
-            } else if (action == 3 && memory->at_work_citizens !=0) {
+            } else if (action == 3 /*&& memory->at_work_citizens !=0*/) {
                 memory->walking_citizens++;
                 memory->at_work_citizens--;
             }
@@ -68,8 +69,9 @@ void* citizen_thread(void* arg) {
             sem_post(sem);
 
             last_round_checked = current_round;
+            pthread_mutex_unlock(&shared_memory_mutex);
             pthread_barrier_wait(&turn_barrier);
-            // printf ("walking_citizens : %d , at_home_citizens : %d at_work_citizens : %d", memory->walking_citizens , memory->at_home_citizens, memory->at_work_citizens);
+            // printf ("\ncitizen id : %d , walking_citizens : %d , at_home_citizens : %d at_work_citizens : %d\n",citizen_id, memory->walking_citizens , memory->at_home_citizens, memory->at_work_citizens);
         }
 
         usleep(100000); // 100 ms pour réduire la consommation CPU
@@ -103,10 +105,12 @@ int main() {
     if (sem == SEM_FAILED) {
         perror("sem_open");
         exit(EXIT_FAILURE);
-    }
+    }   
+    init_citizens(memory);
 
     // Initialisation de la barrière
     pthread_barrier_init(&turn_barrier, NULL, CITIZENS_COUNT);
+    pthread_mutex_init(&shared_memory_mutex, NULL);
 
     // Créer les threads de citoyens
     for (int i = 0; i < CITIZENS_COUNT; i++) {
@@ -124,6 +128,7 @@ int main() {
 
     // Nettoyage
     pthread_barrier_destroy(&turn_barrier);
+    pthread_mutex_destroy(&shared_memory_mutex);
     sem_close(sem);
     munmap(memory, sizeof(memory_t));
     close(shm_fd);
