@@ -29,18 +29,6 @@ src/spy_simulation/spy_simulation.o: src/spy_simulation/spy_simulation.c include
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 # ----------------------------------------------------------------------------
-# CITIZEN MANAGER
-# ----------------------------------------------------------------------------
-bin/citizen_manager: src/citizen_manager/main.o src/citizen_manager/citizen_manager.o 
-	$(CC) $^ -o $@ $(LDFLAGS)
-
-src/citizen_manager/main.o: src/citizen_manager/main.c include/spy_simulation.h include/memory.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
-
-src/citizen_manager/citizen_manager.o: src/citizen_manager/citizen_manager.c include/spy_simulation.h include/memory.h
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
-
-# ----------------------------------------------------------------------------
 # MONITOR
 # ----------------------------------------------------------------------------
 bin/monitor: src/monitor/main.o src/monitor/monitor.o src/monitor/monitor_common.o src/common/logger.o 
@@ -81,4 +69,4 @@ clean:
 	rm -f src/spy_simulation/*.o src/monitor/*.o src/common/*.o src/timer/*.o
 
 distclean: clean
-	rm -f bin/spy_simulation bin/monitor bin/timer
+	rm -f bin/*

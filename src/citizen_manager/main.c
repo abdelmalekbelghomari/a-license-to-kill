@@ -15,7 +15,7 @@ extern pthread_mutex_t mutex;
 extern pthread_barrier_t start_barrier, end_barrier;
  
 #include "memory.h"
-// #include "citizen_manager.h"
+#include "citizen_manager.h"
 #include <stdio.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,7 +40,7 @@ void* citizen_thread(void* arg) {
     int citizen_id = *(int*)arg;
     int last_round_checked = -1;
     int current_round = memory->timer.round;
-    while(current_round != 2016) {
+    while(current_round != 2016 /* || memory->simulation_has_ended==0 */) {
         sem_wait(sem); // Attente pour accéder à la mémoire partagée
         current_round = memory->timer.round;
         sem_post(sem);
