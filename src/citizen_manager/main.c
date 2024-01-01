@@ -39,7 +39,6 @@ pthread_barrier_t turn_barrier;
 void* citizen_thread(void* arg) {
     int citizen_id = *(int*)arg;
     int last_round_checked = -1;
-
     int current_round = memory->timer.round;
     while(current_round != 2016) {
         sem_wait(sem); // Attente pour accéder à la mémoire partagée
@@ -49,7 +48,6 @@ void* citizen_thread(void* arg) {
         if (last_round_checked != current_round) {
             pthread_mutex_lock(&shared_memory_mutex);
             //modifie ca pour implémenter le patron état
-            printf("\n");
             sem_wait(sem);
             state_t *next_state = memory->citizens[citizen_id].current_state->action(&memory->citizens[citizen_id]);
             memory->citizens[citizen_id].current_state = next_state;
@@ -68,6 +66,7 @@ void* citizen_thread(void* arg) {
 }
 
 int main() {
+     printf("\n");
     pthread_t threads[CITIZENS_COUNT];
     int citizen_ids[CITIZENS_COUNT];
     int shm_fd;

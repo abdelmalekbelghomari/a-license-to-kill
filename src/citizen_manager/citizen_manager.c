@@ -162,12 +162,12 @@ void init_citizens(memory_t *memory) {
         citizen->current_state = citizen->resting_at_home;
 
         assign_home_to_citizen(memory, citizen);
-        printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
+        //printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
         assign_company_to_citizen(memory, citizen);
-        printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, citizen->workplace);
+        //printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, citizen->workplace);
                                                      
         assign_random_supermarket(memory, citizen);
-        printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
+        //printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
     }
         
 }
@@ -298,9 +298,6 @@ double get_current_simulation_time(memory_t *memory) {
     return memory->timer.hours + round(memory->timer.minutes / 60.0 * 100) / 100;
 }
 
-// int is_at_supermarket(citizen_t *character) {
-//     return (character->position == character->supermarket->position);
-// }
 
 state_t *new_state(int id, state_t *(*action)(citizen_t *)) {
     state_t *state = malloc(sizeof(state_t));
@@ -310,16 +307,16 @@ state_t *new_state(int id, state_t *(*action)(citizen_t *)) {
 }
 
 state_t *rest_at_home(citizen_t *c) {
-    // printf("je me repose chez moi\n");
-    if (memory->timer.hours == 9) { 
+    printf("je me repose chez oim : heure : %d\n" , memory->timer.hours);
+    if (memory->timer.hours == 8) { 
         return c->going_to_company;
     }
     return c->resting_at_home;
 }
 
 state_t *go_to_company(citizen_t *c) {
-    // printf("je vais vers mon boulot\n");
-    //step(c->position , c->workplace);
+    printf("je vais vers mon boulot\n");
+    //step(c->position , c->workplace->position);
     // if (c->position[0] == c->workplace->position[0]  && c->position[1] == c->workplace->position[1]){
     //     return c->working;
     // }
@@ -327,16 +324,26 @@ state_t *go_to_company(citizen_t *c) {
 }
 
 state_t *work(citizen_t *c) {
-    // printf("je travaille comme un esclave\n");
-    if (memory->timer.hours == 17) { 
-        return c->going_to_supermarket;
+    printf("je travaille comme un esclave : heure : %d\n", memory->timer.hours);
+    if(c->workplace->type == SUPERMARKET){
+        if(memory->timer.hours == 19 && memory->timer.minutes == 30){
+            return c->going_back_home;
+        }else {
+            return c->working;
+        }
+    } else if (memory->timer.hours == 17) { 
+        int value = rand() % 4;
+        if (value == 2){
+            return c->going_to_supermarket;
+        } else {
+             return c->working;
+        }
     }
-    return c->working;
 }
 
 state_t *go_to_supermarket(citizen_t *c) {
-    // printf("je vais au marché\n");
-    //step(c->position , c->supermarket);
+    printf("je vais au marché\n");
+    // step(c->position , c->supermarket->position);
     // if (c->position[0] == c->supermarket->position[0]  && c->position[1] == c->supermarket->position[1]){
     //     return c->working;
     // }
@@ -344,7 +351,7 @@ state_t *go_to_supermarket(citizen_t *c) {
 }
 
 state_t *go_back_home(citizen_t *c) {
-    // printf("je rentre chez oim\n");
+    printf("je rentre chez oim\n");
     //step(c->position , c->home);
     // if (c->position[0] == c->home->position[0]  && c->position[1] == c->home->position[1]){
     //     return c->resting_at_home;
@@ -353,7 +360,7 @@ state_t *go_back_home(citizen_t *c) {
 }
 
 state_t *do_some_shopping(citizen_t *c) {
-    // printf("je fais du shoppinje\n");
+    printf("je fais du shoppinje\n");
     // if (get_current_simulation_time(memory) == 19.00){
     //     return c->going_back_home;
     // }

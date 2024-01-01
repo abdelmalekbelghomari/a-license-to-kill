@@ -113,7 +113,7 @@ typedef struct {
 
 // Global structure for surveillance network
 struct SurveillanceNetwork {
-    SurveillanceDevices devices[MAX_ROWS][MAX_COLUMNS]; // 2D array covering all cells of the city
+    SurveillanceDevices devices[MAX_COLUMNS][MAX_ROWS]; // 2D array covering all cells of the city
     SurveillanceAI surveillanceAI; // Surveillance AI
 };
 typedef struct SurveillanceNetwork surveillanceNetwork_t;
@@ -261,7 +261,8 @@ struct citizen_s {
     citizen_type_t type;
     building_t *workplace;
     building_t *supermarket; /*a random supermarket of the city*/
-    home_t *home; 
+    home_t *home;
+    int visited_cells[MAX_COLUMNS][MAX_ROWS];
 
     state_t *current_state;
     state_t *resting_at_home;
