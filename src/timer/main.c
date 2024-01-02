@@ -34,12 +34,12 @@ void update_timer(memory_t *memory){
 void tick_clock(int sig){
     if(sig == SIGALRM){
         // memory->memory_has_changed = 1;
-        sem_wait(sem_consumer_timer);
+        //sem_wait(sem_consumer_timer);
         update_timer(memory);
         // printf("Round: %d\n", memory->timer.round);
         // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
         memory->memory_has_changed = 1;
-        sem_post(sem_producer_timer);
+        //sem_post(sem_producer_timer);
         ualarm(1000000, 0);
     }
         

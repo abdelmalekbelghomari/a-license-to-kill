@@ -179,63 +179,64 @@ void init_citizens(memory_t *memory) {
         int x_supermarket = citizen->supermarket->position[0];
         int y_supermarket = citizen->supermarket->position[1];
 
-        // printf("Citizen %d - Home: (%d, %d), Company: (%d, %d), Supermarket: (%d, %d)\n", i, start_x, start_y, x_company, y_company, x_supermarket, y_supermarket);
+        // printf("\n------------- Citizen %d --------------\n", i);
+        // printf("- Home: (%d, %d), Company: (%d, %d), Supermarket: (%d, %d) -\n", x_home, y_home, x_company, y_company, x_supermarket, y_supermarket);
 
         // A* de la maison à l'entreprise
-        // Node *end_node_company = astar_search(&memory->map, x_home, y_home, x_company, y_company);
-        // if (end_node_company != NULL) {
-        //     Path *path_to_work = reconstruct_path(end_node_company);
-        // if (path_to_work != NULL) {
-        //     citizen->path_to_work = path_to_work;
-        //     printf("Citizen %d - Path to work: ", i);
-        //     print_path(citizen->path_to_work->nodes, citizen->path_to_work->length);
-        // } else {
-        //     // Échec de la reconstruction du chemin
-        //     printf("Échec de la reconstruction du chemin pour le citoyen à son entreprise %d\n", citizen->id);
-        //     citizen->path_to_work = NULL; // Assurez-vous que le pointeur est NULL
-        // }
-        // } else {
-        //     // Échec de la recherche de chemin
-        //     printf("Aucun chemin trouvé pour le citoyen à son entreprise %d\n", citizen->id);
-        //     citizen->path_to_work = NULL; // Assurez-vous que le pointeur est NULL
-        // }
+        Node *end_node_company = astar_search(&memory->map, x_home, y_home, x_company, y_company);
+        if (end_node_company != NULL) {
+            Path *path_to_work = reconstruct_path(end_node_company);
+        if (path_to_work != NULL) {
+            citizen->path_to_work = path_to_work;
+            // printf("Citizen %d - Path to work: ", i);
+            // print_path(citizen->path_to_work->nodes, citizen->path_to_work->length);
+        } else {
+            // Échec de la reconstruction du chemin
+            printf("Échec de la reconstruction du chemin pour le citoyen à son entreprise %d\n", citizen->id);
+            citizen->path_to_work = NULL; // Assurez-vous que le pointeur est NULL
+        }
+        } else {
+            // Échec de la recherche de chemin
+            printf("Aucun chemin trouvé pour le citoyen à son entreprise %d\n", citizen->id);
+            citizen->path_to_work = NULL; // Assurez-vous que le pointeur est NULL
+        }
         
 
-        // Node *end_node_supermarket = astar_search(&memory->map, x_company, y_company, x_supermarket, y_supermarket);
-        // if (end_node_company != NULL) {
-        //     Path *path_to_supermaket = reconstruct_path(end_node_supermarket);
-        // if (path_to_supermaket != NULL) {
-        //     citizen->path_to_supermarket = path_to_supermaket;
-        //     printf("Citizen %d - Path to supermarket: ", i);
-        //     print_path(citizen->path_to_supermarket->nodes, citizen->path_to_supermarket->length);
-        // } else {
-        //     // Échec de la reconstruction du chemin
-        //     printf("Échec de la reconstruction du chemin pour le citoyen à son entreprise %d\n", citizen->id);
-        //     citizen->path_to_supermarket = NULL; // Assurez-vous que le pointeur est NULL
-        // }
-        // } else {
-        //     // Échec de la recherche de chemin
-        //     printf("Aucun chemin trouvé pour le citoyen à son entreprise %d\n", citizen->id);
-        //     citizen->path_to_supermarket = NULL; // Assurez-vous que le pointeur est NULL
-        // }
+        Node *end_node_supermarket = astar_search(&memory->map, x_company, y_company, x_supermarket, y_supermarket);
+        if (end_node_company != NULL) {
+            Path *path_to_supermaket = reconstruct_path(end_node_supermarket);
+        if (path_to_supermaket != NULL) {
+            citizen->path_to_supermarket = path_to_supermaket;
+            // printf("Citizen %d - Path to supermarket: ", i);
+            // print_path(citizen->path_to_supermarket->nodes, citizen->path_to_supermarket->length);
+        } else {
+            // Échec de la reconstruction du chemin
+            printf("Échec de la reconstruction du chemin pour le citoyen à son entreprise %d\n", citizen->id);
+            citizen->path_to_supermarket = NULL; // Assurez-vous que le pointeur est NULL
+        }
+        } else {
+            // Échec de la recherche de chemin
+            printf("Aucun chemin trouvé pour le citoyen à son entreprise %d\n", citizen->id);
+            citizen->path_to_supermarket = NULL; // Assurez-vous que le pointeur est NULL
+        }
 
-        // Node *end_node_from_sprmrkt_to_home = astar_search(&memory->map, x_supermarket, y_supermarket, x_home, y_home);
-        // if (end_node_from_sprmrkt_to_home != NULL) {
-        //     Path *path_from_supermarket_to_home = reconstruct_path(end_node_from_sprmrkt_to_home);
-        // if (path_from_supermarket_to_home != NULL) {
-        //     citizen->path_from_supermarket_to_home = path_from_supermarket_to_home;
-        //     printf("Citizen %d - Path from supermarket to home: ", i);
-        //     print_path(citizen->path_from_supermarket_to_home->nodes, citizen->path_from_supermarket_to_home->length);
-        // } else {
-        //     // Échec de la reconstruction du chemin
-        //     printf("Échec de la reconstruction du chemin pour le citoyen à son entreprise %d\n", citizen->id);
-        //     citizen->path_from_supermarket_to_home = NULL; // Assurez-vous que le pointeur est NULL
-        // }
-        // } else {
-        //     // Échec de la recherche de chemin
-        //     printf("Aucun chemin trouvé pour le citoyen à son entreprise %d\n", citizen->id);
-        //     citizen->path_from_supermarket_to_home = NULL; // Assurez-vous que le pointeur est NULL
-        // }
+        Node *end_node_from_sprmrkt_to_home = astar_search(&memory->map, x_supermarket, y_supermarket, x_home, y_home);
+        if (end_node_from_sprmrkt_to_home != NULL) {
+            Path *path_from_supermarket_to_home = reconstruct_path(end_node_from_sprmrkt_to_home);
+        if (path_from_supermarket_to_home != NULL) {
+            citizen->path_from_supermarket_to_home = path_from_supermarket_to_home;
+            // printf("Citizen %d - Path from supermarket to home: ", i);
+            // print_path(citizen->path_from_supermarket_to_home->nodes, citizen->path_from_supermarket_to_home->length);
+        } else {
+            // Échec de la reconstruction du chemin
+            printf("Échec de la reconstruction du chemin pour le citoyen à son entreprise %d\n", citizen->id);
+            citizen->path_from_supermarket_to_home = NULL; // Assurez-vous que le pointeur est NULL
+        }
+        } else {
+            // Échec de la recherche de chemin
+            printf("Aucun chemin trouvé pour le citoyen à son entreprise %d\n", citizen->id);
+            citizen->path_from_supermarket_to_home = NULL; // Assurez-vous que le pointeur est NULL
+        }
         
         // printf("Citizen %d - Path to work: ", i);
         //printf("Citizen %d, adress_path : (%p) \n", i, citizen->path_to_work);

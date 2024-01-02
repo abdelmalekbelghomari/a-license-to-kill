@@ -24,11 +24,11 @@ void* citizen_thread(void* arg) {
     int last_round_checked = -1;
     int current_round = memory->timer.round;
     while(current_round != 2016 /* || memory->simulation_has_ended==0 */) {
-        sem_wait(sem_producer_timer); // Attente pour accéder à la mémoire partagée
+        //sem_wait(sem_producer_timer); // Attente pour accéder à la mémoire partagée
         // printf("current timer round : %d\n", memory->timer.round);
         current_round = memory->timer.round;
         // printf("caca\n");
-        sem_post(sem_consumer_timer);
+        //sem_post(sem_consumer_timer);
 
         if (last_round_checked != current_round) {
             pthread_mutex_lock(&shared_memory_mutex);
