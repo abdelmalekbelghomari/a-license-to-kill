@@ -39,6 +39,7 @@
 #include <sys/mman.h>
 #include <mqueue.h>
 #include <semaphore.h>
+#include <stdbool.h>
 
 
 #define CITIZENS_COUNT 127 /* 127 citizens in the city */
@@ -251,8 +252,13 @@ struct counterintelligence_officer_s {
     int targeted_character_id;                            /*!< The targeted character id.*/
 }; 
 
-
-
+typedef struct Node {
+    int position[2]; // Position du nœud dans la grille
+    double g;   // Coût du chemin du départ à n
+    double h;   // Coût heuristique de n à la destination
+    double f;   // Score total (f = g + h)
+    struct Node* parent;  // Parent du nœud dans le chemin
+} Node;
 
 struct citizen_s {
     unsigned int id;
@@ -263,6 +269,10 @@ struct citizen_s {
     building_t *supermarket; /*a random supermarket of the city*/
     home_t *home;
     int visited_cells[MAX_COLUMNS][MAX_ROWS];
+
+    Node **path_to_work;
+    Node **path_to_supermarket;
+    Node **path_from_supermarket_to_home;
 
     state_t *current_state;
     state_t *resting_at_home;
@@ -291,8 +301,8 @@ struct building_s {
     unsigned int min_workers;
     unsigned int nb_workers;
     citizen_t *citizens;
-    void (*add_citizen)(building_t *, citizen_t *);
-    void (*remove_citizen)(building_t *, citizen_t *);
+    // void (*add_citizen)(building_t *, citizen_t *);
+    // void (*remove_citizen)(building_t *, citizen_t *);
 };
 
 struct home_s {
@@ -300,8 +310,8 @@ struct home_s {
     unsigned int nb_citizen;
     unsigned int max_capacity;
     citizen_t *citizens;
-    void (*add_citizen)(home_t *, citizen_t *);
-    void (*remove_citizen)(home_t *, citizen_t *);
+    // void (*add_citizen)(home_t *, citizen_t *);
+    // void (*remove_citizen)(home_t *, citizen_t *);
 };
 
 /**
