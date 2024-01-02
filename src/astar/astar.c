@@ -29,21 +29,6 @@ Node *create_node(int x, int y, double g, double h) {
     return new_node;
 }
 
-
-// Créer un nouveau nœud
-Node *create_node(int x, int y) {
-    Node *new_node = (Node *)malloc(sizeof(Node));
-    if (new_node) {
-        new_node->position[0] = x;
-        new_node->position[1] = y;
-        new_node->g = 0.0;
-        new_node->h = 0.0;
-        new_node->f = 0.0;
-        new_node->parent = NULL;
-    }
-    return new_node;
-}
-
 heap_t *create_heap(int initial_capacity) {
     heap_t *heap = (heap_t *)malloc(sizeof(heap_t));
     if (!heap) return NULL;
@@ -160,44 +145,47 @@ bool is_cell_full(map_t *map, int row, int column) {
     return cell.current_capacity >= cell.nb_of_characters;
 }
 
-Node **get_successors(map_t *map, Node*current, int goal_x, int goal_y){
-    
-    Node **neighbors = (Node **)malloc(sizeof(Node *) * NUM_DIRECTIONS);
-    if(neighbors == NULL){
+Node **get_successors(map_t *map, Node *current, int goal_x, int goal_y) {
+    Node **neighbors = (Node **)malloc(sizeof(Node *) * (NUM_DIRECTIONS + 1)); // +1 pour NULL
+    if (neighbors == NULL) {
         perror("Unable to allocate memory for neighbors");
         exit(EXIT_FAILURE);
     }
-    int number_of_neighbors = 0;
 
-    // Vérifier les 8 voisins
-    for (int i = 0; i < NUM_DIRECTIONS ; i++) {
+    int number_of_neighbors = 0;
+    for (int i = 0; i < NUM_DIRECTIONS; i++) {
         int x = current->position[0] + DIRECTIONS[i][0];
         int y = current->position[1] + DIRECTIONS[i][1];
 
-        // Vérifier si le voisin est dans les limites de la carte
-        if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS) {
-            continue;
+        if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS || is_cell_full(map, x, y)) {
+            continue; // Ignorer les voisins non valides
         }
 
-        // Vérifier si le voisin est plein
-        if (is_cell_full(map, x, y)) {
-            continue;
-        }
-
-        double g = current->g++; 
+        double g = current->g + 1; // Coût du déplacement = 1
         double h = heuristic(x, y, goal_x, goal_y);
-
         neighbors[number_of_neighbors++] = create_node(x, y, g, h);
     }
-    if (number_of_neighbors < 8) {
-        neighbors = realloc(neighbors, number_of_neighbors * sizeof(Node*));
-        if (neighbors == NULL) {
+
+    neighbors[number_of_neighbors] = NULL; 
+
+    if (number_of_neighbors < NUM_DIRECTIONS) {
+        // Réallouer le tableau pour correspondre à la taille réelle
+        Node **temp = realloc(neighbors, sizeof(Node *) * (number_of_neighbors + 1));
+        if (temp == NULL) {
             perror("Unable to reallocate memory for neighbors");
+            // Nettoyer et quitter en cas d'échec de réallocation
+            for (int i = 0; i < number_of_neighbors; i++) {
+                free(neighbors[i]);
+            }
+            free(neighbors);
             exit(EXIT_FAILURE);
         }
+        neighbors = temp;
     }
+
     return neighbors;
 }
+
 
 
 Node *astar_search(map_t *map, int start_x, int start_y, int goal_x, int goal_y) {
@@ -217,7 +205,7 @@ Node *astar_search(map_t *map, int start_x, int start_y, int goal_x, int goal_y)
 
         // Si le nœud est la destination, construire et retourner le chemin
         if (is_goal(current_node, goal_x, goal_y)) {
-            Node *path = reconstruct_path(current_node);
+            Path *path = reconstruct_path(current_node);
             destroy_heap(open_set);
             return path;
         }
@@ -226,10 +214,23 @@ Node *astar_search(map_t *map, int start_x, int start_y, int goal_x, int goal_y)
         closed_set[current_node->position[0]][current_node->position[1]] = true;
 
         // Gérer les voisins du nœud actuel
-        Node **neighbors = get_successors(map, current_node);
+        Node **neighbors = get_successors(map, current_node, goal_x, goal_y);
         for (int i = 0; neighbors[i] != NULL; i++) {
             Node *neighbor = neighbors[i];
 
+            if (neighbor == NULL) {
+                printf("Neighbor is NULL\n");
+                continue;
+            }
+
+            //printf("Neighbor position: (%d, %d)\n", neighbor->position[0], neighbor->position[1]);
+            
+            if (neighbor->position[0] < 0 || neighbor->position[0] >= MAX_ROWS ||
+                neighbor->position[1] < 0 || neighbor->position[1] >= MAX_COLUMNS) {
+                free(neighbor); 
+                continue;
+            }
+            //printf("oui\n");
             if (closed_set[neighbor->position[0]][neighbor->position[1]]) {
                 free(neighbor);
                 continue;
@@ -259,10 +260,10 @@ Node *astar_search(map_t *map, int start_x, int start_y, int goal_x, int goal_y)
 
 
 // Fonction pour reconstruire le chemin une fois la destination atteinte
-Node **reconstruct_path(Node *goal_node) {
+Path *reconstruct_path(Node *goal_node) {
     int path_length = 0;
     Node *current = goal_node;
-    Node **path = NULL;
+    Path *path = NULL;
 
     // Compter le nombre de nœuds dans le chemin
     while (current != NULL) {
@@ -271,21 +272,50 @@ Node **reconstruct_path(Node *goal_node) {
     }
 
     // Allocation de mémoire pour le chemin
-    path = malloc(sizeof(Node *) * path_length);
+    path = malloc(sizeof(Path));
     if (path == NULL) {
         perror("Unable to allocate memory for path");
         exit(EXIT_FAILURE);
     }
 
+    path->nodes = malloc(sizeof(Node *) * path_length);
+    if (path->nodes == NULL) {
+        perror("Unable to allocate memory for path nodes");
+        free(path);
+        exit(EXIT_FAILURE);
+    }
+
+    path->length = path_length;
+
     // Reconstruire le chemin
     current = goal_node;
     for (int i = path_length - 1; i >= 0; i--) {
-        path[i] = current;
+        path->nodes[i] = current;
         current = current->parent;
     }
 
     return path;
 }
+
+void print_path(Node **path, int path_length) {
+    if (path == NULL || path_length <= 0) {
+        printf("Chemin vide ou non défini\n");
+        return;
+    }
+
+    printf("Chemin : ");
+    for (int i = 0; i < path_length; i++) {
+        if (path[i] != NULL) {
+            printf("(%d, %d)", path[i]->position[0], path[i]->position[1]);
+            if (i < path_length - 1) {
+                printf(" -> ");
+            }
+        }
+    }
+    printf("\n");
+}
+
+
 
 
 /* =========== COMMENT UTILISER ASTAR =========== */

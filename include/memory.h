@@ -254,11 +254,16 @@ struct counterintelligence_officer_s {
 
 typedef struct Node {
     int position[2]; // Position du nœud dans la grille
-    double g;   // Coût du chemin du départ à n
-    double h;   // Coût heuristique de n à la destination
+    double g;   // Coût du chemin 
+    double h;   // Coût heuristique 
     double f;   // Score total (f = g + h)
     struct Node* parent;  // Parent du nœud dans le chemin
 } Node;
+
+typedef struct Path {
+    Node **nodes; // Chemin 
+    int length;   // Longueur du chemin 
+} Path;
 
 struct citizen_s {
     unsigned int id;
@@ -270,9 +275,9 @@ struct citizen_s {
     home_t *home;
     int visited_cells[MAX_COLUMNS][MAX_ROWS];
 
-    Node **path_to_work;
-    Node **path_to_supermarket;
-    Node **path_from_supermarket_to_home;
+    Path *path_to_work;
+    Path *path_to_supermarket;
+    Path *path_from_supermarket_to_home;
 
     state_t *current_state;
     state_t *resting_at_home;

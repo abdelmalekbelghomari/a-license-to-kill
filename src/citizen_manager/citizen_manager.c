@@ -4,6 +4,7 @@
 #include <math.h>
 #include <bits/pthreadtypes.h>
 #include <float.h>
+#include "astar.h"
 
 #define SHARED_MEMORY "/SharedMemory"
 
@@ -170,6 +171,34 @@ void init_citizens(memory_t *memory) {
                                                      
         assign_random_supermarket(memory, citizen);
         //printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
+
+        int start_x = citizen->home->position[0];
+        int start_y = citizen->home->position[1];
+        int x_company = citizen->workplace->position[0];
+        int y_company = citizen->workplace->position[1];
+        int x_supermarket = citizen->supermarket->position[0];
+        int y_supermarket = citizen->supermarket->position[1];
+
+        // A* de la maison à l'entreprise
+        Node *end_node_company = astar_search(&memory->map, start_x, start_y, x_company, y_company);
+        if (end_node_company != NULL) {
+            citizen->path_to_work = reconstruct_path(end_node_company);
+        }
+
+        printf("Citizen %d - Path to work: ", i);
+        print_path(citizen->path_to_work->nodes, citizen->path_to_work->length);
+
+        // A* de l'entreprise au supermarché
+        Node *end_node_supermarket = astar_search(&memory->map, x_company, y_company, x_supermarket, y_supermarket);
+        if (end_node_supermarket != NULL) {
+            citizen->path_to_supermarket = reconstruct_path(end_node_supermarket);
+        }
+
+        // A* du supermarché à la maison
+        Node *end_node_home = astar_search(&memory->map, x_supermarket, y_supermarket, start_x, start_y);
+        if (end_node_home != NULL) {
+            citizen->path_from_supermarket_to_home = reconstruct_path(end_node_home);
+        }
     }
         
 }
