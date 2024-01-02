@@ -38,8 +38,52 @@ void assign_leaving_time(spy_t *spy) {
         }
     }
 
-    spy->leaving_hour = hour;
-    spy->leaving_minute = minute;
+    spy->leaving_time.leaving_hour = hour;
+    spy->leaving_time.leaving_minute = minute;
+}
+
+void assign_officer_times(case_officer_t *officer) {
+
+    leaving_time_t first_leaving_time , second_leaving_time , shopping_time , messaging_time;
+
+    // First message retrieval time
+    first_leaving_time.leaving_hour = rand() % (17 - 8) + 8;
+    first_leaving_time.leaving_minute = (rand() % 6) * 10;
+    // printf("Assigned First Time for Officer: %d:%d\n", first_leaving_time.leaving_hour, first_leaving_time.leaving_minute);
+
+    // Second message retrieval time, at least 2 hours apart
+    do {
+        second_leaving_time.leaving_hour = rand() % (17 - 8) + 8;
+        second_leaving_time.leaving_minute = (rand() % 6) * 10;
+    } while(less_than_two_hours(second_leaving_time , first_leaving_time));
+    // printf("Assigned Second Time for Officer: %d:%d\n", second_leaving_time.leaving_hour, second_leaving_time.leaving_minute);
+    
+
+    // Shopping time
+    do{
+        shopping_time.leaving_hour = rand() % (19 - 17) + 17;
+        shopping_time.leaving_minute = (rand() % 6) * 10;
+    } while(less_than_two_hours(shopping_time , second_leaving_time));
+    // printf("Assigned Shopping Time for Officer: %d:%d\n", shopping_time.leaving_hour, shopping_time.leaving_minute);
+
+    // messaging time
+    messaging_time.leaving_hour = rand() % 2 + 22;
+    messaging_time.leaving_minute = (rand() % 6) * 10;
+
+    officer->first_leaving_time = first_leaving_time;
+    officer->second_leaving_time = second_leaving_time;
+    officer->shopping_time = shopping_time;
+    officer->messaging_time = messaging_time;
+    
+}
+
+bool less_than_two_hours (leaving_time_t time1 , leaving_time_t time2){
+    int time1_in_minutes = time1.leaving_hour * 60 + time1.leaving_minute;
+    int time2_in_minutes = time2.leaving_hour * 60 + time2.leaving_minute;
+
+    int difference = abs(time1_in_minutes - time2_in_minutes);
+
+    return difference < 120;
 }
 
 
@@ -67,8 +111,8 @@ state_t *rest_at_home(spy_t *spy) {
     // Peut-être choisir aléatoirement si l'espion reste chez lui ou non
     //return spy->resting_at_home; // Ou passer à un autre état selon la logique
     printf(" espion : %d  : je me repose chez oim : heure : %d  minute : %d heure de sortie : %d   minute de sortie : %d\n"
-    ,spy->id , memory->timer.hours ,memory->timer.minutes, spy->leaving_hour, spy->leaving_minute);
-    if (spy->leaving_hour == memory->timer.hours && spy->leaving_minute == memory->timer.minutes){
+    ,spy->id , memory->timer.hours ,memory->timer.minutes, spy->leaving_time.leaving_hour, spy->leaving_time.leaving_minute);
+    if (spy->leaving_time.leaving_hour == memory->timer.hours && spy->leaving_time.leaving_minute == memory->timer.minutes){
         return spy->going_to_spot;
     }
     if (memory->timer.minutes == 0){
@@ -225,17 +269,26 @@ state_t *new_state_officer(int id, state_t *(*action)(case_officer_t *)) {
 
 state_t *rest_at_home_officer(case_officer_t *officer){
     printf(" officier traitant : je me repose chez oim \n");
-    return officer->sending_messages;
+    if(officer->first_leaving_time.leaving_hour == memory->timer.hours && officer->first_leaving_time.leaving_minute == memory->timer.minutes){
+        return officer->going_to_mailbox;
+    } else if (officer->second_leaving_time.leaving_hour == memory->timer.hours && officer->second_leaving_time.leaving_minute == memory->timer.minutes){
+        return officer->going_to_mailbox;
+    }else if (officer->shopping_time.leaving_hour == memory->timer.hours && officer->shopping_time.leaving_minute == memory->timer.minutes){
+        return officer->going_to_supermarket;
+    }else if (officer->messaging_time.leaving_hour == memory->timer.hours && officer->messaging_time.leaving_minute == memory->timer.minutes){
+        return officer->sending_messages;
+    }
+    return officer->resting_at_home;
 }
 
 state_t *send_messages(case_officer_t *officer){
     printf(" officier traitant : j'evoie les messages à l'autre pays \n");
-    return officer->going_back_home;
+    return officer->resting_at_home;
 }
 
 state_t *go_back_home_officer(case_officer_t *officer){
     printf(" officier traitant : je rentre chez oim \n");
-    return officer->doing_some_shopping;
+    return officer->resting_at_home;
 }
 
 state_t *go_to_supermarket_officer(case_officer_t *officer){
@@ -255,7 +308,7 @@ state_t *go_to_mailbox(case_officer_t *officer){
 
 state_t *recover_messages(case_officer_t *officer){
     printf(" officier traitant : je récupère les messages \n");
-    return officer->resting_at_home;
+    return officer->going_back_home;
 }
 
 void init_spies(memory_t * memory){
@@ -303,7 +356,7 @@ void init_officer(memory_t * memory){
     officer->doing_some_shopping = new_state_officer(4, do_some_shopping_officer);
     officer->going_to_mailbox = new_state_officer(5, go_to_mailbox);
     officer->sending_messages = new_state_officer(6, send_messages);
-    
+    officer->recovering_messages = new_state_officer(7, recover_messages);
 
     officer->current_state = officer->resting_at_home;
 

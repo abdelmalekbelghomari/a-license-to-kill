@@ -84,6 +84,7 @@ typedef struct building_s building_t;
 typedef struct home_s home_t;
 typedef struct citizen_s citizen_t;
 typedef struct mailbox_s mailbox_t;
+typedef struct leaving_time_s leaving_time_t;
 
 typedef enum citizen_type_e {
     NORMAL,
@@ -159,6 +160,11 @@ typedef struct simulated_clock_s {
     int days;
 } simulated_clock_t;
 
+struct leaving_time_s {
+    int leaving_hour;
+    int leaving_minute;
+};
+
 /**
  * \brief The city map.
  */
@@ -221,8 +227,7 @@ struct spy_s {
     int has_license_to_kill;                              /*!< The spy's authorization to kill.*/
     char stolen_message_content[MAX_LENGTH_OF_MESSAGE];   /*!< The content of stolen message.*/
     cell_t allowed_company[8];                            /*!< The allowed cells around a targer company */
-    int leaving_hour;
-    int leaving_minute;
+    leaving_time_t leaving_time;
     int turns_spent_spotting;
     int turns_spent_stealing;
     int turns_spent_shopping;
@@ -267,6 +272,11 @@ struct case_officer_s {
     int mailbox_row;                                      /*!< The case_officer home row.*/
     int mailbox_column;                                   /*!< The case_officer home column.*/
     int nb_of_outing;                                     /*!< The number of outing of case_officer */
+    leaving_time_t first_leaving_time;
+    leaving_time_t second_leaving_time;
+    leaving_time_t shopping_time;
+    leaving_time_t messaging_time;
+    
 
     state_t *current_state;
     state_t *resting_at_home;

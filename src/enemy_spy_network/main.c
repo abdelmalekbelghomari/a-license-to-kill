@@ -36,15 +36,14 @@ void* spy_thread(void* arg) {
             pthread_mutex_lock(&shared_memory_mutex);
             //modifie ca pour implémenter le patron état
             // printf("spy id : %d , current state : %d\n", spy_id, memory->spies[spy_id].current_state->id);
-            if(last_day_checked != current_day){
-                // printf ("\n \n\n============================================\nTHE DAY HAS CHANGEDDDDDDD ASSIGNGING A NEW LEAVING TIME\n");       
+            if(last_day_checked != current_day){    
                 assign_leaving_time(&memory->spies[spy_id]);
             }
-            //state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);
-            //memory->spies[spy_id].current_state = next_state;
+            // state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);
+            // memory->spies[spy_id].current_state = next_state;
             // sem_wait(sem);
-            state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);
-            memory->spies[spy_id].current_state = next_state;
+            // state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);
+            // memory->spies[spy_id].current_state = next_state;
             // sem_post(sem);
             last_day_checked = current_day;
             last_round_checked = current_round;
@@ -62,20 +61,33 @@ void* spy_thread(void* arg) {
 void* officer_function(){
     int last_round_checked = -1;
     int current_round = memory->timer.round;
+    int last_day_checked = -1;
+    int current_day = memory->timer.days;
     while(current_round != 2016 /* || memory->simulation_has_ended==0 */) {
         //sem_wait(sem); // Attente pour accéder à la mémoire partagée
         //printf("current timer round : %d\n", memory->timer.round);
         current_round = memory->timer.round;
+        current_day = memory->timer.days;
         // printf("caca\n");
         //sem_post(sem);
 
         if (last_round_checked != current_round) {
             pthread_mutex_lock(&shared_memory_mutex);
-            //printf("officer : 4\n");
+            if(last_day_checked != current_day){    
+                assign_officer_times(&memory->case_officer);
+                printf("first leaving time : %d : %d  , second leaving_time : %d : %d , shopping_time_time : %d : %d , messaging_time : %d:%d\n", 
+            memory->case_officer.first_leaving_time.leaving_hour, memory->case_officer.first_leaving_time.leaving_minute, memory->case_officer.second_leaving_time.leaving_hour,
+            memory->case_officer.second_leaving_time.leaving_minute,memory->case_officer.shopping_time.leaving_hour,memory->case_officer.shopping_time.leaving_minute,
+            memory->case_officer.messaging_time.leaving_hour, memory->case_officer.messaging_time.leaving_minute);
+            }
+            // printf("first leaving time : %d : %d  , second leaving_time : %d : %d , third_leaving_time : %d : %d", 
+            // memory->case_officer.first_leaving_time.leaving_hour, memory->case_officer.first_leaving_time.leaving_minute, memory->case_officer.second_leaving_time.leaving_hour,
+            // memory->case_officer.second_leaving_time.leaving_minute,memory->case_officer.shopping_time.leaving_hour,memory->case_officer.shopping_time.leaving_minute);
             state_t *next_state = memory->case_officer.current_state->action(&memory->case_officer);
             memory->case_officer.current_state = next_state;
             // sem_wait(sem);
             // sem_post(sem);
+            last_day_checked = current_day;
             last_round_checked = current_round;
             pthread_mutex_unlock(&shared_memory_mutex);
             pthread_barrier_wait(&turn_barrier);
