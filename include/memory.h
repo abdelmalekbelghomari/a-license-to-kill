@@ -267,6 +267,15 @@ struct case_officer_s {
     int mailbox_row;                                      /*!< The case_officer home row.*/
     int mailbox_column;                                   /*!< The case_officer home column.*/
     int nb_of_outing;                                     /*!< The number of outing of case_officer */
+
+    state_t *current_state;
+    state_t *resting_at_home;
+    state_t *going_to_supermarket;
+    state_t *doing_some_shopping;
+    state_t *going_back_home;
+    state_t *going_to_mailbox;
+    state_t *sending_messages;
+    state_t *recovering_messages;
 };
 
 /**

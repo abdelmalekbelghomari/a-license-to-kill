@@ -35,8 +35,18 @@ state_t *is_in_conflict(spy_t *spy);
 state_t *dying(spy_t *spy);
 state_t *finished(spy_t *spy);
 state_t *do_something(spy_t *spy);
-state_t *new_state(int id, state_t *(*action)(spy_t *));
+state_t *new_state_spy(int id, state_t *(*action)(spy_t *));
 void assign_leaving_time(spy_t *spy);
+
+void init_officer();
+state_t *rest_at_home_officer(case_officer_t *offcier);
+state_t *send_messages(case_officer_t *officer);
+state_t *go_back_home_officer(case_officer_t *officer);
+state_t *go_to_supermarket_officer(case_officer_t *officer);
+state_t *do_some_shopping_officer(case_officer_t *officer);
+state_t *go_to_mailbox(case_officer_t *officer);
+state_t *recover_messages(case_officer_t *officer);
+state_t *new_state_officer(int id, state_t *(*action_officer)(case_officer_t *));
 
 
 // int spy_choice(spy_t spy);

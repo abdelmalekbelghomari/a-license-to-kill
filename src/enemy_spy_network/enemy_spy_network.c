@@ -44,7 +44,7 @@ void assign_leaving_time(spy_t *spy) {
 
 
 
-state_t *new_state(int id, state_t *(*action)(spy_t *)) {
+state_t *new_state_spy(int id, state_t *(*action)(spy_t *)) {
     state_t *state = malloc(sizeof(state_t));
     state->id = id;
     state->action = action;
@@ -66,7 +66,8 @@ state_t *rest_at_home(spy_t *spy) {
     // Logique pour se reposer à la maison
     // Peut-être choisir aléatoirement si l'espion reste chez lui ou non
     //return spy->resting_at_home; // Ou passer à un autre état selon la logique
-    printf(" espion : %d  : je me repose chez oim : heure : %d  minute : %d heure de sortie : %d   minute de sortie : %d\n",spy->id , memory->timer.hours ,memory->timer.minutes, spy->leaving_hour, spy->leaving_minute);
+    printf(" espion : %d  : je me repose chez oim : heure : %d  minute : %d heure de sortie : %d   minute de sortie : %d\n"
+    ,spy->id , memory->timer.hours ,memory->timer.minutes, spy->leaving_hour, spy->leaving_minute);
     if (spy->leaving_hour == memory->timer.hours && spy->leaving_minute == memory->timer.minutes){
         return spy->going_to_spot;
     }
@@ -179,7 +180,7 @@ state_t *do_some_shopping(spy_t *spy) {
     // Faire des courses
     // return spy->resting_at_home;
     printf(" espion : %d  : je fais du shoopinje \n",spy->id);
-    if(spy->turns_spent_shopping == 8){
+    if(spy->turns_spent_shopping == 12){
         spy->turns_spent_shopping = 0;
         return spy->going_back_home;
     }
@@ -211,30 +212,77 @@ state_t *finished(spy_t *spy) {
   return spy->finished;
 }
 
+
+
+
+
+state_t *new_state_officer(int id, state_t *(*action)(case_officer_t *)) {
+    state_t *state = malloc(sizeof(state_t));
+    state->id = id;
+    state->action = action;
+    return state;
+}
+
+state_t *rest_at_home_officer(case_officer_t *officer){
+    printf(" officier traitant : je me repose chez oim \n");
+    return officer->sending_messages;
+}
+
+state_t *send_messages(case_officer_t *officer){
+    printf(" officier traitant : j'evoie les messages à l'autre pays \n");
+    return officer->going_back_home;
+}
+
+state_t *go_back_home_officer(case_officer_t *officer){
+    printf(" officier traitant : je rentre chez oim \n");
+    return officer->doing_some_shopping;
+}
+
+state_t *go_to_supermarket_officer(case_officer_t *officer){
+    printf(" officier traitant : je vais au supermarché \n");
+    return officer->doing_some_shopping;
+}
+
+state_t *do_some_shopping_officer(case_officer_t *officer){
+    printf(" officier traitant : je fais du shoppinje \n");
+    return officer->going_to_mailbox;
+}
+
+state_t *go_to_mailbox(case_officer_t *officer){
+    printf(" officier traitant : je vais a la boite aux lettres \n");
+    return officer->recovering_messages;
+}
+
+state_t *recover_messages(case_officer_t *officer){
+    printf(" officier traitant : je récupère les messages \n");
+    return officer->resting_at_home;
+}
+
 void init_spies(memory_t * memory){
 
     for (int i = 0; i < SPY_COUNT; i++) {
         spy_t *spy = &memory->spies[i];
-        spy->resting_at_home = new_state(0, rest_at_home);
-        spy->going_to_spot = new_state(1, go_to_spot);
-        spy->spotting = new_state(2, spot);
-        spy->stealing = new_state(3, steal);
-        spy->going_back_home = new_state(4, go_back_home);
-        spy->going_to_send_message = new_state(5, go_to_send_message);
-        spy->sending_message = new_state(6, send_message);
-        spy->waiting_for_residence_to_be_clear = new_state(7, wait_for_residence_to_be_clear);
-        spy->going_to_supermarket = new_state(8, go_to_supermarket);
-        spy->doing_some_shopping = new_state(9, do_some_shopping);
-        spy->is_hurt = new_state(10, is_hurt);
-        spy->riposte = new_state(11, riposte);
-        spy->is_in_conflict = new_state(12, is_in_conflict);
-        spy->dying = new_state(13, dying);
-        spy->finished = new_state(14, finished);
-        spy->scouting = new_state(15, scout);
-        spy->arriving_at_mailbox = new_state(16, arrived_at_mailbox);
-        spy->is_free = new_state(17, do_something);
+        spy->resting_at_home = new_state_spy(0, rest_at_home);
+        spy->going_to_spot = new_state_spy(1, go_to_spot);
+        spy->spotting = new_state_spy(2, spot);
+        spy->stealing = new_state_spy(3, steal);
+        spy->going_back_home = new_state_spy(4, go_back_home);
+        spy->going_to_send_message = new_state_spy(5, go_to_send_message);
+        spy->sending_message = new_state_spy(6, send_message);
+        spy->waiting_for_residence_to_be_clear = new_state_spy(7, wait_for_residence_to_be_clear);
+        spy->going_to_supermarket = new_state_spy(8, go_to_supermarket);
+        spy->doing_some_shopping = new_state_spy(9, do_some_shopping);
+        spy->is_hurt = new_state_spy(10, is_hurt);
+        spy->riposte = new_state_spy(11, riposte);
+        spy->is_in_conflict = new_state_spy(12, is_in_conflict);
+        spy->dying = new_state_spy(13, dying);
+        spy->finished = new_state_spy(14, finished);
+        spy->scouting = new_state_spy(15, scout);
+        spy->arriving_at_mailbox = new_state_spy(16, arrived_at_mailbox);
+        spy->is_free = new_state_spy(17, do_something);
 
         spy->current_state = spy->resting_at_home;
+
         spy->turns_spent_spotting = 0;
         spy->turns_spent_stealing = 0;
         spy->turns_spent_waiting = 0;
@@ -244,6 +292,23 @@ void init_spies(memory_t * memory){
 
     }
 }
+
+void init_officer(memory_t * memory){
+
+    case_officer_t *officer = &memory->case_officer;
+    officer->resting_at_home = new_state_officer(0, rest_at_home_officer);
+    officer->going_back_home = new_state_officer(1, go_back_home_officer);
+    officer->sending_messages = new_state_officer(2, send_messages);
+    officer->going_to_supermarket = new_state_officer(3, go_to_supermarket_officer);
+    officer->doing_some_shopping = new_state_officer(4, do_some_shopping_officer);
+    officer->going_to_mailbox = new_state_officer(5, go_to_mailbox);
+    officer->sending_messages = new_state_officer(6, send_messages);
+    
+
+    officer->current_state = officer->resting_at_home;
+
+}
+
 
 
 

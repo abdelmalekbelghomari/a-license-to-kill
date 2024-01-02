@@ -40,13 +40,42 @@ void* spy_thread(void* arg) {
                 // printf ("\n \n\n============================================\nTHE DAY HAS CHANGEDDDDDDD ASSIGNGING A NEW LEAVING TIME\n");       
                 assign_leaving_time(&memory->spies[spy_id]);
             }
-            state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);
-            memory->spies[spy_id].current_state = next_state;
-            // sem_wait(sem);
             //state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);
             //memory->spies[spy_id].current_state = next_state;
+            // sem_wait(sem);
+            state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);
+            memory->spies[spy_id].current_state = next_state;
             // sem_post(sem);
             last_day_checked = current_day;
+            last_round_checked = current_round;
+            pthread_mutex_unlock(&shared_memory_mutex);
+            pthread_barrier_wait(&turn_barrier);
+            // printf ("\nspy id : %d , walking_spies : %d , at_home_spies : %d at_work_spies : %d\n",spy_id, memory->walking_spies , memory->at_home_spies, memory->at_work_spies);
+        }
+
+        usleep(100000); // 100 ms pour réduire la consommation CPU
+    }
+
+    return NULL;
+}
+
+void* officer_function(){
+    int last_round_checked = -1;
+    int current_round = memory->timer.round;
+    while(current_round != 2016 /* || memory->simulation_has_ended==0 */) {
+        //sem_wait(sem); // Attente pour accéder à la mémoire partagée
+        //printf("current timer round : %d\n", memory->timer.round);
+        current_round = memory->timer.round;
+        // printf("caca\n");
+        //sem_post(sem);
+
+        if (last_round_checked != current_round) {
+            pthread_mutex_lock(&shared_memory_mutex);
+            //printf("officer : 4\n");
+            state_t *next_state = memory->case_officer.current_state->action(&memory->case_officer);
+            memory->case_officer.current_state = next_state;
+            // sem_wait(sem);
+            // sem_post(sem);
             last_round_checked = current_round;
             pthread_mutex_unlock(&shared_memory_mutex);
             pthread_barrier_wait(&turn_barrier);
@@ -63,6 +92,7 @@ int main() {
     printf("\n");
     srand(time(NULL) ^ getpid());// la graine doit être différente du parent
     pthread_t threads[SPIES_COUNT];
+    pthread_t officer_thread;
     int spy_ids[SPIES_COUNT];
     int shm_fd;
 
@@ -88,8 +118,9 @@ int main() {
         exit(EXIT_FAILURE);
     }   
     init_spies(memory);
+    init_officer(memory);
     // Initialisation de la barrière
-    pthread_barrier_init(&turn_barrier, NULL, SPIES_COUNT);
+    pthread_barrier_init(&turn_barrier, NULL, SPIES_COUNT+1);
     pthread_mutex_init(&shared_memory_mutex, NULL);
 
     // Créer les threads de citoyens
@@ -100,12 +131,15 @@ int main() {
             perror("Failed to create thread");
             return 1;
         }
+        
     }
+    pthread_create(&officer_thread, NULL, officer_function, NULL);
 
     // Attente de la fin des threads de citoyens
     for (int i = 0; i < SPIES_COUNT; i++) {
         pthread_join(threads[i], NULL);
     }
+    pthread_join(officer_thread, NULL);
 
     // Nettoyage
     pthread_barrier_destroy(&turn_barrier);
