@@ -266,7 +266,7 @@ typedef struct Path {
 } Path;
 
 struct citizen_s {
-    int id;
+    unsigned int id;
     int position [2];
     unsigned int health;
     citizen_type_t type;
@@ -297,7 +297,7 @@ struct citizen_s {
 };
 
 struct building_s {
-    unsigned int position[2];
+    int position[2];
     building_type_t type;
     cell_type_t cell_type;
     unsigned int nb_citizen;
@@ -311,9 +311,9 @@ struct building_s {
 };
 
 struct home_s {
-    unsigned int position[2];
-    unsigned int nb_citizen;
-    unsigned int max_capacity;
+    int position[2];
+    int nb_citizen;
+    int max_capacity;
     citizen_t *citizens;
     // void (*add_citizen)(home_t *, citizen_t *);
     // void (*remove_citizen)(home_t *, citizen_t *);

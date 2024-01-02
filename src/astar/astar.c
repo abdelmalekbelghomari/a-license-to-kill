@@ -159,20 +159,25 @@ Node **get_successors(map_t *map, Node *current, int goal_x, int goal_y) {
         int x = current->position[0] + DIRECTIONS[i][0];
         int y = current->position[1] + DIRECTIONS[i][1];
 
-        if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS /*|| is_cell_full(map, x, y)*/) {
+        if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS /*|| is_cell_full(map, x, y)*/ ) {
             continue; // Ignorer les voisins non valides
         }
 
-        if (map->cells[x][y].type != WASTELAND || (x != goal_x && y != goal_y)) {
+        if (map->cells[x][y].type != WASTELAND && (x != goal_x || y != goal_y)) {
             continue;
         }
 
         double g = current->g + 1; // Coût du déplacement = 1
         double h = heuristic(x, y, goal_x, goal_y);
         neighbors[number_of_neighbors++] = create_node(x, y, g, h);
+        
     }
 
     neighbors[number_of_neighbors] = NULL; 
+
+    // for (int i = 0; i < number_of_neighbors; i++) {
+    //     printf("Neighbor position: (%d, %d)\n", neighbors[i]->position[0], neighbors[i]->position[1]);
+    // }
 
     // if (number_of_neighbors < NUM_DIRECTIONS) {
     //     // Réallouer le tableau pour correspondre à la taille réelle
@@ -212,9 +217,8 @@ Node *astar_search(map_t *map, int start_x, int start_y, int goal_x, int goal_y)
 
         // Si le nœud est la destination, construire et retourner le chemin
         if (is_goal(current_node, goal_x, goal_y)) {
-            Path *path = reconstruct_path(current_node);
             destroy_heap(open_set);
-            return path;
+            return current_node;
         }
 
         // Marquer le nœud comme exploré
@@ -293,7 +297,7 @@ Path *reconstruct_path(Node *goal_node) {
         exit(EXIT_FAILURE);
     }
 
-    path->nodes = malloc(sizeof(Node *) * path_length);
+    path->nodes = malloc(sizeof(Node **) * path_length);
     if (path->nodes == NULL) {
         perror("Unable to allocate memory for path nodes");
         free(path);
