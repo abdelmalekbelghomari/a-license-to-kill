@@ -37,7 +37,7 @@ void* spy_thread(void* arg) {
             //modifie ca pour implémenter le patron état
             // printf("spy id : %d , current state : %d\n", spy_id, memory->spies[spy_id].current_state->id);
             if(last_day_checked != current_day){
-                printf ("\n \n\n============================================\nTHE DAY HAS CHANGEDDDDDDD ASSIGNGING A NEW LEAVING TIME\n");       
+                // printf ("\n \n\n============================================\nTHE DAY HAS CHANGEDDDDDDD ASSIGNGING A NEW LEAVING TIME\n");       
                 assign_leaving_time(&memory->spies[spy_id]);
             }
             state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);

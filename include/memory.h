@@ -39,6 +39,7 @@
 #include <sys/mman.h>
 #include <mqueue.h>
 #include <semaphore.h>
+#include <stdbool.h>
 
 
 #define CITIZENS_COUNT 127 /* 127 citizens in the city */
@@ -82,6 +83,7 @@ typedef struct state_s state_t;
 typedef struct building_s building_t;
 typedef struct home_s home_t;
 typedef struct citizen_s citizen_t;
+typedef struct mailbox_s mailbox_t;
 
 typedef enum citizen_type_e {
     NORMAL,
@@ -221,12 +223,20 @@ struct spy_s {
     cell_t allowed_company[8];                            /*!< The allowed cells around a targer company */
     int leaving_hour;
     int leaving_minute;
+    int turns_spent_spotting;
+    int turns_spent_stealing;
+    int turns_spent_shopping;
+    int turns_spent_waiting;
+    building_t *targeted_company;
+    bool has_a_message;
+
 
     state_t *current_state;
     state_t *resting_at_home;
     state_t *going_to_spot;
     state_t *spotting;
     state_t *stealing;
+    state_t *scouting;
     state_t *going_to_send_fake_message;
     state_t *going_back_home;
     state_t *going_to_send_message;
@@ -235,7 +245,9 @@ struct spy_s {
     state_t *waiting_for_residence_to_be_clear;
     state_t *going_to_supermarket;
     state_t *doing_some_shopping;
+    state_t *arriving_at_mailbox;
     state_t *is_hurt;
+    state_t *is_free;
     state_t *riposte;
     state_t *is_in_conflict;
     state_t *dying;
@@ -302,6 +314,10 @@ struct citizen_s {
     // void (*step)(citizen_t *);
 };
 
+struct mailbox_s{
+    bool is_occupied;
+};
+
 struct building_s {
     unsigned int position[2];
     building_type_t type;
@@ -320,6 +336,7 @@ struct home_s {
     unsigned int position[2];
     unsigned int nb_citizen;
     unsigned int max_capacity;
+    mailbox_t mailbox;
     citizen_t *citizens;
     void (*add_citizen)(home_t *, citizen_t *);
     void (*remove_citizen)(home_t *, citizen_t *);

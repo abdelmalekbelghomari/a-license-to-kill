@@ -50,6 +50,7 @@ void init_house(memory_t *memory){
             memory->homes[i].max_capacity = 15;
         }
     }
+    memory->homes->mailbox.is_occupied = false;
     int home_counter = 0;
     for (int i = 0; i < MAX_ROWS; i++) {
         for (int j = 0; j < MAX_COLUMNS; j++) {

@@ -51,6 +51,16 @@ state_t *new_state(int id, state_t *(*action)(spy_t *)) {
     return state;
 }
 
+state_t *do_something(spy_t *spy){
+  int value = rand()%10;
+  if (value == 0){
+      return spy->going_to_supermarket;
+  } else if (value < 4){
+      return spy->resting_at_home;
+  }else {
+      return spy->scouting;
+  }
+}
 
 state_t *rest_at_home(spy_t *spy) {
     // Logique pour se reposer à la maison
@@ -58,85 +68,110 @@ state_t *rest_at_home(spy_t *spy) {
     //return spy->resting_at_home; // Ou passer à un autre état selon la logique
     printf(" espion : %d  : je me repose chez oim : heure : %d  minute : %d heure de sortie : %d   minute de sortie : %d\n",spy->id , memory->timer.hours ,memory->timer.minutes, spy->leaving_hour, spy->leaving_minute);
     if (spy->leaving_hour == memory->timer.hours && spy->leaving_minute == memory->timer.minutes){
-      return spy->going_to_spot;
+        return spy->going_to_spot;
+    }
+    if (memory->timer.minutes == 0){
+        return spy->is_free;
     }
     return spy->resting_at_home;
 }
 
 state_t *go_to_spot(spy_t *spy) {
-    // Logique pour se déplacer vers un emplacement cible
-    // Définir la position cible ici
-    //return spy->going_to_spot; // Ou passer à l'état de repérage
+    // il faut implémenter le astar
     printf(" espion : %d  : je vais aller repérer \n",spy->id);
-    if (memory->timer.hours == 8){
-      return spy->resting_at_home;
-    }
-    return spy->going_to_spot;
+    return spy->spotting;
 }
 
 state_t *spot(spy_t *spy) {
-    // Logique de repérage, dure 12 tours
-    // Décide si le vol est envisageable
-    // return (vol_envisageable) ? spy->stealing : spy->going_to_send_fake_message;
-    //return spy->spotting;
     printf(" espion : %d  : je repère \n",spy->id);
-    return spy->stealing;
+    if (spy->turns_spent_spotting == 12){
+        spy->turns_spent_spotting = 0;
+        int value = rand() % 100;
+        if (value < 85){
+            return spy->stealing;
+        }
+        spy->has_a_message = true;
+        return spy->going_to_send_message;
+    }
+    spy->turns_spent_spotting++;
+    return spy->spotting;
+    
+    
 }
 
 state_t *steal(spy_t *spy) {
-    // Logique pour tenter de voler des informations
-    // Décider si le vol est réussi ou non
-    // return spy->going_to_send_message; // Ou autre état selon la réussite
     printf(" espion : %d  : je vole \n",spy->id);
-    return spy->going_to_send_fake_message;
+    if (spy->turns_spent_stealing == 6){
+        spy->has_a_message = true;
+        spy->turns_spent_stealing = 0;
+        int value = rand() % 100;
+        if (value < 90){
+            if(!(memory->timer.hours >= 8 && memory->timer.hours <= 17)){
+                return spy->going_back_home;
+            }
+            return spy->going_to_send_message;     
+        }
+        //ici le message est faux
+        return spy->going_to_send_message;
+    }
+    spy->turns_spent_stealing++;
+    return spy->stealing;
 }
 
-state_t *go_to_send_fake_message(spy_t *spy) {
-    // Logique pour envoyer un message trompeur
-    // return spy->going_back_home;
-    printf(" espion : %d  : j'envoie un faux message \n",spy->id);
-    return spy->going_back_home;
 
+state_t *arrived_at_mailbox(spy_t *spy){
+    //astar vers une case adjacente a la mailbox
+    printf(" espion : %d  : j'arrive a cote de la mailbox \n",spy->id);
+    if(memory->homes->mailbox.is_occupied = true){
+        return spy->waiting_for_residence_to_be_clear;
+    }
+    memory->homes->mailbox.is_occupied = true;
+    return spy->sending_message;
 }
 
 state_t *go_back_home(spy_t *spy) {
-    // Retour à la maison après l'activité
-    // return spy->resting_at_home; // Ou attendre pour envoyer un message
+    // il faut implémenter astar
     printf(" espion : %d  : je rentre chez oim \n",spy->id);
-    return spy->going_to_send_message;
+    return spy->resting_at_home;
 
 }
 
-state_t *go_to_send_message(spy_t *spy) {
-  // Aller à la boîte aux lettres pour envoyer le message
-  // return spy->resting_at_home_before_going_to_send_message;
-  printf(" espion : %d  : j'envoie un message \n",spy->id);
-  return spy->resting_at_home_before_going_to_send_message;
+state_t *go_to_send_message(spy_t *spy) {  
+    // il faut implémenter astar vers une case voisine du mailbox
+    printf(" espion : %d  : je vais pour envoyer un message \n",spy->id);
+    return spy->arriving_at_mailbox;
 }
 
 state_t *send_message(spy_t *spy){
   printf(" espion : %d : je mets le message dans la boitee aux lettres",spy->id);
-  return spy->doing_some_shopping;
+  memory->homes->mailbox.is_occupied = false;
+  return spy->going_back_home;
 }
 
-state_t *rest_at_home_before_going_to_send_message(spy_t *spy) {
-    // Se reposer avant d'aller envoyer un message
-    // return spy->going_to_send_message;
-    printf(" espion : %d  : je rentre chez oim avant d'envoyer le message \n",spy->id);
-    return spy->waiting_for_residence_to_be_clear;
-}
 
 state_t *wait_for_residence_to_be_clear(spy_t *spy) {
     // Attendre que la résidence soit libre
     // return spy->going_to_send_message;
     printf(" espion : %d  : j'attends que la résidence soit vide \n",spy->id);
-    return spy->going_to_supermarket;
+    if(spy->turns_spent_waiting == 6){
+        spy->turns_spent_waiting++;
+        return spy->waiting_for_residence_to_be_clear;
+    }
+    spy->turns_spent_waiting = 0;
+    return spy->sending_message;
+}
+
+state_t *scout(spy_t *spy){
+    //astar pour mettre l'espion a cote d'une entreprise
+    // spy->targeted_company = (la companie qu'il va voler)
+    printf(" espion : %d  : je cherche une entreprise cible \n",spy->id);
+    return spy->going_back_home;
 }
 
 state_t *go_to_supermarket(spy_t *spy) {
     // Aller au supermarché
     // return spy->doing_some_shopping;
-    printf(" espion : %d  : je fais du shoopinje \n",spy->id);
+    printf(" espion : %d  : je vais aller faire du shoopinje \n",spy->id);
     return spy->doing_some_shopping;
 }
 
@@ -144,7 +179,12 @@ state_t *do_some_shopping(spy_t *spy) {
     // Faire des courses
     // return spy->resting_at_home;
     printf(" espion : %d  : je fais du shoopinje \n",spy->id);
-    return spy->going_back_home;
+    if(spy->turns_spent_shopping == 8){
+        spy->turns_spent_shopping = 0;
+        return spy->going_back_home;
+    }
+    spy->turns_spent_shopping++;
+    return spy->doing_some_shopping;
 }
 
 state_t *is_hurt(spy_t *spy) {
@@ -179,20 +219,26 @@ void init_spies(memory_t * memory){
         spy->going_to_spot = new_state(1, go_to_spot);
         spy->spotting = new_state(2, spot);
         spy->stealing = new_state(3, steal);
-        spy->going_to_send_fake_message = new_state(4, go_to_send_fake_message);
-        spy->going_back_home = new_state(5, go_back_home);
-        spy->going_to_send_message = new_state(6, go_to_send_message);
-        spy->sending_message = new_state(7, send_message);
-        spy->waiting_for_residence_to_be_clear = new_state(8, wait_for_residence_to_be_clear);
-        spy->going_to_supermarket = new_state(9, go_to_supermarket);
-        spy->doing_some_shopping = new_state(10, do_some_shopping);
-        spy->is_hurt = new_state(11, is_hurt);
-        spy->riposte = new_state(12, riposte);
-        spy->is_in_conflict = new_state(13, is_in_conflict);
-        spy->dying = new_state(14, dying);
-        spy->finished = new_state(15, finished);
+        spy->going_back_home = new_state(4, go_back_home);
+        spy->going_to_send_message = new_state(5, go_to_send_message);
+        spy->sending_message = new_state(6, send_message);
+        spy->waiting_for_residence_to_be_clear = new_state(7, wait_for_residence_to_be_clear);
+        spy->going_to_supermarket = new_state(8, go_to_supermarket);
+        spy->doing_some_shopping = new_state(9, do_some_shopping);
+        spy->is_hurt = new_state(10, is_hurt);
+        spy->riposte = new_state(11, riposte);
+        spy->is_in_conflict = new_state(12, is_in_conflict);
+        spy->dying = new_state(13, dying);
+        spy->finished = new_state(14, finished);
+        spy->scouting = new_state(15, scout);
+        spy->arriving_at_mailbox = new_state(16, arrived_at_mailbox);
+        spy->is_free = new_state(17, do_something);
 
-      spy->current_state = spy->resting_at_home;
+        spy->current_state = spy->resting_at_home;
+        spy->turns_spent_spotting = 0;
+        spy->turns_spent_stealing = 0;
+        spy->turns_spent_waiting = 0;
+        spy->turns_spent_shopping = 0;
 
       spy->id = i;
 
