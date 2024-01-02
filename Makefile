@@ -74,15 +74,6 @@ src/enemy_spy_network/enemy_spy_network.o: src/enemy_spy_network/enemy_spy_netwo
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 # ----------------------------------------------------------------------------
-# ENEMY SPY NETWORK
-# ----------------------------------------------------------------------------
-bin/enemy_spy_network: src/enemy_spy_network/main.o
-	$(CC) $^ -o $@ $(LDFLAGS)
-
-src/enemy_spy_network/main.o: src/enemy_spy_network/main.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
-
-# ----------------------------------------------------------------------------
 # ENEMY COUNTRY
 # ----------------------------------------------------------------------------
 bin/enemy_country: src/enemy_country/main.o

@@ -5,10 +5,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "../../include/memory.h"
+#include "memory.h"
 #include <semaphore.h>
 
-#define MAX_MESSAGE_SIZE 128
-#define SHIFT 3
+memory_t *memory;
 
 void caesar_decipher(char *message) {
     for (int i = 0; message[i] != '\0'; ++i) {
@@ -26,37 +26,40 @@ void caesar_decipher(char *message) {
 }
 
 int main() {
-    sem_t *sem = sem_open("/Mysemaphore", O_RDWR, 1);
-    if (sem == SEM_FAILED) {
-        perror("sem_open");
+    mqd_t mq = mq_open("/spy_message_queue", O_RDONLY);
+    if (mq == (mqd_t) -1) {
+        perror("mq_open");
         exit(EXIT_FAILURE);
     }
-    // Open shared memory
-    int shm_fd = shm_open("/SharedMemory", O_RDONLY, 0666);
+
+    int shm_fd = shm_open("/SharedMemory", O_RDWR, 0666);
     if (shm_fd == -1) {
         perror("shm_open");
         exit(EXIT_FAILURE);
     }
 
-    // Map shared memory
-    memory_t *memory = mmap(NULL, sizeof(memory_t), PROT_READ, MAP_SHARED, shm_fd, 0);
+    memory = mmap(NULL, sizeof(memory_t), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
     if (memory == MAP_FAILED) {
         perror("mmap");
         close(shm_fd);
         exit(EXIT_FAILURE);
     }
 
-    SpyMessage received_message;
-    sleep(2);
+    char received_message[MAX_MESSAGE_SIZE];
+    unsigned int message_priority;
+    
     while (1) {
-        ssize_t bytes_read = mq_receive(memory->mqInfo.mq, (char *)&received_message, sizeof(SpyMessage), NULL);
-        printf("\nDescripteur de la queue de messages: %d\n", memory->mqInfo.mq);
+        usleep(1000000);
+        ssize_t bytes_read = mq_receive(mq, received_message, MAX_MESSAGE_SIZE, &message_priority);
         if (bytes_read >= 0) {
-            if (received_message.priority != 1) {
-                caesar_decipher(received_message.content);
-                printf("Received decrypted message: %s (Priority: %d)\n", received_message.content, received_message.priority);
+            if (message_priority != 1) {
+                caesar_decipher(received_message);
+                strcpy(memory->messages[memory->message_count], received_message);
+                memory->message_count++;
+                memory->memory_has_changed = 1;
+                // printf("Received decrypted message: %s (Priority: %u)\n", received_message, message_priority);
             } else {
-                printf("Deceptive message received and ignored.\n");
+                // printf("Deceptive message received and ignored.\n");
             }
         } else {
             perror("mq_receive");
@@ -64,9 +67,8 @@ int main() {
         }
     }
 
-    // Cleanup
+    mq_close(mq);
     munmap(memory, sizeof(memory_t));
     close(shm_fd);
     return 0;
 }
-

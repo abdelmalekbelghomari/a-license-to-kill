@@ -107,7 +107,7 @@ void init_monitor_elements(WINDOW *window, memory_t *mem, int rows, int columns)
     display_city(city_window, mem->map, rows, columns);
     display_character_information(character_window, mem);
     display_mailbox_content(mailbox_content_window, mem);
-    display_enemy_country_monitor(enemy_country_monitor);
+    display_enemy_country_monitor(enemy_country_monitor, mem);
 }
 
 void set_monitor_title(WINDOW *window, const char *title)
@@ -470,7 +470,7 @@ void display_mailbox_content(WINDOW *window, memory_t *mem)
     wrefresh(window);
 }
 
-void display_enemy_country_monitor(WINDOW *window)
+void display_enemy_country_monitor(WINDOW *window , memory_t *mem)
 {
     int nb_lines;
     int title_column;
@@ -491,8 +491,11 @@ void display_enemy_country_monitor(WINDOW *window)
      *
      * -------------------------------------------------------------------------
      */
+    for (int i = 0; i < mem->message_count; ++i) {
+        mvwprintw(window, nb_lines++, 2, "Message %d: %s", i+1, mem->messages[i]);
+    }
+    
      
-
     wrefresh(window);
 }
 
@@ -500,7 +503,7 @@ void update_values(memory_t *mem) {
     display_general_information_values(city_window, mem);
     display_character_information(character_window, mem);
     // display_mailbox_content(mailbox_content_window, mem);
-    // display_enemy_country_monitor(enemy_country_monitor);
+    display_enemy_country_monitor(enemy_country_monitor, mem);
 	// mem->memory_has_changed = 0;
 }
 

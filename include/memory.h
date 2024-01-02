@@ -48,7 +48,8 @@
 #define MAX_ROUNDS 2016
 #define NUM_CITIZENS 127
 #define MAX_MESSAGE_SIZE 128
-
+#define MAX_MESSAGES 10000
+#define SHIFT 3
 
 #define NB_CITIZEN_HALL 10
 #define NB_CITIZEN_STORE 6
@@ -247,6 +248,7 @@ struct spy_s {
     int turns_spent_waiting;
     building_t *targeted_company;
     bool has_a_message;
+    bool has_a_fake_message;
 
 
     state_t *current_state;
@@ -391,6 +393,8 @@ struct memory_s {
     case_officer_t case_officer;
     counterintelligence_officer_t counterintelligence_officer;
     simulated_clock_t timer;
+    char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
+    int message_count;
     int end_round;
     pid_t pids[7];
     mq_t mqInfo;

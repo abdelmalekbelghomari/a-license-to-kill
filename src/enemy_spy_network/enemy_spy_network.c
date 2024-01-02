@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/shm.h>
-/***/
 #include "enemy_spy_network.h"
 extern memory_t *memory;
 
@@ -135,7 +134,7 @@ state_t *spot(spy_t *spy) {
         if (value < 85){
             return spy->stealing;
         }
-        spy->has_a_message = true;
+        spy->has_a_fake_message = true;
         return spy->going_to_send_message;
     }
     spy->turns_spent_spotting++;
@@ -147,16 +146,17 @@ state_t *spot(spy_t *spy) {
 state_t *steal(spy_t *spy) {
     printf(" espion : %d  : je vole \n",spy->id);
     if (spy->turns_spent_stealing == 6){
-        spy->has_a_message = true;
         spy->turns_spent_stealing = 0;
         int value = rand() % 100;
         if (value < 90){
+            spy->has_a_message = true;
             if(!(memory->timer.hours >= 8 && memory->timer.hours <= 17)){
                 return spy->going_back_home;
             }
             return spy->going_to_send_message;     
         }
         //ici le message est faux
+        spy->has_a_fake_message = true;
         return spy->going_to_send_message;
     }
     spy->turns_spent_stealing++;
@@ -171,6 +171,7 @@ state_t *arrived_at_mailbox(spy_t *spy){
         return spy->waiting_for_residence_to_be_clear;
     }
     memory->homes->mailbox.is_occupied = true;
+
     return spy->sending_message;
 }
 
@@ -188,9 +189,16 @@ state_t *go_to_send_message(spy_t *spy) {
 }
 
 state_t *send_message(spy_t *spy){
-  printf(" espion : %d : je mets le message dans la boitee aux lettres",spy->id);
-  memory->homes->mailbox.is_occupied = false;
-  return spy->going_back_home;
+    printf(" espion : %d : je mets le message dans la boite aux lettres",spy->id);
+    memory->homes->mailbox.is_occupied = false;
+    if(spy->has_a_message){
+        //logique pour envoyer un message
+        spy->has_a_message = false;
+    }else if(spy->has_a_fake_message){
+        //logique pour envoyer un message
+        spy->has_a_fake_message = false;
+    }
+    return spy->going_back_home;
 }
 
 
@@ -311,6 +319,21 @@ state_t *recover_messages(case_officer_t *officer){
     return officer->going_back_home;
 }
 
+void caesar_cipher(char *message) {
+    for (int i = 0; message[i] != '\0'; ++i) {
+        char ch = message[i];
+        if (ch >= 'a' && ch <= 'z') {
+            ch += SHIFT;
+            if (ch > 'z') ch -= 26;
+            message[i] = ch;
+        } else if (ch >= 'A' && ch <= 'Z') {
+            ch += SHIFT;
+            if (ch > 'Z') ch -= 26;
+            message[i] = ch;
+        }
+    }
+}
+
 void init_spies(memory_t * memory){
 
     for (int i = 0; i < SPY_COUNT; i++) {
@@ -340,8 +363,9 @@ void init_spies(memory_t * memory){
         spy->turns_spent_stealing = 0;
         spy->turns_spent_waiting = 0;
         spy->turns_spent_shopping = 0;
-
-      spy->id = i;
+        spy->has_a_message = 0;
+        spy->has_a_fake_message = 0;
+        spy->id = i;
 
     }
 }
@@ -361,6 +385,7 @@ void init_officer(memory_t * memory){
     officer->current_state = officer->resting_at_home;
 
 }
+
 
 
 

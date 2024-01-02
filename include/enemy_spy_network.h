@@ -50,6 +50,7 @@ state_t *recover_messages(case_officer_t *officer);
 state_t *new_state_officer(int id, state_t *(*action_officer)(case_officer_t *));
 void assign_officer_times(case_officer_t *officer);
 bool less_than_two_hours (leaving_time_t time1 , leaving_time_t time2);
+void caesar_cipher(char *message);
 
 
 // int spy_choice(spy_t spy);
