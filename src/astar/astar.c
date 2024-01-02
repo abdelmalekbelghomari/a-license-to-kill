@@ -337,7 +337,7 @@ au personnage.
 Exemple de step pour le pattern state:
 
     if (citizen->current_state == citizen->going_to_company) {
-        move_along_path(citizen, citizen->path_to_work);
+        step(citizen, citizen->path_to_work);
         // Si le citoyen arrive à l'entreprise, changer l'état
         if (arrived_at_destination(citizen, citizen->workplace)) {
             change_state(citizen, citizen->working);
