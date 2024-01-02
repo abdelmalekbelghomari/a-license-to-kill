@@ -266,8 +266,8 @@ typedef struct Path {
 } Path;
 
 struct citizen_s {
-    unsigned int id;
-    unsigned int position [2];
+    int id;
+    int position [2];
     unsigned int health;
     citizen_type_t type;
     building_t *workplace;

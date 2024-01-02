@@ -31,7 +31,9 @@ Node *create_node(int x, int y, double g, double h) {
 
 heap_t *create_heap(int initial_capacity) {
     heap_t *heap = (heap_t *)malloc(sizeof(heap_t));
-    if (!heap) return NULL;
+    if (!heap) {
+        return NULL;
+    }
 
     heap->nodes = (Node **)malloc(sizeof(Node *) * initial_capacity);
     if (!heap->nodes) {
@@ -157,8 +159,12 @@ Node **get_successors(map_t *map, Node *current, int goal_x, int goal_y) {
         int x = current->position[0] + DIRECTIONS[i][0];
         int y = current->position[1] + DIRECTIONS[i][1];
 
-        if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS || is_cell_full(map, x, y)) {
+        if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS /*|| is_cell_full(map, x, y)*/) {
             continue; // Ignorer les voisins non valides
+        }
+
+        if (map->cells[x][y].type != WASTELAND || (x != goal_x && y != goal_y)) {
+            continue;
         }
 
         double g = current->g + 1; // Coût du déplacement = 1
@@ -168,20 +174,21 @@ Node **get_successors(map_t *map, Node *current, int goal_x, int goal_y) {
 
     neighbors[number_of_neighbors] = NULL; 
 
-    if (number_of_neighbors < NUM_DIRECTIONS) {
-        // Réallouer le tableau pour correspondre à la taille réelle
-        Node **temp = realloc(neighbors, sizeof(Node *) * (number_of_neighbors + 1));
-        if (temp == NULL) {
-            perror("Unable to reallocate memory for neighbors");
-            // Nettoyer et quitter en cas d'échec de réallocation
-            for (int i = 0; i < number_of_neighbors; i++) {
-                free(neighbors[i]);
-            }
-            free(neighbors);
-            exit(EXIT_FAILURE);
-        }
-        neighbors = temp;
-    }
+    // if (number_of_neighbors < NUM_DIRECTIONS) {
+    //     // Réallouer le tableau pour correspondre à la taille réelle
+    //     Node **temp = realloc(neighbors, sizeof(Node *) * (number_of_neighbors + 1));
+    //     if (temp == NULL) {
+    //         perror("Unable to reallocate memory for neighbors");
+    //         // Nettoyer et quitter en cas d'échec de réallocation
+    //         for (int i = 0; i < number_of_neighbors; i++) {
+    //             free(neighbors[i]);
+    //         }
+    //         free(neighbors);
+    //         exit(EXIT_FAILURE);
+    //     }
+    //     temp[number_of_neighbors] = NULL;
+    //     neighbors = temp;
+    // }
 
     return neighbors;
 }
@@ -215,6 +222,7 @@ Node *astar_search(map_t *map, int start_x, int start_y, int goal_x, int goal_y)
 
         // Gérer les voisins du nœud actuel
         Node **neighbors = get_successors(map, current_node, goal_x, goal_y);
+        bool neighbors_to_free[NUM_DIRECTIONS] = {false};
         for (int i = 0; neighbors[i] != NULL; i++) {
             Node *neighbor = neighbors[i];
 
@@ -247,6 +255,13 @@ Node *astar_search(map_t *map, int start_x, int start_y, int goal_x, int goal_y)
                 if (!is_in_heap(open_set, neighbor)) {
                     insert_heap(open_set, neighbor);
                 }
+            }
+            // Libérer les voisins marqués
+        
+        }
+        for (int i = 0; i < NUM_DIRECTIONS; i++) {
+            if (neighbors_to_free[i]) {
+                free(neighbors[i]);
             }
         }
 
@@ -290,6 +305,12 @@ Path *reconstruct_path(Node *goal_node) {
     // Reconstruire le chemin
     current = goal_node;
     for (int i = path_length - 1; i >= 0; i--) {
+        if (current == NULL) {
+            fprintf(stderr, "Erreur: un parent de nœud est NULL dans reconstruct_path\n");
+            free(path->nodes);
+            free(path);
+            return NULL;
+        }
         path->nodes[i] = current;
         current = current->parent;
     }

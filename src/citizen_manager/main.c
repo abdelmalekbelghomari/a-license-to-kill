@@ -54,7 +54,6 @@ void* citizen_thread(void* arg) {
         // }
         usleep(100000); // 100 ms pour réduire la consommation CPU
     }
-
     return NULL;
 }
 

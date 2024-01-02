@@ -9,7 +9,7 @@
 #define SHARED_MEMORY "/SharedMemory"
 
 pthread_mutex_t mutex;
-pthread_barrier_t start_barrier, end_barrier;
+pthread_barrier_t end_of_the_day_barrier;
 extern memory_t *memory;
 
 memory_t open_shared_memory() {
@@ -179,26 +179,32 @@ void init_citizens(memory_t *memory) {
         int x_supermarket = citizen->supermarket->position[0];
         int y_supermarket = citizen->supermarket->position[1];
 
+        // printf("Citizen %d - Home: (%d, %d), Company: (%d, %d), Supermarket: (%d, %d)\n", i, start_x, start_y, x_company, y_company, x_supermarket, y_supermarket);
+
         // A* de la maison à l'entreprise
         Node *end_node_company = astar_search(&memory->map, start_x, start_y, x_company, y_company);
         if (end_node_company != NULL) {
             citizen->path_to_work = reconstruct_path(end_node_company);
         }
 
-        printf("Citizen %d - Path to work: ", i);
-        print_path(citizen->path_to_work->nodes, citizen->path_to_work->length);
+        // printf("Citizen %d - Path to work: ", i);
+        if(i==11){
+            break;
+        }
+        //print_path(citizen->path_to_work->nodes, citizen->path_to_work->length);
+        //printf("Citizen %d, adress_path : (%p) \n", i, citizen->path_to_work);
 
         // A* de l'entreprise au supermarché
-        Node *end_node_supermarket = astar_search(&memory->map, x_company, y_company, x_supermarket, y_supermarket);
-        if (end_node_supermarket != NULL) {
-            citizen->path_to_supermarket = reconstruct_path(end_node_supermarket);
-        }
+        // Node *end_node_supermarket = astar_search(&memory->map, x_company, y_company, x_supermarket, y_supermarket);
+        // if (end_node_supermarket != NULL) {
+        //     citizen->path_to_supermarket = reconstruct_path(end_node_supermarket);
+        // }
 
-        // A* du supermarché à la maison
-        Node *end_node_home = astar_search(&memory->map, x_supermarket, y_supermarket, start_x, start_y);
-        if (end_node_home != NULL) {
-            citizen->path_from_supermarket_to_home = reconstruct_path(end_node_home);
-        }
+        // // A* du supermarché à la maison
+        // Node *end_node_home = astar_search(&memory->map, x_supermarket, y_supermarket, start_x, start_y);
+        // if (end_node_home != NULL) {
+        //     citizen->path_from_supermarket_to_home = reconstruct_path(end_node_home);
+        // }
     }
         
 }
