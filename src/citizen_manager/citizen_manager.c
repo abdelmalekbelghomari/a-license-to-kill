@@ -172,7 +172,7 @@ void init_citizens(memory_t *memory) {
         //printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, citizen->workplace);
                                                      
         assign_random_supermarket(memory, citizen);
-        //printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
+        // printf("Le supermarché attribué au citoyen %d est le (%d,%d)\n", i+1, citizen->supermarket->position[0], citizen->supermarket->position[1]);
 
         int x_home = citizen->home->position[0];
         int y_home = citizen->home->position[1];
@@ -409,9 +409,10 @@ state_t *rest_at_home(citizen_t *c) {
 
         // pthread_mutex_unlock(&mutex);
         return c->going_to_company;
+    } else {
+        return c->resting_at_home;
     }
     // printf("je me repose chez oim : heure : %d : %d\n" , memory->timer.hours, memory->timer.minutes);
-    return c->resting_at_home;
 }
 
 state_t *go_to_company(citizen_t *c) {
@@ -488,16 +489,18 @@ state_t *work(citizen_t *c) {
     } else if (memory->timer.hours == 17 && memory->timer.minutes >= 0) { 
         //printf("je vais faire du shopping\n");
         int value = rand() % 4;
-        if (value == 0) {    // 2 car haykel est spécial alors qu'une personne sain d'esprit aurait choisit 0 
+        if (value < 1) {    // 2 car haykel est spécial alors qu'une personne saine d'esprit aurait choisit 0 
             //pthread_mutex_lock(&mutex);
             memory->at_work_citizens--;
             if(memory->at_work_citizens < 0){
                 memory->at_work_citizens = 0;
             }
             memory->walking_citizens++;
+            c->current_step = 0;
             //pthread_mutex_unlock(&mutex);
             //c->is_coming_from_supermarket = 1; // Pour le différencier de celui qui vient du travail
             // printf("je vais faire du shopping\n");
+            // printf("Citizen %d - Going to supermarket\n", c->id);
             return c->going_to_supermarket;
         } else {
             memory->at_work_citizens--;
@@ -517,11 +520,12 @@ state_t *work(citizen_t *c) {
         // printf("Temps de courses : %d\n", c->time_spent_shopping);
         return c->working;
     }
+    return c->working;
 }
 
 state_t *go_to_supermarket(citizen_t *c) {
     // printf("je vais au marché\n");
-    if (c->position[0] == c->supermarket->position[0] && c->position[1] == c->supermarket->position[1]){
+    if (c->position[0] == c->path_to_supermarket->nodes[c->path_to_supermarket->length -1]->position[0] && c->position[1] == c->path_to_supermarket->nodes[c->path_to_supermarket->length -1]->position[1]){
         // printf("Citizen %d - Arrivé au supermarché\n", c->id);
         c->current_step = 0;
         memory->walking_citizens--;
@@ -541,6 +545,9 @@ state_t *go_to_supermarket(citizen_t *c) {
             c->position[0] = next_node->position[0];
             c->position[1] = next_node->position[1];
 
+            // printf("Citizen %d - Position Supermarket: (%d, %d)\n", c->id, c->supermarket->position[0], c->supermarket->position[1]);
+            // printf("Citizen %d - Position goal : (%d, %d)\n", c->id, c->path_to_supermarket->nodes[c->path_to_supermarket->length -1]->position[0], c->path_to_supermarket->nodes[c->path_to_supermarket->length -1]->position[1]);
+            // printf("Citizen %d - Position: (%d, %d)\n", c->id, c->position[0], c->position[1]);
             c->current_step++;
             // printf("Citizen %d - Current step après incrémentation: %d\n", c->id, c->current_step);
             return c->going_to_supermarket;
@@ -548,8 +555,8 @@ state_t *go_to_supermarket(citizen_t *c) {
             // printf("Citizen %d - Path to supermarket is NULL\n", c->id);
             return c->going_to_supermarket;
         } else {
-            // printf("Citizen %d - Path to supermarket: \n", c->id);
-            // printf("Citizen %d - Current Step is > path length \n", c->path_to_supermarket->length);
+            // printf("Citizen %d - Path to supermarket: ", c->id);
+            // printf("- Current Step is > path length : %d \n", c->path_to_supermarket->length);
             return c->going_to_supermarket;
         }
         
@@ -658,7 +665,7 @@ state_t *go_back_home(citizen_t *c) {
 
 state_t *do_some_shopping(citizen_t *c) {
     // printf("je fais du shoppinje\n");
-    if(c->time_spent_shopping >= 30){
+    if(c->time_spent_shopping >= 30 || (memory->timer.hours == 19 && memory->timer.minutes >= 30)){
         // printf("Citizen %d - Arrete son shoppinje\n", c->id);
         c->current_step = 0;
         c->time_spent_shopping = 0;
