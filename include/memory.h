@@ -79,7 +79,7 @@ typedef struct mq_s mq_t;
 typedef struct memory_s memory_t;
 typedef struct spy_s spy_t;
 typedef struct case_officer_s case_officer_t;
-typedef struct counterintelligence_officer_s counterintelligence_officer_t;
+typedef struct counter_intelligence_officer_s counter_intelligence_officer_t;
 typedef struct SpyInfo spyInfo;
 typedef struct CaseOfficerInfo caseOfficerInfo;
 typedef struct CounterIntelligenceOfficer counterIntelligenceOfficer;
@@ -307,7 +307,7 @@ struct case_officer_s {
 /**
  * \brief The counterintelligence_officer information.
  */
-struct counterintelligence_officer_s {
+struct counter_intelligence_officer_s {
     int id;                                               /*!< The counterintelligence_officer identification number. */
     int health_point;                                     /*!< The counterintelligence_officer health_point point.*/
     int location_row;                                     /*!< The counterintelligence_officer location row.*/
@@ -317,6 +317,26 @@ struct counterintelligence_officer_s {
     int mailbox_row;                                      /*!< The counterintelligence_officer home row.*/
     int mailbox_column;                                   /*!< The counterintelligence_officer home column.*/
     int targeted_character_id;                            /*!< The targeted character id.*/
+
+    state_t *monitoring;
+    state_t *going_to_suspect_place;
+    state_t *hiding;
+    state_t *going_back_to_monitor;
+    state_t *waiting_for_spy_to_steal;
+    state_t *following_spy;
+    state_t *waiting_for_spy_to_send_message;
+    state_t *searching_for_mailbox;
+    state_t *recovering_messages;
+    state_t *current_state;
+    state_t *going_to_search_for_mailbox;
+
+    bool has_found_mailbox;
+    bool has_found_mailbox_location;
+    bool new_day;
+    leaving_time_t leaving_time;
+
+
+
 }; 
 
 
@@ -395,7 +415,7 @@ struct memory_s {
     map_t map;
     spy_t spies[3];
     case_officer_t case_officer;
-    counterintelligence_officer_t counterintelligence_officer;
+    counter_intelligence_officer_t counter_intelligence_officer;
     simulated_clock_t timer;
     char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
     int message_count;
