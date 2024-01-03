@@ -197,6 +197,7 @@ state_t *send_message(spy_t *spy){
     // printf(" espion : %d : je mets le message dans la boite aux lettres",spy->id);
     memory->homes->mailbox.is_occupied = false;
     if(spy->has_a_message){
+        // ici il faut implémneter une logique selon le nombre de travailleurs dans une entreprise
         char message[MAX_MESSAGE_SIZE]; 
         strcpy(message, "Deceptive");
         caesar_cipher(message);
@@ -205,8 +206,20 @@ state_t *send_message(spy_t *spy){
         memory->homes->mailbox.message_count++;
         spy->has_a_message = false;
     }else if(spy->has_a_fake_message){
-        char message[MAX_MESSAGE_SIZE]; 
-        strcpy(message, "Crucial");
+         char message[MAX_MESSAGE_SIZE]; 
+        int randValue = rand() % 100; // Generate a random number between 0 and 99
+
+        if(randValue < 1) { // 1% chance for "crucial"
+            strcpy(message, "Crucial");
+        } else if(randValue < 6) { // Additional 5% chance for "strong" (total 6%)
+            strcpy(message, "Strong");
+        } else if(randValue < 20) { // Additional 14% chance for "medium" (total 20%)
+            strcpy(message, "Medium");
+        } else if(randValue < 50) { // Additional 30% chance for "low" (total 50%)
+            strcpy(message, "Low");
+        } else { // Remaining 50% chance for "very low"
+            strcpy(message, "Very Low");
+        }
         caesar_cipher(message);
         strcpy(memory->homes->mailbox.messages[memory->homes->mailbox.message_count] ,message);
         // printf(" \n\n============================= la boite aux lettres contient le message suivant : %s\n\n" ,memory->homes->mailbox.messages[memory->homes->mailbox.message_count]);
