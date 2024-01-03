@@ -329,7 +329,7 @@ void start_simulation_processes(){
     // pid_t pid_monitor, pid_enemy_spy_network, pid_citizen_manager, pid_enemy_country,
     // pid_counterintelligence_officer, pid_timer;
     int num_children =0;
-    pid_t pidExecutables[5];
+    pid_t pidExecutables[6];
 
     pidExecutables[num_children] = fork();
     if (pidExecutables[num_children] == -1) {
@@ -358,17 +358,17 @@ void start_simulation_processes(){
     }
     num_children++;
 
-    // pidExecutables[num_children] = fork();
-    // if (pidExecutables[num_children] == -1) {
-    //     perror("Error [fork()] citizen_manager: ");
-    //     exit(EXIT_FAILURE);
-    // }
-    // if (pidExecutables[num_children] == 0) {
-    //     if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
-    //         perror("Error [execl] citizen_manager: ");
-    //         exit(EXIT_FAILURE);
-    //     }
-    // }
+    pidExecutables[num_children] = fork();
+    if (pidExecutables[num_children] == -1) {
+        perror("Error [fork()] citizen_manager: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pidExecutables[num_children] == 0) {
+        if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
+            perror("Error [execl] citizen_manager: ");
+            exit(EXIT_FAILURE);
+        }
+    }
     num_children++;
 
     pidExecutables[num_children] = fork();
@@ -416,17 +416,16 @@ void start_simulation_processes(){
         waitpid(pidExecutables[i], &status, 0);
     }
     
-    int statusSharedMemory;
+    // int statusSharedMemory;
 
     // Replace 'file_name.txt' with the name of the file you want to delete
-    statusSharedMemory = remove("/dev/shm/SharedMemory");
+    // statusSharedMemory = remove("/dev/shm/SharedMemory");
 
-    if (statusSharedMemory == 0)
-        printf("File deleted successfully\n");
-    else
-        printf("Error: unable to delete the file\n");
+    // if (statusSharedMemory == 0)
+    //     printf("File deleted successfully\n");
+    // else
+    //     printf("Error: unable to delete the file\n");
 
-    return 0;
     
 
     /*pid_counterintelligence_officer = fork();

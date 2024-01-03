@@ -515,7 +515,8 @@ void update_values(memory_t *mem) {
     display_character_information(character_window, mem);
     display_mailbox_content(mailbox_content_window, mem);
     display_enemy_country_monitor(enemy_country_monitor, mem);
+    // sem_wait(sem_producer);
 	// mem->memory_has_changed = 0;
-    // sem_wait(sem_consumer);
+    // sem_post(sem_consumer);
 }
 
