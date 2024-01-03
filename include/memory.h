@@ -269,9 +269,12 @@ struct citizen_s {
     unsigned int id;
     int position [2];
     unsigned int health;
+    int current_step;
+    int is_coming_from_company, is_coming_from_supermarket;
     citizen_type_t type;
     building_t *workplace;
     building_t *supermarket; /*a random supermarket of the city*/
+    int time_spent_shopping; /* let's say no more than 30 minutes*/
     home_t *home;
     int visited_cells[MAX_COLUMNS][MAX_ROWS];
 
