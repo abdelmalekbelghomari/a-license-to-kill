@@ -17,7 +17,7 @@ extern memory_t *memory;
 sem_t *sem_producer_timer, *sem_consumer_timer;
 pthread_mutex_t shared_memory_mutex;
 pthread_barrier_t turn_barrier;
-// int threads_at_barrier = 0;
+int threads_at_barrier = 0;
 
 void* citizen_thread(void* arg) {
     unsigned int citizen_id = *(int*)arg;
@@ -40,8 +40,8 @@ void* citizen_thread(void* arg) {
             memory->citizens[citizen_id].current_state = next_state;
             //sem_post(sem);
             last_round_checked = current_round;
-            //threads_at_barrier++;
-            //printf("Threads à la barrière: %d\n", threads_at_barrier);
+            threads_at_barrier++;
+            // printf("Threads à la barrière: %d\n", threads_at_barrier);
             pthread_mutex_unlock(&shared_memory_mutex);
 
             //printf("heure dans la simulation : %d\n", memory->timer.hours);
@@ -59,6 +59,7 @@ void* citizen_thread(void* arg) {
 
 int main() {
     //printf("\n");
+    srand(time(NULL) ^ getpid()	);
     pthread_t threads[CITIZENS_COUNT];
     int shm_fd;
 

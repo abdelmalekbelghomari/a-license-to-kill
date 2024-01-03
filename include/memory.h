@@ -270,7 +270,7 @@ struct citizen_s {
     int position [2];
     unsigned int health;
     int current_step;
-    int is_coming_from_company, is_coming_from_supermarket;
+    int is_coming_from_company;
     citizen_type_t type;
     building_t *workplace;
     building_t *supermarket; /*a random supermarket of the city*/
