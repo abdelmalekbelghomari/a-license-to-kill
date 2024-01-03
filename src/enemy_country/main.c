@@ -49,17 +49,19 @@ int main() {
     unsigned int message_priority;
     
     while (1) {
-        usleep(1000000);
+        // usleep(1000000);
         ssize_t bytes_read = mq_receive(mq, received_message, MAX_MESSAGE_SIZE, &message_priority);
-        if (bytes_read >= 0) {
-            if (message_priority != 1) {
-                caesar_decipher(received_message);
-                strcpy(memory->messages[memory->message_count], received_message);
-                memory->message_count++;
-                memory->memory_has_changed = 1;
-                // printf("Received decrypted message: %s (Priority: %u)\n", received_message, message_priority);
-            } else {
-                // printf("Deceptive message received and ignored.\n");
+        if (strlen(received_message) > 0) {
+            if (bytes_read >= 0) {
+                if (message_priority != 1) {
+                    caesar_decipher(received_message);
+                    strcpy(memory->messages[memory->message_count], received_message);
+                    memory->message_count++;
+                    memory->memory_has_changed = 1;
+                    printf(" enemy country : Received decrypted message: %s (Priority: %u)\n", received_message, message_priority);
+                } else {
+                    printf(" enemy country : Deceptive message received and ignored.\n");
+                }
             }
         } else {
             perror("mq_receive");

@@ -210,16 +210,16 @@ state_t *send_message(spy_t *spy){
          char message[MAX_MESSAGE_SIZE]; 
         int randValue = rand() % 100; // Generate a random number between 0 and 99
 
-        if(randValue < 1) { // 1% chance for "crucial"
+        if(randValue < 1) { 
             strcpy(message, "Crucial");
-        } else if(randValue < 6) { // Additional 5% chance for "strong" (total 6%)
+        } else if(randValue < 6) {
             strcpy(message, "Strong");
-        } else if(randValue < 20) { // Additional 14% chance for "medium" (total 20%)
+        } else if(randValue < 20) { 
             strcpy(message, "Medium");
-        } else if(randValue < 50) { // Additional 30% chance for "low" (total 50%)
+        } else if(randValue < 50) { 
             strcpy(message, "Low");
-        } else { // Remaining 50% chance for "very low"
-            strcpy(message, "Very Low");
+        } else { 
+            strcpy(message, "VeryLow");
         }
         caesar_cipher(message);
         strcpy(memory->homes->mailbox.messages[memory->homes->mailbox.message_count] ,message);
@@ -326,7 +326,9 @@ state_t *send_messages(case_officer_t *officer){
         // printf("=================> %s\n", officer->messages[i]);
     }
     // printf("===========================================\n");
-    send_messages_to_enemy_country(officer);
+    if (officer->message_count != 0){
+        send_messages_to_enemy_country(officer);
+    }
     for (int i=0 ; i < officer->message_count; i++){
         memset(memory->case_officer.messages[i], 0, sizeof(memory->case_officer.messages[i]));
     }
@@ -402,7 +404,7 @@ void caesar_decipher(char *message) {
 unsigned int get_message_priority(const char* message) {
     if (strcmp(message, "Deceptive") == 0) {
         return 1;
-    } else if (strcmp(message, "Very Low") == 0) {
+    } else if (strcmp(message, "VeryLow") == 0) {
         return 2;
     } else if (strcmp(message, "Low") == 0) {
         return 3;
@@ -419,18 +421,12 @@ unsigned int get_message_priority(const char* message) {
 void send_messages_to_enemy_country(case_officer_t *officer) {
     char deciphered_message[MAX_MESSAGE_SIZE];
     for (int i = 0; i < officer->message_count; i++) {
-        // printf("\nCiphered message: %s\n", officer->messages[i]);
+        printf("\nCiphered message: %s\n", officer->messages[i]);
         strcpy(deciphered_message, officer->messages[i]);
-        // printf("Message copied.\n");
-        fflush(stdout); // Force output buffer to flush
-
         caesar_decipher(deciphered_message);
-        // printf("Deciphered message: %s\n", deciphered_message);
-        fflush(stdout); // Force output buffer to flush
-
+        printf("Deciphered message: %s\n", deciphered_message);
         unsigned int priority = get_message_priority(deciphered_message);
-        // printf("Message priority: %u\n", priority);
-        fflush(stdout); // Force output buffer to flush
+        printf("Message priority: %u\n", priority);
 
         if (mq_send(mq, officer->messages[i], strlen(officer->messages[i]) + 1, priority) == -1) {
             perror("mq_send");
