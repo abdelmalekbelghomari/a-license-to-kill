@@ -236,6 +236,6 @@ void display_mailbox_content(WINDOW *window, memory_t *mem);
  *
  * \param window The sub-window in which messages are displayed.
  */
-void display_enemy_country_monitor(WINDOW *window);
+void display_enemy_country_monitor(WINDOW *window, memory_t *mem);
 
 #endif /* MONITOR_H */

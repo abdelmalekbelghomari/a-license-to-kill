@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/haykel/os/abdel/a-license-to-kill/src/citizen_manager",
-      "program": "/home/haykel/os/abdel/a-license-to-kill/src/citizen_manager/build/Debug/outDebug",
+      "cwd": "/home/haykel/os/abdel/a-license-to-kill/src/enemy_spy_network",
+      "program": "/home/haykel/os/abdel/a-license-to-kill/src/enemy_spy_network/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

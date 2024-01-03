@@ -329,7 +329,7 @@ void start_simulation_processes(){
     // pid_t pid_monitor, pid_enemy_spy_network, pid_citizen_manager, pid_enemy_country,
     // pid_counterintelligence_officer, pid_timer;
     int num_children =0;
-    pid_t pidExecutables[3];
+    pid_t pidExecutables[5];
 
     pidExecutables[num_children] = fork();
     if (pidExecutables[num_children] == -1) {
@@ -358,17 +358,57 @@ void start_simulation_processes(){
     }
     num_children++;
 
+    // pidExecutables[num_children] = fork();
+    // if (pidExecutables[num_children] == -1) {
+    //     perror("Error [fork()] citizen_manager: ");
+    //     exit(EXIT_FAILURE);
+    // }
+    // if (pidExecutables[num_children] == 0) {
+    //     if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
+    //         perror("Error [execl] citizen_manager: ");
+    //         exit(EXIT_FAILURE);
+    //     }
+    // }
+    num_children++;
+
     pidExecutables[num_children] = fork();
     if (pidExecutables[num_children] == -1) {
-        perror("Error [fork()] citizen_manager: ");
+        perror("Error [fork()] enemy_spy_network: ");
         exit(EXIT_FAILURE);
     }
     if (pidExecutables[num_children] == 0) {
-        if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
-            perror("Error [execl] citizen_manager: ");
+        if (execl("./bin/enemy_spy_network", "enemy_spy_network", NULL) == -1) {
+            perror("Error [execl] enemy_spy_network: ");
             exit(EXIT_FAILURE);
         }
     }
+    num_children++;
+
+    pidExecutables[num_children] = fork();
+    if (pidExecutables[num_children] == -1) {
+        perror("Error [fork()] enemy_country: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pidExecutables[num_children] == 0) {
+        if (execl("./bin/enemy_country", "enemy_country", NULL) == -1) {
+            perror("Error [execl] enemy_country: ");
+            exit(EXIT_FAILURE);
+        }
+    }
+    num_children++;
+
+    pidExecutables[num_children] = fork();
+    if (pidExecutables[num_children] == -1) {
+        perror("Error [fork()] counter_intelligence: ");
+        exit(EXIT_FAILURE);
+    }
+    if (pidExecutables[num_children] == 0) {
+        if (execl("./bin/counter_intelligence", "counter_intelligence", NULL) == -1) {
+            perror("Error [execl] : counter_intelligence");
+            exit(EXIT_FAILURE);
+        }
+    }
+
     
    
     for (int i = 0; i < num_children; i++) {

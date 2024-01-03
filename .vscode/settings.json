@@ -67,5 +67,7 @@
     "timer.h": "c",
     "monitor_common.h": "c",
     "string.h": "c"
+    "enemy_spy_network.h": "c",
+    "stdlib.h": "c"
   }
 }

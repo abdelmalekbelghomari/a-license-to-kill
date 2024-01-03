@@ -46,6 +46,10 @@
 #define MAX_ROWS 7
 #define MAX_COLUMNS 7
 #define MAX_ROUNDS 2016
+#define NUM_CITIZENS 127
+#define MAX_MESSAGE_SIZE 128
+#define MAX_MESSAGES 10000
+#define SHIFT 3
 
 #define NB_CITIZEN_HALL 10
 #define NB_CITIZEN_STORE 6
@@ -75,7 +79,7 @@ typedef struct mq_s mq_t;
 typedef struct memory_s memory_t;
 typedef struct spy_s spy_t;
 typedef struct case_officer_s case_officer_t;
-typedef struct counterintelligence_officer_s counterintelligence_officer_t;
+typedef struct counter_intelligence_officer_s counter_intelligence_officer_t;
 typedef struct SpyInfo spyInfo;
 typedef struct CaseOfficerInfo caseOfficerInfo;
 typedef struct CounterIntelligenceOfficer counterIntelligenceOfficer;
@@ -83,6 +87,18 @@ typedef struct state_s state_t;
 typedef struct building_s building_t;
 typedef struct home_s home_t;
 typedef struct citizen_s citizen_t;
+typedef struct mailbox_s mailbox_t;
+typedef struct leaving_time_s leaving_time_t;
+
+
+
+
+typedef struct {
+    int priority;
+    char content[MAX_MESSAGE_SIZE];
+} SpyMessage;
+
+
 
 typedef enum citizen_type_e {
     NORMAL,
@@ -158,6 +174,11 @@ typedef struct simulated_clock_s {
     int days;
 } simulated_clock_t;
 
+struct leaving_time_s {
+    int leaving_hour;
+    int leaving_minute;
+};
+
 /**
  * \brief The city map.
  */
@@ -220,6 +241,37 @@ struct spy_s {
     int has_license_to_kill;                              /*!< The spy's authorization to kill.*/
     char stolen_message_content[MAX_LENGTH_OF_MESSAGE];   /*!< The content of stolen message.*/
     cell_t allowed_company[8];                            /*!< The allowed cells around a targer company */
+    leaving_time_t leaving_time;
+    int turns_spent_spotting;
+    int turns_spent_stealing;
+    int turns_spent_shopping;
+    int turns_spent_waiting;
+    building_t *targeted_company;
+    bool has_a_message;
+    bool has_a_fake_message;
+
+
+    state_t *current_state;
+    state_t *resting_at_home;
+    state_t *going_to_spot;
+    state_t *spotting;
+    state_t *stealing;
+    state_t *scouting;
+    state_t *going_to_send_fake_message;
+    state_t *going_back_home;
+    state_t *going_to_send_message;
+    state_t *sending_message;
+    state_t *resting_at_home_before_going_to_send_message;
+    state_t *waiting_for_residence_to_be_clear;
+    state_t *going_to_supermarket;
+    state_t *doing_some_shopping;
+    state_t *arriving_at_mailbox;
+    state_t *is_hurt;
+    state_t *is_free;
+    state_t *riposte;
+    state_t *is_in_conflict;
+    state_t *dying;
+    state_t *finished;
 };
 
 /**
@@ -235,12 +287,27 @@ struct case_officer_s {
     int mailbox_row;                                      /*!< The case_officer home row.*/
     int mailbox_column;                                   /*!< The case_officer home column.*/
     int nb_of_outing;                                     /*!< The number of outing of case_officer */
+    leaving_time_t first_leaving_time;
+    leaving_time_t second_leaving_time;
+    leaving_time_t shopping_time;
+    leaving_time_t messaging_time;
+    char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
+    int message_count;
+
+    state_t *current_state;
+    state_t *resting_at_home;
+    state_t *going_to_supermarket;
+    state_t *doing_some_shopping;
+    state_t *going_back_home;
+    state_t *going_to_mailbox;
+    state_t *sending_messages;
+    state_t *recovering_messages;
 };
 
 /**
  * \brief The counterintelligence_officer information.
  */
-struct counterintelligence_officer_s {
+struct counter_intelligence_officer_s {
     int id;                                               /*!< The counterintelligence_officer identification number. */
     int health_point;                                     /*!< The counterintelligence_officer health_point point.*/
     int location_row;                                     /*!< The counterintelligence_officer location row.*/
@@ -250,6 +317,26 @@ struct counterintelligence_officer_s {
     int mailbox_row;                                      /*!< The counterintelligence_officer home row.*/
     int mailbox_column;                                   /*!< The counterintelligence_officer home column.*/
     int targeted_character_id;                            /*!< The targeted character id.*/
+
+    state_t *monitoring;
+    state_t *going_to_suspect_place;
+    state_t *hiding;
+    state_t *going_back_to_monitor;
+    state_t *waiting_for_spy_to_steal;
+    state_t *following_spy;
+    state_t *waiting_for_spy_to_send_message;
+    state_t *searching_for_mailbox;
+    state_t *recovering_messages;
+    state_t *current_state;
+    state_t *going_to_search_for_mailbox;
+
+    bool has_found_mailbox;
+    bool has_found_mailbox_location;
+    bool new_day;
+    leaving_time_t leaving_time;
+
+
+
 }; 
 
 typedef struct Node {
@@ -299,6 +386,13 @@ struct citizen_s {
     // void (*step)(citizen_t *);
 };
 
+struct mailbox_s{
+    bool is_occupied;
+    char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
+    int message_count;
+
+};
+
 struct building_s {
     int position[2];
     building_type_t type;
@@ -337,8 +431,10 @@ struct memory_s {
     map_t map;
     spy_t spies[3];
     case_officer_t case_officer;
-    counterintelligence_officer_t counterintelligence_officer;
+    counter_intelligence_officer_t counter_intelligence_officer;
     simulated_clock_t timer;
+    char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
+    int message_count;
     int end_round;
     pid_t pids[7];
     mq_t mqInfo;
