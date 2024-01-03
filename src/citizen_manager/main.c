@@ -33,10 +33,10 @@ void* citizen_thread(void* arg) {
             pthread_mutex_lock(&shared_memory_mutex);
             //modifie ca pour implémenter le patron état
             printf("citizen id : %d , current state : %d\n", citizen_id, memory->citizens[citizen_id].current_state->id);
-            sem_wait(sem);
+            // sem_wait(sem);
             state_t *next_state = memory->citizens[citizen_id].current_state->action(&memory->citizens[citizen_id]);
             memory->citizens[citizen_id].current_state = next_state;
-            sem_post(sem);
+            // sem_post(sem);
 
             last_round_checked = current_round;
             pthread_mutex_unlock(&shared_memory_mutex);

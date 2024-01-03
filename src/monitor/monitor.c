@@ -439,7 +439,7 @@ void display_mailbox_content(WINDOW *window, memory_t *mem)
     int priority;
     char content[MAX_LENGTH_OF_MESSAGE];
 
-    mailbox_nb_of_msgs = 0;
+    mailbox_nb_of_msgs = mem->message_count;
     priority           = 0;
    /* ---------------------------------------------------------------------- */
 
@@ -454,21 +454,28 @@ void display_mailbox_content(WINDOW *window, memory_t *mem)
     mvwprintw(window, nb_lines, title_column, "%s", title);
     wattroff(window, A_BOLD | A_UNDERLINE);
 
+    // nb_lines = 3;
+    // for (i = 0; i < mailbox_nb_of_msgs; i++) {
+	// 	clear_line(window, nb_lines);
+    //     if (strcmp(content, FAKE_MESSAGE) == 0) {
+    //         mvwprintw(window, nb_lines, 2, ">> [%d] %s (P%d)", (i + 1), "FAKE MESSAGE",
+    //                   priority);
+    //     } else {
+    //         mvwprintw(window, nb_lines, 2, ">> [%d] %s (P%d)", (i + 1),
+    //                   content, priority);
+    //     }
+    //     nb_lines += 1;
+    // }
     nb_lines = 3;
-    for (i = 0; i < mailbox_nb_of_msgs; i++) {
-		clear_line(window, nb_lines);
-        if (strcmp(content, FAKE_MESSAGE) == 0) {
-            mvwprintw(window, nb_lines, 2, ">> [%d] %s (P%d)", (i + 1), "FAKE MESSAGE",
-                      priority);
-        } else {
-            mvwprintw(window, nb_lines, 2, ">> [%d] %s (P%d)", (i + 1),
-                      content, priority);
-        }
-        nb_lines += 1;
+     for (int i = 0; i < mem->message_count; i++) {
+
+        mvwprintw(window, nb_lines, 2, ">> [%d] %s", i + 1, mem->homes->mailbox.messages[i]);
+
     }
 
     wrefresh(window);
 }
+
 
 void display_enemy_country_monitor(WINDOW *window , memory_t *mem)
 {
@@ -491,6 +498,7 @@ void display_enemy_country_monitor(WINDOW *window , memory_t *mem)
      *
      * -------------------------------------------------------------------------
      */
+    nb_lines = 3;
     for (int i = 0; i < mem->message_count; ++i) {
         mvwprintw(window, nb_lines++, 2, "Message %d: %s", i+1, mem->messages[i]);
     }
@@ -502,7 +510,7 @@ void display_enemy_country_monitor(WINDOW *window , memory_t *mem)
 void update_values(memory_t *mem) {
     display_general_information_values(city_window, mem);
     display_character_information(character_window, mem);
-    // display_mailbox_content(mailbox_content_window, mem);
+    display_mailbox_content(mailbox_content_window, mem);
     display_enemy_country_monitor(enemy_country_monitor, mem);
 	// mem->memory_has_changed = 0;
 }

@@ -291,7 +291,8 @@ struct case_officer_s {
     leaving_time_t second_leaving_time;
     leaving_time_t shopping_time;
     leaving_time_t messaging_time;
-    
+    char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
+    int message_count;
 
     state_t *current_state;
     state_t *resting_at_home;
@@ -350,6 +351,9 @@ struct citizen_s {
 
 struct mailbox_s{
     bool is_occupied;
+    char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
+    int message_count;
+
 };
 
 struct building_s {

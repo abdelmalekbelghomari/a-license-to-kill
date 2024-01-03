@@ -6,6 +6,7 @@
 #include <sys/shm.h>
 #include "enemy_spy_network.h"
 extern memory_t *memory;
+extern mqd_t mq;
 
 void handle_fatal_error(const char *message)
 {
@@ -106,11 +107,15 @@ state_t *do_something(spy_t *spy){
 }
 
 state_t *rest_at_home(spy_t *spy) {
-    // Logique pour se reposer à la maison
-    // Peut-être choisir aléatoirement si l'espion reste chez lui ou non
-    //return spy->resting_at_home; // Ou passer à un autre état selon la logique
-    printf(" espion : %d  : je me repose chez oim : heure : %d  minute : %d heure de sortie : %d   minute de sortie : %d\n"
-    ,spy->id , memory->timer.hours ,memory->timer.minutes, spy->leaving_time.leaving_hour, spy->leaving_time.leaving_minute);
+    // printf(" espion : %d  : je me repose chez oim : heure : %d  minute : %d heure de sortie : %d   minute de sortie : %d\n"
+    // ,spy->id , memory->timer.hours ,memory->timer.minutes, spy->leaving_time.leaving_hour, spy->leaving_time.leaving_minute);
+    if(memory->timer.hours == 17 && (spy->has_a_fake_message || spy->has_a_message)){
+        if(spy->has_a_fake_message){
+            return spy->going_to_send_fake_message;
+        }else {
+            return spy->going_to_send_message;
+        }
+    }
     if (spy->leaving_time.leaving_hour == memory->timer.hours && spy->leaving_time.leaving_minute == memory->timer.minutes){
         return spy->going_to_spot;
     }
@@ -122,12 +127,12 @@ state_t *rest_at_home(spy_t *spy) {
 
 state_t *go_to_spot(spy_t *spy) {
     // il faut implémenter le astar
-    printf(" espion : %d  : je vais aller repérer \n",spy->id);
+    // printf(" espion : %d  : je vais aller repérer \n",spy->id);
     return spy->spotting;
 }
 
 state_t *spot(spy_t *spy) {
-    printf(" espion : %d  : je repère \n",spy->id);
+    // printf(" espion : %d  : je repère \n",spy->id);
     if (spy->turns_spent_spotting == 12){
         spy->turns_spent_spotting = 0;
         int value = rand() % 100;
@@ -144,7 +149,7 @@ state_t *spot(spy_t *spy) {
 }
 
 state_t *steal(spy_t *spy) {
-    printf(" espion : %d  : je vole \n",spy->id);
+    // printf(" espion : %d  : je vole \n",spy->id);
     if (spy->turns_spent_stealing == 6){
         spy->turns_spent_stealing = 0;
         int value = rand() % 100;
@@ -166,8 +171,8 @@ state_t *steal(spy_t *spy) {
 
 state_t *arrived_at_mailbox(spy_t *spy){
     //astar vers une case adjacente a la mailbox
-    printf(" espion : %d  : j'arrive a cote de la mailbox \n",spy->id);
-    if(memory->homes->mailbox.is_occupied = true){
+    // printf(" espion : %d  : j'arrive a cote de la mailbox \n",spy->id);
+    if(memory->homes->mailbox.is_occupied){
         return spy->waiting_for_residence_to_be_clear;
     }
     memory->homes->mailbox.is_occupied = true;
@@ -177,27 +182,38 @@ state_t *arrived_at_mailbox(spy_t *spy){
 
 state_t *go_back_home(spy_t *spy) {
     // il faut implémenter astar
-    printf(" espion : %d  : je rentre chez oim \n",spy->id);
+    // printf(" espion : %d  : je rentre chez oim \n",spy->id);
     return spy->resting_at_home;
 
 }
 
 state_t *go_to_send_message(spy_t *spy) {  
     // il faut implémenter astar vers une case voisine du mailbox
-    printf(" espion : %d  : je vais pour envoyer un message \n",spy->id);
+    // printf(" espion : %d  : je vais pour envoyer un message \n",spy->id);
     return spy->arriving_at_mailbox;
 }
 
 state_t *send_message(spy_t *spy){
-    printf(" espion : %d : je mets le message dans la boite aux lettres",spy->id);
+    // printf(" espion : %d : je mets le message dans la boite aux lettres",spy->id);
     memory->homes->mailbox.is_occupied = false;
     if(spy->has_a_message){
-        //logique pour envoyer un message
+        char message[MAX_MESSAGE_SIZE]; 
+        strcpy(message, "Deceptive");
+        caesar_cipher(message);
+        strcpy(memory->homes->mailbox.messages[memory->homes->mailbox.message_count] ,message);
+        // printf(" \n\n============================= la boite aux lettres contient le message suivant : %s\n\n" ,memory->homes->mailbox.messages[memory->homes->mailbox.message_count]);
+        memory->homes->mailbox.message_count++;
         spy->has_a_message = false;
     }else if(spy->has_a_fake_message){
-        //logique pour envoyer un message
+        char message[MAX_MESSAGE_SIZE]; 
+        strcpy(message, "Crucial");
+        caesar_cipher(message);
+        strcpy(memory->homes->mailbox.messages[memory->homes->mailbox.message_count] ,message);
+        // printf(" \n\n============================= la boite aux lettres contient le message suivant : %s\n\n" ,memory->homes->mailbox.messages[memory->homes->mailbox.message_count]);
+        memory->homes->mailbox.message_count++;
         spy->has_a_fake_message = false;
     }
+    memory->memory_has_changed = 1;
     return spy->going_back_home;
 }
 
@@ -205,7 +221,7 @@ state_t *send_message(spy_t *spy){
 state_t *wait_for_residence_to_be_clear(spy_t *spy) {
     // Attendre que la résidence soit libre
     // return spy->going_to_send_message;
-    printf(" espion : %d  : j'attends que la résidence soit vide \n",spy->id);
+    // printf(" espion : %d  : j'attends que la résidence soit vide \n",spy->id);
     if(spy->turns_spent_waiting == 6){
         spy->turns_spent_waiting++;
         return spy->waiting_for_residence_to_be_clear;
@@ -217,21 +233,21 @@ state_t *wait_for_residence_to_be_clear(spy_t *spy) {
 state_t *scout(spy_t *spy){
     //astar pour mettre l'espion a cote d'une entreprise
     // spy->targeted_company = (la companie qu'il va voler)
-    printf(" espion : %d  : je cherche une entreprise cible \n",spy->id);
+    // printf(" espion : %d  : je cherche une entreprise cible \n",spy->id);
     return spy->going_back_home;
 }
 
 state_t *go_to_supermarket(spy_t *spy) {
     // Aller au supermarché
     // return spy->doing_some_shopping;
-    printf(" espion : %d  : je vais aller faire du shoopinje \n",spy->id);
+    // printf(" espion : %d  : je vais aller faire du shoopinje \n",spy->id);
     return spy->doing_some_shopping;
 }
 
 state_t *do_some_shopping(spy_t *spy) {
     // Faire des courses
     // return spy->resting_at_home;
-    printf(" espion : %d  : je fais du shoopinje \n",spy->id);
+    // printf(" espion : %d  : je fais du shoopinje \n",spy->id);
     if(spy->turns_spent_shopping == 12){
         spy->turns_spent_shopping = 0;
         return spy->going_back_home;
@@ -276,7 +292,7 @@ state_t *new_state_officer(int id, state_t *(*action)(case_officer_t *)) {
 }
 
 state_t *rest_at_home_officer(case_officer_t *officer){
-    printf(" officier traitant : je me repose chez oim \n");
+    // printf(" officier traitant : je me repose chez oim \n");
     if(officer->first_leaving_time.leaving_hour == memory->timer.hours && officer->first_leaving_time.leaving_minute == memory->timer.minutes){
         return officer->going_to_mailbox;
     } else if (officer->second_leaving_time.leaving_hour == memory->timer.hours && officer->second_leaving_time.leaving_minute == memory->timer.minutes){
@@ -290,32 +306,52 @@ state_t *rest_at_home_officer(case_officer_t *officer){
 }
 
 state_t *send_messages(case_officer_t *officer){
-    printf(" officier traitant : j'evoie les messages à l'autre pays \n");
+    // printf(" officier traitant : j'evoie les messages à l'autre pays \n");
+    // printf("=================== j'envoie ces messages à l'autre pays :  \n");
+    for (int i=0; i < officer->message_count; i++){
+        // printf("=================> %s\n", officer->messages[i]);
+    }
+    // printf("===========================================\n");
+    send_messages_to_enemy_country(officer);
+    for (int i=0 ; i < officer->message_count; i++){
+        memset(memory->case_officer.messages[i], 0, sizeof(memory->case_officer.messages[i]));
+    }
+    officer->message_count = 0;
     return officer->resting_at_home;
 }
 
 state_t *go_back_home_officer(case_officer_t *officer){
-    printf(" officier traitant : je rentre chez oim \n");
+    // printf(" officier traitant : je rentre chez oim \n");
     return officer->resting_at_home;
 }
 
 state_t *go_to_supermarket_officer(case_officer_t *officer){
-    printf(" officier traitant : je vais au supermarché \n");
+    // printf(" officier traitant : je vais au supermarché \n");
     return officer->doing_some_shopping;
 }
 
 state_t *do_some_shopping_officer(case_officer_t *officer){
-    printf(" officier traitant : je fais du shoppinje \n");
+    // printf(" officier traitant : je fais du shoppinje \n");
     return officer->going_to_mailbox;
 }
 
 state_t *go_to_mailbox(case_officer_t *officer){
-    printf(" officier traitant : je vais a la boite aux lettres \n");
+    // printf(" officier traitant : je vais a la boite aux lettres \n");
     return officer->recovering_messages;
 }
 
 state_t *recover_messages(case_officer_t *officer){
-    printf(" officier traitant : je récupère les messages \n");
+    // printf(" officier traitant : je récupère les messages \n");
+    for (int i=0 ; i < memory->homes->mailbox.message_count ; i++){
+        // printf("\n================================= contenu de la boite aux lettres ================\n");
+        // printf(" ===============> %s\n", memory->homes->mailbox.messages[i]);
+        strcpy(officer->messages[i], memory->homes->mailbox.messages[i]);
+        // printf("j'ai récupéré le message  : %s", officer->messages[i]);
+        memset(memory->homes->mailbox.messages[i], 0, sizeof(memory->homes->mailbox.messages[i]));
+        officer->message_count++;
+        // printf("\n================================= la boite aux lettres a été vidée ================\n");
+    }
+    memory->homes->mailbox.message_count = 0;
     return officer->going_back_home;
 }
 
@@ -333,6 +369,63 @@ void caesar_cipher(char *message) {
         }
     }
 }
+
+void caesar_decipher(char *message) {
+    for (int i = 0; message[i] != '\0'; ++i) {
+        char ch = message[i];
+        if (ch >= 'a' && ch <= 'z') {
+            ch = ch - SHIFT;
+            if (ch < 'a') ch += 26;
+            message[i] = ch;
+        } else if (ch >= 'A' && ch <= 'Z') {
+            ch = ch - SHIFT;
+            if (ch < 'A') ch += 26;
+            message[i] = ch;
+        }
+    } 
+}
+
+unsigned int get_message_priority(const char* message) {
+    if (strcmp(message, "Deceptive") == 0) {
+        return 1;
+    } else if (strcmp(message, "Very Low") == 0) {
+        return 2;
+    } else if (strcmp(message, "Low") == 0) {
+        return 3;
+    } else if (strcmp(message, "Medium") == 0) {
+        return 6;
+    } else if (strcmp(message, "Strong") == 0) {
+        return 9;
+    } else if (strcmp(message, "Crucial") == 0) {
+        return 10;
+    }
+    return 0; // Valeur par défaut si aucune correspondance
+}
+
+void send_messages_to_enemy_country(case_officer_t *officer) {
+    char deciphered_message[MAX_MESSAGE_SIZE];
+    for (int i = 0; i < officer->message_count; i++) {
+        // printf("\nCiphered message: %s\n", officer->messages[i]);
+        strcpy(deciphered_message, officer->messages[i]);
+        // printf("Message copied.\n");
+        fflush(stdout); // Force output buffer to flush
+
+        caesar_decipher(deciphered_message);
+        // printf("Deciphered message: %s\n", deciphered_message);
+        fflush(stdout); // Force output buffer to flush
+
+        unsigned int priority = get_message_priority(deciphered_message);
+        // printf("Message priority: %u\n", priority);
+        fflush(stdout); // Force output buffer to flush
+
+        if (mq_send(mq, officer->messages[i], strlen(officer->messages[i]) + 1, priority) == -1) {
+            perror("mq_send");
+            fflush(stdout); // Force output buffer to flush
+        }
+    }
+}
+
+
 
 void init_spies(memory_t * memory){
 
@@ -363,7 +456,7 @@ void init_spies(memory_t * memory){
         spy->turns_spent_stealing = 0;
         spy->turns_spent_waiting = 0;
         spy->turns_spent_shopping = 0;
-        spy->has_a_message = 0;
+        spy->has_a_message = false;
         spy->has_a_fake_message = 0;
         spy->id = i;
 
@@ -379,10 +472,11 @@ void init_officer(memory_t * memory){
     officer->going_to_supermarket = new_state_officer(3, go_to_supermarket_officer);
     officer->doing_some_shopping = new_state_officer(4, do_some_shopping_officer);
     officer->going_to_mailbox = new_state_officer(5, go_to_mailbox);
-    officer->sending_messages = new_state_officer(6, send_messages);
-    officer->recovering_messages = new_state_officer(7, recover_messages);
+    officer->recovering_messages = new_state_officer(6, recover_messages);
 
     officer->current_state = officer->resting_at_home;
+
+    officer->message_count = 0;
 
 }
 
