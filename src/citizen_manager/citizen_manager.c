@@ -571,7 +571,7 @@ state_t *go_back_home(citizen_t *c) {
 
     if(!c->is_coming_from_company){
         if (c->position[0] == c->home->position[0] && c->position[1] == c->home->position[1]){
-            printf("Citizen %d - Arrivé à la maison\n", c->id);
+            //printf("Citizen %d - Arrivé à la maison\n", c->id);
             c->current_step = 0;
             memory->walking_citizens--;
             if(memory->walking_citizens < 0){
