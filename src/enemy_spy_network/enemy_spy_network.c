@@ -4,7 +4,9 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/shm.h>
+#include <string.h>
 #include "enemy_spy_network.h"
+#include "astar.h"
 extern memory_t *memory;
 extern mqd_t mq;
 
@@ -97,12 +99,19 @@ state_t *new_state_spy(int id, state_t *(*action)(spy_t *)) {
 
 state_t *do_something(spy_t *spy){
   int value = rand()%10;
-  if (value == 0){
-      return spy->going_to_supermarket;
+  int rand_value = rand() % 2;
+  if (value == 0 && (memory->timer.hours >= 8 && memory->timer.hours <= 19)){
+    printf(" espion : %d  : je vais aller faire du shoopinje \n",spy->id);
+    printf(" Supermarché : (%d, %d)\n", memory->companies[rand_value].position[0], memory->companies[rand_value].position[1]);
+    return spy->going_to_supermarket;
   } else if (value < 4){
-      return spy->resting_at_home;
-  }else {
-      return spy->scouting;
+    printf(" espion : %d  : je vais aller nehess à la maison \n",spy->id);
+    return spy->resting_at_home;
+  } else {
+    printf(" espion : %d  : je vais aller repérer \n",spy->id);
+    int randValue = 3 + rand() % (NB_WORKPLACES);
+    spy->targeted_company = &memory->companies[randValue];
+    return spy->scouting;
   }
 }
 
@@ -182,15 +191,25 @@ state_t *arrived_at_mailbox(spy_t *spy){
 
 state_t *go_back_home(spy_t *spy) {
     // il faut implémenter astar
-    // printf(" espion : %d  : je rentre chez oim \n",spy->id);
-    return spy->resting_at_home;
+    // printf(" espion : %d  : je rentre chez oim \n",spy->id);7
+    Node* position_node = calculate_next_step(spy->location_row, spy->location_column, spy->home_row, spy->home_column, &memory->map);
+    if(position_node == NULL){
+        return spy->resting_at_home;
+    } else {
+        return spy->going_back_home;
+    }
 
 }
 
 state_t *go_to_send_message(spy_t *spy) {  
     // il faut implémenter astar vers une case voisine du mailbox
     // printf(" espion : %d  : je vais pour envoyer un message \n",spy->id);
-    return spy->arriving_at_mailbox;
+    Node* position_node = calculate_next_step(spy->location_row, spy->location_column, memory->homes->mailbox.x, memory->homes->mailbox.y, &memory->map);
+    if(position_node == NULL){
+        return spy->resting_at_home;
+    } else {
+        return spy->going_to_send_message;
+    }
 }
 
 state_t *send_message(spy_t *spy){
@@ -247,14 +266,35 @@ state_t *scout(spy_t *spy){
     //astar pour mettre l'espion a cote d'une entreprise
     // spy->targeted_company = (la companie qu'il va voler)
     // printf(" espion : %d  : je cherche une entreprise cible \n",spy->id);
-    return spy->going_back_home;
+    int old_target_pos[2];
+    memcpy(old_target_pos, spy->targeted_company->position, sizeof(int) * 2);
+    Node* random_neighbours = get_random_neighbours_spy(&memory->map, spy);
+    if(spy->targeted_company->position[0] == old_target_pos[0] && spy->targeted_company->position[1] == old_target_pos[1]){
+        return spy->going_back_home;
+    } else {
+        return spy->scouting;
+    }
+    // Node* position_node = calculate_next_step(spy->location_row, spy->location_column, 
+    //                         spy->targeted_company->position[0], spy->targeted_company->position[0]);
+    // if(position_node == NULL){
+    //     return spy->going_back_home;
+    // } else {
+    //     return spy->scouting;
+    // }
 }
 
 state_t *go_to_supermarket(spy_t *spy) {
     // Aller au supermarché
     // return spy->doing_some_shopping;
     // printf(" espion : %d  : je vais aller faire du shoopinje \n",spy->id);
-    return spy->doing_some_shopping;
+    Node* position_node = calculate_next_step(spy->location_row, spy->location_column, 
+                            memory->companies[rand()%2].position[0], memory->companies[rand()%2].position[1], &memory->map);
+    if(position_node == NULL){
+        return spy->doing_some_shopping;
+    } else {
+        return spy->going_to_supermarket;
+    }
+    
 }
 
 state_t *do_some_shopping(spy_t *spy) {

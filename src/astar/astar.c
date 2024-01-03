@@ -198,6 +198,41 @@ Node **get_successors(map_t *map, Node *current, int goal_x, int goal_y) {
     return neighbors;
 }
 
+Node* get_random_neighbours_spy(map_t* map, spy_t* spy){
+
+    Node **neighbors = (Node **)malloc(sizeof(Node *) * (NUM_DIRECTIONS)); // +1 pour NULL
+    if (neighbors == NULL) {
+        perror("Unable to allocate memory for neighbors");
+        exit(EXIT_FAILURE);
+    }
+
+    int number_of_neighbors = 0;
+    for (int i = 0; i < NUM_DIRECTIONS; i++) {
+        int x = spy->location_row + DIRECTIONS[i][0];
+        int y = spy->location_column + DIRECTIONS[i][1];
+        //int random_target = rand() % 2;
+
+        if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS /*|| is_cell_full(map, x, y)*/ ) {
+            continue; // Ignorer les voisins non valides
+        }
+
+        else if (map->cells[x][y].type != WASTELAND && map->cells[x][y].type != SUPERMARKET /*&& random_target < 1*/) {
+            spy->targeted_company->position[0] = x;
+            spy->targeted_company->position[1] = y;
+            //return create_node(x, y, 0, 0);
+            return create_node(spy->location_row, spy->location_column, 0, 0);
+        }
+
+        else {
+            neighbors[number_of_neighbors] = create_node(x, y, 0, 0);
+            number_of_neighbors++;
+        }
+        
+    }
+
+    int random_neighbour = rand() % number_of_neighbors;
+    return neighbors[random_neighbour];
+}
 
 
 Node *astar_search(map_t *map, int start_x, int start_y, int goal_x, int goal_y) {
@@ -215,7 +250,7 @@ Node *astar_search(map_t *map, int start_x, int start_y, int goal_x, int goal_y)
         Node *current_node;
         delete_root(open_set, &current_node);
 
-        // Si le nœud est la destination, construire et retourner le chemin
+        // Si le nœud est la destination, le retourner
         if (is_goal(current_node, goal_x, goal_y)) {
             destroy_heap(open_set);
             return current_node;
@@ -340,6 +375,39 @@ void print_path(Node **path, int path_length) {
     printf("\n");
 }
 
+Node *calculate_next_step(int current_x, int current_y, int goal_x, int goal_y, map_t *map) {
+    // Vérifier si la position actuelle est déjà la destination
+    if (current_x == goal_x && current_y == goal_y) {
+        return NULL; // Aucun mouvement nécessaire
+    }
+
+    // Exécuter l'algorithme A* pour trouver le chemin complet
+    Node *goal_node = astar_search(map, current_x, current_y, goal_x, goal_y);
+
+    // Si aucun chemin trouvé, retourner NULL
+    if (goal_node == NULL) {
+        return NULL;
+    }
+
+    // Revenir en arrière depuis le nœud de destination pour trouver la prochaine étape
+    Node *next_step = goal_node;
+    while (next_step->parent != NULL && next_step->parent->parent != NULL) {
+        next_step = next_step->parent;
+    }
+
+    // Créer un nouveau nœud pour la prochaine étape
+    Node *next_step_node = create_node(next_step->position[0], next_step->position[1], 0, 0);
+
+    // Libérer les nœuds alloués par astar_search
+    Node *current = goal_node;
+    while (current != NULL) {
+        Node *temp = current;
+        current = current->parent;
+        free(temp);
+    }
+
+    return next_step_node;
+}
 
 
 

@@ -388,6 +388,8 @@ struct citizen_s {
 
 struct mailbox_s{
     bool is_occupied;
+    int x;
+    int y;
     char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
     int message_count;
 

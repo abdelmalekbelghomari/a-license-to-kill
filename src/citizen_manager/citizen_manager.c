@@ -57,10 +57,20 @@ void init_house(memory_t *memory){
         for (int j = 0; j < MAX_COLUMNS; j++) {
             cell_t cell = memory->map.cells[j][i];
             if (cell.type == RESIDENTIAL_BUILDING) {
-                // Attribuer la position à la maison
-                memory->homes[home_counter].position[0] = i;
-                memory->homes[home_counter].position[1] = j;  
-                memory->homes[home_counter].nb_citizen = 0; // Nombre initial de citoyens
+                if(home_counter == fakeHome){
+                    // Attribuer la position de la mailbox et de la maison  
+                    memory->homes[home_counter].mailbox.x = i;
+                    memory->homes[home_counter].mailbox.y = j;
+                    memory->homes[home_counter].position[0] = i;
+                    memory->homes[home_counter].position[1] = j;  
+                    memory->homes[home_counter].nb_citizen = 0; // Nombre initial de citoyens
+
+                } else {
+                    // Attribuer la position à la maison
+                    memory->homes[home_counter].position[0] = i;
+                    memory->homes[home_counter].position[1] = j;  
+                    memory->homes[home_counter].nb_citizen = 0; // Nombre initial de citoyens
+                }
                 home_counter++;
             }
         }
