@@ -29,6 +29,8 @@ WINDOW *character_window;
 WINDOW *mailbox_content_window;
 WINDOW *enemy_country_monitor;
 
+extern sem_t *sem_producer_timer, *sem_consumer_timer;
+
 int old_cursor;
 int cell_type_colors[5];
 int colored_text[8];
@@ -231,13 +233,13 @@ void display_general_information_values(WINDOW *window, memory_t *mem)
     double elapsed_time;
     char *result;
 
-
+    sem_wait(sem_producer_timer);
     simulation_has_ended = mem->simulation_has_ended;
     hour = mem->timer.hours;
     minutes = mem->timer.minutes;
     elapsed_time = (double)mem->timer.round;
     result = NULL;
-
+    sem_post(sem_consumer_timer);
     
    /* ---------------------------------------------------------------------- */
 
@@ -272,9 +274,10 @@ void display_citizen_information(WINDOW *window, memory_t *mem, int row, int col
     int number_of_citizens_at_work;
     int number_of_citizens_walking;
 
-    number_of_citizens_at_home = 127; //mem->at_home_citizens; //128;
-    number_of_citizens_at_work = 0;//mem->at_work_citizens; //0;
-    number_of_citizens_walking = 0;//mem->walking_citizens; //0;
+
+    number_of_citizens_at_home = mem->at_home_citizens; //128;
+    number_of_citizens_at_work = mem->at_work_citizens; //0;
+    number_of_citizens_walking = mem->walking_citizens; //0;
    /* ---------------------------------------------------------------------- */
 
     wattron(window, A_BOLD);
@@ -513,5 +516,6 @@ void update_values(memory_t *mem) {
     display_mailbox_content(mailbox_content_window, mem);
     display_enemy_country_monitor(enemy_country_monitor, mem);
 	// mem->memory_has_changed = 0;
+    // sem_wait(sem_consumer);
 }
 

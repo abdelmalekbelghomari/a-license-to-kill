@@ -4,11 +4,12 @@
 #include <math.h>
 #include <bits/pthreadtypes.h>
 #include <float.h>
+#include "astar.h"
 
 #define SHARED_MEMORY "/SharedMemory"
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-pthread_barrier_t start_barrier, end_barrier;
+pthread_barrier_t end_of_the_day_barrier;
 extern memory_t *memory;
 
 memory_t open_shared_memory() {
@@ -44,7 +45,7 @@ void init_house(memory_t *memory){
     // printf("\n\n=====================================\n");
     for(int i = 0; i < NB_HOMES; i++){
         if (i == fakeHome){
-            memory->homes[i].max_capacity = 0;
+            memory->homes[i].max_capacity = 14;
         }
         else{
             memory->homes[i].max_capacity = 15;
@@ -136,6 +137,8 @@ void init_citizens(memory_t *memory) {
         citizen->id = i;
         citizen->type = NORMAL;
         citizen->health = 10;
+        citizen->current_step = 0;
+        citizen->time_spent_shopping = 0;
         // citizen->current_state = create_state(citizen->id, current_state);
         // citizen->next_state = create_state(citizen->id, next_state);
         // citizen->resting_at_home = create_state(citizen->id, resting_at_home);
@@ -162,6 +165,7 @@ void init_citizens(memory_t *memory) {
 
         // Initialiser l'état actuel et le prochain état
         citizen->current_state = citizen->resting_at_home;
+        memory->at_home_citizens++;
 
         assign_home_to_citizen(memory, citizen);
         //printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
@@ -169,7 +173,90 @@ void init_citizens(memory_t *memory) {
         //printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, citizen->workplace);
                                                      
         assign_random_supermarket(memory, citizen);
-        //printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
+        // printf("Le supermarché attribué au citoyen %d est le (%d,%d)\n", i+1, citizen->supermarket->position[0], citizen->supermarket->position[1]);
+
+        int x_home = citizen->home->position[0];
+        int y_home = citizen->home->position[1];
+        int x_company = citizen->workplace->position[0];
+        int y_company = citizen->workplace->position[1];
+        int x_supermarket = citizen->supermarket->position[0];
+        int y_supermarket = citizen->supermarket->position[1];
+
+        // printf("\n------------- Citizen %d --------------\n", i);
+        // printf("- Home: (%d, %d), Company: (%d, %d), Supermarket: (%d, %d) -\n", x_home, y_home, x_company, y_company, x_supermarket, y_supermarket);
+
+        // A* de la maison à l'entreprise
+        Node *end_node_company = astar_search(&memory->map, x_home, y_home, x_company, y_company);
+        if (end_node_company != NULL) {
+            Path *path_to_work = reconstruct_path(end_node_company);
+            if (path_to_work != NULL) {
+                citizen->path_to_work = path_to_work;
+                // printf("Citizen %d - Path to work: ", i);
+                // print_path(citizen->path_to_work->nodes, citizen->path_to_work->length);
+            } else {
+                // Échec de la reconstruction du chemin
+                fprintf(stderr,"Échec de la reconstruction du chemin pour le citoyen à son entreprise %d\n", citizen->id);
+                citizen->path_to_work = NULL; // Assurez-vous que le pointeur est NULL
+            }
+        } else {
+            // Échec de la recherche de chemin
+            fprintf(stderr,"Aucun chemin trouvé pour le citoyen à son entreprise %d\n", citizen->id);
+            citizen->path_to_work = NULL; // Assurez-vous que le pointeur est NULL
+        }
+        
+
+        Node *end_node_supermarket = astar_search(&memory->map, x_company, y_company, x_supermarket, y_supermarket);
+        if (end_node_company != NULL) {
+                Path *path_to_supermaket = reconstruct_path(end_node_supermarket);
+            if (path_to_supermaket != NULL) {
+                citizen->path_to_supermarket = path_to_supermaket;
+                // printf("Citizen %d - Path to supermarket: ", i);
+                // print_path(citizen->path_to_supermarket->nodes, citizen->path_to_supermarket->length);
+            } else {
+                // Échec de la reconstruction du chemin
+                fprintf(stderr, "Échec de la reconstruction du chemin pour le citoyen à son supermarché %d\n", citizen->id);
+                citizen->path_to_supermarket = NULL; // Assurez-vous que le pointeur est NULL
+            }
+        } else {
+            // Échec de la recherche de chemin
+            fprintf(stderr,"Aucun chemin trouvé pour le citoyen à son supermarché %d\n", citizen->id);
+            citizen->path_to_supermarket = NULL; // Assurez-vous que le pointeur est NULL
+        }
+
+        Node *end_node_from_sprmrkt_to_home = astar_search(&memory->map, x_supermarket, y_supermarket, x_home, y_home);
+        if (end_node_from_sprmrkt_to_home != NULL) {
+            Path *path_from_supermarket_to_home = reconstruct_path(end_node_from_sprmrkt_to_home);
+            if (path_from_supermarket_to_home != NULL) {
+                citizen->path_from_supermarket_to_home = path_from_supermarket_to_home;
+                // printf("Citizen %d - Path from supermarket to home: ", i);
+                // print_path(citizen->path_from_supermarket_to_home->nodes, citizen->path_from_supermarket_to_home->length);
+            } else {
+                // Échec de la reconstruction du chemin
+                fprintf(stderr,"Échec de la reconstruction du chemin pour le citoyen à son domicile %d\n", citizen->id);
+                citizen->path_from_supermarket_to_home = NULL; // Assurez-vous que le pointeur est NULL
+            }
+        } else {
+            // Échec de la recherche de chemin
+            fprintf(stderr,"Aucun chemin trouvé pour le citoyen à son domicile %d\n", citizen->id);
+            citizen->path_from_supermarket_to_home = NULL; // Assurez-vous que le pointeur est NULL
+        }
+
+        // printf("Citizen %d - State : %d\n", i, citizen->current_state->id);
+        
+        // printf("Citizen %d - Path to work: ", i);
+        //printf("Citizen %d, adress_path : (%p) \n", i, citizen->path_to_work);
+
+        // A* de l'entreprise au supermarché
+        // Node *end_node_supermarket = astar_search(&memory->map, x_company, y_company, x_supermarket, y_supermarket);
+        // if (end_node_supermarket != NULL) {
+        //     citizen->path_to_supermarket = reconstruct_path(end_node_supermarket);
+        // }
+
+        // // A* du supermarché à la maison
+        // Node *end_node_home = astar_search(&memory->map, x_supermarket, y_supermarket, start_x, start_y);
+        // if (end_node_home != NULL) {
+        //     citizen->path_from_supermarket_to_home = reconstruct_path(end_node_home);
+        // }
     }
         
 }
@@ -309,64 +396,305 @@ state_t *new_state(int id, state_t *(*action)(citizen_t *)) {
 }
 
 state_t *rest_at_home(citizen_t *c) {
-    printf("je me repose chez oim : heure : %f\n" , memory->timer.hours);
-    if (memory->timer.hours == 8) { 
+    // printf("je me repose chez oim : heure : %d\n" , memory->timer.hours);
+    c->is_coming_from_company = 0;
+    c->current_step = 0;
+    if (memory->timer.hours == 8 && memory->timer.minutes >= 0) { 
+        pthread_mutex_lock(&mutex);
+        
+        memory->at_home_citizens--;
+        if(memory->at_home_citizens < 0){
+            memory->at_home_citizens = 0;
+        }
+        memory->walking_citizens++;
+
+        pthread_mutex_unlock(&mutex);
         return c->going_to_company;
+    } else {
+        return c->resting_at_home;
     }
-    return c->resting_at_home;
+    // printf("je me repose chez oim : heure : %d : %d\n" , memory->timer.hours, memory->timer.minutes);
 }
 
 state_t *go_to_company(citizen_t *c) {
-    printf("je vais vers mon boulot\n");
-    //step(c->position , c->workplace->position);
-    // if (c->position[0] == c->workplace->position[0]  && c->position[1] == c->workplace->position[1]){
-    //     return c->working;
+    // printf("je vais vers mon boulot\n");
+    
+    if (c->position[0] == c->workplace->position[0]  && c->position[1] == c->workplace->position[1]){
+        // printf("Citizen %d - Arrivé au travail\n", c->id);
+        
+        c->current_step = 0;
+        pthread_mutex_lock(&mutex);
+        memory->walking_citizens--;
+        if(memory->walking_citizens < 0){
+            memory->walking_citizens = 0;
+        }
+        memory->at_work_citizens++;
+        pthread_mutex_unlock(&mutex);
+        return c->working;
+    } else { 
+        if (c->path_to_work != NULL && c->current_step < c->path_to_work->length) {
+        // Obtenez le prochain nœud sur le chemin
+            Node *next_node = c->path_to_work->nodes[c->current_step];
+            // printf("Citizen %d - Next node: (%d, %d)\n", c->id, next_node->position[0], next_node->position[1]);
+            // printf("Citizen %d - Current step: %d\n", c->id, c->current_step);
+            // Mettez à jour la position du citoyen
+            c->position[0] = next_node->position[0];
+            c->position[1] = next_node->position[1];
+
+            // printf("Citizen %d - Position: (%d, %d)\n", c->id, c->position[0], c->position[1]);
+
+            // Incrémentez l'étape actuelle pour le prochain appel
+            c->current_step++;
+            // printf("Citizen %d - Current step après incrémentation: %d\n", c->id, c->current_step);
+            return c->going_to_company;
+        } else if (c->path_to_work == NULL) {
+            // printf("Citizen %d - Path to work is NULL\n", c->id);
+            return c->going_to_company;
+        } else {
+            // printf("Citizen %d - Current Step is > path length \n", c->path_to_work->length);
+            // printf("Citizen %d - Path to work: \n", c->id);
+            return c->going_to_company;
+        }
+        
+    }
+    // memory->walking_citizens--;
+    // if(memory->walking_citizens < 0){
+    //     memory->walking_citizens = 0;
     // }
-    return c->working;
+    // c->time_spent_shopping = 0;
+    // return c->doing_some_shopping;
+
+    // pthread_mutex_lock(&mutex);
+    
+    // memory->at_work_citizens++;
+    // // pthread_mutex_unlock(&mutex);
+    // return c->working;
+    
 }
 
 state_t *work(citizen_t *c) {
-    printf("je travaille comme un esclave : heure : %f\n", memory->timer.hours);
+    // printf("je travaille comme un esclave : heure : %d\n", memory->timer.hours);
     if(c->workplace->type == SUPERMARKET){
-        if(memory->timer.hours == 19 && memory->timer.minutes == 30){
+        if(memory->timer.hours == 19 && memory->timer.minutes >= 30){
+            pthread_mutex_lock(&mutex);
+            memory->at_work_citizens--;
+            if(memory->at_work_citizens < 0){
+                memory->at_work_citizens = 0;
+            }
+            memory->walking_citizens++;
+            pthread_mutex_unlock(&mutex);
+            c->current_step = c->path_to_work->length - 1;
+            
+            c->is_coming_from_company = 1;
             return c->going_back_home;
-        }else {
+        } else {
+            // printf("je travaille comme un esclave : heure : %d : %d\n", memory->timer.hours, memory->timer.minutes);
             return c->working;
         }
-    } else if (memory->timer.hours == 17) { 
+    } else if (memory->timer.hours == 17 && memory->timer.minutes >= 0) { 
+        //printf("je vais faire du shopping\n");
         int value = rand() % 4;
-        if (value == 2){
+        if (value < 1) {    // 2 car haykel est spécial alors qu'une personne saine d'esprit aurait choisit 0 
+            pthread_mutex_lock(&mutex);
+            memory->at_work_citizens--;
+            if(memory->at_work_citizens < 0){
+                memory->at_work_citizens = 0;
+            }
+            memory->walking_citizens++;
+            pthread_mutex_unlock(&mutex);
+            c->current_step = 0;
+            
+            //c->is_coming_from_supermarket = 1; // Pour le différencier de celui qui vient du travail
+            // printf("je vais faire du shopping\n");
+            // printf("Citizen %d - Going to supermarket\n", c->id);
             return c->going_to_supermarket;
         } else {
-             return c->working;
+            pthread_mutex_lock(&mutex);
+            memory->at_work_citizens--;
+            if(memory->at_work_citizens < 0){
+                memory->at_work_citizens = 0;
+            }
+            memory->walking_citizens++;
+            pthread_mutex_unlock(&mutex);
+            c->current_step = c->path_to_work->length - 1;
+            c->is_coming_from_company = 1;
+            
+            // printf("je rentre chez oim\n");
+            return c->going_back_home;
         }
+        
+    } else {
+        // printf("je travaille comme un esclave : heure : %d: %d\n", memory->timer.hours, memory->timer.minutes);
+        // printf("Temps de courses : %d\n", c->time_spent_shopping);
+        return c->working;
     }
+    return c->working;
 }
 
 state_t *go_to_supermarket(citizen_t *c) {
-    printf("je vais au marché\n");
-    // step(c->position , c->supermarket->position);
-    // if (c->position[0] == c->supermarket->position[0]  && c->position[1] == c->supermarket->position[1]){
-    //     return c->working;
+    // printf("je vais au marché\n");
+    if (c->position[0] == c->path_to_supermarket->nodes[c->path_to_supermarket->length -1]->position[0] && c->position[1] == c->path_to_supermarket->nodes[c->path_to_supermarket->length -1]->position[1]){
+        // printf("Citizen %d - Arrivé au supermarché\n", c->id);
+        c->current_step = 0;
+        pthread_mutex_lock(&mutex);
+        memory->walking_citizens--;
+        if(memory->walking_citizens < 0){
+            memory->walking_citizens = 0;
+        }
+        pthread_mutex_unlock(&mutex);
+        c->time_spent_shopping = 0;
+        // printf("je fais du shoppinje\n");
+        return c->doing_some_shopping;
+    } else {
+        if (c->path_to_supermarket != NULL && c->current_step < c->path_to_supermarket->length) {
+            Node *next_node = c->path_to_supermarket->nodes[c->current_step];
+            // printf("Citizen %d is going to supermarket\n", c->id);
+            // printf("Citizen Work Position: (%d, %d)\n", c->workplace->position[0], c->workplace->position[1]);
+            // printf("Citizen %d - Next node: (%d, %d)\n", c->id, next_node->position[0], next_node->position[1]);
+            // printf("Citizen %d - Current step: %d\n", c->id, c->current_step);
+            c->position[0] = next_node->position[0];
+            c->position[1] = next_node->position[1];
+
+            // printf("Citizen %d - Position Supermarket: (%d, %d)\n", c->id, c->supermarket->position[0], c->supermarket->position[1]);
+            // printf("Citizen %d - Position goal : (%d, %d)\n", c->id, c->path_to_supermarket->nodes[c->path_to_supermarket->length -1]->position[0], c->path_to_supermarket->nodes[c->path_to_supermarket->length -1]->position[1]);
+            // printf("Citizen %d - Position: (%d, %d)\n", c->id, c->position[0], c->position[1]);
+            c->current_step++;
+            // printf("Citizen %d - Current step après incrémentation: %d\n", c->id, c->current_step);
+            return c->going_to_supermarket;
+        } else if(c->path_to_supermarket == NULL){
+            // printf("Citizen %d - Path to supermarket is NULL\n", c->id);
+            return c->going_to_supermarket;
+        } else {
+            // printf("Citizen %d - Path to supermarket: ", c->id);
+            // printf("- Current Step is > path length : %d \n", c->path_to_supermarket->length);
+            return c->going_to_supermarket;
+        }
+        
+        
+    }
+    // memory->walking_citizens--;
+    // if(memory->walking_citizens < 0){
+    //     memory->walking_citizens = 0;
     // }
-    return c->doing_some_shopping;
+    // c->time_spent_shopping = 0;
+    // return c->doing_some_shopping;
+    //pthread_mutex_lock(&mutex);
+    
+    //pthread_mutex_unlock(&mutex);
 }
 
 state_t *go_back_home(citizen_t *c) {
-    printf("je rentre chez oim\n");
-    //step(c->position , c->home);
-    // if (c->position[0] == c->home->position[0]  && c->position[1] == c->home->position[1]){
-    //     return c->resting_at_home;
+    // printf("je rentre chez oim\n");
+
+    if(!c->is_coming_from_company){
+        if (c->position[0] == c->path_from_supermarket_to_home->nodes[c->current_step]->position[0] && c->position[1] == c->path_from_supermarket_to_home->nodes[c->current_step]->position[1]){
+            //printf("Citizen %d - Arrivé à la maison\n", c->id);
+            c->current_step = 0;
+            pthread_mutex_lock(&mutex);
+            memory->walking_citizens--;
+            if(memory->walking_citizens < 0){
+                memory->walking_citizens = 0;
+            }
+            memory->at_home_citizens++;
+            pthread_mutex_unlock(&mutex);
+            return c->resting_at_home;
+        } else {
+            if (c->path_from_supermarket_to_home != NULL && c->current_step < c->path_to_work->length) {
+                Node *next_node = c->path_from_supermarket_to_home->nodes[c->current_step];
+                // printf("Citizen %d - Next node: (%d, %d)\n", c->id, next_node->position[0], next_node->position[1]);
+                // printf("Citizen %d - Current step: %d\n", c->id, c->current_step);
+
+                c->position[0] = next_node->position[0];
+                c->position[1] = next_node->position[1];
+
+                c->current_step++;
+                
+                return c->going_back_home;
+            } else if (c->path_from_supermarket_to_home == NULL) {
+                printf("Citizen %d - Path to work is NULL\n", c->id);
+                return c->going_back_home;
+            } else {
+                // printf("Citizen %d - Current Step is > path length \n", c->path_from_supermarket_to_home->length);
+                // printf("Citizen %d - Path from supermarket to home : \n", c->id);
+                return c->going_back_home;
+            }
+            
+        }
+        // memory->walking_citizens--;
+        // if(memory->walking_citizens < 0){
+        //     memory->walking_citizens = 0;
+        // }
+        // memory->at_home_citizens++;
+        // return c->resting_at_home;
+    } else {
+        if(c->position[0] == c->home->position[0] && c->position[1] == c->home->position[1]){
+            // printf("Citizen %d - Arrivé à la maison\n", c->id);
+            c->current_step = 0;
+            pthread_mutex_lock(&mutex);
+            memory->walking_citizens--;
+            if(memory->walking_citizens < 0){
+                memory->walking_citizens = 0;
+            }
+            memory->at_home_citizens++;
+            pthread_mutex_unlock(&mutex);
+            return c->resting_at_home;
+        } else {
+            if (c->path_to_work != NULL && c->current_step >= 0 && c->current_step < c->path_to_work->length) {
+                Node *next_node = c->path_to_work->nodes[c->current_step];
+                // printf("Citizen %d - Next node: (%d, %d)\n", c->id, next_node->position[0], next_node->position[1]);
+                // printf("Citizen %d - Current step: %d\n", c->id, c->current_step);
+                c->position[0] = next_node->position[0];
+                c->position[1] = next_node->position[1];
+
+                c->current_step--;
+                return c->going_back_home;
+            } else if (c->path_to_work == NULL) {
+                // printf("Citizen %d - Path to work is NULL\n", c->id);
+                return c->going_back_home;
+            } else {
+                // printf("Citizen %d - Current Step is > path length \n", c->path_to_work->length);
+                // printf("Citizen %d - Path to work: ", c->id);
+                return c->going_back_home;
+            }
+            
+        }
+        // memory->walking_citizens--;
+        // if(memory->walking_citizens < 0){
+        //     memory->walking_citizens = 0;
+        // }
+        // memory->at_home_citizens++;
+        // return c->resting_at_home;
+    }
+    // pthread_mutex_lock(&mutex);
+    // memory->walking_citizens--;
+    // if(memory->walking_citizens < 0){
+    //     memory->walking_citizens = 0;
     // }
-    return c->resting_at_home;
+    // memory->at_home_citizens++;
+    // pthread_mutex_unlock(&mutex);
+    // return c->resting_at_home;
+    
 }
+    
 
 state_t *do_some_shopping(citizen_t *c) {
-    printf("je fais du shoppinje\n");
-    // if (get_current_simulation_time(memory) == 19.00){
-    //     return c->going_back_home;
-    // }
-    return c->going_back_home;
+    // printf("je fais du shoppinje\n");
+    if(c->time_spent_shopping >= 30 || (memory->timer.hours == 19 && memory->timer.minutes >= 30)){
+        // printf("Citizen %d - Arrete son shoppinje\n", c->id);
+        c->current_step = 0;
+        c->time_spent_shopping = 0;
+        c->is_coming_from_company = 0;
+        pthread_mutex_lock(&mutex);
+        memory->walking_citizens++;
+        pthread_mutex_unlock(&mutex);
+        return c->going_back_home;
+    } else {
+        // printf("je fais du shoppinje\n");
+        c->time_spent_shopping+=10;
+        // printf("Citizen %d - Time spent shopping: %d\n", c->id, c->time_spent_shopping);
+        return c->doing_some_shopping;
+    }
+    
 }
 
 state_t *dying(citizen_t *c){

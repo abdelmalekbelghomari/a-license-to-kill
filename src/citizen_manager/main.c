@@ -10,50 +10,57 @@
 #include <fcntl.h>
 
 #define SHARED_MEMORY "/SharedMemory"
-#define CITIZENS_COUNT 127
-#define SEMAPHORE_NAME "/sem"
+#define SEMAPHORE_CONSUMER "/semTimerConsumer"
+#define SEMAPHORE_PRODUCER "/semTimerProducer"
 
-memory_t *memory;
-sem_t *sem;
+extern memory_t *memory;
+sem_t *sem_producer_timer, *sem_consumer_timer;
 pthread_mutex_t shared_memory_mutex;
 pthread_barrier_t turn_barrier;
+int threads_at_barrier = 0;
 
 void* citizen_thread(void* arg) {
-    int citizen_id = *(int*)arg;
+    unsigned int citizen_id = *(int*)arg;
     int last_round_checked = -1;
     int current_round = memory->timer.round;
     while(current_round != 2016 /* || memory->simulation_has_ended==0 */) {
-        //sem_wait(sem); // Attente pour accéder à la mémoire partagée
-        //printf("current timer round : %d\n", memory->timer.round);
+        //sem_wait(sem_producer_timer); // Attente pour accéder à la mémoire partagée
+        // printf("current timer round : %d\n", memory->timer.round);
         current_round = memory->timer.round;
         // printf("caca\n");
-        //sem_post(sem);
+        //sem_post(sem_consumer_timer);
 
         if (last_round_checked != current_round) {
             pthread_mutex_lock(&shared_memory_mutex);
             //modifie ca pour implémenter le patron état
-            printf("citizen id : %d , current state : %d\n", citizen_id, memory->citizens[citizen_id].current_state->id);
-            // sem_wait(sem);
+            // printf("current timer round : %d\n", memory->timer.round);
+            // printf("citizen id : %d , current state : %d\n", citizen_id, memory->citizens[citizen_id].current_state->id);
+            //sem_wait(sem_);
             state_t *next_state = memory->citizens[citizen_id].current_state->action(&memory->citizens[citizen_id]);
             memory->citizens[citizen_id].current_state = next_state;
-            // sem_post(sem);
-
+            //sem_post(sem);
             last_round_checked = current_round;
+            threads_at_barrier++;
+            // printf("Threads à la barrière: %d\n", threads_at_barrier);
             pthread_mutex_unlock(&shared_memory_mutex);
-            pthread_barrier_wait(&turn_barrier);
-            printf ("\ncitizen id : %d , walking_citizens : %d , at_home_citizens : %d at_work_citizens : %d\n",citizen_id, memory->walking_citizens , memory->at_home_citizens, memory->at_work_citizens);
-        }
 
+            //printf("heure dans la simulation : %d\n", memory->timer.hours);
+            //printf ("\ncitizen id : %d , state id : %d, walking_citizens : %d , at_home_citizens : %d at_work_citizens : %d\n",citizen_id, memory->citizens[citizen_id].current_state->id, memory->walking_citizens , memory->at_home_citizens, memory->at_work_citizens);
+        }
+        pthread_barrier_wait(&turn_barrier);
+        // if(threads_at_barrier == CITIZENS_COUNT) {
+        //     threads_at_barrier = 0;
+        //     pthread_barrier_wait(&turn_barrier);
+        // }
         usleep(100000); // 100 ms pour réduire la consommation CPU
     }
-
     return NULL;
 }
 
 int main() {
-    printf("\n");
+    //printf("\n");
+    srand(time(NULL) ^ getpid()	);
     pthread_t threads[CITIZENS_COUNT];
-    int citizen_ids[CITIZENS_COUNT];
     int shm_fd;
 
     // Ouvrir la mémoire partagée
@@ -72,11 +79,17 @@ int main() {
     }
 
     // Ouvrir le sémaphore
-    sem = sem_open(SEMAPHORE_NAME, 0);
-    if (sem == SEM_FAILED) {
+    sem_consumer_timer = sem_open(SEMAPHORE_CONSUMER, 0);
+    if (sem_consumer_timer == SEM_FAILED) {
         perror("sem_open");
         exit(EXIT_FAILURE);
     }   
+    sem_producer_timer = sem_open(SEMAPHORE_PRODUCER, 0);
+    if (sem_producer_timer == SEM_FAILED) {
+        perror("sem_open");
+        exit(EXIT_FAILURE);
+    }
+
     init_citizens(memory);
 
     // Initialisation de la barrière
@@ -86,8 +99,8 @@ int main() {
     // Créer les threads de citoyens
     for (int i = 0; i < CITIZENS_COUNT; i++) {
         // printf("citizen id : %d\n", i);
-        citizen_ids[i] = i;
-        if (pthread_create(&threads[i], NULL, &citizen_thread, &citizen_ids[i])) {
+        memory->citizens[i].id = i;
+        if (pthread_create(&threads[i], NULL, citizen_thread, &memory->citizens[i].id)) {
             perror("Failed to create thread");
             return 1;
         }
@@ -101,7 +114,8 @@ int main() {
     // Nettoyage
     pthread_barrier_destroy(&turn_barrier);
     pthread_mutex_destroy(&shared_memory_mutex);
-    sem_close(sem);
+    sem_close(sem_consumer_timer);
+    sem_close(sem_producer_timer);
     munmap(memory, sizeof(memory_t));
     close(shm_fd);
 

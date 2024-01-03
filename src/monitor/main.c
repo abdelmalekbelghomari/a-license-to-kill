@@ -29,7 +29,9 @@
 
 extern WINDOW *main_window;
 extern int old_cursor;
-pthread_mutex_t mutex;
+extern sem_t *sem_producer_timer, *sem_consumer_timer;
+
+
 /**
  * \file main.c
  *
@@ -53,7 +55,8 @@ int main()
 
     memory_t *memory;
     monitor_t *monitor;
-    
+
+
     
 
     /* ---------------------------------------------------------------------- */ 
@@ -72,6 +75,17 @@ int main()
     }
 
     printf("Memory mapping successful.\n");
+
+    sem_producer_timer = sem_open("/semTimerProducer", 0);
+    if (sem_producer_timer == SEM_FAILED) {
+        perror("sem_open monitor");
+        exit(EXIT_FAILURE);
+    }
+    sem_consumer_timer = sem_open("/semTimerConsumer", 0);
+    if (sem_consumer_timer == SEM_FAILED) {
+        perror("sem_open monitor");
+        exit(EXIT_FAILURE);
+    }
     
     // // Après avoir mappé la mémoire partagée
     // if (memory != MAP_FAILED) {
@@ -210,8 +224,10 @@ int main()
         }
         
         if (memory->memory_has_changed) {
+            // sem_wait(sem_producer);
             update_values(memory);
-            //memory->memory_has_changed = 1;
+            //memory->memory_has_changed = 0;
+            // sem_wait(sem_consumer);
         }// else {
         //     pause();
         // }
@@ -222,6 +238,8 @@ int main()
     
 
     }
+    sem_close(sem_consumer_timer);
+    sem_close(sem_producer_timer);
 
 }
 

@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -pedantic -O2 -g
+CFLAGS=-Wall -Wextra -pedantic -O2 -g -DMUTEX
 
 # Compilation under MacOS X or Linux
 UNAME=$(shell uname -s)
@@ -52,13 +52,25 @@ src/timer/main.o: src/timer/main.c include/timer.h include/memory.h
 # ----------------------------------------------------------------------------
 # CITIZEN MANAGER
 # ----------------------------------------------------------------------------
-bin/citizen_manager: src/citizen_manager/main.o src/citizen_manager/citizen_manager.o 
+bin/citizen_manager: src/citizen_manager/main.o\
+					 src/citizen_manager/citizen_manager.o\
+					 src/astar/astar.o
 	$(CC) $^ -o $@ $(LDFLAGS)
 
-src/citizen_manager/main.o: src/citizen_manager/main.c include/memory.h
+src/citizen_manager/main.o: src/citizen_manager/main.c\
+							include/memory.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-src/citizen_manager/citizen_manager.o: src/citizen_manager/citizen_manager.c include/spy_simulation.h include/memory.h
+src/citizen_manager/citizen_manager.o:  src/citizen_manager/citizen_manager.c \
+										include/spy_simulation.h \
+										include/memory.h \
+										include/citizen_manager.h \
+										include/astar.h \
+										include/monitor_common.h
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+src/astar/astar.o:  src/astar/astar.c \
+					include/astar.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 # ----------------------------------------------------------------------------

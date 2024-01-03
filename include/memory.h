@@ -339,18 +339,35 @@ struct counter_intelligence_officer_s {
 
 }; 
 
+typedef struct Node {
+    int position[2]; // Position du nœud dans la grille
+    double g;   // Coût du chemin 
+    double h;   // Coût heuristique 
+    double f;   // Score total (f = g + h)
+    struct Node* parent;  // Parent du nœud dans le chemin
+} Node;
 
-
+typedef struct Path {
+    Node **nodes; // Chemin 
+    int length;   // Longueur du chemin 
+} Path;
 
 struct citizen_s {
     unsigned int id;
-    unsigned int position [2];
+    int position [2];
     unsigned int health;
+    int current_step;
+    int is_coming_from_company;
     citizen_type_t type;
     building_t *workplace;
     building_t *supermarket; /*a random supermarket of the city*/
+    int time_spent_shopping; /* let's say no more than 30 minutes*/
     home_t *home;
     int visited_cells[MAX_COLUMNS][MAX_ROWS];
+
+    Path *path_to_work;
+    Path *path_to_supermarket;
+    Path *path_from_supermarket_to_home;
 
     state_t *current_state;
     state_t *resting_at_home;
@@ -377,7 +394,7 @@ struct mailbox_s{
 };
 
 struct building_s {
-    unsigned int position[2];
+    int position[2];
     building_type_t type;
     cell_type_t cell_type;
     unsigned int nb_citizen;
@@ -386,18 +403,17 @@ struct building_s {
     unsigned int min_workers;
     unsigned int nb_workers;
     citizen_t *citizens;
-    void (*add_citizen)(building_t *, citizen_t *);
-    void (*remove_citizen)(building_t *, citizen_t *);
+    // void (*add_citizen)(building_t *, citizen_t *);
+    // void (*remove_citizen)(building_t *, citizen_t *);
 };
 
 struct home_s {
-    unsigned int position[2];
-    unsigned int nb_citizen;
-    unsigned int max_capacity;
-    mailbox_t mailbox;
+    int position[2];
+    int nb_citizen;
+    int max_capacity;
     citizen_t *citizens;
-    void (*add_citizen)(home_t *, citizen_t *);
-    void (*remove_citizen)(home_t *, citizen_t *);
+    // void (*add_citizen)(home_t *, citizen_t *);
+    // void (*remove_citizen)(home_t *, citizen_t *);
 };
 
 /**
