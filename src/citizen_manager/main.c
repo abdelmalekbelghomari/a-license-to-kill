@@ -81,12 +81,12 @@ int main() {
     // Ouvrir le sémaphore
     sem_consumer_timer = sem_open(SEMAPHORE_CONSUMER, 0);
     if (sem_consumer_timer == SEM_FAILED) {
-        perror("sem_open");
+        perror("sem_open citizen");
         exit(EXIT_FAILURE);
     }   
     sem_producer_timer = sem_open(SEMAPHORE_PRODUCER, 0);
     if (sem_producer_timer == SEM_FAILED) {
-        perror("sem_open");
+        perror("sem_open citizen");
         exit(EXIT_FAILURE);
     }
 

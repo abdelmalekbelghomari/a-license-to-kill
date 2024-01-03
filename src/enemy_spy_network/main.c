@@ -123,7 +123,7 @@ int main() {
     // Ouvrir la mémoire partagée
     shm_fd = shm_open(SHARED_MEMORY, O_RDWR, 0666);
     if (shm_fd == -1) {
-        perror("shm_open");
+        perror("shm_open enemy_spy_network");
         exit(EXIT_FAILURE);
     }
 
@@ -138,7 +138,7 @@ int main() {
     // Ouvrir le sémaphore
     sem = sem_open(SEMAPHORE_NAME, 0);
     if (sem == SEM_FAILED) {
-        perror("sem_open");
+        perror("sem_open enemy_spy_network opening");
         exit(EXIT_FAILURE);
     }   
     init_spies(memory);

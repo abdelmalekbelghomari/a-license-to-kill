@@ -35,7 +35,7 @@ int main() {
     // Ouvrir le sémaphore
     sem = sem_open(SEMAPHORE_NAME, 0);
     if (sem == SEM_FAILED) {
-        perror("sem_open");
+        perror("sem_open counter_intelligence_officer opening");
         exit(EXIT_FAILURE);
     }   
 

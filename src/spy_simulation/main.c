@@ -27,12 +27,12 @@ int main(int argc, char **argv)
     //initialiser le semaphore du timer
     sem_t* semp_producer_timer = sem_open("/semTimerProducer", O_CREAT , 0644 , 0);
     if(semp_producer_timer == SEM_FAILED){
-        perror("sem_open");
+        perror("sem_open timer");
         exit(EXIT_FAILURE);
     }
     sem_t* sem_consumer_timer = sem_open("/semTimerConsumer", O_CREAT, 0644, 1);
     if(sem_consumer_timer == SEM_FAILED){
-        perror("sem_open");
+        perror("sem_open timer");
         exit(EXIT_FAILURE);
     }
     start_simulation_processes();
