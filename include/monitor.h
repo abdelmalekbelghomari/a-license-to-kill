@@ -31,7 +31,7 @@
 /** The number of fields to display for a spy. */
 #define NB_OF_INFORMATION_FIELDS 8
 
-sem_t *sem_producer_timer, *sem_consumer_timer;
+// sem_t *sem_producer_timer, *sem_consumer_timer;
 
 struct monitor_s {
     int has_to_update;

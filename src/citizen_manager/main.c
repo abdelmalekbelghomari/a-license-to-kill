@@ -13,7 +13,7 @@
 #define SEMAPHORE_CONSUMER "/semTimerConsumer"
 #define SEMAPHORE_PRODUCER "/semTimerProducer"
 
-extern memory_t *memory;
+memory_t *memory;
 sem_t *sem_producer_timer, *sem_consumer_timer;
 pthread_mutex_t shared_memory_mutex;
 pthread_barrier_t turn_barrier;

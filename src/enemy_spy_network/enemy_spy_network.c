@@ -97,13 +97,13 @@ state_t *new_state_spy(int id, state_t *(*action)(spy_t *)) {
 
 state_t *do_something(spy_t *spy){
   int value = rand()%10;
-  if (value == 0){
+  if (value == 0 && (memory->timer.hours < 19 && memory->timer.hours > 8)){
       return spy->going_to_supermarket;
-  } else if (value < 4){
-      return spy->resting_at_home;
-  }else {
+  } else if (value < 7 && (memory->timer.hours < 19 && memory->timer.hours > 8)){
       return spy->scouting;
-  }
+  }else {
+      return spy->resting_at_home;
+    }
 }
 
 state_t *rest_at_home(spy_t *spy) {
@@ -156,6 +156,7 @@ state_t *steal(spy_t *spy) {
         if (value < 90){
             spy->has_a_message = true;
             if(!(memory->timer.hours >= 8 && memory->timer.hours <= 17)){
+                // printf("===================== il est trop tard je vais envoyer le message demain\n");
                 return spy->going_back_home;
             }
             return spy->going_to_send_message;     
@@ -261,7 +262,7 @@ state_t *do_some_shopping(spy_t *spy) {
     // Faire des courses
     // return spy->resting_at_home;
     // printf(" espion : %d  : je fais du shoopinje \n",spy->id);
-    if(spy->turns_spent_shopping == 12){
+    if(spy->turns_spent_shopping == 6){
         spy->turns_spent_shopping = 0;
         return spy->going_back_home;
     }

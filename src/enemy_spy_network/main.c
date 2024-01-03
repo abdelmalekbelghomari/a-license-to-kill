@@ -11,6 +11,7 @@
 #define SHARED_MEMORY "/SharedMemory"
 #define SPIES_COUNT 3
 #define SEMAPHORE_NAME "/sem"
+#define START_HOUR_OF_DAY 7 
 
 memory_t *memory;
 sem_t *sem;
@@ -29,6 +30,7 @@ void* spy_thread(void* arg) {
         //printf("current timer round : %d\n", memory->timer.round);
         current_round = memory->timer.round;
         current_day = memory->timer.days;
+        int hour_of_day = (current_round / 6) % 24; // Calcule l'heure actuelle du jour
         // printf("caca\n");
         //sem_post(sem);
 
@@ -36,8 +38,9 @@ void* spy_thread(void* arg) {
             pthread_mutex_lock(&shared_memory_mutex);
             //modifie ca pour implémenter le patron état
             // printf("spy id : %d , current state : %d\n", spy_id, memory->spies[spy_id].current_state->id);
-            if(last_day_checked != current_day){    
+            if (hour_of_day == START_HOUR_OF_DAY && memory->timer.minutes == 00) {
                 assign_leaving_time(&memory->spies[spy_id]);
+                // printf("========================= NEW DAY ==========================");
             }
             // state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);
             // memory->spies[spy_id].current_state = next_state;
@@ -136,11 +139,11 @@ int main() {
     }
 
     // Ouvrir le sémaphore
-    sem = sem_open(SEMAPHORE_NAME, 0);
-    if (sem == SEM_FAILED) {
-        perror("sem_open enemy_spy_network opening");
-        exit(EXIT_FAILURE);
-    }   
+    // sem = sem_open(SEMAPHORE_NAME, 0);
+    // if (sem == SEM_FAILED) {
+    //     perror("sem_open enemy_spy_network opening");
+    //     exit(EXIT_FAILURE);
+    // }   
     init_spies(memory);
     init_officer(memory);
     // Initialisation de la barrière

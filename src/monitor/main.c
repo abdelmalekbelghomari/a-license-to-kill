@@ -29,7 +29,7 @@
 
 extern WINDOW *main_window;
 extern int old_cursor;
-extern sem_t *sem_producer_timer, *sem_consumer_timer;
+sem_t *sem_producer_timer, *sem_consumer_timer;
 
 
 /**
