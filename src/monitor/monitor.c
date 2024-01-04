@@ -305,6 +305,7 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     int nb_of_stolen_companies;
     int has_license_to_kill;
     char stolen_message_content[MAX_LENGTH_OF_MESSAGE];
+    
 
     id                     = spy->id;
     health_points          = spy->health_point;
