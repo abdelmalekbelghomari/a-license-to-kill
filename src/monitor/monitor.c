@@ -275,7 +275,7 @@ void display_citizen_information(WINDOW *window, memory_t *mem, int row, int col
     int number_of_citizens_walking;
 
 
-    number_of_citizens_at_home = mem->at_home_citizens; //128;
+    number_of_citizens_at_home = mem->at_home_citizens; //127;
     number_of_citizens_at_work = mem->at_work_citizens; //0;
     number_of_citizens_walking = mem->walking_citizens; //0;
    /* ---------------------------------------------------------------------- */
@@ -293,6 +293,9 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
 {
     /* --------------------------------------------------------------------- */
     /*     Get information from mem about the spy with the given number      */
+
+    spy_t * spy = &mem->spies[number];
+
     int id;
     int health_points;
     int location_row;
@@ -303,15 +306,15 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     int has_license_to_kill;
     char stolen_message_content[MAX_LENGTH_OF_MESSAGE];
 
-    id                     = 0;
-    health_points          = 10;
-    location_row           = 0;
-    location_column        = 0;
-    home_row               = 0;
-    home_column            = 0;
-    nb_of_stolen_companies = 0;
-    has_license_to_kill    = 0;
-    strcpy(stolen_message_content, "bla bla bla");	
+    id                     = spy->id;
+    health_points          = spy->health_point;
+    location_row           = spy->location_row;
+    location_column        = spy->location_column;
+    home_row               = spy->home_row;
+    home_column            = spy->home_column;
+    nb_of_stolen_companies = spy->nb_of_stolen_companies;
+    has_license_to_kill    = spy->has_license_to_kill;
+	
    /* ---------------------------------------------------------------------- */
 
     wattron(window, A_BOLD);
@@ -322,7 +325,7 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     mvwprintw(window, row + 3, column, "  Position: (%d,%d)", location_row, location_column);
     mvwprintw(window, row + 4, column, "  Home pos: (%d,%d)", home_row, home_column);
     mvwprintw(window, row + 5, column, "  Stolen companies: %d", nb_of_stolen_companies);
-    if (strcmp(stolen_message_content, EMPTY) == 0) {
+    if (!(spy->has_a_message)) {
         mvwprintw(window, row + 6, column, "  Message stolen: none");
     } else {
         mvwprintw(window, row + 6, column, "  Message stolen: yes ");
@@ -339,6 +342,9 @@ void display_case_officer_information(WINDOW *window, memory_t *mem, int row, in
 {
     /* --------------------------------------------------------------------- */
     /*           Get information from mem about the case officer             */
+
+    case_officer_t * officer = &mem->case_officer;
+
     int id;
     int health_points;
     int location_row;
@@ -349,13 +355,13 @@ void display_case_officer_information(WINDOW *window, memory_t *mem, int row, in
     int mailbox_column;
 
     id              = 0;
-    health_points   = 10;
-    location_row    = 0;
-    location_column = 0;
-    home_row        = 0;
-    home_column     = 0;
-    mailbox_row     = 0;
-    mailbox_column  = 0;
+    health_points   = officer->health_point;
+    location_row    = officer->location_row;
+    location_column = officer->location_column;
+    home_row        = officer->home_row;
+    home_column     = officer->home_column;
+    mailbox_row     = mailbox_row;
+    mailbox_column  = mailbox_column;
    /* ---------------------------------------------------------------------- */
 
     wattron(window, A_BOLD);
@@ -372,6 +378,9 @@ void display_counterintelligence_officer_information(WINDOW *window, memory_t *m
 {
     /* --------------------------------------------------------------------- */
     /*    Get information from mem about the counterintelligence officer     */
+
+    counter_intelligence_officer_t * officer = &mem->counter_intelligence_officer;
+
     int id;
     int health_points;
     int location_row;
@@ -383,11 +392,11 @@ void display_counterintelligence_officer_information(WINDOW *window, memory_t *m
     int targeted_character_id;
 
     id                    = 0;
-    health_points         = 10;
-    location_row          = 0;
-    location_column       = 0;
-    city_hall_row         = 0;
-    city_hall_column      = 0;
+    health_points         = officer->health_point;
+    location_row          = officer->location_row;
+    location_column       = officer->location_column;
+    city_hall_row         = officer->city_hall_row;
+    city_hall_column      = officer->city_hall_column;
     mailbox_row           = 0;
     mailbox_column        = 0;
     targeted_character_id = 0;

@@ -494,6 +494,10 @@ void init_spies(memory_t * memory){
         spy->has_a_fake_message = 0;
         spy->id = i;
 
+        if(spy->id == 1){
+            spy->has_license_to_kill = 1;
+        }
+
     }
 }
 
