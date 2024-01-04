@@ -38,6 +38,10 @@ state_t *do_something(spy_t *spy);
 state_t *new_state_spy(int id, state_t *(*action)(spy_t *));
 void assign_leaving_time(spy_t *spy);
 void assign_home_to_spy(memory_t * memory,  spy_t *spy);
+int is_at_home(spy_t *spy);
+int is_at_mailbox(spy_t *spy);
+int is_at_supermarket(spy_t *spy);
+
 
 void init_officer();
 state_t *rest_at_home_officer(case_officer_t *offcier);

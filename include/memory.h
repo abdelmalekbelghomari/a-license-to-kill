@@ -248,6 +248,8 @@ struct spy_s {
     int turns_spent_shopping;
     int turns_spent_waiting;
     building_t *targeted_company;
+    int x_supermarket;
+    int y_supermarket;
     bool has_a_message;
     bool has_a_fake_message;
 

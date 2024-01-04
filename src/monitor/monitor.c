@@ -275,7 +275,7 @@ void display_citizen_information(WINDOW *window, memory_t *mem, int row, int col
     int number_of_citizens_walking;
 
 
-    number_of_citizens_at_home = mem->at_home_citizens; //128;
+    number_of_citizens_at_home = mem->at_home_citizens; //127;
     number_of_citizens_at_work = mem->at_work_citizens; //0;
     number_of_citizens_walking = mem->walking_citizens; //0;
    /* ---------------------------------------------------------------------- */

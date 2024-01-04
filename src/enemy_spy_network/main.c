@@ -10,6 +10,7 @@
 
 #define SHARED_MEMORY "/SharedMemory"
 #define SPIES_COUNT 3
+#define SPY_DEBUG 1
 #define SEMAPHORE_NAME "/sem"
 #define SEMAPHORE_CONSUMER "/semTimerConsumer"
 #define SEMAPHORE_PRODUCER "/semTimerProducer"

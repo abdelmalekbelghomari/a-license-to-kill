@@ -399,9 +399,10 @@ Node *calculate_next_step(int current_x, int current_y, int goal_x, int goal_y, 
     while (next_step->parent != NULL && next_step->parent->parent != NULL) {
         next_step = next_step->parent;
     }
-
+    int h = next_step->h;
+    int g = next_step->g;
     // Créer un nouveau nœud pour la prochaine étape
-    Node *next_step_node = create_node(next_step->position[0], next_step->position[1], 0, 0);
+    Node *next_step_node = create_node(next_step->position[0], next_step->position[1], h, g);
 
     // Libérer les nœuds alloués par astar_search
     Node *current = goal_node;

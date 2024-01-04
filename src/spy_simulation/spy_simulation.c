@@ -303,6 +303,9 @@ memory_t *create_shared_memory(const char *name) {
     // Initialize the shared memory as necessary
     shared_memory->memory_has_changed = 0;
     shared_memory->simulation_has_ended = 0;
+    shared_memory->walking_citizens = 0;
+    shared_memory->at_home_citizens = 0;
+    shared_memory->at_work_citizens = 0;
     init_map(&shared_memory->map);
     init_surveillance(&shared_memory->surveillanceNetwork);
     //shared_memory->mqInfo = init_mq();
