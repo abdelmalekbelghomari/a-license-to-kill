@@ -128,7 +128,7 @@ state_t *rest_at_home(spy_t *spy) {
     // ,spy->id , memory->timer.hours ,memory->timer.minutes, spy->leaving_time.leaving_hour, spy->leaving_time.leaving_minute);
     spy->location_row = spy->home_row;
     spy->location_column = spy->home_column;
-     if((memory->timer.hours >= 12 && memory->timer.hours <= 17) && (spy->has_a_fake_message || spy->has_a_message)){
+     if((memory->timer.hours >= 8 && memory->timer.hours <= 17) && (spy->has_a_fake_message || spy->has_a_message)){
         if(spy->has_a_message){
             return spy->going_to_send_message;
         }else {
@@ -161,7 +161,7 @@ state_t *spot(spy_t *spy) {
         }
         // printf("l'agent n'a pas pu accéder au batiment il va envoyer un faux message\n");
         spy->has_a_fake_message = true;
-        return spy->going_to_send_message;
+        return spy->going_to_send_message; 
     }
     spy->turns_spent_spotting++;
     return spy->spotting; 
@@ -175,6 +175,7 @@ state_t *steal(spy_t *spy) {
         if (value < 90){
             // printf("l'agent a réussi , il va envoyer un vrai message\n");
             spy->has_a_message = true;
+            spy->nb_of_stolen_companies++;
             if(!(memory->timer.hours >= 8 && memory->timer.hours <= 17)){
                 // printf("===================== il est trop tard je vais envoyer le message demain\n");
                 return spy->going_back_home;
@@ -511,35 +512,35 @@ state_t *send_messages(case_officer_t *officer){
 }
 
 state_t *go_back_home_officer(case_officer_t *officer){
-    printf(" officier traitant : je rentre chez oim \n");
+    // printf(" officier traitant : je rentre chez oim \n");
     return officer->resting_at_home;
 }
 
 state_t *go_to_supermarket_officer(case_officer_t *officer){
-    printf(" officier traitant : je vais au supermarché \n");
+    // printf(" officier traitant : je vais au supermarché \n");
     return officer->doing_some_shopping;
 }
 
 state_t *do_some_shopping_officer(case_officer_t *officer){
-    printf(" officier traitant : je fais du shoppinje \n");
+    // printf(" officier traitant : je fais du shoppinje \n");
     return officer->going_to_mailbox;
 }
 
 state_t *go_to_mailbox(case_officer_t *officer){
-    printf(" officier traitant : je vais a la boite aux lettres \n");
+    // printf(" officier traitant : je vais a la boite aux lettres \n");
     return officer->recovering_messages;
 }
 
 state_t *recover_messages(case_officer_t *officer){
-    printf(" officier traitant : je récupère les messages \n");
+    // printf(" officier traitant : je récupère les messages \n");
     for (int i=0 ; i < memory->homes->mailbox.message_count ; i++){
-        printf("\n================================= contenu de la boite aux lettres ================\n");
-        printf(" ===============> %s\n", memory->homes->mailbox.messages[i]);
+        // printf("\n================================= contenu de la boite aux lettres ================\n");
+        // printf(" ===============> %s\n", memory->homes->mailbox.messages[i]);
         strcpy(officer->messages[i], memory->homes->mailbox.messages[i]);
-        printf("j'ai récupéré le message  : %s", officer->messages[i]);
+        // printf("j'ai récupéré le message  : %s", officer->messages[i]);
         memset(memory->homes->mailbox.messages[i], 0, sizeof(memory->homes->mailbox.messages[i]));
         officer->message_count++;
-        printf("\n================================= la boite aux lettres a été vidée ================\n");
+        // printf("\n================================= la boite aux lettres a été vidée ================\n");
     }
     memory->homes->mailbox.message_count = 0;
     return officer->going_back_home;
@@ -658,6 +659,7 @@ void init_spies(memory_t * memory){
         spy->has_a_message = false;
         spy->has_a_fake_message = 0;
         spy->id = i;
+        spy->nb_of_stolen_companies = 0;
 
         if(spy->id == 1){
             spy->has_license_to_kill = 1;
