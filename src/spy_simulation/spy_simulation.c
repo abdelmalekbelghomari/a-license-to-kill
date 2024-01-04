@@ -57,7 +57,18 @@ bool dfs(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col, 
     return false;
 }
 
+void reset_checked(bool checked[MAX_ROWS][MAX_COLUMNS]) {
+    for (int i = 0; i < MAX_ROWS; i++) {
+        for (int j = 0; j < MAX_COLUMNS; j++) {
+            checked[i][j] = false;
+        }
+    }
+}
+
 bool is_path_available(map_t *cityMap, int startRow, int startCol, int endRow, int endCol, bool checked[MAX_ROWS][MAX_COLUMNS]) {
+    
+    reset_checked(checked);
+
     if (checked[endRow][endCol]) {
         // printf("is_path_available: Path already checked from (%d, %d) to (%d, %d)\n", startRow, startCol, endRow, endCol);
         return true;
