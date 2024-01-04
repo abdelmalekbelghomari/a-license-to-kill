@@ -55,19 +55,5 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "C_Cpp_Runner.msvcSecureNoWarnings": false,
-  "files.associations": {
-    "*.py": "python",
-    "spy_simulation.h": "c",
-    "cstdlib": "c",
-    "mman.h": "c",
-    "fcntl.h": "c",
-    "memory.h": "c",
-    "stdbool.h": "c",
-    "timer.h": "c",
-    "monitor_common.h": "c",
-    "string.h": "c"
-    "enemy_spy_network.h": "c",
-    "stdlib.h": "c"
-  }
+  "C_Cpp_Runner.msvcSecureNoWarnings": false
 }

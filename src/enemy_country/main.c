@@ -49,25 +49,28 @@ int main() {
     unsigned int message_priority;
     
     while (1) {
-        usleep(1000000);
+        memset(received_message, 0, MAX_MESSAGE_SIZE); // Réinitialiser received_message
         ssize_t bytes_read = mq_receive(mq, received_message, MAX_MESSAGE_SIZE, &message_priority);
-        if (bytes_read >= 0) {
+
+        if (bytes_read >= 0) { // Vérifier si mq_receive a réussi
+            // Traiter le message reçu
             if (message_priority != 1) {
                 caesar_decipher(received_message);
                 strcpy(memory->messages[memory->message_count], received_message);
                 memory->message_count++;
                 memory->memory_has_changed = 1;
-                // printf("Received decrypted message: %s (Priority: %u)\n", received_message, message_priority);
+                // printf(" enemy country : Received decrypted message: %s (Priority: %u)\n", received_message, message_priority);
             } else {
-                // printf("Deceptive message received and ignored.\n");
+                // printf(" enemy country : Deceptive message received and ignored.\n");
             }
         } else {
-            perror("mq_receive");
+            perror("mq_receive"); 
             exit(EXIT_FAILURE);
         }
     }
 
     mq_close(mq);
+    mq_unlink("/spy_message_queue");
     munmap(memory, sizeof(memory_t));
     close(shm_fd);
     return 0;

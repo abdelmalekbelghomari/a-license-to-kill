@@ -397,6 +397,7 @@ struct mailbox_s{
     int y_in_front;
     char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
     int message_count;
+    int priority[MAX_MESSAGES];
 
 };
 

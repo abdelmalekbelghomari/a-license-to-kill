@@ -110,18 +110,16 @@ state_t *new_state_spy(int id, state_t *(*action)(spy_t *)) {
 
 state_t *do_something(spy_t *spy){
   int value = rand()%10;
-
-  if (value == 0 && (memory->timer.hours >= 8 && memory->timer.hours <= 19)){
+  if (value == 0 && (memory->timer.hours < 19 && memory->timer.hours > 8)){
     int random_supermarket = rand()%2;
     spy->x_supermarket = memory->companies[random_supermarket].position[0];
     spy->y_supermarket = memory->companies[random_supermarket].position[1];
     return spy->going_to_supermarket;
-  } else if (value < 4){
-    // printf(" espion : %d  : je reste nehess à la maison \n",spy->id);
-    return spy->resting_at_home;
-  } else {
+  } else if (value < 7 && (memory->timer.hours < 19 && memory->timer.hours > 8)){
     // printf(" espion : %d  : je vais aller scout \n",spy->id);
     return spy->scouting;
+  }else {
+    return spy->resting_at_home;
   }
 }
 
@@ -130,10 +128,9 @@ state_t *rest_at_home(spy_t *spy) {
     // ,spy->id , memory->timer.hours ,memory->timer.minutes, spy->leaving_time.leaving_hour, spy->leaving_time.leaving_minute);
     spy->location_row = spy->home_row;
     spy->location_column = spy->home_column;
-    // printf("Position Spy n°%d: (%d, %d) -> ", spy->id, spy->location_row, spy->location_column);
-    if(memory->timer.hours == 17 && (spy->has_a_fake_message || spy->has_a_message)){
-        if(spy->has_a_fake_message){
-            return spy->going_to_send_fake_message;
+     if((memory->timer.hours >= 12 && memory->timer.hours <= 17) && (spy->has_a_fake_message || spy->has_a_message)){
+        if(spy->has_a_message){
+            return spy->going_to_send_message;
         }else {
             return spy->going_to_send_message;
         }
@@ -161,13 +158,12 @@ state_t *spot(spy_t *spy) {
         if (value < 85){
             return spy->stealing;
         }
+        // printf("l'agent n'a pas pu accéder au batiment il va envoyer un faux message\n");
         spy->has_a_fake_message = true;
         return spy->going_to_send_message;
     }
     spy->turns_spent_spotting++;
-    return spy->spotting;
-    
-    
+    return spy->spotting; 
 }
 
 state_t *steal(spy_t *spy) {
@@ -176,14 +172,21 @@ state_t *steal(spy_t *spy) {
         spy->turns_spent_stealing = 0;
         int value = rand() % 100;
         if (value < 90){
+            // printf("l'agent a réussi , il va envoyer un vrai message\n");
             spy->has_a_message = true;
             if(!(memory->timer.hours >= 8 && memory->timer.hours <= 17)){
+                // printf("===================== il est trop tard je vais envoyer le message demain\n");
                 return spy->going_back_home;
             }
             return spy->going_to_send_message;     
         }
         //ici le message est faux
+        // printf("l'agent n'a pas réussi à voler, il va envoyer un faux message\n");
         spy->has_a_fake_message = true;
+        if(!(memory->timer.hours >= 8 && memory->timer.hours <= 17)){
+            // printf("===================== il est trop tard je vais envoyer le message demain\n");
+            return spy->going_back_home;
+        }
         return spy->going_to_send_message;
     }
     spy->turns_spent_stealing++;
@@ -290,35 +293,40 @@ state_t *go_to_send_message(spy_t *spy) {
 state_t *send_message(spy_t *spy){
     // printf(" espion : %d : je mets le message dans la boite aux lettres",spy->id);
     memory->homes->mailbox.is_occupied = false;
-    if(spy->has_a_message){
+    // printf(" the spy is about to send a fake message? : %d , or a real message? : %d",spy->has_a_fake_message ,spy->has_a_message);
+    // printf(" espion numéro %d va envoyer son message le jour %d  a %d:%d\n",spy->id , memory->timer.days, memory->timer.hours , memory->timer.minutes);
+    if(spy->has_a_fake_message){
         // ici il faut implémneter une logique selon le nombre de travailleurs dans une entreprise
         char message[MAX_MESSAGE_SIZE]; 
         strcpy(message, "Deceptive");
         caesar_cipher(message);
         strcpy(memory->homes->mailbox.messages[memory->homes->mailbox.message_count] ,message);
-        // printf(" \n\n============================= la boite aux lettres contient le message suivant : %s\n\n" ,memory->homes->mailbox.messages[memory->homes->mailbox.message_count]);
+        // printf(" \n\n============================= la boite aux lettres contient le message suivant odnt la priorité est %d : %s\n\n" ,memory->homes->mailbox.priority[memory->homes->mailbox.message_count],memory->homes->mailbox.messages[memory->homes->mailbox.message_count]);
         memory->homes->mailbox.message_count++;
-        spy->has_a_message = false;
-    } else if(spy->has_a_fake_message) {
+        memory->homes->mailbox.priority[memory->homes->mailbox.message_count] = get_crypted_message_priority(message);
+        spy->has_a_fake_message = false;
+    }else if(spy->has_a_message){
          char message[MAX_MESSAGE_SIZE]; 
         int randValue = rand() % 100; // Generate a random number between 0 and 99
 
-        if(randValue < 1) { // 1% chance for "crucial"
+        if(randValue < 1) { 
             strcpy(message, "Crucial");
-        } else if(randValue < 6) { // Additional 5% chance for "strong" (total 6%)
+        } else if(randValue < 6) {
             strcpy(message, "Strong");
-        } else if(randValue < 20) { // Additional 14% chance for "medium" (total 20%)
+        } else if(randValue < 20) { 
             strcpy(message, "Medium");
-        } else if(randValue < 50) { // Additional 30% chance for "low" (total 50%)
+        } else if(randValue < 50) { 
             strcpy(message, "Low");
-        } else { // Remaining 50% chance for "very low"
-            strcpy(message, "Very Low");
+        } else { 
+            strcpy(message, "VeryLow");
         }
         caesar_cipher(message);
+        memory->homes->mailbox.priority[memory->homes->mailbox.message_count] = get_crypted_message_priority(message);
+        // printf("\n\n===================== la priorité du message: %d \n", memory->homes->mailbox.priority[memory->homes->mailbox.message_count]);
         strcpy(memory->homes->mailbox.messages[memory->homes->mailbox.message_count] ,message);
         // printf(" \n\n============================= la boite aux lettres contient le message suivant : %s\n\n" ,memory->homes->mailbox.messages[memory->homes->mailbox.message_count]);
         memory->homes->mailbox.message_count++;
-        spy->has_a_fake_message = false;
+        spy->has_a_message = false;
     }
     memory->memory_has_changed = 1;
     return spy->going_back_home;
@@ -426,8 +434,8 @@ state_t *go_to_supermarket(spy_t *spy) {
 state_t *do_some_shopping(spy_t *spy) {
     // Faire des courses
     // return spy->resting_at_home;
-    // printf(" espion : %d  : je faiss du shoopinje \n",spy->id);
-    if(spy->turns_spent_shopping == 12){
+    // printf(" espion : %d  : je fais du shoopinje \n",spy->id);
+    if(spy->turns_spent_shopping == 6){
         spy->turns_spent_shopping = 0;
         return spy->going_back_home;
     }
@@ -491,7 +499,9 @@ state_t *send_messages(case_officer_t *officer){
         // printf("=================> %s\n", officer->messages[i]);
     }
     // printf("===========================================\n");
-    send_messages_to_enemy_country(officer);
+    if (officer->message_count != 0){
+        send_messages_to_enemy_country(officer);
+    }
     for (int i=0 ; i < officer->message_count; i++){
         memset(memory->case_officer.messages[i], 0, sizeof(memory->case_officer.messages[i]));
     }
@@ -567,7 +577,7 @@ void caesar_decipher(char *message) {
 unsigned int get_message_priority(const char* message) {
     if (strcmp(message, "Deceptive") == 0) {
         return 1;
-    } else if (strcmp(message, "Very Low") == 0) {
+    } else if (strcmp(message, "VeryLow") == 0) {
         return 2;
     } else if (strcmp(message, "Low") == 0) {
         return 3;
@@ -581,21 +591,29 @@ unsigned int get_message_priority(const char* message) {
     return 0; // Valeur par défaut si aucune correspondance
 }
 
+unsigned int get_crypted_message_priority(const char* message) {
+    if (strcmp(message, "Ghfhswlyh") == 0) { // Deceptive
+        return 1;
+    } else if (strcmp(message, "YhubOrz") == 0) { // VeryLow
+        return 2;
+    } else if (strcmp(message, "Orz") == 0) { //Low
+        return 3;
+    } else if (strcmp(message, "Phglxp") == 0) { //Medium
+        return 6;
+    } else if (strcmp(message, "Vwurqj") == 0) { //Strong
+        return 9;
+    } else if (strcmp(message, "Fuxfldo") == 0) { //Crucial
+        return 10;
+    }
+    return 0; // Valeur par défaut si aucune correspondance
+}
+
 void send_messages_to_enemy_country(case_officer_t *officer) {
-    char deciphered_message[MAX_MESSAGE_SIZE];
     for (int i = 0; i < officer->message_count; i++) {
-        printf("\nCiphered message: %s\n", officer->messages[i]);
-        strcpy(deciphered_message, officer->messages[i]);
-        printf("Message copied.\n");
-        fflush(stdout); // Force output buffer to flush
-
-        caesar_decipher(deciphered_message);
-        printf("Deciphered message: %s\n", deciphered_message);
-        fflush(stdout); // Force output buffer to flush
-
-        unsigned int priority = get_message_priority(deciphered_message);
-        printf("Message priority: %u\n", priority);
-        fflush(stdout); // Force output buffer to flush
+        // printf("\nCiphered message: %s\n", officer->messages[i]);
+        // printf("Deciphered message: %s\n", deciphered_message);
+        unsigned int priority = get_crypted_message_priority(officer->messages[i]);
+        // printf("Message priority: %u\n", priority);
 
         if (mq_send(mq, officer->messages[i], strlen(officer->messages[i]) + 1, priority) == -1) {
             perror("mq_send");
@@ -639,6 +657,10 @@ void init_spies(memory_t * memory){
         spy->has_a_message = false;
         spy->has_a_fake_message = 0;
         spy->id = i;
+
+        if(spy->id == 1){
+            spy->has_license_to_kill = 1;
+        }
 
         int random = rand() % NB_HOMES;
 
