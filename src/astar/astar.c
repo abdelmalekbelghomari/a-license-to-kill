@@ -132,7 +132,7 @@ void print_heap(const heap_t *heap) {
 
 // Calcul de l'heuristique - Distance de Manhattan
 double heuristic(int x1, int y1, int x2, int y2) {
-    return fabs(x1 - x2) + fabs(y1 - y2);
+    return abs(x1 - x2) + abs(y1 - y2);
 }
 
 bool is_goal(const Node *node, int goal_x, int goal_y) {
@@ -198,9 +198,8 @@ Node **get_successors(map_t *map, Node *current, int goal_x, int goal_y) {
     return neighbors;
 }
 
-Node* get_random_neighbours_spy(map_t* map, spy_t* spy){
-
-    Node **neighbors = (Node **)malloc(sizeof(Node *) * (NUM_DIRECTIONS)); // +1 pour NULL
+Node* get_random_neighbours_spy(map_t* map, spy_t* spy) {
+    Node **neighbors = (Node **)malloc(sizeof(Node *) * NUM_DIRECTIONS);
     if (neighbors == NULL) {
         perror("Unable to allocate memory for neighbors");
         exit(EXIT_FAILURE);
@@ -210,29 +209,35 @@ Node* get_random_neighbours_spy(map_t* map, spy_t* spy){
     for (int i = 0; i < NUM_DIRECTIONS; i++) {
         int x = spy->location_row + DIRECTIONS[i][0];
         int y = spy->location_column + DIRECTIONS[i][1];
-        //int random_target = rand() % 2;
 
-        if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS /*|| is_cell_full(map, x, y)*/ ) {
+        if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS) {
             continue; // Ignorer les voisins non valides
         }
-
-        else if (map->cells[x][y].type != WASTELAND && map->cells[x][y].type != SUPERMARKET /*&& random_target < 1*/) {
-            spy->targeted_company->position[0] = x;
-            spy->targeted_company->position[1] = y;
-            //return create_node(x, y, 0, 0);
-            return create_node(spy->location_row, spy->location_column, 0, 0);
-        }
-
-        else {
-            neighbors[number_of_neighbors] = create_node(x, y, 0, 0);
-            number_of_neighbors++;
-        }
         
+        // Ajouter des voisins si c'est du type WASTELAND ou un autre type spécifique (par exemple, une entreprise)
+        if (map->cells[x][y].type == WASTELAND || (map->cells[x][y].type != SUPERMARKET && map->cells[x][y].type != RESIDENTIAL_BUILDING)) {
+            neighbors[number_of_neighbors++] = create_node(x, y, 0, 0);
+        }
+    }
+
+    if (number_of_neighbors == 0) {
+        free(neighbors);
+        return NULL;
     }
 
     int random_neighbour = rand() % number_of_neighbors;
-    return neighbors[random_neighbour];
+    Node *selected_neighbor = neighbors[random_neighbour];
+
+    for (int i = 0; i < number_of_neighbors; i++) {
+        if (i != random_neighbour) {
+            free(neighbors[i]);
+        }
+    }
+    free(neighbors);
+
+    return selected_neighbor;
 }
+
 
 
 Node *astar_search(map_t *map, int start_x, int start_y, int goal_x, int goal_y) {

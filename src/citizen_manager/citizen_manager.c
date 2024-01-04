@@ -8,6 +8,17 @@
 
 #define SHARED_MEMORY "/SharedMemory"
 
+extern sem_t *sem_producer_timer, *sem_consumer_timer;
+
+int DIRECTION[NUM_DIRECTIONS][2] = {{-1, 0},
+                                     {1,  0},
+                                     {0,  -1},
+                                     {0,  1},
+                                     {-1, -1},
+                                     {-1, 1},
+                                     {1,  -1},
+                                     {1,  1}};
+
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_barrier_t end_of_the_day_barrier;
 extern memory_t *memory;
@@ -64,6 +75,23 @@ void init_house(memory_t *memory){
                     memory->homes[home_counter].position[0] = i;
                     memory->homes[home_counter].position[1] = j;  
                     memory->homes[home_counter].nb_citizen = 0; // Nombre initial de citoyens
+                    int x,y;
+                    for(int k=0; k < DIRECTION; k++) {
+                        int x = i + DIRECTION[i][0];
+                        int y = j + DIRECTION[i][1];
+
+                        if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS /*|| is_cell_full(map, x, y)*/ ) {
+                            continue; // Ignorer les voisins non valides
+                        }
+
+                        if (cell.type != WASTELAND) {
+                            continue;
+                        }
+
+                        memory->homes[home_counter].mailbox.x_in_front = x;
+                        memory->homes[home_counter].mailbox.y_in_front = y;
+                        break;
+                    }
 
                 } else {
                     // Attribuer la position à la maison
@@ -139,8 +167,10 @@ void init_building(memory_t *memory){
 
 void init_citizens(memory_t *memory) {
 
+    // sem_wait(sem_consumer_timer);
     init_house(memory);
     init_building(memory);
+    // sem_post(sem_producer_timer);
 
     for (int i = 0; i < CITIZENS_COUNT; i++) {
         citizen_t *citizen = &memory->citizens[i];
@@ -179,6 +209,7 @@ void init_citizens(memory_t *memory) {
 
         assign_home_to_citizen(memory, citizen);
         //printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
+        // printf("Le Citoyen %d habite dans la maison (%d,%d)\n", i+1, citizen->home->position[0], citizen->home->position[1]);
         assign_company_to_citizen(memory, citizen);
         //printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, citizen->workplace);
                                                      

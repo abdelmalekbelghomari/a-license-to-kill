@@ -16,6 +16,17 @@ void handle_fatal_error(const char *message)
     exit(EXIT_FAILURE);
 }
 
+DIRECTION[NUM_DIRECTIONS][2] = {
+    {-1, 0}, // UP
+    {1, 0}, // DOWN
+    {0, -1}, // LEFT
+    {0, 1}, // RIGHT
+    {-1, -1}, // UP_LEFT
+    {-1, 1}, // UP_RIGHT
+    {1, -1}, // DOWN_LEFT
+    {1, 1} // DOWN_RIGHT
+};
+
 void assign_leaving_time(spy_t *spy) {
     TimeRange ranges[] = {
         {17, 20, 0.02},
@@ -108,9 +119,7 @@ state_t *do_something(spy_t *spy){
     printf(" espion : %d  : je vais aller nehess à la maison \n",spy->id);
     return spy->resting_at_home;
   } else {
-    printf(" espion : %d  : je vais aller repérer \n",spy->id);
-    int randValue = 3 + rand() % (NB_WORKPLACES);
-    spy->targeted_company = &memory->companies[randValue];
+    printf(" espion : %d  : je vais aller scout \n",spy->id);
     return spy->scouting;
   }
 }
@@ -118,6 +127,9 @@ state_t *do_something(spy_t *spy){
 state_t *rest_at_home(spy_t *spy) {
     // printf(" espion : %d  : je me repose chez oim : heure : %d  minute : %d heure de sortie : %d   minute de sortie : %d\n"
     // ,spy->id , memory->timer.hours ,memory->timer.minutes, spy->leaving_time.leaving_hour, spy->leaving_time.leaving_minute);
+    spy->location_row = spy->home_row;
+    spy->location_column = spy->home_column;
+    printf("Position Spy n°%d: (%d, %d) -> ", spy->id, spy->location_row, spy->location_column);
     if(memory->timer.hours == 17 && (spy->has_a_fake_message || spy->has_a_message)){
         if(spy->has_a_fake_message){
             return spy->going_to_send_fake_message;
@@ -136,12 +148,12 @@ state_t *rest_at_home(spy_t *spy) {
 
 state_t *go_to_spot(spy_t *spy) {
     // il faut implémenter le astar
-    // printf(" espion : %d  : je vais aller repérer \n",spy->id);
+    printf(" espion : %d  : je vais aller repérer \n",spy->id);
     return spy->spotting;
 }
 
 state_t *spot(spy_t *spy) {
-    // printf(" espion : %d  : je repère \n",spy->id);
+    printf(" espion : %d  : je repère \n",spy->id);
     if (spy->turns_spent_spotting == 12){
         spy->turns_spent_spotting = 0;
         int value = rand() % 100;
@@ -158,7 +170,7 @@ state_t *spot(spy_t *spy) {
 }
 
 state_t *steal(spy_t *spy) {
-    // printf(" espion : %d  : je vole \n",spy->id);
+    printf(" espion : %d  : je vole \n",spy->id);
     if (spy->turns_spent_stealing == 6){
         spy->turns_spent_stealing = 0;
         int value = rand() % 100;
@@ -180,7 +192,7 @@ state_t *steal(spy_t *spy) {
 
 state_t *arrived_at_mailbox(spy_t *spy){
     //astar vers une case adjacente a la mailbox
-    // printf(" espion : %d  : j'arrive a cote de la mailbox \n",spy->id);
+    printf(" espion : %d  : j'arrive a cote de la mailbox \n",spy->id);
     if(memory->homes->mailbox.is_occupied){
         return spy->waiting_for_residence_to_be_clear;
     }
@@ -191,7 +203,9 @@ state_t *arrived_at_mailbox(spy_t *spy){
 
 state_t *go_back_home(spy_t *spy) {
     // il faut implémenter astar
-    // printf(" espion : %d  : je rentre chez oim \n",spy->id);7
+    spy->turns_spent_scouting = 0;
+    printf(" espion : %d  : je rentre chez oim \n",spy->id);
+    printf("Position Spy n°%d: (%d, %d) -> ", spy->id, spy->location_row, spy->location_column);
     Node* position_node = calculate_next_step(spy->location_row, spy->location_column, spy->home_row, spy->home_column, &memory->map);
     if(position_node == NULL){
         return spy->resting_at_home;
@@ -203,8 +217,9 @@ state_t *go_back_home(spy_t *spy) {
 
 state_t *go_to_send_message(spy_t *spy) {  
     // il faut implémenter astar vers une case voisine du mailbox
-    // printf(" espion : %d  : je vais pour envoyer un message \n",spy->id);
-    Node* position_node = calculate_next_step(spy->location_row, spy->location_column, memory->homes->mailbox.x, memory->homes->mailbox.y, &memory->map);
+    printf(" espion : %d  : je vais pour envoyer un message \n",spy->id);
+    Node* position_node = calculate_next_step(spy->location_row, spy->location_column, 
+                memory->homes->mailbox.x_in_front, memory->homes->mailbox.y_in_front, &memory->map);
     if(position_node == NULL){
         return spy->resting_at_home;
     } else {
@@ -213,7 +228,7 @@ state_t *go_to_send_message(spy_t *spy) {
 }
 
 state_t *send_message(spy_t *spy){
-    // printf(" espion : %d : je mets le message dans la boite aux lettres",spy->id);
+    printf(" espion : %d : je mets le message dans la boite aux lettres",spy->id);
     memory->homes->mailbox.is_occupied = false;
     if(spy->has_a_message){
         // ici il faut implémneter une logique selon le nombre de travailleurs dans une entreprise
@@ -224,7 +239,7 @@ state_t *send_message(spy_t *spy){
         // printf(" \n\n============================= la boite aux lettres contient le message suivant : %s\n\n" ,memory->homes->mailbox.messages[memory->homes->mailbox.message_count]);
         memory->homes->mailbox.message_count++;
         spy->has_a_message = false;
-    }else if(spy->has_a_fake_message){
+    } else if(spy->has_a_fake_message) {
          char message[MAX_MESSAGE_SIZE]; 
         int randValue = rand() % 100; // Generate a random number between 0 and 99
 
@@ -241,7 +256,7 @@ state_t *send_message(spy_t *spy){
         }
         caesar_cipher(message);
         strcpy(memory->homes->mailbox.messages[memory->homes->mailbox.message_count] ,message);
-        // printf(" \n\n============================= la boite aux lettres contient le message suivant : %s\n\n" ,memory->homes->mailbox.messages[memory->homes->mailbox.message_count]);
+        printf(" \n\n============================= la boite aux lettres contient le message suivant : %s\n\n" ,memory->homes->mailbox.messages[memory->homes->mailbox.message_count]);
         memory->homes->mailbox.message_count++;
         spy->has_a_fake_message = false;
     }
@@ -253,8 +268,8 @@ state_t *send_message(spy_t *spy){
 state_t *wait_for_residence_to_be_clear(spy_t *spy) {
     // Attendre que la résidence soit libre
     // return spy->going_to_send_message;
-    // printf(" espion : %d  : j'attends que la résidence soit vide \n",spy->id);
-    if(spy->turns_spent_waiting == 6){
+    printf(" espion : %d  : j'attends que la résidence soit vide \n",spy->id);
+    if(spy->turns_spent_waiting >= 6){
         spy->turns_spent_waiting++;
         return spy->waiting_for_residence_to_be_clear;
     }
@@ -263,30 +278,70 @@ state_t *wait_for_residence_to_be_clear(spy_t *spy) {
 }
 
 state_t *scout(spy_t *spy){
-    //astar pour mettre l'espion a cote d'une entreprise
-    // spy->targeted_company = (la companie qu'il va voler)
     // printf(" espion : %d  : je cherche une entreprise cible \n",spy->id);
-    int old_target_pos[2];
-    memcpy(old_target_pos, spy->targeted_company->position, sizeof(int) * 2);
-    Node* random_neighbours = get_random_neighbours_spy(&memory->map, spy);
-    if(spy->targeted_company->position[0] == old_target_pos[0] && spy->targeted_company->position[1] == old_target_pos[1]){
+    // printf("Position Spy n°%d: (%d, %d) -> ", spy->id, spy->location_row, spy->location_column);
+
+
+    // Déplacement aléatoire sur WASTELAND
+    Node* random_neighbor = get_random_neighbours_spy(&memory->map, spy);
+
+    if (random_neighbor != NULL) {
+        // Déplacer l'espion vers le voisin aléatoire
+        spy->location_row = random_neighbor->position[0];
+        spy->location_column = random_neighbor->position[1];
+        free(random_neighbor);
+        for(int i = 0; i < 8; i++){
+            // printf("%d\n", i);
+            int x = spy->location_row + DIRECTION[i][0];
+            int y = spy->location_column + DIRECTION[i][1];
+            // Si une entreprise est trouvée à côté
+            if ( x >= 0 && x < MAX_ROWS && y >= 0 && y < MAX_COLUMNS){
+                // printf("coucou1\n");
+                // sem_wait(sem_producer_timer);
+                if (memory->map.cells[x][y].type == COMPANY) {
+                    // printf("coucou2\n");
+                    if (rand() % 2 == 0) {  // 50% de chance de choisir l'entreprise
+                        // printf("coucou3\n");
+                        // printf("Position Company : (%d, %d)\n", x, y);
+                        spy->targeted_company->position[0] = x;
+                        spy->targeted_company->position[1] = y;
+                        printf(" espion : %d  : je vais aller à l'entreprise : (%d, %d) \n",spy->id, spy->targeted_company->position[0], spy->targeted_company->position[1]);
+                        return spy->going_back_home;
+                    }
+                    
+                }
+                // sem_post(sem_producer_timer);
+            }
+            
+        }
+        
+
+    } else if (spy->turns_spent_scouting >= 12) {
         return spy->going_back_home;
-    } else {
-        return spy->scouting;
     }
-    // Node* position_node = calculate_next_step(spy->location_row, spy->location_column, 
-    //                         spy->targeted_company->position[0], spy->targeted_company->position[0]);
-    // if(position_node == NULL){
-    //     return spy->going_back_home;
-    // } else {
-    //     return spy->scouting;
+
+    // Parcourir les 8 directions possibles
+    // for(int i = 0; i < 8; i++){
+    //     int x = spy->location_row + DIRECTION[i][0];
+    //     int y = spy->location_column + DIRECTION[i][1];
+    //     // Si une entreprise est trouvée à côté
+    //     if (memory->map.cells[x][y].type == COMPANY) {
+    //         if (rand() % 2 == 0) {  // 50% de chance de choisir l'entreprise
+    //             spy->targeted_company->position[0] = x;
+    //             spy->targeted_company->position[1] = y;
+    //             return spy->going_back_home;
+    //         }
+    //     }
     // }
+    spy->turns_spent_scouting++;
+    return spy->scouting;
 }
+
 
 state_t *go_to_supermarket(spy_t *spy) {
     // Aller au supermarché
     // return spy->doing_some_shopping;
-    // printf(" espion : %d  : je vais aller faire du shoopinje \n",spy->id);
+    printf(" espion : %d  : je vais aller faire du shoopinje \n",spy->id);
     Node* position_node = calculate_next_step(spy->location_row, spy->location_column, 
                             memory->companies[rand()%2].position[0], memory->companies[rand()%2].position[1], &memory->map);
     if(position_node == NULL){
@@ -300,7 +355,7 @@ state_t *go_to_supermarket(spy_t *spy) {
 state_t *do_some_shopping(spy_t *spy) {
     // Faire des courses
     // return spy->resting_at_home;
-    // printf(" espion : %d  : je fais du shoopinje \n",spy->id);
+    printf(" espion : %d  : je faiss du shoopinje \n",spy->id);
     if(spy->turns_spent_shopping == 12){
         spy->turns_spent_shopping = 0;
         return spy->going_back_home;
@@ -360,11 +415,11 @@ state_t *rest_at_home_officer(case_officer_t *officer){
 
 state_t *send_messages(case_officer_t *officer){
     // printf(" officier traitant : j'evoie les messages à l'autre pays \n");
-    // printf("=================== j'envoie ces messages à l'autre pays :  \n");
+    printf("=================== j'envoie ces messages à l'autre pays :  \n");
     for (int i=0; i < officer->message_count; i++){
-        // printf("=================> %s\n", officer->messages[i]);
+        printf("=================> %s\n", officer->messages[i]);
     }
-    // printf("===========================================\n");
+    printf("===========================================\n");
     send_messages_to_enemy_country(officer);
     for (int i=0 ; i < officer->message_count; i++){
         memset(memory->case_officer.messages[i], 0, sizeof(memory->case_officer.messages[i]));
@@ -374,35 +429,35 @@ state_t *send_messages(case_officer_t *officer){
 }
 
 state_t *go_back_home_officer(case_officer_t *officer){
-    // printf(" officier traitant : je rentre chez oim \n");
+    printf(" officier traitant : je rentre chez oim \n");
     return officer->resting_at_home;
 }
 
 state_t *go_to_supermarket_officer(case_officer_t *officer){
-    // printf(" officier traitant : je vais au supermarché \n");
+    printf(" officier traitant : je vais au supermarché \n");
     return officer->doing_some_shopping;
 }
 
 state_t *do_some_shopping_officer(case_officer_t *officer){
-    // printf(" officier traitant : je fais du shoppinje \n");
+    printf(" officier traitant : je fais du shoppinje \n");
     return officer->going_to_mailbox;
 }
 
 state_t *go_to_mailbox(case_officer_t *officer){
-    // printf(" officier traitant : je vais a la boite aux lettres \n");
+    printf(" officier traitant : je vais a la boite aux lettres \n");
     return officer->recovering_messages;
 }
 
 state_t *recover_messages(case_officer_t *officer){
-    // printf(" officier traitant : je récupère les messages \n");
+    printf(" officier traitant : je récupère les messages \n");
     for (int i=0 ; i < memory->homes->mailbox.message_count ; i++){
-        // printf("\n================================= contenu de la boite aux lettres ================\n");
-        // printf(" ===============> %s\n", memory->homes->mailbox.messages[i]);
+        printf("\n================================= contenu de la boite aux lettres ================\n");
+        printf(" ===============> %s\n", memory->homes->mailbox.messages[i]);
         strcpy(officer->messages[i], memory->homes->mailbox.messages[i]);
-        // printf("j'ai récupéré le message  : %s", officer->messages[i]);
+        printf("j'ai récupéré le message  : %s", officer->messages[i]);
         memset(memory->homes->mailbox.messages[i], 0, sizeof(memory->homes->mailbox.messages[i]));
         officer->message_count++;
-        // printf("\n================================= la boite aux lettres a été vidée ================\n");
+        printf("\n================================= la boite aux lettres a été vidée ================\n");
     }
     memory->homes->mailbox.message_count = 0;
     return officer->going_back_home;
@@ -458,17 +513,17 @@ unsigned int get_message_priority(const char* message) {
 void send_messages_to_enemy_country(case_officer_t *officer) {
     char deciphered_message[MAX_MESSAGE_SIZE];
     for (int i = 0; i < officer->message_count; i++) {
-        // printf("\nCiphered message: %s\n", officer->messages[i]);
+        printf("\nCiphered message: %s\n", officer->messages[i]);
         strcpy(deciphered_message, officer->messages[i]);
-        // printf("Message copied.\n");
+        printf("Message copied.\n");
         fflush(stdout); // Force output buffer to flush
 
         caesar_decipher(deciphered_message);
-        // printf("Deciphered message: %s\n", deciphered_message);
+        printf("Deciphered message: %s\n", deciphered_message);
         fflush(stdout); // Force output buffer to flush
 
         unsigned int priority = get_message_priority(deciphered_message);
-        // printf("Message priority: %u\n", priority);
+        printf("Message priority: %u\n", priority);
         fflush(stdout); // Force output buffer to flush
 
         if (mq_send(mq, officer->messages[i], strlen(officer->messages[i]) + 1, priority) == -1) {
@@ -481,7 +536,8 @@ void send_messages_to_enemy_country(case_officer_t *officer) {
 
 
 void init_spies(memory_t * memory){
-
+    
+    // sem_wait(sem_producer_timer);
     for (int i = 0; i < SPY_COUNT; i++) {
         spy_t *spy = &memory->spies[i];
         spy->resting_at_home = new_state_spy(0, rest_at_home);
@@ -513,7 +569,43 @@ void init_spies(memory_t * memory){
         spy->has_a_fake_message = 0;
         spy->id = i;
 
+        int random = rand() % NB_HOMES;
+
+        assign_home_to_spy(memory, spy);
+
+        printf("Position Maison du Spy n°%d: (%d, %d)\n", spy->id, spy->home_row, spy->home_column);
+
+        spy->targeted_company = malloc(sizeof(building_t));
+        if (spy->targeted_company == NULL) {
+            free(spy);
+            return NULL;
+        }
+
+        // spy -> location_row = spy->home_row;
+        // spy -> location_column = spy->home_column;
+
     }
+    // sem_post(sem_consumer_timer);
+}
+
+
+void assign_home_to_spy(memory_t* memory, spy_t* s){
+
+    home_t *houses = memory->homes;
+    // Assign a random house, respecting max capacity
+    int house_index;
+    int attempts = 0;
+    while (attempts < NB_HOMES) {
+        house_index = rand() % NB_HOMES;
+        if (houses[house_index].nb_citizen < houses[house_index].max_capacity) {
+            s->home_row = houses[house_index].position[0];
+            s->home_column = houses[house_index].position[1];
+            houses[house_index].nb_citizen++;
+            break;  // Sortie de la boucle une fois qu'une maison est trouvée
+        }
+        attempts++;
+    }
+    
 }
 
 void init_officer(memory_t * memory){
