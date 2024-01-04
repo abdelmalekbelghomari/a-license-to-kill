@@ -47,6 +47,7 @@
 #define MAX_COLUMNS 7
 #define MAX_ROUNDS 2016
 #define NUM_CITIZENS 127
+#define SPIES_COUNT 3
 #define MAX_MESSAGE_SIZE 128
 #define MAX_MESSAGES 10000
 #define SHIFT 3
@@ -118,24 +119,45 @@ typedef enum building_type_e {
 struct mq_s {
     mqd_t mq;
 };
-// Structure for surveillance devices on each cell
-typedef struct {
-    int standard_camera; // Status of the standard camera (enabled/disabled)
-    int infrared_camera; // Status of the infrared camera (enabled/disabled)
-    int lidar; // Status of the lidar (enabled/disabled)
-} SurveillanceDevices;
 
-// Structure for the surveillance AI
 typedef struct {
-    int suspicious_movement; // Indicator of suspicious movement (boolean)
-} SurveillanceAI;
+    int currentX, currentY; // Position actuelle
+    int previousX, previousY; // Position précédente
+} characterMovement;
 
-// Global structure for surveillance network
-struct SurveillanceNetwork {
-    SurveillanceDevices devices[MAX_COLUMNS][MAX_ROWS]; // 2D array covering all cells of the city
-    SurveillanceAI surveillanceAI; // Surveillance AI
-};
-typedef struct SurveillanceNetwork surveillanceNetwork_t;
+typedef struct {
+    int standard_camera; // 0 = désactivée, 1 = activée
+    int infrared_camera; // 0 = désactivée, 1 = activée
+} surveillanceCameras;
+
+typedef struct {
+    int numberOfPeople; // Nombre de personnes dans la case
+} cellData;
+
+typedef enum {
+    SUSPECT_NONE,
+    SUSPECT_CITIZEN,
+    SUSPECT_SPY,
+    SUSPECT_CASE_OFFICER
+} suspect_type_t;
+
+typedef union {
+    citizen_t *citizen;
+    spy_t *spy;
+    case_officer_t *case_officer;
+} suspect_t;
+
+typedef struct {
+    bool suspicious_movement;
+    suspect_t suspect;
+    suspect_type_t suspect_type;
+} surveillance_AI;
+
+typedef struct {
+    cellData cells[MAX_COLUMNS][MAX_ROWS]; // Données pour chaque cellule
+    surveillanceCameras cameras; // Caméras de surveillance pour l'ensemble du réseau
+    surveillance_AI surveillanceAI; // IA de surveillance
+} surveillanceNetwork_t;
 
 struct state_s {
     int id;
@@ -257,6 +279,7 @@ struct spy_s {
     int y_supermarket;
     bool has_a_message;
     bool has_a_fake_message;
+    characterMovement movement;
 
 
     state_t *current_state;
@@ -301,6 +324,7 @@ struct case_officer_s {
     leaving_time_t messaging_time;
     char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
     int message_count;
+    characterMovement movement;
 
     state_t *current_state;
     state_t *resting_at_home;
@@ -386,6 +410,7 @@ struct citizen_s {
     state_t *going_back_home;
     state_t *dying;
     state_t *finished;
+    characterMovement movement;
     // state_t change_state[DAILY_CITIZEN_STATES]
 
     // void (*change_state)(citizen_t *, state_t *);

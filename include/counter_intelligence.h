@@ -16,5 +16,8 @@ state_t *recover_message(counter_intelligence_officer_t *officer);
 state_t *go_to_search_for_mailbox(counter_intelligence_officer_t *officer);
 state_t *new_state(int id, state_t *(*action)(counter_intelligence_officer_t *officer));
 
+void detect_suspicious_person(memory_t *memory);
+bool is_movement_suspicious(characterMovement *movement);
+
 
 #endif // COUNTER_INTELLIGENCE_H

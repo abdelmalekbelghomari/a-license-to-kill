@@ -12,8 +12,7 @@
 #include "spy_simulation.h"
 #include "timer.h"
 
-extern WINDOW *main_window;
-extern int old_cursor;
+
 
 int main(int argc, char **argv)
 {

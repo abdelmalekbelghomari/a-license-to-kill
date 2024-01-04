@@ -108,7 +108,7 @@ void set_cell_color(WINDOW *window, int color, int row, int col);
  * \param rows The number of rows of the city map.
  * \param columns The number of columns of the city map.
  */
-void display_city(WINDOW *window, map_t map, int rows, int columns);
+void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *memory);
 
 /**
  * \brief Shows information within the "City map and status information"

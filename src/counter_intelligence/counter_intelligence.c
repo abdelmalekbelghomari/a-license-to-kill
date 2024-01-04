@@ -26,17 +26,45 @@ state_t *new_state(int id, state_t *(*action)(counter_intelligence_officer_t *))
 
 state_t *monitor(counter_intelligence_officer_t *officer) {
     // printf("je dors devant les cameras\n");
-    // remplacer cette logique par le fait qu'il y a une activité suspecte
-    if ((officer->leaving_time.leaving_hour == memory->timer.hours && officer->leaving_time.leaving_minute == memory->timer.minutes) && officer->new_day){
+    if (memory->timer.hours <= 19 && memory->timer.hours >= 8){
+        memory->surveillanceNetwork.cameras.infrared_camera = 1;
+    } else {
+        memory->surveillanceNetwork.cameras.standard_camera = 1;
+    }
+    if (((officer->leaving_time.leaving_hour == memory->timer.hours && officer->leaving_time.leaving_minute == memory->timer.minutes) && officer->new_day) && officer->has_found_mailbox_location){
         // printf("===============================il est temps que je retente de chercher la boite aux lettres\n");
         officer->new_day = false; // avoid searching twice the same day
         return officer->going_to_search_for_mailbox;
     }
-    int value = rand()%100;
-    if (value == 7){
-       return officer->monitoring; 
+    if (memory->surveillanceNetwork.surveillanceAI.suspicious_movement){
+        // ================= ABDEL N'IGNORE PAS CES COMMENTAIRES J'AI FAIT CA POUR TOI ===========================
+        // go to the location of the suspect
+        // here's how to get the location of the suspect :
+        // switch (memory->surveillanceNetwork.surveillanceAI.suspect_type) {
+        //     case SUSPECT_CITIZEN:
+        //         // Accéder à la position du citizen suspect
+        //         int suspectX = memory->surveillanceNetwork.surveillanceAI.suspect.citizen->position[0];
+        //         int suspectY = memory->surveillanceNetwork.surveillanceAI.suspect.citizen->position[1];
+        //         break;
+        //     case SUSPECT_SPY:
+        //         // Accéder à la position du spy suspect
+        //         suspectX = memory->surveillanceNetwork.surveillanceAI.suspect.spy->location_row;
+        //         suspectY = memory->surveillanceNetwork.surveillanceAI.suspect.spy->location_column;
+        //         break;
+        //     case SUSPECT_CASE_OFFICER:
+        //         // Accéder à la position du case officer suspect
+        //         suspectX = memory->surveillanceNetwork.surveillanceAI.suspect.case_officer->location_row;
+        //         suspectY = memory->surveillanceNetwork.surveillanceAI.suspect.case_officer->location_column;
+        //         break;
+        //     default:
+        // break;
+    // }
+        memory->surveillanceNetwork.cameras.infrared_camera = 0;
+        memory->surveillanceNetwork.cameras.standard_camera = 0;
+        return officer->going_to_suspect_place; 
     }
-    return officer->going_to_suspect_place;  // Prochain état
+
+    return officer->monitoring;  // Prochain état
 }
 state_t *go_to_search_for_mailbox(counter_intelligence_officer_t *officer){
     //logique pour aller a la mailbox
@@ -114,9 +142,47 @@ state_t *search_for_mailbox(counter_intelligence_officer_t *officer) {
 state_t *recover_message(counter_intelligence_officer_t *officer) {
     // printf("je prends les messages dans la boite aux lettres\n");
     // Logique de l'état "recover_message"
-    return officer->monitoring;  // Retour au premier état pour boucler
+    return officer->going_back_to_monitor;  
 }
 
+
+void detect_suspicious_person(memory_t *memory) {
+    for (int i = 0; i < NUM_CITIZENS; i++) {
+        if (is_movement_suspicious(&memory->citizens[i].movement)) {
+            memory->surveillanceNetwork.surveillanceAI.suspicious_movement = true;
+            memory->surveillanceNetwork.surveillanceAI.suspect.citizen = &memory->citizens[i];
+            memory->surveillanceNetwork.surveillanceAI.suspect_type = SUSPECT_CITIZEN;
+            return;
+        }
+    }
+
+    for (int i = 0; i < SPIES_COUNT; i++) {
+        if (is_movement_suspicious(&memory->spies[i].movement)) {
+            memory->surveillanceNetwork.surveillanceAI.suspicious_movement = true;
+            memory->surveillanceNetwork.surveillanceAI.suspect.spy = &memory->spies[i];
+            memory->surveillanceNetwork.surveillanceAI.suspect_type = SUSPECT_SPY;
+            return;
+        }
+    }
+
+    if (is_movement_suspicious(&memory->case_officer.movement)) {
+        memory->surveillanceNetwork.surveillanceAI.suspicious_movement = true;
+        memory->surveillanceNetwork.surveillanceAI.suspect.case_officer = &memory->case_officer;
+        memory->surveillanceNetwork.surveillanceAI.suspect_type = SUSPECT_CASE_OFFICER;
+    }
+}
+
+bool is_movement_suspicious(characterMovement *movement) {
+    const int MOVEMENT_THRESHOLD = 3;
+
+    if (movement->currentX != movement->previousX || movement->currentY != movement->previousY) {
+        if (abs(movement->currentX - movement->previousX) <= MOVEMENT_THRESHOLD &&
+            abs(movement->currentY - movement->previousY) <= MOVEMENT_THRESHOLD) {
+            return true;
+        }
+    }
+    return false;
+}
 
 void init_counter_intelligence_officer(memory_t * memory){
 

@@ -9,7 +9,6 @@
 #include <fcntl.h>
 
 #define SHARED_MEMORY "/SharedMemory"
-#define SPIES_COUNT 3
 #define SPY_DEBUG 1
 #define SEMAPHORE_NAME "/sem"
 #define START_HOUR_OF_DAY 7 

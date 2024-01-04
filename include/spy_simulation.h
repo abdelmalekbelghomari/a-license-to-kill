@@ -13,7 +13,6 @@
 
 typedef struct memory_s memory_t;
 
-typedef struct memory_s memory_t;
 
 #define CI_OFFICER_INDEX 4
 

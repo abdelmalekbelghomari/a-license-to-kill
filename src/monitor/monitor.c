@@ -106,7 +106,7 @@ void init_monitor_elements(WINDOW *window, memory_t *mem, int rows, int columns)
     box(enemy_country_monitor, 0, 0);
 
     show_general_information(city_window);
-    display_city(city_window, mem->map, rows, columns);
+    display_city(city_window, mem->map, rows, columns , mem);
     display_character_information(character_window, mem);
     display_mailbox_content(mailbox_content_window, mem);
     display_enemy_country_monitor(enemy_country_monitor, mem);
@@ -144,7 +144,7 @@ void set_city_legend(WINDOW *window, int row, int col)
     mvwprintw(window, row + 10, col + 4, "Wasteland");
 }
 
-void display_city(WINDOW *window, map_t map, int rows, int columns)
+void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *memory)
 {
     /* --------------------------------------------------------------------- */
     /*                 Get information from map to display city              */
@@ -196,6 +196,23 @@ void display_city(WINDOW *window, map_t map, int rows, int columns)
             }
         }
     }
+    // Affichage des espions
+    for (int i = 0; i < SPIES_COUNT; i++) {
+        int spy_row = memory->spies[i].location_row;
+        int spy_col = memory->spies[i].location_column;
+        mvwaddstr(window, spy_row, spy_col * 3, "S"); // Spy
+    }
+
+    // Affichage de l'officier du contre-espionnage
+    int counter_intelligence_row = memory->counter_intelligence_officer.location_row;
+    int counter_intelligence_col = memory->counter_intelligence_officer.location_column;
+    mvwaddstr(window, counter_intelligence_row, counter_intelligence_col * 3, "C"); // Case Officer
+
+    // Affichage de l'officier traitant
+    int case_officer_row = memory->case_officer.location_row;
+    int case_officer_col = memory->case_officer.location_column;
+    mvwaddstr(window, case_officer_row, case_officer_col * 3, "I"); // Counterintelligencee
+
     wrefresh(window);
 }
 
@@ -522,6 +539,7 @@ void display_enemy_country_monitor(WINDOW *window, memory_t *mem) {
 }
 
 void update_values(memory_t *mem) {
+    
     display_general_information_values(city_window, mem);
     display_character_information(character_window, mem);
     display_mailbox_content(mailbox_content_window, mem);
