@@ -390,6 +390,7 @@ struct mailbox_s{
     bool is_occupied;
     char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
     int message_count;
+    int priority[MAX_MESSAGES];
 
 };
 

@@ -29,7 +29,7 @@ WINDOW *character_window;
 WINDOW *mailbox_content_window;
 WINDOW *enemy_country_monitor;
 
-extern sem_t *sem_producer_timer, *sem_consumer_timer;
+// extern sem_t *sem_producer_timer, *sem_consumer_timer;
 
 int old_cursor;
 int cell_type_colors[5];
@@ -233,13 +233,13 @@ void display_general_information_values(WINDOW *window, memory_t *mem)
     double elapsed_time;
     char *result;
 
-    sem_wait(sem_producer_timer);
+    // sem_wait(sem_producer_timer);
     simulation_has_ended = mem->simulation_has_ended;
     hour = mem->timer.hours;
     minutes = mem->timer.minutes;
     elapsed_time = (double)mem->timer.round;
     result = NULL;
-    sem_post(sem_consumer_timer);
+    // sem_post(sem_consumer_timer);
     
    /* ---------------------------------------------------------------------- */
 
@@ -436,77 +436,78 @@ void display_character_information(WINDOW *window, memory_t *mem)
 
 void display_mailbox_content(WINDOW *window, memory_t *mem)
 {
-    /* --------------------------------------------------------------------- */
-    /*              Get information from mem about the mailbox               */
-    int mailbox_nb_of_msgs;
-    int priority;
-    char content[MAX_LENGTH_OF_MESSAGE];
+    werase(window); // Effacer la fenêtre à chaque appel
 
-    mailbox_nb_of_msgs = mem->message_count;
-    priority           = 0;
-   /* ---------------------------------------------------------------------- */
+    int mailbox_nb_of_msgs = mem->homes->mailbox.message_count;
 
-    int i;
-    int title_column;
-    int nb_lines;
-    char *title = "MAILBOX CONTENT";
-
-    nb_lines = 1;
-    title_column = window->_maxx / 2 - strlen(title) / 2;
+    // Afficher le titre
+    int title_column = window->_maxx / 2 - strlen("MAILBOX CONTENT") / 2;
     wattron(window, A_BOLD | A_UNDERLINE);
-    mvwprintw(window, nb_lines, title_column, "%s", title);
+    mvwprintw(window, 1, title_column, "MAILBOX CONTENT");
     wattroff(window, A_BOLD | A_UNDERLINE);
 
-    // nb_lines = 3;
-    // for (i = 0; i < mailbox_nb_of_msgs; i++) {
-	// 	clear_line(window, nb_lines);
-    //     if (strcmp(content, FAKE_MESSAGE) == 0) {
-    //         mvwprintw(window, nb_lines, 2, ">> [%d] %s (P%d)", (i + 1), "FAKE MESSAGE",
-    //                   priority);
-    //     } else {
-    //         mvwprintw(window, nb_lines, 2, ">> [%d] %s (P%d)", (i + 1),
-    //                   content, priority);
-    //     }
-    //     nb_lines += 1;
-    // }
-    nb_lines = 3;
-     for (int i = 0; i < mem->message_count; i++) {
+    // Si la boîte aux lettres est vide, afficher un message de notification et quitter
+    if (mailbox_nb_of_msgs == 0) {
+        mvwprintw(window, 3, 2, "The mailbox is empty.");
+        wrefresh(window);
+        return;
+    }
 
-        mvwprintw(window, nb_lines, 2, ">> [%d] %s", i + 1, mem->homes->mailbox.messages[i]);
+    // Afficher les messages
+    int nb_lines = 3;
+    for (int i = 0; i < mailbox_nb_of_msgs && i < 5; ++i) { // Limite à 5 messages
+        unsigned int priority = mem->homes->mailbox.priority[i];
+        char content[MAX_MESSAGES];
+        strcpy(content, mem->homes->mailbox.messages[i]);
 
+        clear_line(window, nb_lines);
+
+        // Afficher le message
+        if (strcmp(content, "Ghfhswlyh") == 0) {
+            mvwprintw(window, nb_lines, 2, ">> [%d] FAKE MESSAGE (P%d)", i + 1, priority);
+        } else {
+            mvwprintw(window, nb_lines, 2, ">> [%d] %s (P%d)", i + 1, content, priority);
+        }
+
+        nb_lines += 1;
     }
 
     wrefresh(window);
 }
 
-
-void display_enemy_country_monitor(WINDOW *window , memory_t *mem)
-{
+void display_enemy_country_monitor(WINDOW *window, memory_t *mem) {
     int nb_lines;
     int title_column;
-    char buffer[MAX_LENGTH_OF_MESSAGE];
     char *title = "ENEMY COUNTRY MONITOR";
 
-    nb_lines = 1;
+    // Afficher le titre
     title_column = window->_maxx / 2 - strlen(title) / 2;
-
     wattron(window, A_BOLD | A_UNDERLINE);
-    mvwprintw(window, nb_lines, title_column, "%s", title);
+    mvwprintw(window, 1, title_column, "%s", title);
     wattroff(window, A_BOLD | A_UNDERLINE);
 
-    /*
-     * -------------------------------------------------------------------------
-     *
-     * Choose your way to display deciphered messages in this window!!!! 
-     *
-     * -------------------------------------------------------------------------
-     */
-    nb_lines = 3;
-    for (int i = 0; i < mem->message_count; ++i) {
-        mvwprintw(window, nb_lines++, 2, "Message %d: %s", i+1, mem->messages[i]);
+    // Effacer seulement la partie des messages
+    for (int i = 3; i < 12; ++i) {
+        wmove(window, i, 0);
+        wclrtoeol(window);
     }
-    
-     
+
+    // Déterminer l'index de départ et l'ID de départ pour l'affichage des messages
+    int start_index = 0;
+    int start_id = 1;
+    if (mem->message_count > 9) {
+        start_index = mem->message_count - 9; // Commencer à partir du 2ème message si plus de 9 messages
+        start_id = start_index + 1;
+    }
+
+    // Affichage des messages avec ID bien itérés
+    nb_lines = 3;
+    for (int i = start_index; i < mem->message_count && i < start_index + 9; ++i) {
+        if (strlen(mem->messages[i]) > 0) { // Vérifier que le message n'est pas vide
+            mvwprintw(window, nb_lines++, 2, "Message %d: %s", start_id++, mem->messages[i]);
+        }
+    }
+
     wrefresh(window);
 }
 
@@ -518,5 +519,6 @@ void update_values(memory_t *mem) {
     // sem_wait(sem_producer);
 	// mem->memory_has_changed = 0;
     // sem_post(sem_consumer);
+
 }
 
