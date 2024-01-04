@@ -147,6 +147,7 @@ state_t *rest_at_home(spy_t *spy) {
 state_t *go_to_spot(spy_t *spy) {
     // il faut implémenter le astar
     // printf(" espion : %d  : je vais aller repérer \n",spy->id);
+    
     return spy->spotting;
 }
 
