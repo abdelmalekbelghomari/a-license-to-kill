@@ -37,6 +37,10 @@ state_t *finished(spy_t *spy);
 state_t *do_something(spy_t *spy);
 state_t *new_state_spy(int id, state_t *(*action)(spy_t *));
 void assign_leaving_time(spy_t *spy);
+void assign_home_to_spy(memory_t * memory,  spy_t *spy);
+int is_at_home(spy_t *spy);
+int is_at_mailbox(spy_t *spy);
+int is_at_supermarket(spy_t *spy);
 
 
 void init_officer();
@@ -52,7 +56,7 @@ void assign_officer_times(case_officer_t *officer);
 bool less_than_two_hours (leaving_time_t time1 , leaving_time_t time2);
 void caesar_cipher(char *message);
 unsigned int get_crypted_message_priority(const char* message);
-
+void assign_home_to_officer(memory_t * memory,  case_officer_t *officer);
 // int spy_choice(spy_t spy);
 // int already_stolen(spy_t spy);
 // int someone_stolen(int row, int column);

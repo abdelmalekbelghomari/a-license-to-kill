@@ -10,11 +10,14 @@
 
 #define SHARED_MEMORY "/SharedMemory"
 #define SPIES_COUNT 3
+#define SPY_DEBUG 1
 #define SEMAPHORE_NAME "/sem"
 #define START_HOUR_OF_DAY 7 
+#define SEMAPHORE_CONSUMER "/semTimerConsumer"
+#define SEMAPHORE_PRODUCER "/semTimerProducer"
 
 memory_t *memory;
-sem_t *sem;
+sem_t *sem, *sem_producer_timer, *sem_consumer_timer;
 mqd_t mq;
 pthread_mutex_t shared_memory_mutex;
 pthread_barrier_t turn_barrier;
@@ -144,6 +147,19 @@ int main() {
     //     perror("sem_open enemy_spy_network opening");
     //     exit(EXIT_FAILURE);
     // }   
+
+    // Ouvrir le sémaphore
+    sem_consumer_timer = sem_open(SEMAPHORE_CONSUMER, 0);
+    if (sem_consumer_timer == SEM_FAILED) {
+        perror("sem_open citizen");
+        exit(EXIT_FAILURE);
+    }   
+    sem_producer_timer = sem_open(SEMAPHORE_PRODUCER, 0);
+    if (sem_producer_timer == SEM_FAILED) {
+        perror("sem_open citizen");
+        exit(EXIT_FAILURE);
+    }
+
     init_spies(memory);
     init_officer(memory);
     // Initialisation de la barrière

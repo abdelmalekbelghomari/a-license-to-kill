@@ -242,11 +242,14 @@ struct spy_s {
     char stolen_message_content[MAX_LENGTH_OF_MESSAGE];   /*!< The content of stolen message.*/
     cell_t allowed_company[8];                            /*!< The allowed cells around a targer company */
     leaving_time_t leaving_time;
+    int turns_spent_scouting;
     int turns_spent_spotting;
     int turns_spent_stealing;
     int turns_spent_shopping;
     int turns_spent_waiting;
     building_t *targeted_company;
+    int x_supermarket;
+    int y_supermarket;
     bool has_a_message;
     bool has_a_fake_message;
 
@@ -388,6 +391,10 @@ struct citizen_s {
 
 struct mailbox_s{
     bool is_occupied;
+    int x;
+    int y;
+    int x_in_front;
+    int y_in_front;
     char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
     int message_count;
     int priority[MAX_MESSAGES];

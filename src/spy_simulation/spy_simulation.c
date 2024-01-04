@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include "spy_simulation.h"
 
+// extern sem_t *sem_producer_timer, *sem_consumer_timer;
 
 /*A utiliser dans citizen manager ou dans les .c correspondant
 aux protagonistes et antagonistes pour la gestion des blessures*/
@@ -159,6 +160,7 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
 
 void init_map(map_t *cityMap) {
     // printf("init_map: Initializing the map\n");
+    // sem_wait(sem_consumer_timer);
     for (int i = 0; i < MAX_ROWS; i++) {
         for (int j = 0; j < MAX_COLUMNS; j++) {
             cityMap->cells[i][j].type = WASTELAND;
@@ -174,6 +176,7 @@ void init_map(map_t *cityMap) {
     place_building_randomly(cityMap, SUPERMARKET, 2, 30);
     place_building_randomly(cityMap, COMPANY, 8, 50);
     place_building_randomly(cityMap, RESIDENTIAL_BUILDING, 11, 15);
+    // sem_post(sem_producer_timer);
 }
 
 
@@ -311,6 +314,9 @@ memory_t *create_shared_memory(const char *name) {
     // Initialize the shared memory as necessary
     shared_memory->memory_has_changed = 0;
     shared_memory->simulation_has_ended = 0;
+    shared_memory->walking_citizens = 0;
+    shared_memory->at_home_citizens = 0;
+    shared_memory->at_work_citizens = 0;
     init_map(&shared_memory->map);
     init_surveillance(&shared_memory->surveillanceNetwork);
     //shared_memory->mqInfo = init_mq();

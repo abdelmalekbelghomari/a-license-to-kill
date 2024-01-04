@@ -76,13 +76,19 @@ src/astar/astar.o:  src/astar/astar.c \
 # ----------------------------------------------------------------------------
 # ENEMY SPY NETWORK
 # ----------------------------------------------------------------------------
-bin/enemy_spy_network: src/enemy_spy_network/main.o src/enemy_spy_network/enemy_spy_network.o 
+bin/enemy_spy_network:	src/enemy_spy_network/main.o\
+						src/enemy_spy_network/enemy_spy_network.o\
+						src/astar/astar.o 
 	$(CC) $^ -o $@ $(LDFLAGS)
 
-src/enemy_spy_network/main.o: src/enemy_spy_network/main.c include/enemy_spy_network.h
+src/enemy_spy_network/main.o: 	src/enemy_spy_network/main.c\
+								include/enemy_spy_network.h\
+							  	include/memory.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-src/enemy_spy_network/enemy_spy_network.o: src/enemy_spy_network/enemy_spy_network.c include/enemy_spy_network.h
+src/enemy_spy_network/enemy_spy_network.o:	src/enemy_spy_network/enemy_spy_network.c\
+											include/enemy_spy_network.h\
+											include/astar.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 # ----------------------------------------------------------------------------
