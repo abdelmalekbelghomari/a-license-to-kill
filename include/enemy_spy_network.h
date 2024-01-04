@@ -41,6 +41,7 @@ void assign_home_to_spy(memory_t * memory,  spy_t *spy);
 int is_at_home(spy_t *spy);
 int is_at_mailbox(spy_t *spy);
 int is_at_supermarket(spy_t *spy);
+int is_in_front_of_targeted_company(spy_t *spy);
 
 
 void init_officer();

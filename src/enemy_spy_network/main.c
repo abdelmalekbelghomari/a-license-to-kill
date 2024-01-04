@@ -109,9 +109,9 @@ void* officer_function(){
 int main() {
     // printf("\n");
     srand(time(NULL) ^ getpid());// la graine doit être différente du parent
-    pthread_t threads[SPIES_COUNT];
+    pthread_t threads[SPY_DEBUG];
     pthread_t officer_thread;
-    int spy_ids[SPIES_COUNT];
+    int spy_ids[SPY_DEBUG];
     int shm_fd;
 
     struct mq_attr attr;
@@ -163,11 +163,11 @@ int main() {
     init_spies(memory);
     init_officer(memory);
     // Initialisation de la barrière
-    pthread_barrier_init(&turn_barrier, NULL, SPIES_COUNT+1);
+    pthread_barrier_init(&turn_barrier, NULL, SPY_DEBUG+1);
     pthread_mutex_init(&shared_memory_mutex, NULL);
 
     // Créer les threads de citoyens
-    for (int i = 0; i < SPIES_COUNT; i++) {
+    for (int i = 0; i < SPY_DEBUG; i++) {
         // printf("spy id : %d\n", i);
         spy_ids[i] = i;
         if (pthread_create(&threads[i], NULL, &spy_thread, &spy_ids[i])) {
@@ -179,7 +179,7 @@ int main() {
     pthread_create(&officer_thread, NULL, officer_function, NULL);
 
     // Attente de la fin des threads de citoyens
-    for (int i = 0; i < SPIES_COUNT; i++) {
+    for (int i = 0; i < SPY_DEBUG; i++) {
         pthread_join(threads[i], NULL);
     }
     pthread_join(officer_thread, NULL);

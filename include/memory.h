@@ -89,6 +89,8 @@ typedef struct home_s home_t;
 typedef struct citizen_s citizen_t;
 typedef struct mailbox_s mailbox_t;
 typedef struct leaving_time_s leaving_time_t;
+typedef struct Node Node;
+
 
 
 
@@ -248,6 +250,9 @@ struct spy_s {
     int turns_spent_shopping;
     int turns_spent_waiting;
     building_t *targeted_company;
+    int x_in_front_of_targeted_company;
+    int y_in_front_of_targeted_company;
+    Node* random_neighbour;
     int x_supermarket;
     int y_supermarket;
     bool has_a_message;
@@ -342,13 +347,13 @@ struct counter_intelligence_officer_s {
 
 }; 
 
-typedef struct Node {
+struct Node {
     int position[2]; // Position du nœud dans la grille
     double g;   // Coût du chemin 
     double h;   // Coût heuristique 
     double f;   // Score total (f = g + h)
     struct Node* parent;  // Parent du nœud dans le chemin
-} Node;
+};
 
 typedef struct Path {
     Node **nodes; // Chemin 

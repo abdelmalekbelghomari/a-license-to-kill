@@ -215,8 +215,54 @@ Node* get_random_neighbours_spy(map_t* map, spy_t* spy) {
         }
         
         // Ajouter des voisins si c'est du type WASTELAND ou un autre type spécifique (par exemple, une entreprise)
-        if (map->cells[x][y].type == WASTELAND || (map->cells[x][y].type != SUPERMARKET && map->cells[x][y].type != RESIDENTIAL_BUILDING)) {
+        if (map->cells[x][y].type != WASTELAND) {
+            continue;
+        }
+        else {
             neighbors[number_of_neighbors++] = create_node(x, y, 0, 0);
+        }
+    }
+
+    if (number_of_neighbors == 0) {
+        free(neighbors);
+        return NULL;
+    }
+
+    int random_neighbour = rand() % number_of_neighbors;
+    Node *selected_neighbor = neighbors[random_neighbour];
+
+    for (int i = 0; i < number_of_neighbors; i++) {
+        if (i != random_neighbour) {
+            free(neighbors[i]);
+        }
+    }
+    free(neighbors);
+
+    return selected_neighbor;
+}
+
+Node* get_random_neighbours(map_t* map, int x, int y){
+    Node **neighbors = (Node **)malloc(sizeof(Node *) * NUM_DIRECTIONS);
+    if (neighbors == NULL) {
+        perror("Unable to allocate memory for neighbors");
+        exit(EXIT_FAILURE);
+    }
+
+    int number_of_neighbors = 0;
+    for (int i = 0; i < NUM_DIRECTIONS; i++) {
+        int random_x = x + DIRECTIONS[i][0];
+        int random_y = y + DIRECTIONS[i][1];
+
+        if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS) {
+            continue; // Ignorer les voisins non valides
+        }
+        
+        // Ajouter des voisins si c'est du type WASTELAND ou un autre type spécifique (par exemple, une entreprise)
+        if (map->cells[x][y].type != WASTELAND) {
+            continue;
+        }
+        else {
+            neighbors[number_of_neighbors++] = create_node(random_x, random_y, 0, 0);
         }
     }
 

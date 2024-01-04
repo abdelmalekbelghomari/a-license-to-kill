@@ -32,6 +32,7 @@ Node *astar_search(map_t *map, int start_x, int start_y, int goal_x, int goal_y)
 Path *reconstruct_path(Node *goal_node);
 void print_path(Node **path, int path_length);
 Node *calculate_next_step(int current_x, int current_y, int goal_x, int goal_y, map_t *map);
-Node *get_random_neighbours_spy(map_t* map, spy_t* spy);
+Node *get_random_neighbours_spy(map_t* map, spy_t* spy);    
+Node* get_random_neighbours(map_t* map, int x, int y);
 
 #endif // ASTAR_H
