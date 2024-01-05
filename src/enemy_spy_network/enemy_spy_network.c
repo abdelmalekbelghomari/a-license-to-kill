@@ -158,7 +158,7 @@ state_t *go_to_spot(spy_t *spy) {
     // Vérifier si l'espion est déjà à la position cible
     if (is_in_front_of_targeted_company(spy)) {
         // printf("Turns spent spotting: %d by spy number %d : Nous sommes dans la première condition\n", spy->turns_spent_spotting, spy->id);
-        spy->turns_spent_spotting++;  // Incrémenter le compteur de tours passés à espionner
+        // spy->turns_spent_spotting++;  // Incrémenter le compteur de tours passés à espionner
         return spy->spotting;  // Retourner l'état d'espionnage
     }
 
@@ -169,19 +169,10 @@ state_t *go_to_spot(spy_t *spy) {
     // Vérifier si un nouveau nœud a été obtenu
     if (position_node == NULL) {
         return spy->spotting;
-    }
-
-    // Mettre à jour la position de l'espion si la position calculée est différente de la position actuelle
-    if (position_node->position[0] != spy->location_column || position_node->position[1] != spy->location_row) {
-        // printf("Espion %d goal position: (%d, %d)\n", spy->id, spy->x_in_front_of_targeted_company, spy->y_in_front_of_targeted_company);
-        // printf("Espion %d se déplace vers (%d, %d)\n", spy->id, position_node->position[0], position_node->position[1]);
-        spy->location_column = position_node->position[0];
-        spy->location_row = position_node->position[1];
-        free(position_node);  // Libérer le nœud
-        return spy->going_to_spot;  // Retourner l'état de déplacement
     } else {
-        // Si la position calculée est la même que la position actuelle
-        free(position_node);  // Libérer le nœud et ne pas bouger
+        spy->location_column = position_node->position[1];
+        spy->location_row = position_node->position[0];
+        free(position_node);
     }
 
     // Vérifier à nouveau si l'espion est arrivé à la position cible
@@ -189,9 +180,12 @@ state_t *go_to_spot(spy_t *spy) {
         // printf("Espion %d est arrivé à la position cible\n", spy->id);
         spy->turns_spent_spotting = 0;  // Réinitialiser le compteur de tours passés à espionner
         return spy->spotting;  // Retourner l'état d'espionnage
+    } else {
+        // printf("Espion %d n'est pas arrivé à la position cible\n", spy->id);
+        return spy->going_to_spot;  // Retourner l'état de déplacement
     }
 
-    return NULL;  // Retourner NULL si l'espion n'est pas encore arrivé
+    // return NULL;  // Retourner NULL si l'espion n'est pas encore arrivé
 }
 
 
@@ -299,18 +293,20 @@ state_t *go_back_home(spy_t *spy) {
     // Calculez le prochain pas pour aller à la maison
     Node *position_node = calculate_next_step(spy->location_row, spy->location_column, spy->home_row, spy->home_column, &memory->map);
 
-    if (position_node != NULL) {
-        spy->location_row = position_node->position[1];
-        spy->location_column = position_node->position[0];
+    if (position_node == NULL) {
+        return spy->resting_at_home;
+    } else {
+        // printf(" espion : %d  : je vais à la maison (%d, %d) \n",spy->id, spy->home_row, spy->home_column);
+        spy->location_column = position_node->position[1];
+        spy->location_row = position_node->position[0];
         free(position_node);
     }
-
     // Vérifiez à nouveau si le spy est à la maison après le déplacement
     if (is_at_home(spy)) {
         return spy->resting_at_home;
+    } else {
+        return spy->going_back_home;
     }
-    return spy->going_back_home;
-
 }
 
 int is_at_mailbox(spy_t *spy){
@@ -338,11 +334,11 @@ state_t *go_to_send_message(spy_t *spy) {
         return spy->sending_message;
     } else {
         Node* position_node = calculate_next_step(spy->location_row, spy->location_column, 
-                memory->homes->mailbox.x_in_front, memory->homes->mailbox.y_in_front, &memory->map);
+                memory->homes->mailbox.y_in_front, memory->homes->mailbox.x_in_front, &memory->map);
 
         if (position_node != NULL) {
-            spy->location_row = position_node->position[1];
-            spy->location_column = position_node->position[0];
+            spy->location_row = position_node->position[0];
+            spy->location_column = position_node->position[1];
             free(position_node);
         }
     }
@@ -403,11 +399,11 @@ state_t *wait_for_residence_to_be_clear(spy_t *spy) {
     // return spy->going_to_send_message;
     // printf(" espion : %d  : j'attends que la résidence soit vide \n",spy->id);
     if(spy->turns_spent_waiting >= 6){
-        spy->turns_spent_waiting++;
-        return spy->waiting_for_residence_to_be_clear;
+        spy->turns_spent_waiting=0;
+        return spy->sending_message;
     }
-    spy->turns_spent_waiting = 0;
-    return spy->sending_message;
+    spy->turns_spent_waiting++;
+    return spy->waiting_for_residence_to_be_clear;
 }
 
 state_t *scout(spy_t *spy){
@@ -484,8 +480,8 @@ state_t *go_to_supermarket(spy_t *spy) {
                 spy->x_supermarket, spy->y_supermarket, &memory->map);
 
         if (position_node != NULL) {
-            spy->location_row = position_node->position[1];
-            spy->location_column = position_node->position[0];
+            spy->location_row = position_node->position[0];
+            spy->location_column = position_node->position[1];
             free(position_node);
         }
         // printf("Going to supermarket (%d,%d)", spy->x_supermarket, spy->y_supermarket);
