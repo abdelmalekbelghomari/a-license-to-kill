@@ -166,6 +166,7 @@ void init_building(memory_t *memory){
     // }
 }
 
+
 void init_citizens(memory_t *memory) {
 
     sem_wait(sem_consumer_timer);

@@ -123,6 +123,7 @@ struct mq_s {
 typedef struct {
     int currentX, currentY; // Position actuelle
     int previousX, previousY; // Position précédente
+    int historyX[7], historyY[7];
 } characterMovement;
 
 typedef struct {

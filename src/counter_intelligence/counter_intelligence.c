@@ -7,7 +7,6 @@ extern memory_t *memory;
 
 void assign_officer_time(counter_intelligence_officer_t *officer){
 
-
     // First message retrieval time
     officer->leaving_time.leaving_hour = rand() % (17 - 8) + 8;
     officer->leaving_time.leaving_minute = (rand() % 6) * 10;
@@ -31,12 +30,15 @@ state_t *monitor(counter_intelligence_officer_t *officer) {
     } else {
         memory->surveillanceNetwork.cameras.standard_camera = 1;
     }
+    detect_suspicious_person(memory);
     if (((officer->leaving_time.leaving_hour == memory->timer.hours && officer->leaving_time.leaving_minute == memory->timer.minutes) && officer->new_day) && officer->has_found_mailbox_location){
         // printf("===============================il est temps que je retente de chercher la boite aux lettres\n");
         officer->new_day = false; // avoid searching twice the same day
         return officer->going_to_search_for_mailbox;
     }
     if (memory->surveillanceNetwork.surveillanceAI.suspicious_movement){
+
+        // printf("suspicious movement detected , i'm going to investigate\n");
         // ================= ABDEL N'IGNORE PAS CES COMMENTAIRES J'AI FAIT CA POUR TOI ===========================
         // go to the location of the suspect
         // here's how to get the location of the suspect :
@@ -145,10 +147,36 @@ state_t *recover_message(counter_intelligence_officer_t *officer) {
     return officer->going_back_to_monitor;  
 }
 
+void update_movement_history(characterMovement *movement, int newX, int newY) {
+    // printf("Mise à jour de l'historique de mouvement : Ancienne position (%d, %d), Nouvelle position (%d, %d)\n", movement->currentX, movement->currentY, newX, newY);
+
+    // Mettre à jour les positions précédentes
+    movement->previousX = movement->currentX;
+    movement->previousY = movement->currentY;
+
+    // Actualiser la position actuelle
+    movement->currentX = newX;
+    movement->currentY = newY;
+
+    // Décaler l'historique et ajouter la position actuelle à la fin
+    for (int i = 0; i < 6; i++) {
+        movement->historyX[i] = movement->historyX[i + 1];
+        movement->historyY[i] = movement->historyY[i + 1];
+    }
+    movement->historyX[6] = newX;
+    movement->historyY[6] = newY;
+
+    // printf("Historique de mouvement mis à jour.\n");
+}
 
 void detect_suspicious_person(memory_t *memory) {
+    // printf("Détection des personnes suspectes...\n");
+
+    // Vérification pour chaque citoyen
     for (int i = 0; i < NUM_CITIZENS; i++) {
-        if (is_movement_suspicious(&memory->citizens[i].movement)) {
+        update_movement_history(&memory->citizens[i].movement, memory->citizens[i].position[0], memory->citizens[i].position[1]);
+        if (is_movement_suspicious(&memory->citizens[i].movement, memory)) {
+            // printf("Mouvement suspect détecté chez le citoyen %d.\n", i);
             memory->surveillanceNetwork.surveillanceAI.suspicious_movement = true;
             memory->surveillanceNetwork.surveillanceAI.suspect.citizen = &memory->citizens[i];
             memory->surveillanceNetwork.surveillanceAI.suspect_type = SUSPECT_CITIZEN;
@@ -156,8 +184,11 @@ void detect_suspicious_person(memory_t *memory) {
         }
     }
 
+    // Vérification pour chaque espion
     for (int i = 0; i < SPIES_COUNT; i++) {
-        if (is_movement_suspicious(&memory->spies[i].movement)) {
+        update_movement_history(&memory->spies[i].movement, memory->spies[i].location_row, memory->spies[i].location_column);
+        if (is_movement_suspicious(&memory->spies[i].movement, memory)) {
+            // printf("Mouvement suspect détecté chez l'espion %d.\n", i);
             memory->surveillanceNetwork.surveillanceAI.suspicious_movement = true;
             memory->surveillanceNetwork.surveillanceAI.suspect.spy = &memory->spies[i];
             memory->surveillanceNetwork.surveillanceAI.suspect_type = SUSPECT_SPY;
@@ -165,24 +196,38 @@ void detect_suspicious_person(memory_t *memory) {
         }
     }
 
-    if (is_movement_suspicious(&memory->case_officer.movement)) {
-        memory->surveillanceNetwork.surveillanceAI.suspicious_movement = true;
-        memory->surveillanceNetwork.surveillanceAI.suspect.case_officer = &memory->case_officer;
-        memory->surveillanceNetwork.surveillanceAI.suspect_type = SUSPECT_CASE_OFFICER;
-    }
+    // Vérification pour l'officier traitant
+    // update_movement_history(&memory->case_officer.movement, memory->case_officer.location_row, memory->case_officer.location_column);
+    // if (is_movement_suspicious(&memory->case_officer.movement, memory)) {
+    //     // printf("Mouvement suspect détecté chez l'officier traitant.\n");
+    //     memory->surveillanceNetwork.surveillanceAI.suspicious_movement = true;
+    //     memory->surveillanceNetwork.surveillanceAI.suspect.case_officer = &memory->case_officer;
+    //     memory->surveillanceNetwork.surveillanceAI.suspect_type = SUSPECT_CASE_OFFICER;
+    // }
 }
 
-bool is_movement_suspicious(characterMovement *movement) {
-    const int MOVEMENT_THRESHOLD = 3;
+bool is_movement_suspicious(characterMovement *movement, memory_t *memory) {
+    int count = 0;
+    for (int i = 0; i < 7; i++) {
+        int x = movement->historyX[i];
+        int y = movement->historyY[i];
 
-    if (movement->currentX != movement->previousX || movement->currentY != movement->previousY) {
-        if (abs(movement->currentX - movement->previousX) <= MOVEMENT_THRESHOLD &&
-            abs(movement->currentY - movement->previousY) <= MOVEMENT_THRESHOLD) {
-            return true;
+        // Débogage: affiche le type de cellule pour chaque position dans l'historique
+        // printf("Vérification de la position (%d, %d), Type: %d\n", x, y, memory->map.cells[x][y].type);
+
+        if (memory->map.cells[y][x].type == WASTELAND) {
+            // printf("Position (%d, %d) est une wasteland.\n", x, y);
+            count++;
+            if (count >= 3) {
+                printf("Mouvement suspect détecté: %d fois sur une wasteland de coordonnées (%d,%d).\n", count, x, y);
+                return true;
+            }
         }
     }
+    // printf("Aucun mouvement suspect détecté.\n");
     return false;
 }
+
 
 void init_counter_intelligence_officer(memory_t * memory){
 
