@@ -174,7 +174,7 @@ state_t *go_to_spot(spy_t *spy) {
 }
 
 state_t *spot(spy_t *spy) {
-    printf(" espion : %d  : je repère \n",spy->id);
+    // printf(" espion : %d  : je repère \n",spy->id);
     if (spy->turns_spent_spotting == 12){
         spy->turns_spent_spotting = 0;
         int value = rand() % 100;
@@ -192,14 +192,14 @@ state_t *spot(spy_t *spy) {
         Node* position_node = calculate_next_step(spy->location_row, spy->location_column, 
                 spy->random_neighbour->position[0], spy->random_neighbour->position[1], &memory->map);
         if (position_node != NULL) {
-            printf("coucou");
+            // printf("coucou");
             spy->location_row = position_node->position[0];
             spy->location_column = position_node->position[1];
             free(position_node);
         }
         else if (spy->location_row == spy->random_neighbour->position[0] &&
                 spy->location_column == spy->random_neighbour ->position[1]){
-            printf("Going to send message to (%d,%d)\n", spy->random_neighbour->position[0], spy->random_neighbour[1]);
+            // printf("Going to send message to (%d,%d)\n", spy->random_neighbour->position[0], spy->random_neighbour[1]);
             free(spy->random_neighbour);
         }
         spy->turns_spent_spotting++;
@@ -259,7 +259,7 @@ int is_at_home(spy_t *spy){
 state_t *go_back_home(spy_t *spy) {
     // il faut implémenter astar
     // spy->turns_spent_scouting = 0;
-    printf(" espion : %d  : je rentre chez oim \n",spy->id);
+    // printf(" espion : %d  : je rentre chez oim \n",spy->id);
     // // printf("Position Spy n°%d: (%d, %d) -> ", spy->id, spy->location_row, spy->location_column);
     // Node* position_node = calculate_next_step(spy->location_row, spy->location_column, spy->home_row, spy->home_column, &memory->map);
     // if(is_at_home(spy)){
@@ -389,8 +389,8 @@ state_t *wait_for_residence_to_be_clear(spy_t *spy) {
 }
 
 state_t *scout(spy_t *spy){
-    printf(" espion : %d  : je cherche une entreprise cible \n",spy->id);
-    printf("Time : (%dh%d), Position Spy n°%d: (%d, %d)", memory->timer.hours ,memory->timer.minutes,spy->id, spy->location_row, spy->location_column);
+    // printf(" espion : %d  : je cherche une entreprise cible \n",spy->id);
+    // printf("Time : (%dh%d), Position Spy n°%d: (%d, %d)", memory->timer.hours ,memory->timer.minutes,spy->id, spy->location_row, spy->location_column);
 
     // Déplacement aléatoire sur WASTELAND
     Node* random_neighbor = get_random_neighbours_spy(&memory->map, spy);
@@ -417,7 +417,7 @@ state_t *scout(spy_t *spy){
                         spy->targeted_company->position[1] = y;
                         spy->x_in_front_of_targeted_company = spy->location_row;
                         spy->y_in_front_of_targeted_company = spy->location_column;
-                        printf(" espion : %d  : je vais aller à l'entreprise : (%d, %d) \n",spy->id, spy->targeted_company->position[0], spy->targeted_company->position[1]);
+                        // printf(" espion : %d  : je vais aller à l'entreprise : (%d, %d) \n",spy->id, spy->targeted_company->position[0], spy->targeted_company->position[1]);
                         return spy->going_back_home;
                     }
                     
@@ -466,7 +466,7 @@ state_t *go_to_supermarket(spy_t *spy) {
             spy->location_column = position_node->position[1];
             free(position_node);
         }
-        printf("Going to supermarket (%d,%d)", spy->x_supermarket, spy->y_supermarket);
+        // printf("Going to supermarket (%d,%d)", spy->x_supermarket, spy->y_supermarket);
         return spy->going_to_supermarket;
     }
 
@@ -479,7 +479,7 @@ state_t *go_to_supermarket(spy_t *spy) {
 state_t *do_some_shopping(spy_t *spy) {
     // Faire des courses
     // return spy->resting_at_home;
-    printf(" espion : %d  : je fais du shoopinje \n",spy->id);
+    // printf(" espion : %d  : je fais du shoopinje \n",spy->id);
     if(spy->turns_spent_shopping == 6){
         spy->turns_spent_shopping = 0;
         return spy->going_back_home;

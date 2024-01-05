@@ -37,6 +37,8 @@ struct monitor_s {
     int has_to_update;
 };
 
+char* get_ci_officer_state_name(int state_id);
+
 /**
  * \brief Creates pairs of colors (see "NCurses" documentation).
  *

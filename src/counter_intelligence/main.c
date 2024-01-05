@@ -64,6 +64,7 @@ int main() {
             }
             state_t *next_state = memory->counter_intelligence_officer.current_state->action(&memory->counter_intelligence_officer);
             memory->counter_intelligence_officer.current_state = next_state;
+            // printf("numero de l'état : %d\n",memory->counter_intelligence_officer.current_state->id);
             // sem_wait(sem);
             // sem_post(sem);
             last_day_checked = current_day;

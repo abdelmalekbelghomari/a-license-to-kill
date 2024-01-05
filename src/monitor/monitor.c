@@ -106,7 +106,7 @@ void init_monitor_elements(WINDOW *window, memory_t *mem, int rows, int columns)
     box(enemy_country_monitor, 0, 0);
 
     show_general_information(city_window);
-    display_city(city_window, mem->map, rows, columns , mem);
+    // display_city(city_window, mem->map, rows, columns , mem);
     display_character_information(character_window, mem);
     display_mailbox_content(mailbox_content_window, mem);
     display_enemy_country_monitor(enemy_country_monitor, mem);
@@ -142,31 +142,30 @@ void set_city_legend(WINDOW *window, int row, int col)
 
     set_cell_color(window, cell_type_colors[WASTELAND], row + 10, col);
     mvwprintw(window, row + 10, col + 4, "Wasteland");
+
+    mvwprintw(window, row + 16, col, "Characters:");
+    mvwprintw(window, row + 17, col + 2, "S - Spy");
+    mvwprintw(window, row + 18, col + 2, "* - Citizen");
+    mvwprintw(window, row + 19, col + 2, "C - Counter Intelligence Officer");
+    mvwprintw(window, row + 20, col + 2, "I - Case Officer");
 }
 
-void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *memory)
-{
-    /* --------------------------------------------------------------------- */
-    /*                 Get information from map to display city              */
-    int map_columns;
-    int map_rows;
+
+void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *memory) {
+    int map_columns = 7; 
+    int map_rows = 7;
     int type;
 
-    map_columns = 7;
-    map_rows    = 7;
-    type        = 0;
-   /* ---------------------------------------------------------------------- */
-
-    int row_offset;
-    int col_offset;
+    int row_offset, col_offset;
 
     set_city_legend(window, 6, 2);
 
     for (int i = 0; i < map_columns; i++) {
         for (int j = 0; j < map_rows; j++) {
-            row_offset = (rows / 6) + j;
-            col_offset = (columns / 5) + (i * 3);
+            row_offset = 8 + j;
+            col_offset = 40 + (i * 3);
             type = map.cells[i][j].type;
+
             switch (type) {
                 case SUPERMARKET:
                     wattron(window, colored_text[COLOR_YELLOW]);
@@ -194,28 +193,49 @@ void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *me
                     wattroff(window, colored_text[COLOR_GREEN]);
                     break;
             }
+
+            // les boucles for ici faisaient beuguer la map
+            if (memory->citizens[0].position[1] == j && memory->citizens[0].position[0] == i){
+                mvwaddstr(window, row_offset, col_offset, "*"); // Symbole pour le citoyen
+            }
+            if (memory->citizens[1].position[1] == j && memory->citizens[1].position[0] == i){
+                mvwaddstr(window, row_offset, col_offset, "*"); // Symbole pour le citoyen
+            }
+            if (memory->citizens[2].position[1] == j && memory->citizens[2].position[0] == i){
+                mvwaddstr(window, row_offset, col_offset, "*"); // Symbole pour le citoyen
+            }
+            if (memory->citizens[3].position[1] == j && memory->citizens[3].position[0] == i){
+                mvwaddstr(window, row_offset, col_offset, "*"); // Symbole pour le citoyen
+            }
+
+            // Affichage des espions
+            if (memory->spies[0].location_row == j && memory->spies[0].location_column == i) {
+                mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
+            }
+            if (memory->spies[1].location_row == j && memory->spies[1].location_column == i) {
+                    mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
+            }
+            if (memory->spies[2].location_row == j && memory->spies[2].location_column == i) {
+                    mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
+            }
+            
+
+            
+            // Affichage de l'officier du contre-espionnage
+            if (memory->counter_intelligence_officer.location_row == j && memory->counter_intelligence_officer.location_column == i) {
+                mvwaddstr(window, row_offset, col_offset, "C"); // Afficher l'officier du contre-espionnage
+            }
+
+            // Affichage de l'officier traitant
+            if (memory->case_officer.location_row == j && memory->case_officer.location_column == i) {
+                mvwaddstr(window, row_offset, col_offset, "O"); // Afficher l'officier traitant
+            }
+
         }
     }
-    // Affichage des espions
-    for (int i = 0; i < SPIES_COUNT; i++) {
-        int spy_row = memory->spies[i].location_row;
-        int spy_col = memory->spies[i].location_column;
-        mvwaddstr(window, spy_row, spy_col * 3, "S"); // Spy
-    }
-
-    // Affichage de l'officier du contre-espionnage
-    int counter_intelligence_row = memory->counter_intelligence_officer.location_row;
-    int counter_intelligence_col = memory->counter_intelligence_officer.location_column;
-    mvwaddstr(window, counter_intelligence_row, counter_intelligence_col * 3, "C"); // Case Officer
-
-    // Affichage de l'officier traitant
-    int case_officer_row = memory->case_officer.location_row;
-    int case_officer_col = memory->case_officer.location_column;
-    mvwaddstr(window, case_officer_row, case_officer_col * 3, "I"); // Counterintelligencee
 
     wrefresh(window);
 }
-
 void set_cell_color(WINDOW *window, int color, int row, int col)
 {
     wattron(window, color);
@@ -334,7 +354,7 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     has_license_to_kill    = spy->has_license_to_kill;
 	
    /* ---------------------------------------------------------------------- */
-
+   
     wattron(window, A_BOLD);
     mvwprintw(window, row, column, "Spy n°%d", number);
     wattroff(window, A_BOLD);
@@ -349,10 +369,38 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
         mvwprintw(window, row + 6, column, "  Message stolen: yes ");
     }
     if (has_license_to_kill) {
-        mvwaddstr(window, row + 7, column, "  License to kill: yes");
+        mvwprintw(window, row + 7, column, "  License to kill: yes");
     } else {
-        mvwaddstr(window, row + 7, column, "  License to kill: no ");
+        mvwprintw(window, row + 7, column, "  License to kill: no ");
     }
+
+    mvwprintw(window, row + 8, column, "  State: ");
+    // switch (spy->current_state->id) {
+    //     case 0: mvwprintw(window, row + 8, column + 9, "Resting at Home"); break;
+    //     case 1: mvwprintw(window, row + 8, column + 9, "Going to Spot"); break;
+    //     case 2: mvwprintw(window, row + 8, column + 9, "Spotting"); break;
+    //     case 3: mvwprintw(window, row + 8, column + 9, "Stealing"); break;
+    //     case 4: mvwprintw(window, row + 8, column + 9, "Going Back Home"); break;
+    //     case 5: mvwprintw(window, row + 8, column + 9, "Going to Send Message"); break;
+    //     case 6: mvwprintw(window, row + 8, column + 9, "Sending Message"); break;
+    //     case 7: mvwprintw(window, row + 8, column + 9, "Waiting for Residence to be Clear"); break;
+    //     case 8: mvwprintw(window, row + 8, column + 9, "Going to Supermarket"); break;
+    //     case 9: mvwprintw(window, row + 8, column + 9, "Doing Some Shopping"); break;
+    //     case 10: mvwprintw(window, row + 8, column + 9, "Is Hurt"); break;
+    //     case 11: mvwprintw(window, row + 8, column + 9, "Riposte"); break;
+    //     case 12: mvwprintw(window, row + 8, column + 9, "Is in Conflict"); break;
+    //     case 13: mvwprintw(window, row + 8, column + 9, "Dying"); break;
+    //     case 14: mvwprintw(window, row + 8, column + 9, "Finished"); break;
+    //     case 15: mvwprintw(window, row + 8, column + 9, "Scouting"); break;
+    //     case 16: mvwprintw(window, row + 8, column + 9, "Arriving at Mailbox"); break;
+    //     case 17: mvwprintw(window, row + 8, column + 9, "Free"); break;
+    //     default: mvwprintw(window, row + 8, column + 9, "Unknown");
+    // }
+    // if(spy->current_state->id == 0){
+    //     mvwprintw(window, row + 8, column + 9, "Resting at Home");
+    // }//else{
+        mvwprintw(window, row + 8, column + 9, "Unknown");
+    // }
     wrefresh(window);
 }
 
@@ -381,6 +429,32 @@ void display_case_officer_information(WINDOW *window, memory_t *mem, int row, in
     mailbox_row     = mailbox_row;
     mailbox_column  = mailbox_column;
    /* ---------------------------------------------------------------------- */
+    // char *state_description;
+    // switch (officer->current_state->id) {
+    //     case 0:
+    //         state_description = "Resting at Home";
+    //         break;
+    //     case 1:
+    //         state_description = "Going Back Home";
+    //         break;
+    //     case 2:
+    //         state_description = "Sending Messages";
+    //         break;
+    //     case 3:
+    //         state_description = "Going to Supermarket";
+    //         break;
+    //     case 4:
+    //         state_description = "Doing Some Shopping";
+    //         break;
+    //     case 5:
+    //         state_description = "Going to Mailbox";
+    //         break;
+    //     case 6:
+    //         state_description = "Recovering Messages";
+    //         break;
+    //     default:
+    //         state_description = "Unknown";
+    // }
 
     wattron(window, A_BOLD);
     mvwprintw(window, row, column, "Case Officer");
@@ -390,6 +464,8 @@ void display_case_officer_information(WINDOW *window, memory_t *mem, int row, in
     mvwprintw(window, row + 3, column, "  Position: (%d,%d)", location_row, location_column);
     mvwprintw(window, row + 4, column, "  Home pos: (%d,%d)", home_row, home_column);
     mvwprintw(window, row + 5, column, "  Mailbox pos: (%d,%d)", mailbox_row, mailbox_column);
+    mvwprintw(window, row + 6, column, "  State: %s", "Resting at home");
+    wrefresh(window);
 }
 
 void display_counterintelligence_officer_information(WINDOW *window, memory_t *mem, int row, int col)
@@ -419,6 +495,9 @@ void display_counterintelligence_officer_information(WINDOW *window, memory_t *m
     mailbox_column        = 0;
     targeted_character_id = 0;
    /* ---------------------------------------------------------------------- */
+
+    char *state_description;
+
 	
     wattron(window, A_BOLD);
     mvwprintw(window, row, col, "Counterintelligence Officer");
@@ -433,7 +512,7 @@ void display_counterintelligence_officer_information(WINDOW *window, memory_t *m
         mvwprintw(window, row + 5, col, "  Mailbox pos: not found");
     }
     mvwprintw(window, row + 6, col, "  Target:     ");
-    mvwprintw(window, row + 6, col, "  Target: %d", targeted_character_id);
+    mvwprintw(window, row + 7, col, "  State: %s", "cc");
 
     wrefresh(window);
 }
@@ -540,7 +619,11 @@ void display_enemy_country_monitor(WINDOW *window, memory_t *mem) {
 
 void update_values(memory_t *mem) {
     
+    int rows, columns;
+    getmaxyx(city_window, rows, columns);
+    
     display_general_information_values(city_window, mem);
+    display_city(city_window, mem->map, rows, columns, mem);
     display_character_information(character_window, mem);
     display_mailbox_content(mailbox_content_window, mem);
     display_enemy_country_monitor(enemy_country_monitor, mem);

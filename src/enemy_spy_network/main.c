@@ -9,7 +9,7 @@
 #include <fcntl.h>
 
 #define SHARED_MEMORY "/SharedMemory"
-#define SPY_DEBUG 1
+#define SPY_DEBUG 3
 #define SEMAPHORE_NAME "/sem"
 #define START_HOUR_OF_DAY 7 
 #define SEMAPHORE_CONSUMER "/semTimerConsumer"
@@ -49,6 +49,7 @@ void* spy_thread(void* arg) {
             // sem_wait(sem);
             state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);
             memory->spies[spy_id].current_state = next_state;
+            // printf("numero de l'état : %d\n",memory->spies[spy_id].current_state->id);
             // sem_post(sem);
             last_day_checked = current_day;
             last_round_checked = current_round;
