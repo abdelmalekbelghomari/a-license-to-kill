@@ -166,7 +166,7 @@ int main() {
     pthread_barrier_init(&turn_barrier, NULL, SPY_DEBUG+1);
     pthread_mutex_init(&shared_memory_mutex, NULL);
 
-    // Créer les threads de citoyens
+    // Créer les threads de spy
     for (int i = 0; i < SPY_DEBUG; i++) {
         // printf("spy id : %d\n", i);
         spy_ids[i] = i;

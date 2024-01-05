@@ -19,8 +19,8 @@ Node *create_node(int x, int y, double g, double h) {
         exit(EXIT_FAILURE);
     }
 
-    new_node->position[0] = x;
-    new_node->position[1] = y;
+    new_node->position[0] = y;
+    new_node->position[1] = x;
     new_node->g = g;
     new_node->h = h;
     new_node->f = g + h;
@@ -139,7 +139,8 @@ bool is_goal(const Node *node, int goal_x, int goal_y) {
     if (node == NULL) {
         return false;
     }
-    return (node->position[0] == goal_x && node->position[1] == goal_y);
+    return (node->position[1] == goal_x && node->position[0] == goal_y);
+
 }
 
 bool is_cell_full(map_t *map, int row, int column) {
@@ -156,22 +157,21 @@ Node **get_successors(map_t *map, Node *current, int goal_x, int goal_y) {
 
     int number_of_neighbors = 0;
     for (int i = 0; i < NUM_DIRECTIONS; i++) {
-        int x = current->position[0] + DIRECTIONS[i][0];
-        int y = current->position[1] + DIRECTIONS[i][1];
+    int y = current->position[0] + DIRECTIONS[i][0]; // Lignes
+    int x = current->position[1] + DIRECTIONS[i][1]; // Colonnes
 
-        if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS /*|| is_cell_full(map, x, y)*/ ) {
-            continue; // Ignorer les voisins non valides
-        }
-
-        if (map->cells[y][x].type != WASTELAND && (x != goal_x || y != goal_y)) {
-            continue;
-        }
-
-        double g = current->g + 1; // Coût du déplacement = 1
-        double h = heuristic(x, y, goal_x, goal_y);
-        neighbors[number_of_neighbors++] = create_node(x, y, g, h);
-        
+    if (y < 0 || y >= MAX_ROWS || x < 0 || x >= MAX_COLUMNS /*|| is_cell_full(map, y, x)*/ ) {
+        continue;
     }
+
+    if (map->cells[y][x].type != WASTELAND && (y != goal_y || x != goal_x)) {
+        continue;
+    }
+
+    double g = current->g + 1;
+    double h = heuristic(x, y, goal_x, goal_y);
+    neighbors[number_of_neighbors++] = create_node(x, y, g, h);
+}
 
     neighbors[number_of_neighbors] = NULL; 
 
@@ -286,7 +286,7 @@ Node* get_random_neighbours(map_t* map, int x, int y){
 
 
 
-Node *astar_search(map_t *map, int start_x, int start_y, int goal_x, int goal_y) {
+Node *astar_search(map_t *map, int start_y, int start_x, int goal_y, int goal_x) {
     // Initialiser les structures de données nécessaires
     heap_t *open_set = create_heap(100); // Capacité initiale
     bool closed_set[MAX_ROWS][MAX_COLUMNS] = {false};
@@ -426,14 +426,15 @@ void print_path(Node **path, int path_length) {
     printf("\n");
 }
 
-Node *calculate_next_step(int current_x, int current_y, int goal_x, int goal_y, map_t *map) {
+Node *calculate_next_step(int current_y, int current_x, int goal_y, int goal_x, map_t *map) {
     // Vérifier si la position actuelle est déjà la destination
     if (current_x == goal_x && current_y == goal_y) {
         return NULL; // Aucun mouvement nécessaire
     }
 
     // Exécuter l'algorithme A* pour trouver le chemin complet
-    Node *goal_node = astar_search(map, current_x, current_y, goal_x, goal_y);
+    Node *goal_node = astar_search(map, current_y, current_x, goal_y, goal_x);
+
 
     // Si aucun chemin trouvé, retourner NULL
     if (goal_node == NULL) {
@@ -448,7 +449,7 @@ Node *calculate_next_step(int current_x, int current_y, int goal_x, int goal_y, 
     int h = next_step->h;
     int g = next_step->g;
     // Créer un nouveau nœud pour la prochaine étape
-    Node *next_step_node = create_node(next_step->position[0], next_step->position[1], h, g);
+    Node *next_step_node = create_node(next_step->position[1], next_step->position[0], h, g);
 
     // Libérer les nœuds alloués par astar_search
     Node *current = goal_node;

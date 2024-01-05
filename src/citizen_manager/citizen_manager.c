@@ -220,18 +220,18 @@ void init_citizens(memory_t *memory) {
         citizen->position[0] = citizen->home->position[1];
         citizen->position[1] = citizen->home->position[0];
 
-        int x_home = citizen->home->position[1];
-        int y_home = citizen->home->position[0];
-        int x_company = citizen->workplace->position[1];
-        int y_company = citizen->workplace->position[0];
-        int x_supermarket = citizen->supermarket->position[1];
-        int y_supermarket = citizen->supermarket->position[0];
+        int y_home = citizen->home->position[1];
+        int x_home = citizen->home->position[0];
+        int y_company = citizen->workplace->position[1];
+        int x_company = citizen->workplace->position[0];
+        int y_supermarket = citizen->supermarket->position[1];
+        int x_supermarket = citizen->supermarket->position[0];
 
         // printf("\n------------- Citizen %d --------------\n", i);
         // printf("- Home: (%d, %d), Company: (%d, %d), Supermarket: (%d, %d) -\n", x_home, y_home, x_company, y_company, x_supermarket, y_supermarket);
 
         // A* de la maison à l'entreprise
-        Node *end_node_company = astar_search(&memory->map, x_home, y_home, x_company, y_company);
+        Node *end_node_company = astar_search(&memory->map, y_home, x_home, y_company, x_company);
         if (end_node_company != NULL) {
             Path *path_to_work = reconstruct_path(end_node_company);
             if (path_to_work != NULL) {
@@ -250,7 +250,7 @@ void init_citizens(memory_t *memory) {
         }
         
 
-        Node *end_node_supermarket = astar_search(&memory->map, x_company, y_company, x_supermarket, y_supermarket);
+        Node *end_node_supermarket = astar_search(&memory->map, y_company, x_company, y_supermarket, x_supermarket);
         if (end_node_company != NULL) {
                 Path *path_to_supermaket = reconstruct_path(end_node_supermarket);
             if (path_to_supermaket != NULL) {
@@ -268,7 +268,7 @@ void init_citizens(memory_t *memory) {
             citizen->path_to_supermarket = NULL; // Assurez-vous que le pointeur est NULL
         }
 
-        Node *end_node_from_sprmrkt_to_home = astar_search(&memory->map, x_supermarket, y_supermarket, x_home, y_home);
+        Node *end_node_from_sprmrkt_to_home = astar_search(&memory->map, y_supermarket, x_supermarket, y_home, x_home);
         if (end_node_from_sprmrkt_to_home != NULL) {
             Path *path_from_supermarket_to_home = reconstruct_path(end_node_from_sprmrkt_to_home);
             if (path_from_supermarket_to_home != NULL) {

@@ -209,15 +209,15 @@ void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *me
             }
 
             // Affichage des espions
-            // if (memory->spies[0].location_row == j && memory->spies[0].location_column == i) {
-            //     mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
-            // }
-            // if (memory->spies[1].location_row == j && memory->spies[1].location_column == i) {
-            //         mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
-            // }
-            // if (memory->spies[2].location_row == j && memory->spies[2].location_column == i) {
-            //         mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
-            // }
+            if (memory->spies[0].location_row == j && memory->spies[0].location_column == i) {
+                mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
+            }
+            if (memory->spies[1].location_row == j && memory->spies[1].location_column == i) {
+                    mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
+            }
+            if (memory->spies[2].location_row == j && memory->spies[2].location_column == i) {
+                    mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
+            }
             
 
             
