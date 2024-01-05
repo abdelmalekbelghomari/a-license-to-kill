@@ -342,6 +342,7 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     int nb_of_stolen_companies;
     int has_license_to_kill;
     char stolen_message_content[MAX_LENGTH_OF_MESSAGE];
+    int state_id;
     
 
     id                     = spy->id;
@@ -352,6 +353,7 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     home_column            = spy->home_column;
     nb_of_stolen_companies = spy->nb_of_stolen_companies;
     has_license_to_kill    = spy->has_license_to_kill;
+    state_id               = spy->current_state->id;
 	
    /* ---------------------------------------------------------------------- */
    
@@ -374,7 +376,20 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
         mvwprintw(window, row + 7, column, "  License to kill: no ");
     }
 
-    mvwprintw(window, row + 8, column, "  State: ");
+
+    wmove(window, row + 8, column);
+    wclrtoeol(window);
+
+    // Print the state based on the value of state_id
+    // if (state_id == 0) {
+    //     mvwprintw(window, row + 8, column, "  State: %s", "resting at home");
+    // } else {
+    //     mvwprintw(window, row + 8, column, "  State: %s", "resting at home");
+    // }
+
+    // Refresh the window to display the changes
+    wrefresh(window);
+
     // switch (spy->current_state->id) {
     //     case 0: mvwprintw(window, row + 8, column + 9, "Resting at Home"); break;
     //     case 1: mvwprintw(window, row + 8, column + 9, "Going to Spot"); break;
@@ -395,11 +410,6 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     //     case 16: mvwprintw(window, row + 8, column + 9, "Arriving at Mailbox"); break;
     //     case 17: mvwprintw(window, row + 8, column + 9, "Free"); break;
     //     default: mvwprintw(window, row + 8, column + 9, "Unknown");
-    // }
-    // if(spy->current_state->id == 0){
-    //     mvwprintw(window, row + 8, column + 9, "Resting at Home");
-    // }//else{
-        mvwprintw(window, row + 8, column + 9, "Unknown");
     // }
     wrefresh(window);
 }

@@ -662,7 +662,7 @@ void send_messages_to_enemy_country(case_officer_t *officer) {
 
         if (mq_send(mq, officer->messages[i], strlen(officer->messages[i]) + 1, priority) == -1) {
             perror("mq_send");
-            fflush(stdout); // Force output buffer to flush
+            fflush(stdout); // Force output buffer to flushw_state
         }
     }
 }
