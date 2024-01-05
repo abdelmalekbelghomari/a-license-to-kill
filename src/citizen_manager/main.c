@@ -1,5 +1,5 @@
 #include "memory.h"
-#include "citizen_manager.h"
+// #include "citizen_manager.h"
 #include <stdio.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,43 +15,54 @@
 
 
 int main() {
-    pthread_barrier_t start_barrier, end_barrier;
-    pthread_mutex_t mutex;
-    memory_t *memory;
-    int shmd;
+    // pthread_barrier_t start_barrier, end_barrier;
+    // pthread_mutex_t mutex;
+    // memory_t *memory;
+    // int shm_fd;
 
-    // Initialiser la mémoire partagée
-    shmd = use_shared_memory(&memory);  // Cette fonction devrait retourner le descripteur shm
+    // // Initialiser la mémoire partagée
+    // shm_fd = shm_open(SHARED_MEMORY, O_RDWR , 0666);
+    // if (shm_fd == -1) {
+    //     perror("Error when shm_open");
+    //     exit(EXIT_FAILURE);
+    // }  // Cette fonction devrait retourner le descripteur shm
 
-    // Initialiser les outils de synchronisation
-    initialize_synchronization_tools();
+    // memory = mmap(NULL, sizeof(memory_t), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
+    // if (memory == MAP_FAILED) {
+    //     perror("mmap failed");
+    //     close(shm_fd);
+    //     exit(EXIT_FAILURE);
+    // }
 
-    // Lancer les threads des citoyens
-    manage_citizens(memory->citizens);
+    // // Initialiser les outils de synchronisation
+    // initialize_synchronization_tools();
 
-    // Boucle principale de gestion des citoyens
-    while (!memory->simulation_has_ended) {
-        pthread_barrier_wait(&start_barrier);
+    // // Lancer les threads des citoyens
+    // manage_citizens(memory->citizens);
 
-        // Logique de gestion des actions des citoyens
+    // // Boucle principale de gestion des citoyens
+    // while (!memory->simulation_has_ended) {
+    //     pthread_barrier_wait(&start_barrier);
 
-        pthread_barrier_wait(&end_barrier);
-        sleep(1); // Pause pour simuler le temps de simulation
-    }
+    //     // Logique de gestion des actions des citoyens
 
-    // Nettoyer et fermer le programme proprement
-    // Attendre la fin des threads
+    //     pthread_barrier_wait(&end_barrier);
+    //     sleep(1); // Pause pour simuler le temps de simulation
+    // }
 
-    // Destruction des outils de synchronisation
-    pthread_barrier_destroy(&start_barrier);
-    pthread_barrier_destroy(&end_barrier);
-    pthread_mutex_destroy(&mutex);
+    // // Nettoyer et fermer le programme proprement
+    // // Attendre la fin des threads
 
-    // Libération de la mémoire partagée
-    munmap(memory, sizeof(memory_t));  // Assurez-vous que la taille est correcte
+    // // Destruction des outils de synchronisation
+    // pthread_barrier_destroy(&start_barrier);
+    // pthread_barrier_destroy(&end_barrier);
+    // pthread_mutex_destroy(&mutex);
 
-    // Fermeture du descripteur de mémoire partagée
-    close(shmd);
+    // // Libération de la mémoire partagée
+    // munmap(memory, sizeof(memory_t));  // Assurez-vous que la taille est correcte
+
+    // // Fermeture du descripteur de mémoire partagée
+    // close(shmd);
 
     return 0;
 }

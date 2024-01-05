@@ -21,6 +21,7 @@
 #include "monitor.h"
 #include "monitor_common.h"
 #include "memory.h"
+#include "timer.h"
 
 WINDOW *main_window;
 WINDOW *city_window;
@@ -87,7 +88,7 @@ void init_monitor_elements(WINDOW *window, memory_t *mem, int rows, int columns)
 {
     /* --------------------------------------------------------------------- */
     /*                 Get information from mem to get the map               */
-	map_t map;
+	//map_t map;
    /* ---------------------------------------------------------------------- */
 
     set_monitor_title(window, "LICENSE TO KILL (v. 0.2)");
@@ -103,7 +104,7 @@ void init_monitor_elements(WINDOW *window, memory_t *mem, int rows, int columns)
     box(enemy_country_monitor, 0, 0);
 
     show_general_information(city_window);
-    display_city(city_window, map, rows, columns);
+    display_city(city_window, mem->map, rows, columns);
     display_character_information(character_window, mem);
     display_mailbox_content(mailbox_content_window, mem);
     display_enemy_country_monitor(enemy_country_monitor);
@@ -163,6 +164,7 @@ void display_city(WINDOW *window, map_t map, int rows, int columns)
         for (int j = 0; j < map_rows; j++) {
             row_offset = (rows / 6) + j;
             col_offset = (columns / 5) + (i * 3);
+            type = map.cells[i][j].type;
             switch (type) {
                 case SUPERMARKET:
                     wattron(window, colored_text[COLOR_YELLOW]);
@@ -221,20 +223,25 @@ void show_general_information(WINDOW *window)
 void display_general_information_values(WINDOW *window, memory_t *mem)
 {
     /* --------------------------------------------------------------------- */
-    /*                 Get information from mem about simulation             */
-    double elapsed_time;
+    /*                 Get information from mem about simulation    
+    */
     int simulation_has_ended;
     int hour;
     int minutes;
-    char *result = NULL;
+    double elapsed_time;
+    char *result;
 
-    elapsed_time         = 0;
-    simulation_has_ended = 0;
-    hour                 = 0;
-    minutes              = 0;
+
+    simulation_has_ended = mem->simulation_has_ended;
+    hour = mem->timer.hours;
+    minutes = mem->timer.minutes;
+    elapsed_time = (double)mem->timer.round;
+    result = NULL;
+
+    
    /* ---------------------------------------------------------------------- */
 
-    mvwprintw(window, 20, 8, "%f", elapsed_time);
+    mvwprintw(window, 20, 8, "%.f", elapsed_time);
     mvwprintw(window, 20, 26, "       ");
     mvwprintw(window, 20, 26, "%.2d h %.2d", hour, minutes);
     if (simulation_has_ended > 0) {
@@ -265,9 +272,9 @@ void display_citizen_information(WINDOW *window, memory_t *mem, int row, int col
     int number_of_citizens_at_work;
     int number_of_citizens_walking;
 
-    number_of_citizens_at_home = 128;
-    number_of_citizens_at_work = 0;
-    number_of_citizens_walking = 0;
+    number_of_citizens_at_home = 127; //mem->at_home_citizens; //128;
+    number_of_citizens_at_work = 0;//mem->at_work_citizens; //0;
+    number_of_citizens_walking = 0;//mem->walking_citizens; //0;
    /* ---------------------------------------------------------------------- */
 
     wattron(window, A_BOLD);
@@ -492,8 +499,8 @@ void display_enemy_country_monitor(WINDOW *window)
 void update_values(memory_t *mem) {
     display_general_information_values(city_window, mem);
     display_character_information(character_window, mem);
-    display_mailbox_content(mailbox_content_window, mem);
-    display_enemy_country_monitor(enemy_country_monitor);
-	mem->memory_has_changed = 0;
+    // display_mailbox_content(mailbox_content_window, mem);
+    // display_enemy_country_monitor(enemy_country_monitor);
+	// mem->memory_has_changed = 0;
 }
 
