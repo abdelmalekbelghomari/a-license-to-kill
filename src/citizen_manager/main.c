@@ -89,7 +89,8 @@ int main() {
         perror("sem_open citizen");
         exit(EXIT_FAILURE);
     }
-
+    
+    init_building(memory);
     init_citizens(memory);
 
     // Initialisation de la barrière

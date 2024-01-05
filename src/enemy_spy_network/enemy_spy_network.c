@@ -9,6 +9,7 @@
 #include "astar.h"
 extern memory_t *memory;
 extern mqd_t mq;
+extern sem_t *sem_producer_timer, *sem_consumer_timer;
 
 void handle_fatal_error(const char *message)
 {
@@ -671,7 +672,7 @@ void send_messages_to_enemy_country(case_officer_t *officer) {
 
 void init_spies(memory_t * memory){
     
-    // sem_wait(sem_producer_timer);
+    sem_wait(sem_producer_timer);
     for (int i = 0; i < SPY_COUNT; i++) {
         spy_t *spy = &memory->spies[i];
         spy->resting_at_home = new_state_spy(0, rest_at_home);
@@ -703,7 +704,9 @@ void init_spies(memory_t * memory){
         spy->has_a_fake_message = 0;
         spy->id = i;
         spy->nb_of_stolen_companies = 0;
-
+        
+        spy->health_point = 10;
+        spy->random_neighbour = NULL;
         if(spy->id == 1){
             spy->has_license_to_kill = 1;
         }
@@ -712,7 +715,9 @@ void init_spies(memory_t * memory){
 
         assign_home_to_spy(memory, spy);
 
-        printf("Position Maison du Spy n°%d: (%d, %d)\n", spy->id, spy->home_row, spy->home_column);
+        // printf("Position Maison du Spy n°%d: (%d, %d)\n", spy->id, spy->home_row, spy->home_column);
+        spy->location_row = spy->home_row;
+        spy->location_column = spy->home_column;
 
         spy->targeted_company = malloc(sizeof(building_t));
         if (spy->targeted_company == NULL) {
@@ -724,7 +729,7 @@ void init_spies(memory_t * memory){
         // spy -> location_column = spy->home_column;
 
     }
-    // sem_post(sem_consumer_timer);
+    sem_post(sem_consumer_timer);
 }
 
 
@@ -744,6 +749,18 @@ void assign_home_to_spy(memory_t* memory, spy_t* s){
         }
         attempts++;
     }
+
+    // for(int i = 0; i < NB_HOMES; i++){
+    //     if(houses[i].nb_citizen < houses[i].max_capacity){
+    //         s->home_row = houses[i].position[0];
+    //         s->home_column = houses[i].position[1];
+    //         houses[i].nb_citizen++;
+    //         break;
+    //     }
+    // }
+
+    // int random = rand() % NB_HOMES;
+    // s->home_row = houses[random].position[0];
     
 }
 

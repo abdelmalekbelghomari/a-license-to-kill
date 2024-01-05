@@ -195,41 +195,41 @@ void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *me
             }
 
             // les boucles for ici faisaient beuguer la map
-            if (memory->citizens[0].position[1] == j && memory->citizens[0].position[0] == i){
+            if (memory->citizens[52].position[1] == j && memory->citizens[52].position[0] == i){
                 mvwaddstr(window, row_offset, col_offset, "*"); // Symbole pour le citoyen
             }
             if (memory->citizens[1].position[1] == j && memory->citizens[1].position[0] == i){
                 mvwaddstr(window, row_offset, col_offset, "*"); // Symbole pour le citoyen
             }
-            if (memory->citizens[2].position[1] == j && memory->citizens[2].position[0] == i){
+            if (memory->citizens[10].position[1] == j && memory->citizens[10].position[0] == i){
                 mvwaddstr(window, row_offset, col_offset, "*"); // Symbole pour le citoyen
             }
-            if (memory->citizens[3].position[1] == j && memory->citizens[3].position[0] == i){
+            if (memory->citizens[69].position[1] == j && memory->citizens[69].position[0] == i){
                 mvwaddstr(window, row_offset, col_offset, "*"); // Symbole pour le citoyen
             }
 
             // Affichage des espions
-            if (memory->spies[0].location_row == j && memory->spies[0].location_column == i) {
-                mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
-            }
-            if (memory->spies[1].location_row == j && memory->spies[1].location_column == i) {
-                    mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
-            }
-            if (memory->spies[2].location_row == j && memory->spies[2].location_column == i) {
-                    mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
-            }
+            // if (memory->spies[0].location_row == j && memory->spies[0].location_column == i) {
+            //     mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
+            // }
+            // if (memory->spies[1].location_row == j && memory->spies[1].location_column == i) {
+            //         mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
+            // }
+            // if (memory->spies[2].location_row == j && memory->spies[2].location_column == i) {
+            //         mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
+            // }
             
 
             
-            // Affichage de l'officier du contre-espionnage
-            if (memory->counter_intelligence_officer.location_row == j && memory->counter_intelligence_officer.location_column == i) {
-                mvwaddstr(window, row_offset, col_offset, "C"); // Afficher l'officier du contre-espionnage
-            }
+            // // Affichage de l'officier du contre-espionnage
+            // if (memory->counter_intelligence_officer.location_row == j && memory->counter_intelligence_officer.location_column == i) {
+            //     mvwaddstr(window, row_offset, col_offset, "C"); // Afficher l'officier du contre-espionnage
+            // }
 
-            // Affichage de l'officier traitant
-            if (memory->case_officer.location_row == j && memory->case_officer.location_column == i) {
-                mvwaddstr(window, row_offset, col_offset, "O"); // Afficher l'officier traitant
-            }
+            // // Affichage de l'officier traitant
+            // if (memory->case_officer.location_row == j && memory->case_officer.location_column == i) {
+            //     mvwaddstr(window, row_offset, col_offset, "O"); // Afficher l'officier traitant
+            // }
 
         }
     }

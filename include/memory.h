@@ -449,6 +449,7 @@ struct home_s {
     int position[2];
     int nb_citizen;
     int max_capacity;
+    bool has_mailbox;
     citizen_t *citizens;
     mailbox_t mailbox;
     // void (*add_citizen)(home_t *, citizen_t *);

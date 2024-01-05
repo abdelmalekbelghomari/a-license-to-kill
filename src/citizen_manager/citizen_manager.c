@@ -66,19 +66,19 @@ void init_house(memory_t *memory){
     int home_counter = 0;
     for (int i = 0; i < MAX_ROWS; i++) {
         for (int j = 0; j < MAX_COLUMNS; j++) {
-            cell_t cell = memory->map.cells[j][i];
+            cell_t cell = memory->map.cells[i][j];
             if (cell.type == RESIDENTIAL_BUILDING) {
                 if(home_counter == fakeHome){
                     // Attribuer la position de la mailbox et de la maison  
-                    memory->homes[home_counter].mailbox.x = i;
-                    memory->homes[home_counter].mailbox.y = j;
-                    memory->homes[home_counter].position[0] = i;
-                    memory->homes[home_counter].position[1] = j;  
+                    memory->homes[home_counter].has_mailbox = true;
+                    memory->homes[home_counter].mailbox.x = j;
+                    memory->homes[home_counter].mailbox.y = i;
+                    memory->homes[home_counter].position[0] = j;
+                    memory->homes[home_counter].position[1] = i;  
                     memory->homes[home_counter].nb_citizen = 0; // Nombre initial de citoyens
-                    int x,y;
-                    for(int k=0; k < DIRECTION; k++) {
-                        int x = i + DIRECTION[i][0];
-                        int y = j + DIRECTION[i][1];
+                    for(int k=0; k < NUM_DIRECTIONS; k++) {
+                        int x = j + DIRECTION[k][0];
+                        int y = i + DIRECTION[k][1];
 
                         if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS /*|| is_cell_full(map, x, y)*/ ) {
                             continue; // Ignorer les voisins non valides
@@ -95,8 +95,9 @@ void init_house(memory_t *memory){
 
                 } else {
                     // Attribuer la position à la maison
-                    memory->homes[home_counter].position[0] = i;
-                    memory->homes[home_counter].position[1] = j;  
+                    memory->homes[home_counter].has_mailbox = false;
+                    memory->homes[home_counter].position[0] = j;
+                    memory->homes[home_counter].position[1] = i;  
                     memory->homes[home_counter].nb_citizen = 0; // Nombre initial de citoyens
                 }
                 home_counter++;
@@ -109,40 +110,40 @@ void init_building(memory_t *memory){
     for(int i = 0; i < NB_WORKPLACES; i++){
         memory->companies[i].nb_workers = 0;
         if(i < NB_STORE){
-            memory->companies[i].type = STORE;
+            memory->companies[i].cell_type = SUPERMARKET;
             memory->companies[i].max_workers = 3;
             memory->companies[i].min_workers = 3;
         } else if (i == NB_STORE) {
             memory->companies[i].min_workers = 10;
             memory->companies[i].max_workers = 10;
-            memory->companies[i].type = CITY_HALL;
+            memory->companies[i].cell_type = CITY_HALL;
         } else {
             memory->companies[i].min_workers = 5;
             memory->companies[i].max_workers = 50;
-            memory->companies[i].type = CORPORATION;
+            memory->companies[i].cell_type = COMPANY;
         }
     }
 
     int supermarket_counter = 0, city_hall_counter = NB_STORE, company_counter = NB_STORE + NB_HALL; 
     for (int i=0; i < MAX_ROWS; i++){
         for (int j = 0; j < MAX_COLUMNS; j++){
-            cell_t cell =memory->map.cells[j][i];
+            cell_t cell =memory->map.cells[i][j];
             if(cell.type == SUPERMARKET){
-                memory->companies[supermarket_counter].type = cell.type;
-                memory->companies[supermarket_counter].position[0] = i;
-                memory->companies[supermarket_counter].position[1] = j;
+                memory->companies[supermarket_counter].cell_type = cell.type;
+                memory->companies[supermarket_counter].position[0] = j;
+                memory->companies[supermarket_counter].position[1] = i;
                 supermarket_counter++;
             }
             if(cell.type == CITY_HALL){
-                memory->companies[city_hall_counter].type = cell.type;
-                memory->companies[city_hall_counter].position[0] = i;
-                memory->companies[city_hall_counter].position[1] = j;
+                memory->companies[city_hall_counter].cell_type = cell.type;
+                memory->companies[city_hall_counter].position[0] = j;
+                memory->companies[city_hall_counter].position[1] = i;
                 city_hall_counter++;
             }
             if(cell.type == COMPANY){
-                memory->companies[company_counter].type = cell.type;
-                memory->companies[company_counter].position[0] = i;
-                memory->companies[company_counter].position[1] = j;
+                memory->companies[company_counter].cell_type = cell.type;
+                memory->companies[company_counter].position[0] = j;
+                memory->companies[company_counter].position[1] = i;
                 company_counter++;
             }
         }
@@ -167,10 +168,10 @@ void init_building(memory_t *memory){
 
 void init_citizens(memory_t *memory) {
 
-    // sem_wait(sem_consumer_timer);
+    sem_wait(sem_consumer_timer);
     init_house(memory);
     init_building(memory);
-    // sem_post(sem_producer_timer);
+    sem_post(sem_producer_timer);
 
     for (int i = 0; i < CITIZENS_COUNT; i++) {
         citizen_t *citizen = &memory->citizens[i];
@@ -216,12 +217,15 @@ void init_citizens(memory_t *memory) {
         assign_random_supermarket(memory, citizen);
         // printf("Le supermarché attribué au citoyen %d est le (%d,%d)\n", i+1, citizen->supermarket->position[0], citizen->supermarket->position[1]);
 
-        int x_home = citizen->home->position[0];
-        int y_home = citizen->home->position[1];
-        int x_company = citizen->workplace->position[0];
-        int y_company = citizen->workplace->position[1];
-        int x_supermarket = citizen->supermarket->position[0];
-        int y_supermarket = citizen->supermarket->position[1];
+        citizen->position[0] = citizen->home->position[1];
+        citizen->position[1] = citizen->home->position[0];
+
+        int x_home = citizen->home->position[1];
+        int y_home = citizen->home->position[0];
+        int x_company = citizen->workplace->position[1];
+        int y_company = citizen->workplace->position[0];
+        int x_supermarket = citizen->supermarket->position[1];
+        int y_supermarket = citizen->supermarket->position[0];
 
         // printf("\n------------- Citizen %d --------------\n", i);
         // printf("- Home: (%d, %d), Company: (%d, %d), Supermarket: (%d, %d) -\n", x_home, y_home, x_company, y_company, x_supermarket, y_supermarket);
@@ -299,6 +303,7 @@ void init_citizens(memory_t *memory) {
         //     citizen->path_from_supermarket_to_home = reconstruct_path(end_node_home);
         // }
     }
+    
         
 }
 
@@ -460,7 +465,7 @@ state_t *rest_at_home(citizen_t *c) {
 state_t *go_to_company(citizen_t *c) {
     // printf("je vais vers mon boulot\n");
     
-    if (c->position[0] == c->workplace->position[0]  && c->position[1] == c->workplace->position[1]){
+    if (c->position[0] == c->workplace->position[1]  && c->position[1] == c->workplace->position[0]){
         // printf("Citizen %d - Arrivé au travail\n", c->id);
         
         c->current_step = 0;
@@ -515,7 +520,7 @@ state_t *go_to_company(citizen_t *c) {
 
 state_t *work(citizen_t *c) {
     // printf("je travaille comme un esclave : heure : %d\n", memory->timer.hours);
-    if(c->workplace->type == SUPERMARKET){
+    if(c->workplace->cell_type == SUPERMARKET){
         if(memory->timer.hours == 19 && memory->timer.minutes >= 30){
             pthread_mutex_lock(&mutex);
             memory->at_work_citizens--;
@@ -668,7 +673,7 @@ state_t *go_back_home(citizen_t *c) {
         // memory->at_home_citizens++;
         // return c->resting_at_home;
     } else {
-        if(c->position[0] == c->home->position[0] && c->position[1] == c->home->position[1]){
+        if(c->position[0] == c->home->position[1] && c->position[1] == c->home->position[0]){
             // printf("Citizen %d - Arrivé à la maison\n", c->id);
             c->current_step = 0;
             pthread_mutex_lock(&mutex);

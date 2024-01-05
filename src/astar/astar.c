@@ -163,7 +163,7 @@ Node **get_successors(map_t *map, Node *current, int goal_x, int goal_y) {
             continue; // Ignorer les voisins non valides
         }
 
-        if (map->cells[x][y].type != WASTELAND && (x != goal_x || y != goal_y)) {
+        if (map->cells[y][x].type != WASTELAND && (x != goal_x || y != goal_y)) {
             continue;
         }
 
@@ -215,7 +215,7 @@ Node* get_random_neighbours_spy(map_t* map, spy_t* spy) {
         }
         
         // Ajouter des voisins si c'est du type WASTELAND ou un autre type spécifique (par exemple, une entreprise)
-        if (map->cells[x][y].type != WASTELAND) {
+        if (map->cells[y][x].type != WASTELAND) {
             continue;
         }
         else {
@@ -258,7 +258,7 @@ Node* get_random_neighbours(map_t* map, int x, int y){
         }
         
         // Ajouter des voisins si c'est du type WASTELAND ou un autre type spécifique (par exemple, une entreprise)
-        if (map->cells[x][y].type != WASTELAND) {
+        if (map->cells[y][x].type != WASTELAND) {
             continue;
         }
         else {
