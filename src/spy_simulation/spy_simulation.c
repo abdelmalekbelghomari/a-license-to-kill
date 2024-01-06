@@ -5,8 +5,13 @@
 #include "spy_simulation.h"
 
 
-/*A utiliser dans citizen manager ou dans les .c correspondant
-aux protagonistes et antagonistes pour la gestion des blessures*/
+void handle_fatal_error(const char *message){
+  perror(message);
+  exit(EXIT_FAILURE);
+}
+
+/* To be used in the citizen manager or in the corresponding .c files 
+for both protagonists and antagonists for injury management. */
 void signal_handler(int signal, memory_t *shared_memory) {
     if (signal == SIGUSR1) {
         shared_memory->memory_has_changed = 1;
@@ -18,31 +23,31 @@ void signal_handler(int signal, memory_t *shared_memory) {
 }
 
 bool is_neighbor(int row, int col, int endRow, int endCol) {
-    // Vérifie si la case (row, col) est voisine de la case (endRow, endCol)
+    /* Checks if the cell (row, col) is neighbor to the cell (endRow, endCol) */
     return (abs(row - endRow) <= 1 && abs(col - endCol) <= 1);
 }
 
 bool dfs(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col, int endRow, int endCol) {
-    // Vérifier si la position actuelle est valide
+    /* Checks if the actual position is valid */
     if (row < 0 || row >= MAX_ROWS || col < 0 || col >= MAX_COLUMNS || visited[row][col] || cityMap->cells[row][col].type != WASTELAND) {
         return false;
     }
 
-    // Si une case WASTELAND voisine de la case d'arrivée est atteinte
+    /* If a WASTELAND cell adjacent to the destination cell is reached */
     if (is_neighbor(row, col, endRow, endCol)) {
     
-        // printf("dfs: Wasteland neighbor found at (%d, %d) for end (%d, %d)\n", row, col, endRow, endCol);
+        /* printf("dfs: Wasteland neighbor found at (%d, %d) for end (%d, %d)\n", row, col, endRow, endCol); */
         return true;
     }
 
-    // Marquer la case actuelle comme visitée
+    /* Mark the current cell as visited.*/
     visited[row][col] = true;
 
-    // Définir les 8 directions de l'exploration (incluant les diagonales)
+    /* Define the 8 directions of exploration (including diagonals) */
     int rowOffsets[] = {-1, -1, -1, 0, 1, 1, 1, 0};
     int colOffsets[] = {-1, 0, 1, 1, 1, 0, -1, -1};
 
-    // Explorer toutes les directions possibles
+    /* Explore all possible directions */
     for (int k = 0; k < 8; k++) {
         int newRow = row + rowOffsets[k];
         int newCol = col + colOffsets[k];
@@ -52,7 +57,7 @@ bool dfs(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col, 
         }
     }
 
-    // Backtracking: Désélectionner la case actuelle avant de revenir en arrière
+    /* Backtracking: Unselect the current cell before backtracking */
     visited[row][col] = false;
 
     return false;
@@ -73,7 +78,7 @@ bool is_path_available(map_t *cityMap, int startRow, int startCol, int endRow, i
         int newRow = startRow + rowOffsets[k];
         int newCol = startCol + colOffsets[k];
 
-        // Check if the neighboring cell is a WASTELAND and not visited
+        /* Check if the neighboring cell is a WASTELAND and not visited */
         if (newRow >= 0 && newRow < MAX_ROWS && newCol >= 0 && newCol < MAX_COLUMNS &&
             !visited[newRow][newCol] && cityMap->cells[newRow][newCol].type == WASTELAND) {
             if (dfs(cityMap, visited, newRow, newCol, endRow, endCol)) {
@@ -107,7 +112,7 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
                 bool allConnected = true;
                 bool checked[MAX_ROWS][MAX_COLUMNS] = {{false}};
 
-                // Vérifier si chaque bâtiment est accessible depuis chaque autre bâtiment
+                /* Check if each building is accessible from every other building */
                 for (int m = 0; m < MAX_ROWS && allConnected; ++m) {
                     for (int n = 0; n < MAX_COLUMNS && allConnected; ++n) {
                         if (cityMap->cells[m][n].type != WASTELAND) {
@@ -203,7 +208,7 @@ void init_building(memory_t *memory){
 void assign_home_to_citizen(memory_t* memory, citizen_t* citizen){
 
     home_t *houses = memory->homes;
-    // Assign a random house, respecting max capacity
+    /* Assign a random house, respecting max capacity */
     int house_index;
     int attempts = 0;
     while (attempts < NB_HOMES) {
@@ -211,7 +216,7 @@ void assign_home_to_citizen(memory_t* memory, citizen_t* citizen){
         if (houses[house_index].nb_citizen < houses[house_index].max_capacity) {
             citizen->home = &houses[house_index];
             houses[house_index].nb_citizen++;
-            break;  // Sortie de la boucle une fois qu'une maison est trouvée
+            break; 
         }
         attempts++;
     }
@@ -222,9 +227,9 @@ void assign_home_to_citizen(memory_t* memory, citizen_t* citizen){
 void assign_company_to_citizen(memory_t* memory, citizen_t* citizen){
     
     building_t *company_list = memory->companies;
-    // Assign a random company, respecting max capacity
+    /* Assign a random company, respecting max capacity */
     int company_index;
-    int attempts = 0;  // Compteur pour éviter une boucle infinie
+    int attempts = 0;  /* Counter to avoid an infinite loop */
 
     if(company_list[0].nb_workers < company_list[0].max_workers){
         citizen->workplace = &company_list[0];
@@ -312,9 +317,9 @@ void assign_company_to_citizen(memory_t* memory, citizen_t* citizen){
 
 void assign_random_supermarket(memory_t* memory, citizen_t* citizen){
     
-    // Find nearest supermarket
+    /* Find nearest supermarket */
     building_t supermaket_list[NB_STORE] = {memory->companies[0], memory->companies[1]};
-    // Les deux premiers emplacements sont donnés aux supermarchés
+    /* The first two locations are reserved for supermarkets */
     double dist1 = distance(supermaket_list[0].position, citizen->workplace->position);
     double dist2 = distance(supermaket_list[1].position, citizen->workplace->position);
     int supermaketChoice = rand() % NB_STORE;
@@ -338,13 +343,11 @@ void init_citizens(memory_t *memory) {
 
         citizen->type = NORMAL;
         citizen->health = 10;
-        // // printf("ftg Haykel ton micro de merde\n");
 
         assign_home_to_citizen(memory, citizen);
         //printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
         assign_company_to_citizen(memory, citizen);
-        // printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, 
-                                                    //  citizen->workplace);
+        // printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, citizen->workplace);
         assign_random_supermarket(memory, citizen);
         // printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
     }
@@ -355,11 +358,13 @@ void init_citizens(memory_t *memory) {
 void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
     for (int i = 0; i < MAX_ROWS; ++i) {
         for (int j = 0; j < MAX_COLUMNS; ++j) {
-            surveillanceNetwork->devices[i][j].standard_camera = 1; // Standard cameras enabled by default
-            surveillanceNetwork->devices[i][j].lidar = 1; // Lidars enabled by default
+            /* Standard cameras enabled by default */
+            surveillanceNetwork->devices[i][j].standard_camera = 1;
+            /* Lidars enabled by default */
+            surveillanceNetwork->devices[i][j].lidar = 1;
         }
     }
-    // Initialization of the AI state
+    /* Initialization of the AI state */
     surveillanceNetwork->surveillanceAI.suspicious_movement = 0; // No suspicious movement detected initially
 }
 
@@ -368,34 +373,30 @@ void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
 memory_t *create_shared_memory(const char *name) {
     int shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666);
     if (shm_fd == -1) {
-        perror("shm_open");
-        exit(EXIT_FAILURE);
+        handle_fatal_error("shm_open");
     }
 
     size_t size = sizeof(struct memory_s);
 
     if (ftruncate(shm_fd, size) == -1) {
-        perror("ftruncate");
-        exit(EXIT_FAILURE);
+        handle_fatal_error("ftruncate");
     }
 
     memory_t *shared_memory = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
     if (shared_memory == MAP_FAILED) {
-        perror("mmap");
-        exit(EXIT_FAILURE);
+        handle_fatal_error("mmap");
     }
 
     close(shm_fd);
 
     printf("avant de faire les init");
 
-    // Initialize the shared memory as necessary
+    /* Initialize the shared memory */
     shared_memory->memory_has_changed = 0;
     shared_memory->simulation_has_ended = 0;
     init_map(&shared_memory->map);
     init_citizens(shared_memory);
     init_surveillance(&shared_memory->surveillanceNetwork);
-    //shared_memory->mqInfo = init_mq();
 
     return shared_memory;
 }
@@ -403,8 +404,7 @@ memory_t *create_shared_memory(const char *name) {
 sem_t *create_semaphore(const char *name, int value) {
     sem_t *sem = sem_open(name, O_CREAT, 0644, value);
     if (sem == SEM_FAILED) {
-        perror("sem_open failed");
-        exit(EXIT_FAILURE);
+        handle_fatal_error("sem_open failed");
     }
     return sem;
 }
@@ -412,8 +412,7 @@ sem_t *create_semaphore(const char *name, int value) {
 sem_t *open_semaphore(const char *name) {
     sem_t *sem = sem_open(name, 0);
     if (sem == SEM_FAILED) {
-        perror("sem_open failed");
-        exit(EXIT_FAILURE);
+        handle_fatal_error("sem_open failed");
     }
     return sem;
 }
@@ -426,13 +425,11 @@ void start_simulation_processes(){
 
     pidExecutables[num_children] = fork();
     if (pidExecutables[num_children] == -1) {
-        perror("Error [fork()] monitor:");
-        exit(EXIT_FAILURE);
+        handle_fatal_error("Error [fork()] monitor:");
     }
     if (pidExecutables[num_children] == 0) {
         if (execl("./bin/monitor", "monitor", NULL) == -1) {
-            perror("Error [execl] monitor: ");
-            exit(EXIT_FAILURE);
+            handle_fatal_error("Error [execl] monitor: ");
         }
         
     }
@@ -440,13 +437,11 @@ void start_simulation_processes(){
 
     pidExecutables[num_children] = fork();
     if (pidExecutables[num_children] == -1) {
-        perror("Error [fork()] timer: ");
-        exit(EXIT_FAILURE);
+        handle_fatal_error("Error [fork()] timer: ");
     }
     if (pidExecutables[num_children] == 0) {
         if (execl("./bin/timer", "timer", NULL) == -1) {
-            perror("Error [execl] timer: ");
-            exit(EXIT_FAILURE);
+            handle_fatal_error("Error [execl] timer: ");
         }
     }
     num_children++;
@@ -471,7 +466,7 @@ void start_simulation_processes(){
     
     int statusSharedMemory;
 
-    // Replace 'file_name.txt' with the name of the file you want to delete
+    /* Replace 'file_name.txt' with the name of the file you want to delete */
     statusSharedMemory = remove("/dev/shm/SharedMemory");
 
     if (statusSharedMemory == 0)
@@ -482,41 +477,106 @@ void start_simulation_processes(){
     return 0;
     
 
-    /*pid_counterintelligence_officer = fork();
-    if (pid_counterintelligence_officer == -1) {
-        perror("Error [fork()] counterintelligence_officer: ");
-        exit(EXIT_FAILURE);
-    }
-    if (pid_counterintelligence_officer == 0) {
-        if (execl("./bin/counterintelligence_officer", "counterintelligence_officer", NULL) == -1) {
-            perror("Error [execl] counterintelligence_officer: ");
-            exit(EXIT_FAILURE);
-        }
-    }*/
+    //pid_counterintelligence_officer = start_counterintelligence_officer();
 
-    /*pid_enemy_country = fork();
-    if (pid_enemy_country == -1) {
-        perror("Error [fork()] enemy_country: ");
-        exit(EXIT_FAILURE);
-    }
-    if (pid_enemy_country == 0) {
-        if (execl("./bin/enemy_country", "enemy_country", NULL) == -1) {
-            perror("Error [execl] enemy_country: ");
-            exit(EXIT_FAILURE);
-        }
-    }*/
+    //pid_enemy_country = start_enemy_country();
 
-    /*pid_enemy_spy_network = fork();
+    //pid_enemy_spy_network = start_enemy_spy_network();
+
+}
+
+int start_citizen_manager(){
+    int pid_citizen_manager = fork();
+
+    if (pid_citizen_manager == -1) {
+      handle_fatal_error("Error creating fork()\n");
+    }
+
+    if (pid_citizen_manager == 0) {
+        if (execl("./bin/manager", "citizen_manager", NULL) == -1){
+            handle_fatal_error("Failed to start citizen_manager\n");
+        }
+    }
+    return pid_citizen_manager;
+}
+
+int start_monitor(){
+    int pid_monitor = fork();
+
+    if (pid_monitor == -1) {
+      handle_fatal_error("Error creating fork()\n");
+    }
+
+    if (pid_monitor == 0) {
+        if (execl("./bin/monitor", "monitor", NULL) == -1) {
+            handle_fatal_error("Failed to start monitor\n");
+        }
+    }
+
+    return pid_monitor;
+}
+
+int start_enemy_spy_network(){
+    int pid_enemy_spy_network = fork();
+
     if (pid_enemy_spy_network == -1) {
-        perror("Error [fork()] enemy_spy_network: ");
-        exit(EXIT_FAILURE);
+      handle_fatal_error("Error creating fork()\n");
     }
+
     if (pid_enemy_spy_network == 0) {
         if (execl("./bin/enemy_spy_network", "enemy_spy_network", NULL) == -1) {
-            perror("Error [execl] enemy_spy_network: ");
-            exit(EXIT_FAILURE);
+            handle_fatal_error("Failed to start enemy_spy_network\n");
         }
-    }*/
-    
-    
+    }
+
+    return pid_enemy_spy_network;
 }
+
+int start_counterintelligence_officer(){
+    int pid_counterintelligence_officer = fork();
+
+    if (pid_counterintelligence_officer == -1) {
+       handle_fatal_error("Error creating fork()\n");
+    }
+
+    if (pid_counterintelligence_officer == 0) {
+        if (execl("./bin/counterintelligence_officer", "counterintelligence_officer", NULL) == -1) {
+            handle_fatal_error("Failed to start counterintelligence_officer\n");
+        }
+    }
+
+    return pid_counterintelligence_officer;
+}
+
+int start_enemy_country(){
+    int pid_enemy_country = fork();
+
+    if (pid_enemy_country == -1) {
+      handle_fatal_error("Error creating fork()\n");
+    }
+
+    if (pid_enemy_country == 0) {
+        if (execl("./bin/menemy_country", "enemy_country", NULL) == -1) {
+            handle_fatal_error("Failed to start enemy_country\n");
+        }
+    }
+
+    return pid_enemy_country;
+}
+
+int start_timer(){
+    int pid_timer = fork();
+
+    if (pid_timer == -1) {
+      handle_fatal_error("Error creating fork()\n");
+    }
+
+    if (pid_timer == 0) {
+        if (execl("./bin/timer", "timer", NULL) == -1) {
+            handle_fatal_error("Failed to start timer\n");
+        }
+    }
+
+    return pid_timer;
+}
+

@@ -81,51 +81,76 @@ typedef struct state_s state_t;
 typedef struct building_s building_t;
 typedef struct home_s home_t;
 typedef struct citizen_s citizen_t;
+typedef struct SurveillanceNetwork surveillanceNetwork_t;
+typedef enum cell_type_e cell_type_t;
+typedef struct cell_s cell_t;
 
+
+/**
+ * \brief The type of citizens within the city.
+ */
 typedef enum citizen_type_e {
-    NORMAL,
-    SPY,
-    CASE_OFFICER,
-    COUNTER_INTELLIGENCE_OFFICER
+    NORMAL,                        /*!< A normal citizen. */
+    SPY,                           /*!< A spy. */
+    CASE_OFFICER,                  /*!< A case officer. */
+    COUNTER_INTELLIGENCE_OFFICER  /*!< A counterintelligence officer. */
 } citizen_type_t;
 
+/**
+ * \brief The type of buildings within the city map.
+ */
 typedef enum building_type_e {
-    CORPORATION,
-    STORE,
-    HALL
-}building_type_t;
+    CORPORATION, /*!< A corporation building. */
+    STORE,       /*!< A store building. */
+    HALL         /*!< A hall building. */
+} building_type_t;
 
+/**
+ * \brief Message Queue structure for inter-process communication.
+ */
 struct mq_s {
-    mqd_t mq;
+    mqd_t mq; /*!< Message Queue descriptor. */
 };
-// Structure for surveillance devices on each cell
+
+/**
+ * \brief Structure for surveillance devices on each cell.
+ */
 typedef struct {
-    int standard_camera; // Status of the standard camera (enabled/disabled)
-    int infrared_camera; // Status of the infrared camera (enabled/disabled)
-    int lidar; // Status of the lidar (enabled/disabled)
+    int standard_camera; /*!< Status of the standard camera (enabled/disabled). */
+    int infrared_camera; /*!< Status of the infrared camera (enabled/disabled). */
+    int lidar;           /*!< Status of the lidar (enabled/disabled). */
 } SurveillanceDevices;
 
-// Structure for the surveillance AI
+/**
+ * \brief Structure for the surveillance AI.
+ */
 typedef struct {
-    int suspicious_movement; // Indicator of suspicious movement (boolean)
+    int suspicious_movement; /*!< Indicator of suspicious movement (boolean). */
 } SurveillanceAI;
 
-// Global structure for surveillance network
+/**
+ * \brief Global structure for the surveillance network covering the entire city.
+ */
 struct SurveillanceNetwork {
-    SurveillanceDevices devices[MAX_ROWS][MAX_COLUMNS]; // 2D array covering all cells of the city
-    SurveillanceAI surveillanceAI; // Surveillance AI
+    SurveillanceDevices devices[MAX_ROWS][MAX_COLUMNS]; /*!< 2D array covering all cells of the city. */
+    SurveillanceAI surveillanceAI;                     /*!< Surveillance AI. */
 };
-typedef struct SurveillanceNetwork surveillanceNetwork_t;
 
+/**
+ * \brief The type of states a citizen can have.
+ */
 struct state_s {
     int id;
 
+    /*!< Function pointer to change the state of a citizen. */
     void (*change_state)(citizen_t *, state_t *);
+
+    /*!< Function pointer to perform an action based on the citizen's state. */
     state_t *(*action)(citizen_t *);
 };
 
 /**
- * The type of cells within the city map.
+ * \brief The type of cells within the city map.
  */
 enum cell_type_e {
     WASTELAND,            /*!< An empty cell. */
@@ -135,7 +160,6 @@ enum cell_type_e {
     SUPERMARKET           /*!< A cell that contains a supermarket. */
 };
 
-typedef enum cell_type_e cell_type_t;
 /**
  * \brief A cell within the map of the city.
  */
@@ -147,13 +171,15 @@ struct cell_s {
     int nb_of_characters; /*!< Max. number of characters on the cell. */
     citizen_t *occupants;
 };
-typedef struct cell_s cell_t;
 
+/**
+ * \brief Structure representing the simulated clock.
+ */
 typedef struct simulated_clock_s {
-    int round;
-    int hours;
-    int minutes;
-    int days;
+    int round;    /*!< Current round of the simulation. */
+    int hours;    /*!< Current hours in the simulation. */
+    int minutes;  /*!< Current minutes in the simulation. */
+    int days;     /*!< Current days in the simulation. */
 } simulated_clock_t;
 
 /**
@@ -252,82 +278,90 @@ struct counterintelligence_officer_s {
 
 
 
-
+/**
+ * \brief Structure representing a citizen.
+ */
 struct citizen_s {
-    unsigned int id;
-    unsigned int position [2];
-    unsigned int health ;
-    citizen_type_t type;
-    building_t *workplace;
-    building_t *supermarket; /*a random supermarket of the city*/
-    home_t *home; 
+    unsigned int id;                  /*!< Unique identifier for the citizen. */
+    unsigned int position[2];         /*!< Current position of the citizen [x, y]. */
+    unsigned int health;              /*!< Health status of the citizen. */
+    citizen_type_t type;              /*!< Type of the citizen. */
+    building_t *workplace;            /*!< Workplace of the citizen. */
+    building_t *supermarket;          /*!< A random supermarket of the city. */
+    home_t *home;                     /*!< Home of the citizen. */
 
-    state_t *current_state;
-    state_t *next_state;
-    state_t *resting_at_home;
-    state_t *going_to_company;
-    state_t *working;
-    state_t *going_to_supermarket;
-    state_t *doing_some_shopping;
-    state_t *going_back_home;
-    state_t *dying;
+    state_t *current_state;           /*!< Current state of the citizen. */
+    state_t *next_state;              /*!< Next state of the citizen. */
+    state_t *resting_at_home;         /*!< State when the citizen is resting at home. */
+    state_t *going_to_company;        /*!< State when the citizen is going to the workplace. */
+    state_t *working;                 /*!< State when the citizen is working. */
+    state_t *going_to_supermarket;    /*!< State when the citizen is going to the supermarket. */
+    state_t *doing_some_shopping;     /*!< State when the citizen is doing some shopping. */
+    state_t *going_back_home;         /*!< State when the citizen is going back home. */
+    state_t *dying;                   /*!< State when the citizen is dying. */
 
-    void (*change_state)(citizen_t *, state_t *);
-    void (*begin)(citizen_t *);
-    void (*end)(citizen_t *);
-    void (*step)(citizen_t *);
+    void (*change_state)(citizen_t *, state_t *); /*!< Function pointer to change the state of a citizen. */
+    void (*begin)(citizen_t *);                   /*!< Function pointer for the beginning of a citizen's action. */
+    void (*end)(citizen_t *);                     /*!< Function pointer for the end of a citizen's action. */
+    void (*step)(citizen_t *);                    /*!< Function pointer for a step in a citizen's action. */
 };
 
+/**
+ * \brief Structure representing a building.
+ */
 struct building_s {
-    unsigned int position[2];
-    building_type_t type;
-    cell_t cell_type;
-    unsigned int nb_citizen;
-    unsigned int max_capacity;
-    unsigned int max_workers;
-    unsigned int min_workers;
-    unsigned int nb_workers;
-    citizen_t *citizens;
-    void (*add_citizen)(building_t *, citizen_t *);
-    void (*remove_citizen)(building_t *, citizen_t *);
+    unsigned int position[2];       /*!< Current position of the building [x, y]. */
+    building_type_t type;           /*!< Type of the building (CORPORATION, STORE, etc.). */
+    cell_t cell_type;               /*!< Type of the cell within the building. */
+    unsigned int nb_citizen;        /*!< Number of citizens in the building. */
+    unsigned int max_capacity;      /*!< Maximum capacity of the building. */
+    unsigned int max_workers;       /*!< Maximum number of workers in the building. */
+    unsigned int min_workers;       /*!< Minimum number of workers required in the building. */
+    unsigned int nb_workers;        /*!< Current number of workers in the building. */
+    citizen_t *citizens;            /*!< Array of citizens in the building. */
+    void (*add_citizen)(building_t *, citizen_t *);     /*!< Function pointer to add a citizen to the building. */
+    void (*remove_citizen)(building_t *, citizen_t *);  /*!< Function pointer to remove a citizen from the building. */
 };
 
+/**
+ * \brief Structure representing a home.
+ */
 struct home_s {
-    unsigned int position[2];
-    unsigned int nb_citizen;
-    unsigned int max_capacity;
-    citizen_t *citizens;
-    void (*add_citizen)(home_t *, citizen_t *);
-    void (*remove_citizen)(home_t *, citizen_t *);
+    unsigned int position[2];       /*!< Current position of the home [x, y]. */
+    unsigned int nb_citizen;        /*!< Number of citizens in the home. */
+    unsigned int max_capacity;      /*!< Maximum capacity of the home. */
+    citizen_t *citizens;            /*!< Array of citizens in the home. */
+    void (*add_citizen)(home_t *, citizen_t *);      /*!< Function pointer to add a citizen to the home. */
+    void (*remove_citizen)(home_t *, citizen_t *);   /*!< Function pointer to remove a citizen from the home. */
 };
 
 /**
  * \brief Shared memory used by all processes.
  */
 struct memory_s {
-    int memory_has_changed;    /*!< This flag is set to 1 when the memory has changed. */
-    int simulation_has_ended;  /*!< This flag is set to the following values:
-                                * - 0: has not ended;
-                                * - 1: the spy network has fled. It wins!
-                                * - 2: the counterintelligence officer has discovered the mailbox. He wins.
-                                * - 3: the counterintelligence officer did not discover the mailbox. The spy network
-                                *      wins!
-                                */
-    map_t map;
-    spy_t spies[3];
-    case_officer_t case_officer;
-    counterintelligence_officer_t counterintelligence_officer;
-    simulated_clock_t timer;
-    int end_round;
-    pid_t pids[7];
-    mq_t mqInfo;
-    citizen_t citizens[CITIZENS_COUNT];
-    int walking_citizens;
-    int at_home_citizens;
-    int at_work_citizens;
-    surveillanceNetwork_t surveillanceNetwork;
-    home_t homes[NB_HOMES];
-    building_t companies[NB_WORKPLACES];
+    int memory_has_changed;                    /*!< This flag is set to 1 when the memory has changed. */
+    int simulation_has_ended;                  /*!< This flag is set to the following values:
+                                                * - 0: has not ended;
+                                                * - 1: the spy network has fled. It wins!
+                                                * - 2: the counterintelligence officer has discovered the mailbox. He wins.
+                                                * - 3: the counterintelligence officer did not discover the mailbox. The spy network
+                                                *      wins!
+                                                */
+    map_t map;                                 /*!< The map of the city. */
+    spy_t spies[3];                            /*!< Array of spies in the simulation (up to 3 spies). */
+    case_officer_t case_officer;               /*!< The case officer. */
+    counterintelligence_officer_t counterintelligence_officer; /*!< The counterintelligence officer. */
+    simulated_clock_t timer;                   /*!< The simulated clock used for tracking time in the simulation. */
+    int end_round;                             /*!< The ending round of the simulation. */
+    pid_t pids[7];                             /*!< Array of process IDs for communication between processes. */
+    mq_t mqInfo;                               /*!< The Message Queue information for inter-process communication. */
+    citizen_t citizens[CITIZENS_COUNT];        /*!< Array of citizens in the simulation. */
+    int walking_citizens;                      /*!< Number of citizens currently walking in the city. */
+    int at_home_citizens;                      /*!< Number of citizens currently at their homes. */
+    int at_work_citizens;                      /*!< Number of citizens currently at their workplaces. */
+    surveillanceNetwork_t surveillanceNetwork; /*!< The surveillance network structure. */
+    home_t homes[NB_HOMES];                    /*!< Array of homes. */
+    building_t companies[NB_WORKPLACES];       /*!< Array of companies. */
 
 };
 

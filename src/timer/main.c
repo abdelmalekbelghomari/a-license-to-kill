@@ -46,13 +46,13 @@ int main() {
 
     int shm_fd;
 
-    // Ouvrir la mémoire partagée
+    /* Open the shared memory */
     shm_fd = shm_open(SHARED_MEMORY, O_RDWR , 0666);
     if (shm_fd == -1) {
         perror("Error when shm_open");
         exit(EXIT_FAILURE);
     }
-    // Mapper la mémoire partagée
+    /* Map the shared memory */
     memory = mmap(NULL, sizeof(memory_t), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
     if (memory == MAP_FAILED) {
         perror("mmap failed");
@@ -67,7 +67,7 @@ int main() {
     }
     printf("sem_open timer\n");
 
-    // Initialiser le timer
+    /* Initialize the timer */
     simulated_clock_t timer = new_timer();
 
     // sem_wait(sem);
@@ -77,9 +77,9 @@ int main() {
     printf("sem_post timer\n");
     printf("Timer initialized\n");
 
-    // Configurer le timer
+    /* Set the timer */
     struct itimerval it;
-    memset(&it, 0, sizeof(it)); // Initialiser la structure à 0
+    memset(&it, 0, sizeof(it)); // Initialize the structure to 0
 
     if (STEP >= 1000000) {
         it.it_interval.tv_sec = STEP / 1000000;
@@ -90,7 +90,7 @@ int main() {
     }
     setitimer(ITIMER_REAL, &it, NULL);
 
-    // Configurer le gestionnaire de signal pour SIGALRM
+    /* Configure the signal handler for SIGALRM */ 
     struct sigaction sa_clock;
     memset(&sa_clock, 0, sizeof(sa_clock)); 
     sa_clock.sa_handler = &tick_clock;
