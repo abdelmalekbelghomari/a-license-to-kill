@@ -209,25 +209,25 @@ void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *me
             }
 
             // // Affichage des espions
-            if (memory->spies[0].location_row == j && memory->spies[0].location_column == i) {
+            if (memory->spies[0].location_row == i && memory->spies[0].location_column == j) {
                 mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
             }
-            if (memory->spies[1].location_row == j && memory->spies[1].location_column == i) {
+            if (memory->spies[1].location_row == i && memory->spies[1].location_column == j) {
                     mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
             }
-            if (memory->spies[2].location_row == j && memory->spies[2].location_column == i) {
+            if (memory->spies[2].location_row == i && memory->spies[2].location_column == j) {
                     mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
             }
             
 
             
             // // Affichage de l'officier du contre-espionnage
-            // if (memory->counter_intelligence_officer.location_row == j && memory->counter_intelligence_officer.location_column == i) {
-            //     mvwaddstr(window, row_offset, col_offset, "C"); // Afficher l'officier du contre-espionnage
+            // if (memory->counter_intelligence_officer.location_row == i && memory->counter_intelligence_officer.location_column == j) {
+            //     mvwaddstr(window, row_offset, col_offset, "I"); // Afficher l'officier du contre-espionnage
             // }
 
             // // Affichage de l'officier traitant
-            if (memory->case_officer.location_row == j && memory->case_officer.location_column == i) {
+            if (memory->case_officer.location_row == i && memory->case_officer.location_column == j) {
                 mvwaddstr(window, row_offset, col_offset, "O"); // Afficher l'officier traitant
             }
 
@@ -282,7 +282,7 @@ void display_general_information_values(WINDOW *window, memory_t *mem)
 
     mvwprintw(window, 20, 8, "%.f", elapsed_time);
     mvwprintw(window, 20, 26, "       ");
-    mvwprintw(window, 20, 26, "%d h %d", hour, minutes);
+    mvwprintw(window, 20, 26, "%.2d h %d", hour, minutes);
     if (simulation_has_ended > 0) {
         switch (simulation_has_ended) {
             case 1:
@@ -347,20 +347,28 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
 
     id                     = spy->id;
     health_points          = spy->health_point;
-    location_row           = spy->location_row;
-    location_column        = spy->location_column;
-    home_row               = spy->home_row;
-    home_column            = spy->home_column;
+    location_row           = spy->location_column;
+    location_column        = spy->location_row;
+    home_row               = spy->home_column;
+    home_column            = spy->home_row;
     nb_of_stolen_companies = spy->nb_of_stolen_companies;
     has_license_to_kill    = spy->has_license_to_kill;
     state_id               = spy->current_state->id;
+
+    if (spy->id == 1){
+        id = 7;         // Petite référence à James Bond
+    }
 	
    /* ---------------------------------------------------------------------- */
    
     wattron(window, A_BOLD);
     mvwprintw(window, row, column, "Spy n°%d", number);
     wattroff(window, A_BOLD);
-    mvwprintw(window, row + 1, column, "  Id: %d", id);
+    if (spy->id == 1){
+        mvwprintw(window, row + 1, column, "  Id: %.3d (James Bond)", id);
+    } else {
+        mvwprintw(window, row + 1, column, "  Id: %d", id);
+    }
     mvwprintw(window, row + 2, column, "  Health: %d", health_points);
     mvwprintw(window, row + 3, column, "  Position: (%d,%d)", location_row, location_column);
     mvwprintw(window, row + 4, column, "  Home pos: (%d,%d)", home_row, home_column);
@@ -429,13 +437,13 @@ void display_case_officer_information(WINDOW *window, memory_t *mem, int row, in
     int home_column;
     int mailbox_row;
     int mailbox_column;
-
+    
     id              = 0;
     health_points   = officer->health_point;
-    location_row    = officer->location_row;
-    location_column = officer->location_column;
-    home_row        = officer->home_row;
-    home_column     = officer->home_column;
+    location_row    = officer->location_column;
+    location_column = officer->location_row;
+    home_row        = officer->home_column;
+    home_column     = officer->home_row;
     mailbox_row     = mailbox_row;
     mailbox_column  = mailbox_column;
    /* ---------------------------------------------------------------------- */

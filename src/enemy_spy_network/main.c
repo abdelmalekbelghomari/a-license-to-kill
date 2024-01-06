@@ -91,6 +91,7 @@ void* officer_function(){
             // memory->case_officer.second_leaving_time.leaving_minute,memory->case_officer.shopping_time.leaving_hour,memory->case_officer.shopping_time.leaving_minute);
             state_t *next_state = memory->case_officer.current_state->action(&memory->case_officer);
             memory->case_officer.current_state = next_state;
+            // printf("numero de l'état de l'officier est %d, heure  %d:%d : \n", memory->case_officer.current_state->id , memory->timer.hours , memory->timer.minutes);
             // sem_wait(sem);
             // sem_post(sem);
             last_day_checked = current_day;

@@ -12,6 +12,7 @@
 #define SHARED_MEMORY "/SharedMemory"
 #define SEMAPHORE_CONSUMER "/semTimerConsumer"
 #define SEMAPHORE_PRODUCER "/semTimerProducer"
+#define CITIZENS_DEBUG 1
 
 memory_t *memory;
 sem_t *sem_producer_timer, *sem_consumer_timer;
@@ -38,6 +39,12 @@ void* citizen_thread(void* arg) {
             //sem_wait(sem_);
             state_t *next_state = memory->citizens[citizen_id].current_state->action(&memory->citizens[citizen_id]);
             memory->citizens[citizen_id].current_state = next_state;
+            // printf("Time : %d:%d\n", memory->timer.hours, memory->timer.minutes);
+            // printf("citizen id : %d , current state : %d\n", citizen_id, memory->citizens[citizen_id].current_state->id);
+            // printf("Citizen Position : %d, %d\n", memory->citizens[citizen_id].position[0], memory->citizens[citizen_id].position[1]);
+            // printf("Citizen Home : %d, %d\n", memory->citizens[citizen_id].home->position[0], memory->citizens[citizen_id].home->position[1]);
+            // printf("Citizen Work : %d, %d\n", memory->citizens[citizen_id].workplace->position[0], memory->citizens[citizen_id].workplace->position[1]);
+            // printf("Citizen Current Step : %d\n", memory->citizens[citizen_id].current_step);
             //sem_post(sem);
             last_round_checked = current_round;
             threads_at_barrier++;

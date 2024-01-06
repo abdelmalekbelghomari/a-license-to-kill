@@ -108,13 +108,13 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
 
         while (!placed && attempts < max_attempts) {
             attempts++;
-            int i = rand() % MAX_ROWS;
-            int j = rand() % MAX_COLUMNS;
+            int row = rand() % MAX_ROWS;
+            int column = rand() % MAX_COLUMNS;
 
             //printf("place_building_randomly: Attempt %d to place building at (%d, %d)\n", attempts, i, j);
-            if (cityMap->cells[j][i].type == WASTELAND) {
-                cityMap->cells[j][i].type = buildingType;
-                cityMap->cells[j][i].nb_of_characters = nb_of_characters;
+            if (cityMap->cells[row][column].type == WASTELAND) {
+                cityMap->cells[row][column].type = buildingType;
+                cityMap->cells[row][column].nb_of_characters = nb_of_characters;
                 // memory->companies[companyCount].position[0] = i;
                 // memory->companies[companyCount].position[1] = j;
 
@@ -131,8 +131,8 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
                                         if (!is_path_available(cityMap, m, n, p, q, checked)) {
                                             allConnected = false;
                                             //printf("place_building_randomly: No path from (%d, %d) to (%d, %d). Retrying...\n", m, n, p, q);
-                                            cityMap->cells[j][i].type = WASTELAND;
-                                            cityMap->cells[j][i].nb_of_characters = 0;
+                                            cityMap->cells[row][column].type = WASTELAND;
+                                            cityMap->cells[row][column].nb_of_characters = 0;
                                             break;
                                         }
                                     }
@@ -161,10 +161,10 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
 void init_map(map_t *cityMap) {
     // printf("init_map: Initializing the map\n");
     // sem_wait(sem_consumer_timer);
-    for (int i = 0; i < MAX_ROWS; i++) {
-        for (int j = 0; j < MAX_COLUMNS; j++) {
-            cityMap->cells[j][i].type = WASTELAND;
-            cityMap->cells[j][i].nb_of_characters = 0;
+    for (int row = 0; row < MAX_ROWS; row++) {
+        for (int column = 0; column < MAX_COLUMNS; column++) {
+            cityMap->cells[row][column].type = WASTELAND;
+            cityMap->cells[row][column].nb_of_characters = 0;
         }
     }
 
@@ -179,100 +179,6 @@ void init_map(map_t *cityMap) {
     // sem_post(sem_producer_timer);
 }
 
-
-
-
-// void assign_company_to_citizen(memory_t* memory, citizen_t* citizen) {
-//     building_t *buildings = memory->companies;
-//     int company_index;
-//     int found = 0;  // Indicateur pour savoir si une entreprise a été trouvée
-
-//     for (int attempts = 0; attempts < NB_WORKPLACES; attempts++) {
-//         company_index = rand() % NB_WORKPLACES;
-
-//         if (buildings[company_index].nb_workers < buildings[company_index].max_workers &&
-//             buildings[company_index].nb_workers < buildings[company_index].min_workers) {
-//             citizen->workplace = &buildings[company_index];
-//             buildings[company_index].nb_workers++;
-//             found = 1; 
-//             break;
-//         }
-//     }
-
-//     if (!found) {
-//         printf("No company found for citizen %d\n", citizen->id);
-//     }
-// }
-
-
-// void assing_company_to_citizen(memory_t* memory, citizen_t* citizen){
-    
-//     building_t *buildings = memory->companies;
-//     // Assign a random company, respecting max capacity
-//     int company_index;
-//     do {
-//         company_index = rand() % NB_WORKPLACES;
-//     } while (buildings[company_index].nb_workers >= buildings[company_index].max_workers 
-//             && buildings[company_index].nb_workers <= buildings[company_index].min_workers);
-//     citizen->workplace = &buildings[company_index];
-//     buildings[company_index].nb_workers++;
-// }
-
-
-
-// void init_states(citizen_t *citizen) {
-//     state_t *current_state;
-//     state_t *next_state;
-//     state_t *resting_at_home;
-//     state_t *going_to_company;
-//     state_t *working;
-//     state_t *going_to_supermarket;
-//     state_t *doing_some_shopping;
-//     state_t *going_back_home;
-//     state_t *dying;
-//     state_t *finished;
-
-//     current_state = new_state(citizen->id, citizen->current_state->action);
-//     next_state = new_state(citizen->id, citizen->next_state->action);
-//     resting_at_home = new_state(citizen->id, citizen->resting_at_home->action);
-//     going_to_company = new_state(citizen->id, citizen->going_to_company->action);
-//     working = new_state(citizen->id, citizen->working->action);
-//     going_to_supermarket = new_state(citizen->id, citizen->going_to_supermarket->action);
-//     doing_some_shopping = new_state(citizen->id, citizen->doing_some_shopping->action);
-//     going_back_home = new_state(citizen->id, citizen->going_back_home->action);
-//     dying = new_state(citizen->id, citizen->dying->action);
-//     finished = new_state(citizen->id, citizen->finished->action);
-
-// }
-
-
-
-
-
-
-// void citizen_begin(citizen_t *citizen) {
-//     citizen->change_state(citizen, citizen->resting_at_home);
-// }
-
-// void citizen_step(citizen_t *citizen) {
-//     citizen->change_state(citizen, citizen->next_state);
-// }
-
-// void citizen_end(citizen_t *citizen) {
-//     citizen->change_state(citizen, citizen->resting_at_home);
-// }
-
-// state_t *rest_at_home(citizen_t *citizen) {
-//     return citizen->going_to_company;
-// }
-
-// state_t *go_to_company(citizen_t *citizen) {
-//     return citizen->working;
-// }
-
-// state_t *work(citizen_t *citizen) {
-//     return citizen->going_to_supermarket;
-// }
 
 void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
     surveillanceNetwork->cameras.standard_camera = 0;
