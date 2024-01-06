@@ -319,9 +319,12 @@ struct case_officer_s {
     int mailbox_row;                                      /*!< The case_officer home row.*/
     int mailbox_column;                                   /*!< The case_officer home column.*/
     int nb_of_outing;                                     /*!< The number of outing of case_officer */
+    int x_supermarket;
+    int y_supermarket;
     leaving_time_t first_leaving_time;
     leaving_time_t second_leaving_time;
     leaving_time_t shopping_time;
+    int turns_spent_shopping;
     leaving_time_t messaging_time;
     char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
     int message_count;

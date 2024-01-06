@@ -1,6 +1,7 @@
 #include "counter_intelligence.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "astar.h"
 
 extern memory_t *memory;
 
@@ -31,7 +32,9 @@ state_t *monitor(counter_intelligence_officer_t *officer) {
         memory->surveillanceNetwork.cameras.standard_camera = 1;
     }
     detect_suspicious_person(memory);
-    if (((officer->leaving_time.leaving_hour == memory->timer.hours && officer->leaving_time.leaving_minute == memory->timer.minutes) && officer->new_day) && officer->has_found_mailbox_location){
+    if (((officer->leaving_time.leaving_hour == memory->timer.hours 
+        && officer->leaving_time.leaving_minute == memory->timer.minutes) 
+        && officer->new_day) && officer->has_found_mailbox_location){
         // printf("===============================il est temps que je retente de chercher la boite aux lettres\n");
         officer->new_day = false; // avoid searching twice the same day
         return officer->going_to_search_for_mailbox;
@@ -68,9 +71,41 @@ state_t *monitor(counter_intelligence_officer_t *officer) {
 
     return officer->monitoring;  // Prochain état
 }
+
+int* get_mailbox_location(memory_t *memory){
+    int mailbox_location[2];
+    for(int i = 0; i < NB_HOMES; i++){
+        if (memory->homes[i].has_mailbox){
+            mailbox_location[0] = memory->homes[i].position[0];
+            mailbox_location[1] = memory->homes[i].position[1];
+            return mailbox_location;
+        }
+    }
+}
+
+bool is_at_mailbox(counter_intelligence_officer_t *officer){
+    if (officer->location_row == get_mailbox_location(memory)[0] && officer->location_column == get_mailbox_location(memory)[1]){
+        return true;
+    }
+    return false;
+}
+
 state_t *go_to_search_for_mailbox(counter_intelligence_officer_t *officer){
     //logique pour aller a la mailbox
-    return officer->searching_for_mailbox;
+    if(is_at_mailbox(officer)){
+        return officer->searching_for_mailbox;
+    } else {
+        Node* next_step = calculate_next_step(officer->location_row, officer->location_column, 
+            get_mailbox_location(memory)[0], get_mailbox_location(memory)[1], &memory->map);
+        if (next_step != NULL){
+            // printf("je me déplace vers la position (%d,%d)\n", next_step->x, next_step->y);
+            officer->location_row = next_step->position[0];
+            officer->location_column = next_step->position[1];
+            return officer->going_to_search_for_mailbox;
+        } else {
+            return officer->monitoring;
+        }
+    }
 }
 
 state_t *go_to_suspect_place(counter_intelligence_officer_t *officer) {
@@ -96,15 +131,33 @@ state_t *hide(counter_intelligence_officer_t *officer) {
     return officer->waiting_for_spy_to_steal;  // Prochain état
 }
 
+
+
 state_t *go_back_to_monitor(counter_intelligence_officer_t *officer) {
     // printf("je retourne dormir devant les caméras\n");
-    if ((officer->leaving_time.leaving_hour == memory->timer.hours && officer->leaving_time.leaving_minute == memory->timer.minutes) && officer->new_day){
+    if ((officer->leaving_time.leaving_hour == memory->timer.hours 
+        && officer->leaving_time.leaving_minute == memory->timer.minutes) 
+        && officer->new_day
+        && officer->has_found_mailbox_location){
         // printf("===============================il est temps que je retente de chercher la boite aux lettres\n");
         officer->new_day = false; // avoid searching twice the same day
         return officer->going_to_search_for_mailbox;
     }
-    // il faut implémenter le astar ici
-    return officer->monitoring;  // Prochain état
+
+    if(officer->location_column == memory->companies[2].position[1] && officer->location_row == memory->companies[2].position[0]){
+        return officer->monitoring;
+    } else {
+        Node* next_step = calculate_next_step(officer->location_row, officer->location_column, 
+            memory->companies[2].position[0], memory->companies[2].position[1], &memory->map);
+        if (next_step != NULL){
+            // printf("je me déplace vers la position (%d,%d)\n", next_step->x, next_step->y);
+            officer->location_row = next_step->position[0];
+            officer->location_column = next_step->position[1];
+            return officer->going_back_to_monitor;
+        } else {
+            return officer->monitoring;
+        }
+    }
 }
 
 state_t *wait_for_spy_to_steal(counter_intelligence_officer_t *officer) {
@@ -128,7 +181,6 @@ state_t *wait_for_spy_to_send_message(counter_intelligence_officer_t *officer) {
 
 state_t *search_for_mailbox(counter_intelligence_officer_t *officer) {
     // printf("je cherche la boite aux lettres : ");
-    
     // Logique de l'état "search_for_mailbox"
     int value = rand()%10;
     if (value < 7){
@@ -171,6 +223,8 @@ void update_movement_history(characterMovement *movement, int newX, int newY) {
 
 void detect_suspicious_person(memory_t *memory) {
     // printf("Détection des personnes suspectes...\n");
+
+
 
     // Vérification pour chaque citoyen
     for (int i = 0; i < NUM_CITIZENS; i++) {
