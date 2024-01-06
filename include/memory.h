@@ -15,10 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 #ifndef MEMORY_H
 #define MEMORY_H
-
-
 
 #include "common.h"
 
@@ -40,6 +39,8 @@
 #include <mqueue.h>
 #include <semaphore.h>
 #include <stdbool.h>
+
+#define NB_PROCESS 7
 
 
 #define CITIZENS_COUNT 127 /* 127 citizens in the city */
@@ -375,12 +376,6 @@ struct citizen_s {
     state_t *dying;
     state_t *finished;
     characterMovement movement;
-    // state_t change_state[DAILY_CITIZEN_STATES]
-
-    // void (*change_state)(citizen_t *, state_t *);
-    // void (*begin)(citizen_t *);
-    // void (*end)(citizen_t *);
-    // void (*step)(citizen_t *);
 };
 
 struct mailbox_s{
@@ -405,8 +400,6 @@ struct building_s {
     unsigned int min_workers;
     unsigned int nb_workers;
     citizen_t *citizens;
-    // void (*add_citizen)(building_t *, citizen_t *);
-    // void (*remove_citizen)(building_t *, citizen_t *);
 };
 
 struct home_s {
@@ -416,8 +409,6 @@ struct home_s {
     bool has_mailbox;
     citizen_t *citizens;
     mailbox_t mailbox;
-    // void (*add_citizen)(home_t *, citizen_t *);
-    // void (*remove_citizen)(home_t *, citizen_t *);
 };
 
 /**
@@ -433,14 +424,14 @@ struct memory_s {
                                 *      wins!
                                 */
     map_t map;
-    spy_t spies[3];
+    spy_t spies[SPIES_COUNT];
     case_officer_t case_officer;
     counter_intelligence_officer_t counter_intelligence_officer;
     simulated_clock_t timer;
     char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
     int message_count;
     int end_round;
-    pid_t pids[7];
+    pid_t pids[NB_PROCESS - 1];
     mq_t mqInfo;
     citizen_t citizens[CITIZENS_COUNT];
     int walking_citizens;

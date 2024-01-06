@@ -4,7 +4,7 @@
 #include "astar.h"
 
 extern memory_t *memory;
-
+extern sem_t *sem_producer, *sem_consumer;
 
 void assign_officer_time(counter_intelligence_officer_t *officer){
 
@@ -269,6 +269,7 @@ bool is_movement_suspicious(characterMovement *movement, memory_t *memory) {
 
 void init_counter_intelligence_officer(memory_t * memory){
 
+    // sem_wait(sem_producer);
     counter_intelligence_officer_t *officer = &memory->counter_intelligence_officer;
     officer->monitoring = new_state(0, monitor);
     officer->going_to_suspect_place = new_state(1, go_to_suspect_place);
@@ -283,9 +284,16 @@ void init_counter_intelligence_officer(memory_t * memory){
 
     officer->current_state = officer->monitoring;
 
+    officer->city_hall_column = memory->companies[2].position[1];
+    officer->city_hall_row = memory->companies[2].position[0];
+
+    officer->location_row = officer->city_hall_row;
+    officer->location_column = officer->city_hall_column;
+
     officer->has_found_mailbox = false;
     officer->has_found_mailbox_location = false;
     officer->leaving_time.leaving_hour = -1;
     officer->leaving_time.leaving_minute = -1;
+    // sem_post(sem_consumer);
 }
 

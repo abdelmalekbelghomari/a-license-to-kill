@@ -4,11 +4,11 @@
 #include <sys/mman.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include "../../include/memory.h"
 #include "memory.h"
 #include <semaphore.h>
 
 memory_t *memory;
+sem_t *sem_consumer, *sem_producer;
 
 void caesar_decipher(char *message) {
     for (int i = 0; message[i] != '\0'; ++i) {
@@ -45,6 +45,18 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
+    sem_consumer = sem_open("/semConsumer", 0);
+    if (sem_consumer == SEM_FAILED) {
+        perror("sem_open consumer");
+        exit(EXIT_FAILURE);
+    }
+
+    sem_producer = sem_open("/semProducer", 0);
+    if (sem_producer == SEM_FAILED) {
+        perror("sem_open producer");
+        exit(EXIT_FAILURE);
+    }
+
     char received_message[MAX_MESSAGE_SIZE];
     unsigned int message_priority;
     
@@ -68,7 +80,8 @@ int main() {
             exit(EXIT_FAILURE);
         }
     }
-
+    sem_close(sem_consumer);
+    sem_close(sem_producer);
     mq_close(mq);
     mq_unlink("/spy_message_queue");
     munmap(memory, sizeof(memory_t));

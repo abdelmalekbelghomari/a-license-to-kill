@@ -10,13 +10,12 @@
 
 #define SHARED_MEMORY "/SharedMemory"
 #define SPY_DEBUG 3
-#define SEMAPHORE_NAME "/sem"
-#define START_HOUR_OF_DAY 7 
-#define SEMAPHORE_CONSUMER "/semTimerConsumer"
-#define SEMAPHORE_PRODUCER "/semTimerProducer"
+#define START_HOUR_OF_DAY 0 
+#define SEMAPHORE_CONSUMER "/semConsumer"
+#define SEMAPHORE_PRODUCER "/semProducer"
 
 memory_t *memory;
-sem_t *sem, *sem_producer_timer, *sem_consumer_timer;
+sem_t *sem, *sem_producer, *sem_consumer;
 mqd_t mq;
 pthread_mutex_t shared_memory_mutex;
 pthread_barrier_t turn_barrier;
@@ -40,7 +39,7 @@ void* spy_thread(void* arg) {
             pthread_mutex_lock(&shared_memory_mutex);
             //modifie ca pour implémenter le patron état
             // printf("spy id : %d , current state : %d\n", spy_id, memory->spies[spy_id].current_state->id);
-            if (hour_of_day == START_HOUR_OF_DAY && memory->timer.minutes == 00) {
+            if (hour_of_day == START_HOUR_OF_DAY && memory->timer.minutes == 0) {
                 assign_leaving_time(&memory->spies[spy_id]);
                 // printf("========================= NEW DAY ==========================");
             }
@@ -150,13 +149,13 @@ int main() {
     // }   
 
     // Ouvrir le sémaphore
-    sem_consumer_timer = sem_open(SEMAPHORE_CONSUMER, 0);
-    if (sem_consumer_timer == SEM_FAILED) {
+    sem_consumer = sem_open(SEMAPHORE_CONSUMER, 0);
+    if (sem_consumer == SEM_FAILED) {
         perror("sem_open citizen");
         exit(EXIT_FAILURE);
     }   
-    sem_producer_timer = sem_open(SEMAPHORE_PRODUCER, 0);
-    if (sem_producer_timer == SEM_FAILED) {
+    sem_producer = sem_open(SEMAPHORE_PRODUCER, 0);
+    if (sem_producer == SEM_FAILED) {
         perror("sem_open citizen");
         exit(EXIT_FAILURE);
     }
@@ -186,94 +185,14 @@ int main() {
     pthread_join(officer_thread, NULL);
 
     // Nettoyage
+    free(memory->spies);
+    free(memory->messages);
     pthread_barrier_destroy(&turn_barrier);
     pthread_mutex_destroy(&shared_memory_mutex);
-    sem_close(sem);
-    
+    sem_close(sem_consumer);
+    sem_close(sem_producer);
     munmap(memory, sizeof(memory_t));
     close(shm_fd);
 
     return 0;
 }
-
-
-// ====================== test de la file de priorité =============================
-
-
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <string.h>
-// #include <sys/mman.h>
-// #include <fcntl.h>
-// #include <unistd.h>
-// #include "memory.h"
-// #include "enemy_spy_network.h"
-// #include <semaphore.h>
-
-// memory_t *memory;
-
-
-// unsigned int get_message_priority(const char* message) {
-//     if (strcmp(message, "Deceptive") == 0) {
-//         return 1;
-//     } else if (strcmp(message, "Very Low") == 0) {
-//         return 2;
-//     } else if (strcmp(message, "Low") == 0) {
-//         return 3;
-//     } else if (strcmp(message, "Medium") == 0) {
-//         return 6;
-//     } else if (strcmp(message, "Strong") == 0) {
-//         return 9;
-//     } else if (strcmp(message, "Crucial") == 0) {
-//         return 10;
-//     }
-//     return 0; // Valeur par défaut si aucune correspondance
-// }
-
-// int main() {
-//     struct mq_attr attr;
-//     attr.mq_flags = 0;
-//     attr.mq_maxmsg = 10;
-//     attr.mq_msgsize = MAX_MESSAGE_SIZE;
-//     attr.mq_curmsgs = 0;
-
-//     mqd_t mq = mq_open("/spy_message_queue", O_CREAT | O_WRONLY, 0644, &attr);
-//     if (mq == (mqd_t) -1) {
-//         perror("mq_open");
-//         exit(EXIT_FAILURE);
-//     }
-
-//     int shm_fd = shm_open("/SharedMemory", O_RDWR, 0666);
-//     if (shm_fd == -1) {
-//         perror("shm_open");
-//         exit(EXIT_FAILURE);
-//     }
-
-//     memory = mmap(0, sizeof(memory_t), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
-//     if (memory == MAP_FAILED) {
-//         perror("mmap");
-//         exit(EXIT_FAILURE);
-//     }
-
-//     char* messages[] = {"Very Low", "Low", "Medium", "Strong", "Crucial", "Deceptive"};
-
-//     for (int i = 0; i < 6; i++) {
-//         char ciphered_message[MAX_MESSAGE_SIZE];
-//         strcpy(ciphered_message, messages[i]);
-//         caesar_cipher(ciphered_message);
-
-//         unsigned int priority = get_message_priority(messages[i]);
-//         // printf("Sending message: %s with priority: %u\n", ciphered_message, priority);
-
-//         if (mq_send(mq, ciphered_message, strlen(ciphered_message) + 1, priority) == -1) {
-//             perror("mq_send");
-//             exit(EXIT_FAILURE);
-//         }
-//     }
-
-//     mq_close(mq);
-//     munmap(memory, sizeof(memory_t));
-//     close(shm_fd);
-
-//     return 0;
-// }

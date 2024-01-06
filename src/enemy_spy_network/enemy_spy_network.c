@@ -9,7 +9,7 @@
 #include "astar.h"
 extern memory_t *memory;
 extern mqd_t mq;
-extern sem_t *sem_producer_timer, *sem_consumer_timer;
+extern sem_t *sem_producer, *sem_consumer;
 
 void handle_fatal_error(const char *message)
 {
@@ -750,7 +750,7 @@ void send_messages_to_enemy_country(case_officer_t *officer) {
 
 void init_spies(memory_t * memory){
     
-    sem_wait(sem_producer_timer);
+    sem_wait(sem_producer);
     for (int i = 0; i < SPY_COUNT; i++) {
         spy_t *spy = &memory->spies[i];
         spy->resting_at_home = new_state_spy(0, rest_at_home);
@@ -807,7 +807,7 @@ void init_spies(memory_t * memory){
         }
 
     }
-    sem_post(sem_consumer_timer);
+    sem_post(sem_consumer);
 }
 
 

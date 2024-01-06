@@ -8,7 +8,7 @@
 #define SEMAPHORE_NAME "/sem"
 
 memory_t *memory;
-sem_t *sem;
+sem_t *sem_consumer, *sem_producer;
 
 int main() {
     // printf("\n");
@@ -80,7 +80,8 @@ int main() {
 
     // Nettoyage
 
-    sem_close(sem);
+    sem_close(sem_consumer);
+    sem_close(sem_producer);
     
     munmap(memory, sizeof(memory_t));
     close(shm_fd);

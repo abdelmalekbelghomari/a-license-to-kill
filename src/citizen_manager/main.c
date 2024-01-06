@@ -10,12 +10,12 @@
 #include <fcntl.h>
 
 #define SHARED_MEMORY "/SharedMemory"
-#define SEMAPHORE_CONSUMER "/semTimerConsumer"
-#define SEMAPHORE_PRODUCER "/semTimerProducer"
+#define SEMAPHORE_CONSUMER "/semConsumer"
+#define SEMAPHORE_PRODUCER "/semProducer"
 #define CITIZENS_DEBUG 1
 
 memory_t *memory;
-sem_t *sem_producer_timer, *sem_consumer_timer;
+sem_t *sem_producer, *sem_consumer;
 pthread_mutex_t shared_memory_mutex;
 pthread_barrier_t turn_barrier;
 int threads_at_barrier = 0;
@@ -86,13 +86,13 @@ int main() {
     }
 
     // Ouvrir le sémaphore
-    sem_consumer_timer = sem_open(SEMAPHORE_CONSUMER, 0);
-    if (sem_consumer_timer == SEM_FAILED) {
+    sem_consumer = sem_open(SEMAPHORE_CONSUMER, 0);
+    if (sem_consumer == SEM_FAILED) {
         perror("sem_open citizen");
         exit(EXIT_FAILURE);
     }   
-    sem_producer_timer = sem_open(SEMAPHORE_PRODUCER, 0);
-    if (sem_producer_timer == SEM_FAILED) {
+    sem_producer = sem_open(SEMAPHORE_PRODUCER, 0);
+    if (sem_producer == SEM_FAILED) {
         perror("sem_open citizen");
         exit(EXIT_FAILURE);
     }
@@ -120,10 +120,13 @@ int main() {
     }
 
     // Nettoyage
+    free(memory->citizens);
+    free(memory->companies);
+    free(memory->homes);
     pthread_barrier_destroy(&turn_barrier);
     pthread_mutex_destroy(&shared_memory_mutex);
-    sem_close(sem_consumer_timer);
-    sem_close(sem_producer_timer);
+    sem_close(sem_consumer);
+    sem_close(sem_producer);
     munmap(memory, sizeof(memory_t));
     close(shm_fd);
 

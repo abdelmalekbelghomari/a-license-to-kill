@@ -29,7 +29,7 @@
 
 extern WINDOW *main_window;
 extern int old_cursor;
-sem_t *sem_producer_timer, *sem_consumer_timer;
+sem_t *sem_producer, *sem_consumer;
 
 
 /**
@@ -73,68 +73,19 @@ int main()
         perror("mmap error");
         exit(EXIT_FAILURE);
     }
+    /* ---------------------------------------------------------------------- */
+    /*Initialisation des sémaphores                                           */
 
-    printf("Memory mapping successful.\n");
-
-    sem_producer_timer = sem_open("/semTimerProducer", 0);
-    if (sem_producer_timer == SEM_FAILED) {
+    sem_producer = sem_open("/semProducer", 0);
+    if (sem_producer == SEM_FAILED) {
         perror("sem_open monitor");
         exit(EXIT_FAILURE);
     }
-    sem_consumer_timer = sem_open("/semTimerConsumer", 0);
-    if (sem_consumer_timer == SEM_FAILED) {
+    sem_consumer = sem_open("/semConsumer", 0);
+    if (sem_consumer == SEM_FAILED) {
         perror("sem_open monitor");
         exit(EXIT_FAILURE);
     }
-    
-    // // Après avoir mappé la mémoire partagée
-    // if (memory != MAP_FAILED) {
-    //     printf("Memory mapping successful.\n");
-
-    //     printf("Memory has changed: %d\n", memory->memory_has_changed);
-    //     printf("Simulation has ended: %d\n", memory->simulation_has_ended);
-        
-    //     // Afficher des informations sur la carte
-    //     printf("Map details:\n");
-    //     for (int i = 0; i < MAX_ROWS; i++) {
-    //         for (int j = 0; j < MAX_COLUMNS; j++) {
-    //             printf("Cell[%d][%d] Type: %d, Capacity: %d\n", i, j, memory->map.cells[i][j].type, memory->map.cells[i][j].current_capacity);
-    //         }
-    //     }
-
-    //     // Afficher des informations sur les espions
-    //     printf("Spy details:\n");
-    //     for (int i = 0; i < 3; i++) {
-    //         printf("Spy %d - Health: %d, Location: (%d, %d)\n", i, memory->spies[i].health_point, memory->spies[i].location_row, memory->spies[i].location_column);
-    //     }
-
-    //     // Afficher des informations sur l'officier de cas
-    //     printf("Case Officer - Health: %d, Location: (%d, %d)\n", memory->case_officer.health_point, memory->case_officer.location_row, memory->case_officer.location_column);
-
-    //     // Afficher des informations sur l'officier du contre-espionnage
-    //     printf("Counterintelligence Officer - Health: %d, Location: (%d, %d)\n", memory->counterintelligence_officer.health_point, memory->counterintelligence_officer.location_row, memory->counterintelligence_officer.location_column);
-
-    //     // Afficher des informations sur les citoyens
-    //     printf("Citizen details:\n");
-    //     for (int i = 0; i < NB_CITIZEN; i++) {
-    //         printf("Citizen %d - Type: %d, Health: %d, Location: (%d, %d)\n", i, memory->citizens[i].type, memory->citizens[i].health, memory->citizens[i].position[0], memory->citizens[i].position[1]);
-    //     }
-
-    //     // Afficher des informations sur le réseau de surveillance
-    //     printf("Surveillance network status:\n");
-    //     for (int i = 0; i < MAX_ROWS; i++) {
-    //         for (int j = 0; j < MAX_COLUMNS; j++) {
-    //             printf("Cell[%d][%d] - Standard camera: %d, Infrared camera: %d, Lidar: %d\n", i, j, memory->surveillanceNetwork.devices[i][j].standard_camera, memory->surveillanceNetwork.devices[i][j].infrared_camera, memory->surveillanceNetwork.devices[i][j].lidar);
-    //         }
-    //     }
-    //     if(memory->memory_has_changed){
-    //         printf("Memory has changed: %d\n", memory->memory_has_changed);
-    //         printf("Timer: %d:%d\n", memory->timer.hours, memory->timer.minutes);
-    //     }
-
-    // } else {
-    //     perror("Memory mapping failed");
-    // }
 
     close(shm);
     /* ---------------------------------------------------------------------- */ 
@@ -142,16 +93,6 @@ int main()
     monitor->has_to_update = 0;
     set_timer();
     set_signals();
-
-    // while(true){
-        
-    //     if(memory->memory_has_changed){
-    //         printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
-    //         sleep(1);
-    //     } else {
-    //         pause();
-    //     }
-    // }
 
     close(shm);
     /* ---------------------------------------------------------------------- */ 
@@ -224,22 +165,12 @@ int main()
         }
         
         if (memory->memory_has_changed) {
-            // sem_wait(sem_producer);
             update_values(memory);
-            //memory->memory_has_changed = 0;
-            // sem_wait(sem_consumer);
-        }// else {
-        //     pause();
-        // }
-        
-        //pthread_mutex_lock(&mutex);
-        //update_values(memory);
-        //pthread_mutex_unlock(&mutex);
-    
+        }
 
     }
-    sem_close(sem_consumer_timer);
-    sem_close(sem_producer_timer);
+    sem_close(sem_consumer);
+    sem_close(sem_producer);
 
 }
 

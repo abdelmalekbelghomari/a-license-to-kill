@@ -210,8 +210,6 @@ memory_t *create_shared_memory(const char *name) {
 
     close(shm_fd);
 
-    printf("avant de faire les init");
-
     // Initialize the shared memory as necessary
     shared_memory->memory_has_changed = 0;
     shared_memory->simulation_has_ended = 0;
@@ -220,7 +218,6 @@ memory_t *create_shared_memory(const char *name) {
     shared_memory->at_work_citizens = 0;
     init_map(&shared_memory->map);
     init_surveillance(&shared_memory->surveillanceNetwork);
-    //shared_memory->mqInfo = init_mq();
 
     return shared_memory;
 }
@@ -243,18 +240,16 @@ sem_t *open_semaphore(const char *name) {
     return sem;
 }
 
-void start_simulation_processes(){
-    // pid_t pid_monitor, pid_enemy_spy_network, pid_citizen_manager, pid_enemy_country,
-    // pid_counterintelligence_officer, pid_timer;
-    int num_children =0;
-    pid_t pidExecutables[6];
+void start_simulation_processes(memory_t *memory){
 
-    pidExecutables[num_children] = fork();
-    if (pidExecutables[num_children] == -1) {
+    int num_children = 0;
+
+    memory->pids[num_children] = fork();
+    if (memory->pids[num_children] == -1) {
         perror("Error [fork()] monitor:");
         exit(EXIT_FAILURE);
     }
-    if (pidExecutables[num_children] == 0) {
+    if (memory->pids[num_children] == 0) {
         if (execl("./bin/monitor", "monitor", NULL) == -1) {
             perror("Error [execl] monitor: ");
             exit(EXIT_FAILURE);
@@ -263,25 +258,12 @@ void start_simulation_processes(){
     }
     num_children++;
 
-    pidExecutables[num_children] = fork();
-    if (pidExecutables[num_children] == -1) {
-        perror("Error [fork()] timer: ");
-        exit(EXIT_FAILURE);
-    }
-    if (pidExecutables[num_children] == 0) {
-        if (execl("./bin/timer", "timer", NULL) == -1) {
-            perror("Error [execl] timer: ");
-            exit(EXIT_FAILURE);
-        }
-    }
-    num_children++;
-
-    pidExecutables[num_children] = fork();
-    if (pidExecutables[num_children] == -1) {
+    memory->pids[num_children] = fork();
+    if (memory->pids[num_children] == -1) {
         perror("Error [fork()] citizen_manager: ");
         exit(EXIT_FAILURE);
     }
-    if (pidExecutables[num_children] == 0) {
+    if (memory->pids[num_children] == 0) {
         if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
             perror("Error [execl] citizen_manager: ");
             exit(EXIT_FAILURE);
@@ -289,12 +271,12 @@ void start_simulation_processes(){
     }
     num_children++;
 
-    pidExecutables[num_children] = fork();
-    if (pidExecutables[num_children] == -1) {
+    memory->pids[num_children] = fork();
+    if (memory->pids[num_children] == -1) {
         perror("Error [fork()] enemy_spy_network: ");
         exit(EXIT_FAILURE);
     }
-    if (pidExecutables[num_children] == 0) {
+    if (memory->pids[num_children] == 0) {
         if (execl("./bin/enemy_spy_network", "enemy_spy_network", NULL) == -1) {
             perror("Error [execl] enemy_spy_network: ");
             exit(EXIT_FAILURE);
@@ -302,12 +284,12 @@ void start_simulation_processes(){
     }
     num_children++;
 
-    pidExecutables[num_children] = fork();
-    if (pidExecutables[num_children] == -1) {
+    memory->pids[num_children] = fork();
+    if (memory->pids[num_children] == -1) {
         perror("Error [fork()] enemy_country: ");
         exit(EXIT_FAILURE);
     }
-    if (pidExecutables[num_children] == 0) {
+    if (memory->pids[num_children] == 0) {
         if (execl("./bin/enemy_country", "enemy_country", NULL) == -1) {
             perror("Error [execl] enemy_country: ");
             exit(EXIT_FAILURE);
@@ -315,23 +297,35 @@ void start_simulation_processes(){
     }
     num_children++;
 
-    pidExecutables[num_children] = fork();
-    if (pidExecutables[num_children] == -1) {
+    memory->pids[num_children] = fork();
+    if (memory->pids[num_children] == -1) {
         perror("Error [fork()] counter_intelligence: ");
         exit(EXIT_FAILURE);
     }
-    if (pidExecutables[num_children] == 0) {
+    if (memory->pids[num_children] == 0) {
         if (execl("./bin/counter_intelligence", "counter_intelligence", NULL) == -1) {
             perror("Error [execl] : counter_intelligence");
             exit(EXIT_FAILURE);
         }
     }
+    num_children++;
 
-    
+    memory->pids[num_children] = fork();
+    if (memory->pids[num_children] == -1) {
+        perror("Error [fork()] timer: ");
+        exit(EXIT_FAILURE);
+    }
+    if (memory->pids[num_children] == 0) {
+        if (execl("./bin/timer", "timer", NULL) == -1) {
+            perror("Error [execl] timer: ");
+            exit(EXIT_FAILURE);
+        }
+    }
+
    
     for (int i = 0; i < num_children; i++) {
         int status;
-        waitpid(pidExecutables[i], &status, 0);
+        waitpid(memory->pids[i], &status, 0);
     }
     
     // int statusSharedMemory;
@@ -343,44 +337,5 @@ void start_simulation_processes(){
     //     printf("File deleted successfully\n");
     // else
     //     printf("Error: unable to delete the file\n");
-
-    
-
-    /*pid_counterintelligence_officer = fork();
-    if (pid_counterintelligence_officer == -1) {
-        perror("Error [fork()] counterintelligence_officer: ");
-        exit(EXIT_FAILURE);
-    }
-    if (pid_counterintelligence_officer == 0) {
-        if (execl("./bin/counterintelligence_officer", "counterintelligence_officer", NULL) == -1) {
-            perror("Error [execl] counterintelligence_officer: ");
-            exit(EXIT_FAILURE);
-        }
-    }*/
-
-    /*pid_enemy_country = fork();
-    if (pid_enemy_country == -1) {
-        perror("Error [fork()] enemy_country: ");
-        exit(EXIT_FAILURE);
-    }
-    if (pid_enemy_country == 0) {
-        if (execl("./bin/enemy_country", "enemy_country", NULL) == -1) {
-            perror("Error [execl] enemy_country: ");
-            exit(EXIT_FAILURE);
-        }
-    }*/
-
-    /*pid_enemy_spy_network = fork();
-    if (pid_enemy_spy_network == -1) {
-        perror("Error [fork()] enemy_spy_network: ");
-        exit(EXIT_FAILURE);
-    }
-    if (pid_enemy_spy_network == 0) {
-        if (execl("./bin/enemy_spy_network", "enemy_spy_network", NULL) == -1) {
-            perror("Error [execl] enemy_spy_network: ");
-            exit(EXIT_FAILURE);
-        }
-    }*/
-    
     
 }

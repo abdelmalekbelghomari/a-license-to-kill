@@ -1,17 +1,17 @@
 #include "timer.h"
 #include "spy_simulation.h"
 #define SHARED_MEMORY "/SharedMemory"
-#define SEMAPHORE_PRODUCER "/semTimerProducer"
-#define SEMAPHORE_CONSUMER "/semTimerConsumer"
+#define SEMAPHORE_PRODUCER "/semProducer"
+#define SEMAPHORE_CONSUMER "/semConsumer"
 
 memory_t *memory;
-sem_t *sem_producer_timer, *sem_consumer_timer;
+sem_t *sem_producer, *sem_consumer;
 
 
 simulated_clock_t new_timer(){
     simulated_clock_t time;
     time.round = 0;
-    time.hours = 7;
+    time.hours = 0;
     time.minutes = 0;
     time.days = 0;
     // memory->memory_has_changed = 1;
@@ -77,13 +77,13 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    sem_producer_timer = sem_open(SEMAPHORE_PRODUCER, 0);
-    if (sem_producer_timer == SEM_FAILED) {
+    sem_producer = sem_open(SEMAPHORE_PRODUCER, 0);
+    if (sem_producer == SEM_FAILED) {
         perror("sem_open failed in timer process");
         exit(EXIT_FAILURE);
     }
-    sem_consumer_timer = sem_open(SEMAPHORE_CONSUMER, 0);
-    if (sem_consumer_timer == SEM_FAILED) {
+    sem_consumer = sem_open(SEMAPHORE_CONSUMER, 0);
+    if (sem_consumer == SEM_FAILED) {
         perror("sem_open failed in timer process");
         exit(EXIT_FAILURE);
     }
@@ -112,26 +112,16 @@ int main() {
 
     while(1){
         pause();
+        if (memory->timer.round >= MAX_ROUNDS) {
+            for (int i = 0; i < NB_PROCESS - 1 ; i++) {
+                kill(memory->pids[i], SIGINT);
+            }
+            break;
+        }
     }
     
-    // while (memory->simulation_has_ended == 0) { 
-    //     // if(memory->simulation_has_ended){
-    //     //     break;
-    //     // } else {
-    //         // pthread_mutex_lock(&mutexTimer1);
-    //         // update_timer(memory);
-    //         // pthread_mutex_unlock(&mutexTimer1);
-    //         // printf("Round: %d\n", memory->timer.round);
-    //         // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
-    //     // }
-    //     // sleep(1);
-
-
-    //     // pause();
-    // }
-    // printf("Timer ended\n");
-    sem_close(sem_consumer_timer);
-    sem_close(sem_producer_timer);
-    // printf("sem_close timer\n");
+    sem_close(sem_consumer);
+    sem_close(sem_producer);
+    shm_unlink(SHARED_MEMORY);
     return 0;
 }

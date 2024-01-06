@@ -8,7 +8,7 @@
 
 #define SHARED_MEMORY "/SharedMemory"
 
-extern sem_t *sem_producer_timer, *sem_consumer_timer;
+extern sem_t *sem_producer, *sem_consumer;
 
 int DIRECTION[NUM_DIRECTIONS][2] = {{-1, 0},
                                      {1,  0},
@@ -50,7 +50,7 @@ double distance(unsigned int pos1[2], unsigned int pos2[2]) {
 
 void init_house(memory_t *memory){
     int fakeHome = rand() % NB_HOMES;
-    
+
     for(int i = 0; i < NB_HOMES; i++){
         if (i == fakeHome){
             memory->homes[i].max_capacity = 14;
@@ -150,10 +150,10 @@ void init_building(memory_t *memory){
 
 void init_citizens(memory_t *memory) {
 
-    sem_wait(sem_consumer_timer);
+    sem_wait(sem_consumer);
     init_house(memory);
     init_building(memory);
-    sem_post(sem_producer_timer);
+    sem_post(sem_producer);
 
     for (int i = 0; i < CITIZENS_COUNT; i++) {
         citizen_t *citizen = &memory->citizens[i];
