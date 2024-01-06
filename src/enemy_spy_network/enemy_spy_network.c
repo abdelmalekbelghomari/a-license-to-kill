@@ -297,7 +297,7 @@ void go_to_mail_box(memory_t* memory, int choice){
 }
 
 
-int* is around(int row, int column, int cell_type) {
+int* is_around(int row, int column, int cell_type) {
   int i,j ;
   int pos_row, pos_column;
   int pos[2];
