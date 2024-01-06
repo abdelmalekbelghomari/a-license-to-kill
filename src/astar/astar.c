@@ -157,8 +157,8 @@ Node **get_successors(map_t *map, Node *current, int goal_x, int goal_y) {
 
     int number_of_neighbors = 0;
     for (int i = 0; i < NUM_DIRECTIONS; i++) {
-    int y = current->position[0] + DIRECTIONS[i][0]; // Lignes
-    int x = current->position[1] + DIRECTIONS[i][1]; // Colonnes
+    int y = current->position[0] + DIRECTIONS[i][1]; // Lignes
+    int x = current->position[1] + DIRECTIONS[i][0]; // Colonnes
 
     if (y < 0 || y >= MAX_ROWS || x < 0 || x >= MAX_COLUMNS /*|| is_cell_full(map, y, x)*/ ) {
         continue;
@@ -174,27 +174,6 @@ Node **get_successors(map_t *map, Node *current, int goal_x, int goal_y) {
 }
 
     neighbors[number_of_neighbors] = NULL; 
-
-    // for (int i = 0; i < number_of_neighbors; i++) {
-    //     printf("Neighbor position: (%d, %d)\n", neighbors[i]->position[0], neighbors[i]->position[1]);
-    // }
-
-    // if (number_of_neighbors < NUM_DIRECTIONS) {
-    //     // Réallouer le tableau pour correspondre à la taille réelle
-    //     Node **temp = realloc(neighbors, sizeof(Node *) * (number_of_neighbors + 1));
-    //     if (temp == NULL) {
-    //         perror("Unable to reallocate memory for neighbors");
-    //         // Nettoyer et quitter en cas d'échec de réallocation
-    //         for (int i = 0; i < number_of_neighbors; i++) {
-    //             free(neighbors[i]);
-    //         }
-    //         free(neighbors);
-    //         exit(EXIT_FAILURE);
-    //     }
-    //     temp[number_of_neighbors] = NULL;
-    //     neighbors = temp;
-    // }
-
     return neighbors;
 }
 
@@ -236,12 +215,11 @@ Node* get_random_neighbours_spy(map_t* map, spy_t* spy) {
             free(neighbors[i]);
         }
     }
-    free(neighbors);
 
     return selected_neighbor;
 }
 
-Node* get_random_neighbours(map_t* map, int x, int y){
+Node* get_random_neighbours(map_t* map, int y, int x){
     Node **neighbors = (Node **)malloc(sizeof(Node *) * NUM_DIRECTIONS);
     if (neighbors == NULL) {
         perror("Unable to allocate memory for neighbors");
@@ -279,7 +257,7 @@ Node* get_random_neighbours(map_t* map, int x, int y){
             free(neighbors[i]);
         }
     }
-    free(neighbors);
+
 
     return selected_neighbor;
 }

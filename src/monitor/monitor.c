@@ -208,7 +208,7 @@ void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *me
                 mvwaddstr(window, row_offset, col_offset, "*"); // Symbole pour le citoyen
             }
 
-            // Affichage des espions
+            // // Affichage des espions
             if (memory->spies[0].location_row == j && memory->spies[0].location_column == i) {
                 mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
             }
@@ -227,9 +227,9 @@ void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *me
             // }
 
             // // Affichage de l'officier traitant
-            // if (memory->case_officer.location_row == j && memory->case_officer.location_column == i) {
-            //     mvwaddstr(window, row_offset, col_offset, "O"); // Afficher l'officier traitant
-            // }
+            if (memory->case_officer.location_row == j && memory->case_officer.location_column == i) {
+                mvwaddstr(window, row_offset, col_offset, "O"); // Afficher l'officier traitant
+            }
 
         }
     }
@@ -282,7 +282,7 @@ void display_general_information_values(WINDOW *window, memory_t *mem)
 
     mvwprintw(window, 20, 8, "%.f", elapsed_time);
     mvwprintw(window, 20, 26, "       ");
-    mvwprintw(window, 20, 26, "%.2d h %.2d", hour, minutes);
+    mvwprintw(window, 20, 26, "%d h %d", hour, minutes);
     if (simulation_has_ended > 0) {
         switch (simulation_has_ended) {
             case 1:

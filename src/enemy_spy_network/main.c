@@ -49,7 +49,7 @@ void* spy_thread(void* arg) {
             // sem_wait(sem);
             state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);
             memory->spies[spy_id].current_state = next_state;
-            // printf("numero de l'état de l'espion %d est %d, heure  %d:%d : \n",spy_id, memory->spies[spy_id].current_state->id , memory->timer.hours , memory->timer.minutes);
+            printf("numero de l'état de l'espion %d est %d, heure  %d:%d : \n",spy_id, memory->spies[spy_id].current_state->id , memory->timer.hours , memory->timer.minutes);
             // sem_post(sem);
             last_day_checked = current_day;
             last_round_checked = current_round;
