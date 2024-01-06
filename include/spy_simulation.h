@@ -141,42 +141,42 @@ sem_t *open_semaphore(const char *name);
 /**
  * \brief Starts the citizen manager process responsible for managing and simulating the behavior of citizens in the city.
  *
- * \return 0 on successful start, -1 on failure.
+ * \return The PID of the citizen manager process.
  */
 int start_citizen_manager();
 
 /**
  * \brief Starts the monitor process responsible for monitoring and controlling various aspects of the simulation.
  *
- * \return 0 on successful start, -1 on failure.
+ * \return The PID of the monitor process.
  */
 int start_monitor();
 
 /**
  * \brief Starts the enemy spy network process responsible for simulating the activities of the enemy spy network in the city.
  *
- * \return 0 on successful start, -1 on failure.
+ * \return The PID of the spy network process.
  */
 int start_enemy_spy_network();
 
 /**
  * \brief Starts the counterintelligence officer process responsible for simulating the actions of the counterintelligence officer in the city.
  *
- * \return 0 on successful start, -1 on failure.
+ * \return The PID of the counterintelligence officer process.
  */
 int start_counterintelligence_officer();
 
 /**
  * \brief Starts the process representing the enemy country in the simulation.
  *
- * \return 0 on successful start, -1 on failure.
+ * \return The PID of the enemy country process.
  */
 int start_enemy_country();
 
 /**
  * \brief Starts the timer process responsible for tracking and controlling the simulation time.
  *
- * \return 0 on successful start, -1 on failure.
+ * \return The PID of the timer process.
  */
 int start_timer();
 
