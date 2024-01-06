@@ -1,7 +1,6 @@
 #include <stdio.h>
-// #include "citizen_manager.h"
+#include "citizen_manager.h"
 #include <pthread.h>
-#include "memory.h"
 #include <math.h>
 #include <bits/pthreadtypes.h>
 
@@ -9,26 +8,51 @@
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_barrier_t start_barrier, end_barrier;
+extern memory_t *memory;
 
-void use_shared_memory(memory_t *memory) {
+memory_t open_shared_memory() {
     int shmd = shm_open(SHARED_MEMORY, O_RDWR,  S_IRUSR | S_IWUSR);
     if (shmd == -1) {
         perror("shm_open");
         exit(EXIT_FAILURE);
     } else {
-        citizen_t *characters_list = mmap(NULL, 
-                                sizeof(citizen_t) * CITIZENS_COUNT, 
+        memory_t *memory = mmap(NULL, 
+                                sizeof(memory_t), 
                                 PROT_READ | PROT_WRITE, 
                                 MAP_SHARED, 
                                 shmd, 
                                 0);
-        if (characters_list == MAP_FAILED) {
+        if (memory == MAP_FAILED) {
             perror("mmap");
             exit(EXIT_FAILURE);
         } else {
-            start_citizen_threads(characters_list);
+            return *memory;
         }
     }
+}
+
+citizen_t *new_character(state_t *resting_at_home,
+                           state_t *going_to_company,
+                           state_t *working,
+                           state_t *going_back_home,
+                           state_t *going_to_supermarket,
+                           state_t *doing_some_shopping)
+{
+    citizen_t *c = (citizen_t *) malloc(sizeof(citizen_t));
+
+    c->current_state = resting_at_home;
+    c->resting_at_home = resting_at_home;
+    c->going_to_company = going_to_company;
+    c->working = working;
+    c->going_back_home = going_back_home;
+    c->going_to_supermarket = going_to_supermarket;
+    c->doing_some_shopping = doing_some_shopping;
+    c->change_state = character_change_state;
+    c->begin = character_begin;
+    c->step = character_step;
+    c->end = character_end;
+
+    return c;
 }
 
 double get_current_simulation_time(memory_t *memory) {
@@ -52,7 +76,10 @@ void state_change_state(citizen_t *c, state_t *s) {
 }
 
 state_t *rest_at_home(citizen_t *c) {
-
+    if(get_current_simulation_time(memory) == 8.00){
+        c->step(c);
+        return c->current_state;
+    }
     return c->resting_at_home;
 }
 
@@ -80,18 +107,43 @@ state_t *do_some_shopping(citizen_t *c) {
     return c->doing_some_shopping;
 }
 
-void citizen_change_state(citizen_t *c, state_t *new_state) {
-    c->current_state->change_state(c, new_state);
+void *change_state(citizen_t *c, state_t *state) {
+    // int id = state->id;
+    if(c->health <= 0){
+        c->current_state->change_state(c, c->dying);
+    } else if (memory->simulation_has_ended){
+        c->current_state->change_state(c, c->finished);
+    } else {
+        // for(int i = 0; i < DAILY_CITIZEN_STATES; i++){
+        //     if(id == i){
+        //         c->current_state->change_state(c, c->change_state[(id%DAILY_CITIZEN_STATES)++]);
+        //     }
+        // }
+        c->current_state->change_state(c, state);
+    }
 }
+
+void *begin(citizen_t *c) {
+    c->resting_at_home;
+}
+
+void *end(citizen_t *c) {
+    c->finished;
+}
+
+void *step(citizen_t *c) {
+    c->current_state->step(c);
+}
+
 
 void *citizen_behavior(void *arg, memory_t *memory) {
     citizen_t *character = (citizen_t *)arg;
 
     while (!memory->simulation_has_ended) {
-        // Attendre le début du tour
+        /* Wait for the start of the round */
         pthread_barrier_wait(&start_barrier);
 
-        // Vérifier si la simulation n'est pas terminée
+        /* Check if the simulation is not finished */
         if (memory->simulation_has_ended) {
             break;
         }
@@ -100,7 +152,7 @@ void *citizen_behavior(void *arg, memory_t *memory) {
 
         handle_normal_citizen_actions(character, currentTime);
 
-        // Attendre la fin du tour
+        /* Wait for the end of the round */
         pthread_barrier_wait(&end_barrier);
     }
     
@@ -115,7 +167,7 @@ void start_citizen_threads(citizen_t *characters_list) {
 }
 
 void handle_normal_citizen_actions(citizen_t *character, double currentTime) {
-    // Logique pour les citoyens normaux
+    /* Logic for normal citizens */
     if (currentTime == 8.00) { 
         move_citizen_to_work(character);
         citizen_change_state(character, go_to_company(character));
@@ -198,11 +250,11 @@ void manage_citizens(citizen_t *characters_list) {
 
     pthread_barrier_wait(&start_barrier);
 
-    // Traitement du tour
+    /* Round processing */
 
     pthread_barrier_wait(&end_barrier);
 
-    // Nettoyage
+    /* Cleanup */
     for (int i = 0; i < CITIZENS_COUNT; i++) {
         pthread_join(thread_citizen[i], NULL);
     }

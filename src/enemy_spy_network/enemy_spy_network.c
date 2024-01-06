@@ -412,7 +412,7 @@ void* spy_life(void* thread) {
           sem_wait(&sem);
           theft(&memory->spies[thread_data->id]);
           go_to_mail_box(memory, thread_data->id);
-          /* Depose là un message dans la mail box */
+          /* Place a message in the mailbox */
           sem_post(&sem);
           }
       }else{
