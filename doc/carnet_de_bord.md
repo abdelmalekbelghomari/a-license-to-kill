@@ -25,4 +25,17 @@
 - Création de path dans les structures des citizen pour ne faire le astar qu'une fois pour chaque citizen. 
 
 ### 03/01 : 
-- 
+- Travail sur le mouvement des citoyens ainsi que des espions
+
+### 04/01 :
+- bug de déplacements et du astar pour certaines map
+- nouveau csp pour le creation random de map
+
+### 05/01:
+- trouvaille dans l'avion sur le bug des espions à l'etat 1: j'ai pas reussi à debug, j'y reviens cette aprem
+- Bug corrigé je pense, il s'agissait d'un buig de déplacement. 
+
+### 06/01 :
+
+- Travail sur les caméras et le reseau de maille.  
+-

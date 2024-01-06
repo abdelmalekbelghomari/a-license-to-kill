@@ -175,9 +175,9 @@ void detect_suspicious_person(memory_t *memory) {
 bool is_movement_suspicious(characterMovement *movement) {
     const int MOVEMENT_THRESHOLD = 3;
 
-    if (movement->currentX != movement->previousX || movement->currentY != movement->previousY) {
-        if (abs(movement->currentX - movement->previousX) <= MOVEMENT_THRESHOLD &&
-            abs(movement->currentY - movement->previousY) <= MOVEMENT_THRESHOLD) {
+    if (movement->currentRow != movement->previousRow || movement->currentColumn != movement->previousColumn) {
+        if (abs(movement->currentRow - movement->previousRow) <= MOVEMENT_THRESHOLD &&
+            abs(movement->currentColumn - movement->previousColumn) <= MOVEMENT_THRESHOLD) {
             return true;
         }
     }

@@ -110,18 +110,18 @@ state_t *new_state_spy(int id, state_t *(*action)(spy_t *)) {
 }
 
 state_t *do_something(spy_t *spy){
-  int value = rand()%10;
-  if (value == 0 && (memory->timer.hours < 19 && memory->timer.hours > 8)){
-    int random_supermarket = rand()%2;
-    spy->x_supermarket = memory->companies[random_supermarket].position[1];
-    spy->y_supermarket = memory->companies[random_supermarket].position[0];
-    return spy->going_to_supermarket;
-  } else if (value < 7 && (memory->timer.hours < 19 && memory->timer.hours > 8)){
+    int value = rand()%10;
+    if (value == 0 && (memory->timer.hours < 19 && memory->timer.hours > 8)){
+        int random_supermarket = rand()%2;
+        spy->row_supermarket = memory->companies[random_supermarket].position[0];
+        spy->row_supermarket = memory->companies[random_supermarket].position[1];
+        return spy->going_to_supermarket;
+    } else if (value < 7 && (memory->timer.hours < 19 && memory->timer.hours > 8)){
     // printf(" espion : %d  : je vais aller scout \n",spy->id);
-    return spy->scouting;
-  }else {
-    return spy->resting_at_home;
-  }
+        return spy->scouting;
+    } else {
+        return spy->resting_at_home;
+    }
 }
 
 state_t *rest_at_home(spy_t *spy) {
@@ -145,7 +145,7 @@ state_t *rest_at_home(spy_t *spy) {
     return spy->resting_at_home;
 }
 int is_in_front_of_targeted_company(spy_t *spy){
-    if(spy->location_row == spy->x_in_front_of_targeted_company && spy->location_column == spy->y_in_front_of_targeted_company){
+    if(spy->location_row == spy->row_in_front_of_targeted_company && spy->location_column == spy->row_in_front_of_targeted_company){
         return 1;
     } else {
         return 0;
@@ -199,7 +199,7 @@ state_t *go_to_spot(spy_t *spy) {
         return spy->spotting;  // Retourner l'état d'espionnage
     } else {
         Node *position_node = calculate_next_step(spy->location_row, spy->location_column, 
-                                              spy->y_in_front_of_targeted_company, spy->x_in_front_of_targeted_company, &memory->map);
+                            spy->row_in_front_of_targeted_company, spy->column_in_front_of_targeted_company, &memory->map);
 
     // Vérifier si un nouveau nœud a été obtenu
         if (position_node != NULL) {
@@ -228,7 +228,7 @@ state_t *spot(spy_t *spy) {
     } else {
         if(spy->random_neighbour == NULL){
             spy->random_neighbour = get_random_neighbours(&memory->map, 
-                spy->x_in_front_of_targeted_company, spy->y_in_front_of_targeted_company);
+                spy->row_in_front_of_targeted_company, spy->column_in_front_of_targeted_company);
         }
         Node* position_node = calculate_next_step(spy->location_row, spy->location_column, 
                 spy->random_neighbour->position[0], spy->random_neighbour->position[1], &memory->map);
@@ -336,7 +336,7 @@ state_t *go_back_home(spy_t *spy) {
 }
 
 int is_at_mailbox(spy_t *spy){
-    if(spy->location_row == memory->homes->mailbox.y_in_front && spy->location_column == memory->homes->mailbox.x_in_front){
+    if(spy->location_row == memory->homes->mailbox.row_in_front && spy->location_column == memory->homes->mailbox.column_in_front){
         return 1;
     } else {
         return 0;
@@ -360,7 +360,7 @@ state_t *go_to_send_message(spy_t *spy) {
         return spy->sending_message;
     } else {
         Node* position_node = calculate_next_step(spy->location_row, spy->location_column, 
-                memory->homes->mailbox.y_in_front, memory->homes->mailbox.x_in_front, &memory->map);
+                memory->homes->mailbox.row_in_front, memory->homes->mailbox.column_in_front, &memory->map);
 
         if (position_node != NULL) {
             spy->location_row = position_node->position[0];
@@ -446,21 +446,21 @@ state_t *scout(spy_t *spy){
         free(random_neighbor);
         for(int i = 0; i < 8; i++){
             // printf("%d\n", i);
-            int y = spy->location_row + DIRECTION[i][0];
-            int x = spy->location_column + DIRECTION[i][1];
+            int targeted_row = spy->location_row + DIRECTION[i][0];
+            int targeted_column = spy->location_column + DIRECTION[i][1];
             // Si une entreprise est trouvée à côté
-            if ( x >= 0 && x < MAX_ROWS && y >= 0 && y < MAX_COLUMNS){
+            if ( targeted_row >= 0 && targeted_row < MAX_ROWS && targeted_column >= 0 && targeted_column < MAX_COLUMNS){
                 // printf("coucou1\n");
                 // sem_wait(sem_producer_timer);
-                if (memory->map.cells[y][x].type == COMPANY) {
+                if (memory->map.cells[targeted_row][targeted_column].type == COMPANY) {
                     // printf("coucou2\n");
                     if (rand() % 10 == 0) {  // 10% de chance de choisir l'entreprise
                         // printf("coucou3\n");
                         // printf("Position Company : (%d, %d)\n", x, y);
-                        spy->targeted_company->position[0] = y;
-                        spy->targeted_company->position[1] = x;
-                        spy->x_in_front_of_targeted_company = spy->location_column;
-                        spy->y_in_front_of_targeted_company = spy->location_row;
+                        spy->targeted_company->position[0] = targeted_row;
+                        spy->targeted_company->position[1] = targeted_column;
+                        spy->row_in_front_of_targeted_company = spy->location_column;
+                        spy->column_in_front_of_targeted_company = spy->location_row;
                         // printf(" espion : %d  : je vais aller à l'entreprise : (%d, %d) \n",spy->id, spy->targeted_company->position[0], spy->targeted_company->position[1]);
                         return spy->going_back_home;
                     }
@@ -503,7 +503,7 @@ state_t *go_to_supermarket(spy_t *spy) {
         return spy->doing_some_shopping;
     } else {
         Node* position_node = calculate_next_step(spy->location_row, spy->location_column, 
-                spy->x_supermarket, spy->y_supermarket, &memory->map);
+                spy->row_supermarket, spy->column_supermarket, &memory->map);
 
         if (position_node != NULL) {
             spy->location_row = position_node->position[0];
@@ -575,8 +575,8 @@ state_t *rest_at_home_officer(case_officer_t *officer){
         return officer->going_to_mailbox;
     }else if (officer->shopping_time.leaving_hour == memory->timer.hours && officer->shopping_time.leaving_minute == memory->timer.minutes){
         int random_supermarket = rand()%2;
-        officer->x_supermarket = memory->companies[random_supermarket].position[1];
-        officer->y_supermarket = memory->companies[random_supermarket].position[0];
+        officer->row_supermarket = memory->companies[random_supermarket].position[0];
+        officer->column_supermarket = memory->companies[random_supermarket].position[1];
         return officer->going_to_supermarket;
     }else if (officer->messaging_time.leaving_hour == memory->timer.hours && officer->messaging_time.leaving_minute == memory->timer.minutes){
         return officer->sending_messages;
@@ -628,7 +628,7 @@ state_t *go_back_home_officer(case_officer_t *officer){
 }
 
 bool is_at_supermarket_officer(case_officer_t *officer){
-    if(officer->location_row == officer->y_supermarket && officer->location_column == officer->x_supermarket){
+    if(officer->location_row == officer->row_supermarket && officer->location_column == officer->column_supermarket){
         return true;
     } else {
         return false;
@@ -642,7 +642,7 @@ state_t *go_to_supermarket_officer(case_officer_t *officer){
         return officer->doing_some_shopping;
     } else {
         Node* position_node = calculate_next_step(officer->location_row, officer->location_column, 
-                officer->y_supermarket, officer->x_supermarket, &memory->map);
+                officer->row_supermarket, officer->column_supermarket, &memory->map);
 
         if (position_node != NULL) {
             officer->location_row = position_node->position[0];
@@ -829,8 +829,8 @@ void init_spies(memory_t * memory){
         spy->location_row = spy->home_row;
         spy->location_column = spy->home_column;
 
-        spy->x_in_front_of_targeted_company = 0;
-        spy->y_in_front_of_targeted_company = 0;
+        spy->row_in_front_of_targeted_company = 0;
+        spy->column_in_front_of_targeted_company = 0;
 
         spy->targeted_company = malloc(sizeof(building_t));
         if (spy->targeted_company == NULL) {
@@ -897,13 +897,8 @@ void init_officer(memory_t * memory){
     officer->location_row = officer->home_row;
     officer->location_column = officer->home_column;
 
-    for (int i = 0; i< NB_HOMES; i++){
-        if(memory->homes[i].has_mailbox == true){
-            officer->mailbox_row = memory->homes[i].mailbox.y;
-            officer->mailbox_column = memory->homes[i].mailbox.x;
-            break;
-        }
-    }
+    officer->mailbox_row = memory->map.mailbox_row;
+    officer->mailbox_column = memory->map.mailbox_column;
 
 }
 

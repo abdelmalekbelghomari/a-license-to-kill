@@ -31,7 +31,7 @@ state_t *do_some_shopping(citizen_t *c);
 state_t *dying(citizen_t *c);
 state_t *finished(citizen_t *c);
 // double get_current_simulation_time(memory_t *memory);
-int is_at_supermarket(citizen_t *character);
+bool is_at_supermarket(citizen_t *character);
 memory_t open_shared_memory();
 // void citizen_begin(citizen_t *citizen);
 // void citizen_step(citizen_t *citizen);

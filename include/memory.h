@@ -81,9 +81,6 @@ typedef struct memory_s memory_t;
 typedef struct spy_s spy_t;
 typedef struct case_officer_s case_officer_t;
 typedef struct counter_intelligence_officer_s counter_intelligence_officer_t;
-typedef struct SpyInfo spyInfo;
-typedef struct CaseOfficerInfo caseOfficerInfo;
-typedef struct CounterIntelligenceOfficer counterIntelligenceOfficer;
 typedef struct state_s state_t;
 typedef struct building_s building_t;
 typedef struct home_s home_t;
@@ -121,8 +118,8 @@ struct mq_s {
 };
 
 typedef struct {
-    int currentX, currentY; // Position actuelle
-    int previousX, previousY; // Position précédente
+    int currentRow, currentColumn; // Position actuelle
+    int previousRow, previousColumn; // Position précédente
 } characterMovement;
 
 typedef struct {
@@ -214,43 +211,6 @@ struct map_s {
     int mailbox_column;                  /*!< The mailbox column. */
 };
 
-struct SpyInfo{
-    int id;                                               /*!< The spy identification number. */
-    int health_point;                                     /*!< The spy health_point point.*/
-    int location_row;                                     /*!< The spy location row.*/
-    int location_column;                                  /*!< The spy location column.*/
-    int home_row;                                         /*!< The spy home row.*/
-    int home_column;                                      /*!< The spy home column.*/  
-    int nb_of_stolen_companies;                           /*!< The number of stolen companies stolen by the spy.*/
-    int has_license_to_kill;                              /*!< The spy's authorization to kill.*/
-    char stolen_message_content[MAX_LENGTH_OF_MESSAGE];   /*!< The content of stolen message.*/
-    cell_t allowed_company[8];
-};
-
-
-struct CaseOfficerInfo {
-    int id;                                               /*!< The case_officer identification number. */
-    int health_point;                                     /*!< The case_officer health_point point.*/
-    int location_row;                                     /*!< The case_officer location row.*/
-    int location_column;                                  /*!< The case_officer location column.*/
-    int home_row;                                         /*!< The case_officer home row.*/
-    int home_column;                                      /*!< The case_officer home column.*/  
-    int mailbox_row;                                      /*!< The case_officer home row.*/
-    int mailbox_column;                                   /*!< The case_officer home column.*/
-};
-
-struct CounterIntelligenceOfficer {
-    int id;                                               /*!< The counterintelligence_officer identification number. */
-    int health_point;                                     /*!< The counterintelligence_officer health_point point.*/
-    int location_row;                                     /*!< The counterintelligence_officer location row.*/
-    int location_column;                                  /*!< The counterintelligence_officer location column.*/
-    int city_hall_row;                                    /*!< The counterintelligence_officer home row.*/
-    int city_hall_column;                                 /*!< The counterintelligence_officer home column.*/  
-    int mailbox_row;                                      /*!< The counterintelligence_officer home row.*/
-    int mailbox_column;                                   /*!< The counterintelligence_officer home column.*/
-    int targeted_character_id;                           /*!< The targeted character id.*/
-}; 
-
 /**
  * \brief The spy information.
  */
@@ -272,11 +232,11 @@ struct spy_s {
     int turns_spent_shopping;
     int turns_spent_waiting;
     building_t *targeted_company;
-    int x_in_front_of_targeted_company;
-    int y_in_front_of_targeted_company;
+    int row_in_front_of_targeted_company;
+    int column_in_front_of_targeted_company;
     Node* random_neighbour;
-    int x_supermarket;
-    int y_supermarket;
+    int row_supermarket;
+    int column_supermarket;
     bool has_a_message;
     bool has_a_fake_message;
     characterMovement movement;
@@ -318,8 +278,8 @@ struct case_officer_s {
     int mailbox_row;                                      /*!< The case_officer home row.*/
     int mailbox_column;                                   /*!< The case_officer home column.*/
     int nb_of_outing;                                     /*!< The number of outing of case_officer */
-    int x_supermarket;
-    int y_supermarket;
+    int row_supermarket;
+    int column_supermarket;
     leaving_time_t first_leaving_time;
     leaving_time_t second_leaving_time;
     leaving_time_t shopping_time;
@@ -424,10 +384,10 @@ struct citizen_s {
 
 struct mailbox_s{
     bool is_occupied;
-    int x;
-    int y;
-    int x_in_front;
-    int y_in_front;
+    int row;
+    int column;
+    int row_in_front;
+    int column_in_front;
     char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
     int message_count;
     int priority[MAX_MESSAGES];

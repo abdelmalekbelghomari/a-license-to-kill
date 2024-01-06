@@ -11,7 +11,7 @@ int DIRECTIONS[NUM_DIRECTIONS][2] = {{-1, 0},
                                      {1,  -1},
                                      {1,  1}};
 
-Node *create_node(int x, int y, double g, double h) {
+Node *create_node(int row, int column, double g, double h) {
     Node *new_node = malloc(sizeof(Node));
     if (new_node == NULL) {
         // Gestion des erreurs de l'allocation mémoire
@@ -19,8 +19,8 @@ Node *create_node(int x, int y, double g, double h) {
         exit(EXIT_FAILURE);
     }
 
-    new_node->position[0] = y;
-    new_node->position[1] = x;
+    new_node->position[0] = row;
+    new_node->position[1] = column;
     new_node->g = g;
     new_node->h = h;
     new_node->f = g + h;
@@ -135,20 +135,20 @@ double heuristic(int x1, int y1, int x2, int y2) {
     return abs(x1 - x2) + abs(y1 - y2);
 }
 
-bool is_goal(const Node *node, int goal_x, int goal_y) {
+bool is_goal(const Node *node, int goal_row, int goal_column) {
     if (node == NULL) {
         return false;
     }
-    return (node->position[1] == goal_x && node->position[0] == goal_y);
+    return (node->position[0] == goal_row && node->position[1] == goal_column);
 
 }
 
 bool is_cell_full(map_t *map, int row, int column) {
-    cell_t cell = map->cells[column][row];
+    cell_t cell = map->cells[row][column];
     return cell.current_capacity >= cell.nb_of_characters;
 }
 
-Node **get_successors(map_t *map, Node *current, int goal_x, int goal_y) {
+Node **get_successors(map_t *map, Node *current, int goal_row, int goal_column) {
     Node **neighbors = (Node **)malloc(sizeof(Node *) * (NUM_DIRECTIONS + 1)); // +1 pour NULL
     if (neighbors == NULL) {
         perror("Unable to allocate memory for neighbors");
@@ -157,21 +157,21 @@ Node **get_successors(map_t *map, Node *current, int goal_x, int goal_y) {
 
     int number_of_neighbors = 0;
     for (int i = 0; i < NUM_DIRECTIONS; i++) {
-    int y = current->position[0] + DIRECTIONS[i][1]; // Lignes
-    int x = current->position[1] + DIRECTIONS[i][0]; // Colonnes
+    int row = current->position[0] + DIRECTIONS[i][0]; // Lignes
+    int column = current->position[1] + DIRECTIONS[i][1]; // Colonnes
 
-    if (y < 0 || y >= MAX_ROWS || x < 0 || x >= MAX_COLUMNS /*|| is_cell_full(map, y, x)*/ ) {
+    if (row < 0 || row >= MAX_ROWS || column < 0 || column >= MAX_COLUMNS /*|| is_cell_full(map, row, row)*/ ) {
         continue;
     }
 
-    if (map->cells[y][x].type != WASTELAND && (y != goal_y || x != goal_x)) {
+    if (map->cells[row][column].type != WASTELAND && (row != goal_row || column != goal_column)) {
         continue;
     }
 
     double g = current->g + 1;
-    double h = heuristic(x, y, goal_x, goal_y);
-    neighbors[number_of_neighbors++] = create_node(x, y, g, h);
-}
+    double h = heuristic(row, column, goal_row, goal_column);
+    neighbors[number_of_neighbors++] = create_node(row, column, g, h);
+    }
 
     neighbors[number_of_neighbors] = NULL; 
     return neighbors;
@@ -186,19 +186,19 @@ Node* get_random_neighbours_spy(map_t* map, spy_t* spy) {
 
     int number_of_neighbors = 0;
     for (int i = 0; i < NUM_DIRECTIONS; i++) {
-        int x = spy->location_row + DIRECTIONS[i][0];
-        int y = spy->location_column + DIRECTIONS[i][1];
+        int row = spy->location_row + DIRECTIONS[i][0];
+        int column = spy->location_column + DIRECTIONS[i][1];
 
-        if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS) {
+        if (row < 0 || row >= MAX_ROWS || column < 0 || column >= MAX_COLUMNS) {
             continue; // Ignorer les voisins non valides
         }
         
         // Ajouter des voisins si c'est du type WASTELAND ou un autre type spécifique (par exemple, une entreprise)
-        if (map->cells[y][x].type != WASTELAND) {
+        if (map->cells[row][column].type != WASTELAND) {
             continue;
         }
         else {
-            neighbors[number_of_neighbors++] = create_node(x, y, 0, 0);
+            neighbors[number_of_neighbors++] = create_node(row, column, 0, 0);
         }
     }
 
@@ -219,7 +219,7 @@ Node* get_random_neighbours_spy(map_t* map, spy_t* spy) {
     return selected_neighbor;
 }
 
-Node* get_random_neighbours(map_t* map, int y, int x){
+Node* get_random_neighbours(map_t* map, int row, int column){
     Node **neighbors = (Node **)malloc(sizeof(Node *) * NUM_DIRECTIONS);
     if (neighbors == NULL) {
         perror("Unable to allocate memory for neighbors");
@@ -228,19 +228,19 @@ Node* get_random_neighbours(map_t* map, int y, int x){
 
     int number_of_neighbors = 0;
     for (int i = 0; i < NUM_DIRECTIONS; i++) {
-        int random_x = x + DIRECTIONS[i][0];
-        int random_y = y + DIRECTIONS[i][1];
+        int random_row = row + DIRECTIONS[i][0];
+        int random_column = column + DIRECTIONS[i][1];
 
-        if (x < 0 || x >= MAX_ROWS || y < 0 || y >= MAX_COLUMNS) {
+        if (row < 0 || row >= MAX_ROWS || column < 0 || column >= MAX_COLUMNS) {
             continue; // Ignorer les voisins non valides
         }
         
         // Ajouter des voisins si c'est du type WASTELAND ou un autre type spécifique (par exemple, une entreprise)
-        if (map->cells[y][x].type != WASTELAND) {
+        if (map->cells[row][column].type != WASTELAND) {
             continue;
         }
         else {
-            neighbors[number_of_neighbors++] = create_node(random_x, random_y, 0, 0);
+            neighbors[number_of_neighbors++] = create_node(row, column, 0, 0);
         }
     }
 
@@ -264,13 +264,13 @@ Node* get_random_neighbours(map_t* map, int y, int x){
 
 
 
-Node *astar_search(map_t *map, int start_y, int start_x, int goal_y, int goal_x) {
+Node *astar_search(map_t *map, int start_row, int start_column, int goal_row, int goal_column) {
     // Initialiser les structures de données nécessaires
     heap_t *open_set = create_heap(100); // Capacité initiale
     bool closed_set[MAX_ROWS][MAX_COLUMNS] = {false};
 
     // Ajouter le nœud de départ au tas
-    Node *start_node = create_node(start_x, start_y, 0, heuristic(start_x, start_y, goal_x, goal_y));
+    Node *start_node = create_node(start_row, start_column, 0, heuristic(start_row, start_column, goal_row, goal_column));
     start_node->parent = NULL;
     insert_heap(open_set, start_node);
 
@@ -280,7 +280,7 @@ Node *astar_search(map_t *map, int start_y, int start_x, int goal_y, int goal_x)
         delete_root(open_set, &current_node);
 
         // Si le nœud est la destination, le retourner
-        if (is_goal(current_node, goal_x, goal_y)) {
+        if (is_goal(current_node, goal_row, goal_column)) {
             destroy_heap(open_set);
             return current_node;
         }
@@ -289,7 +289,7 @@ Node *astar_search(map_t *map, int start_y, int start_x, int goal_y, int goal_x)
         closed_set[current_node->position[0]][current_node->position[1]] = true;
 
         // Gérer les voisins du nœud actuel
-        Node **neighbors = get_successors(map, current_node, goal_x, goal_y);
+        Node **neighbors = get_successors(map, current_node, goal_row, goal_column);
         bool neighbors_to_free[NUM_DIRECTIONS] = {false};
         for (int i = 0; neighbors[i] != NULL; i++) {
             Node *neighbor = neighbors[i];
@@ -317,7 +317,7 @@ Node *astar_search(map_t *map, int start_y, int start_x, int goal_y, int goal_x)
             if (!is_in_heap(open_set, neighbor) || tentative_g < neighbor->g) {
                 neighbor->parent = current_node;
                 neighbor->g = tentative_g;
-                neighbor->h = heuristic(neighbor->position[0], neighbor->position[1], goal_x, goal_y);
+                neighbor->h = heuristic(neighbor->position[0], neighbor->position[1], goal_row, goal_column);
                 neighbor->f = neighbor->g + neighbor->h;
 
                 if (!is_in_heap(open_set, neighbor)) {
@@ -404,14 +404,14 @@ void print_path(Node **path, int path_length) {
     printf("\n");
 }
 
-Node *calculate_next_step(int current_y, int current_x, int goal_y, int goal_x, map_t *map) {
+Node *calculate_next_step(int current_row, int current_column, int goal_row, int goal_column, map_t *map) {
     // Vérifier si la position actuelle est déjà la destination
-    if (current_x == goal_x && current_y == goal_y) {
+    if (current_row == goal_row && current_column == goal_column) {
         return NULL; // Aucun mouvement nécessaire
     }
 
     // Exécuter l'algorithme A* pour trouver le chemin complet
-    Node *goal_node = astar_search(map, current_y, current_x, goal_y, goal_x);
+    Node *goal_node = astar_search(map, current_row, current_column, goal_row, goal_column);
 
 
     // Si aucun chemin trouvé, retourner NULL
@@ -427,7 +427,7 @@ Node *calculate_next_step(int current_y, int current_x, int goal_y, int goal_x, 
     int h = next_step->h;
     int g = next_step->g;
     // Créer un nouveau nœud pour la prochaine étape
-    Node *next_step_node = create_node(next_step->position[1], next_step->position[0], h, g);
+    Node *next_step_node = create_node(next_step->position[0], next_step->position[1], h, g);
 
     // Libérer les nœuds alloués par astar_search
     Node *current = goal_node;
@@ -439,65 +439,3 @@ Node *calculate_next_step(int current_y, int current_x, int goal_y, int goal_x, 
 
     return next_step_node;
 }
-
-
-
-/* =========== COMMENT UTILISER ASTAR =========== */
-// 1. Initialiser les chemins des cityens
-// 2. Dans la boucle principale, pour chaque citoyen, appeler la fonction astar_search
-
-// Exemple:
-
-/*
-void init_citizens(memory_t *memory) {
-    // ...
-    for (int i = 0; i < CITIZENS_COUNT; i++) {
-        citizen_t *citizen = &memory->citizens[i];
-        
-        // Initialisation des autres attributs du citoyen...
-
-        // Définition des points de départ et d'arrivée
-        int start_x = citizen->home->position[0];
-        int start_y = citizen->home->position[1];
-        int goal_x_company = citizen->workplace->position[0];
-        int goal_y_company = citizen->workplace->position[1];
-        int goal_x_supermarket = citizen->supermarket->position[0];
-        int goal_y_supermarket = citizen->supermarket->position[1];
-
-        // A* de la maison à l'entreprise
-        Node *end_node_company = astar_search(&memory->map, start_x, start_y, goal_x_company, goal_y_company);
-        if (end_node_company != NULL) {
-            citizen->path_to_work = reconstruct_path(end_node_company);
-        }
-
-        // A* de l'entreprise au supermarché
-        Node *end_node_supermarket = astar_search(&memory->map, goal_x_company, goal_y_company, goal_x_supermarket, goal_y_supermarket);
-        if (end_node_supermarket != NULL) {
-            citizen->path_to_supermarket = reconstruct_path(end_node_supermarket);
-        }
-
-        // A* du supermarché à la maison (ou d'autres chemins nécessaires)
-        // ...
-
-        // Initialisation des états et autres attributs du citoyen
-        // ...
-    }
-    // ...
-}
-
-et après faut juste modifier les steps dans le pattern state pour que chaque tick, ils donnent une nouvelle position 
-au personnage.
-
-Exemple de step pour le pattern state:
-
-    if (citizen->current_state == citizen->going_to_company) {
-        step(citizen, citizen->path_to_work);
-        // Si le citoyen arrive à l'entreprise, changer l'état
-        if (arrived_at_destination(citizen, citizen->workplace)) {
-            change_state(citizen, citizen->working);
-        }
-    }
-}
-
-
-*/
