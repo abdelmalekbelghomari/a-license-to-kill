@@ -120,6 +120,7 @@ struct mq_s {
 typedef struct {
     int currentRow, currentColumn; // Position actuelle
     int previousRow, previousColumn; // Position précédente
+    int historyRow[7], historyColumn[7];
 } characterMovement;
 
 typedef struct {

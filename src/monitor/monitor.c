@@ -146,8 +146,8 @@ void set_city_legend(WINDOW *window, int row, int col)
     mvwprintw(window, row + 16, col, "Characters:");
     mvwprintw(window, row + 17, col + 2, "S - Spy");
     mvwprintw(window, row + 18, col + 2, "* - Citizen");
-    mvwprintw(window, row + 19, col + 2, "C - Counter Intelligence Officer");
-    mvwprintw(window, row + 20, col + 2, "I - Case Officer");
+    mvwprintw(window, row + 19, col + 2, "I - Counter Intelligence Officer");
+    mvwprintw(window, row + 20, col + 2, "O - Case Officer");
 }
 
 
@@ -184,7 +184,7 @@ void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *me
                     break;
                 case CITY_HALL:
                     wattron(window, colored_text[COLOR_MAGENTA]);
-                    mvwaddstr(window, row_offset, col_offset, " * ");
+                    mvwaddstr(window, row_offset, col_offset, " h ");
                     wattroff(window, colored_text[COLOR_MAGENTA]);
                     break;
                 default:
@@ -222,9 +222,9 @@ void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *me
 
             
             // // Affichage de l'officier du contre-espionnage
-            // if (memory->counter_intelligence_officer.location_row == i && memory->counter_intelligence_officer.location_column == j) {
-            //     mvwaddstr(window, row_offset, col_offset, "I"); // Afficher l'officier du contre-espionnage
-            // }
+            if (memory->counter_intelligence_officer.location_row == i && memory->counter_intelligence_officer.location_column == j) {
+                mvwaddstr(window, row_offset, col_offset, "I"); // Afficher l'officier du contre-espionnage
+            }
 
             // // Affichage de l'officier traitant
             if (memory->case_officer.location_row == i && memory->case_officer.location_column == j) {
@@ -437,15 +437,15 @@ void display_case_officer_information(WINDOW *window, memory_t *mem, int row, in
     int home_column;
     int mailbox_row;
     int mailbox_column;
-    
+
     id              = 0;
     health_points   = officer->health_point;
     location_row    = officer->location_column;
     location_column = officer->location_row;
     home_row        = officer->home_column;
     home_column     = officer->home_row;
-    mailbox_row     = mailbox_row;
-    mailbox_column  = mailbox_column;
+    mailbox_row     = mem->map.mailbox_column;
+    mailbox_column  = mem->map.mailbox_row;
    /* ---------------------------------------------------------------------- */
     // char *state_description;
     // switch (officer->current_state->id) {

@@ -103,13 +103,13 @@ src/enemy_country/main.o: src/enemy_country/main.c
 # ----------------------------------------------------------------------------
 # COUNTER INTELLIGENCE
 # ----------------------------------------------------------------------------
-bin/counter_intelligence: src/counter_intelligence/main.o src/counter_intelligence/counter_intelligence.o 
+bin/counter_intelligence: src/counter_intelligence/main.o src/counter_intelligence/counter_intelligence.o src/astar/astar.o
 	$(CC) $^ -o $@ $(LDFLAGS)
 
 src/counter_intelligence/main.o: src/counter_intelligence/main.c include/counter_intelligence.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-src/counter_intelligence/counter_intelligence.o: src/counter_intelligence/counter_intelligence.c include/counter_intelligence.h
+src/counter_intelligence/counter_intelligence.o: src/counter_intelligence/counter_intelligence.c include/counter_intelligence.h include/astar.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 # ----------------------------------------------------------------------------

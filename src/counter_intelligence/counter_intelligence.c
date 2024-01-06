@@ -1,21 +1,18 @@
 #include "counter_intelligence.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "astar.h"
 
 extern memory_t *memory;
 
 
 void assign_officer_time(counter_intelligence_officer_t *officer){
 
-
     // First message retrieval time
     officer->leaving_time.leaving_hour = rand() % (17 - 8) + 8;
     officer->leaving_time.leaving_minute = (rand() % 6) * 10;
 
 }
-
-
-
 
 state_t *new_state(int id, state_t *(*action)(counter_intelligence_officer_t *)) {
     state_t *state = malloc(sizeof(state_t));
@@ -31,12 +28,17 @@ state_t *monitor(counter_intelligence_officer_t *officer) {
     } else {
         memory->surveillanceNetwork.cameras.standard_camera = 1;
     }
-    if (((officer->leaving_time.leaving_hour == memory->timer.hours && officer->leaving_time.leaving_minute == memory->timer.minutes) && officer->new_day) && officer->has_found_mailbox_location){
+    detect_suspicious_person(memory);
+    if (((officer->leaving_time.leaving_hour == memory->timer.hours 
+        && officer->leaving_time.leaving_minute == memory->timer.minutes) 
+        && officer->new_day) && officer->has_found_mailbox_location){
         // printf("===============================il est temps que je retente de chercher la boite aux lettres\n");
         officer->new_day = false; // avoid searching twice the same day
         return officer->going_to_search_for_mailbox;
     }
     if (memory->surveillanceNetwork.surveillanceAI.suspicious_movement){
+
+        // printf("suspicious movement detected , i'm going to investigate\n");
         // ================= ABDEL N'IGNORE PAS CES COMMENTAIRES J'AI FAIT CA POUR TOI ===========================
         // go to the location of the suspect
         // here's how to get the location of the suspect :
@@ -66,9 +68,28 @@ state_t *monitor(counter_intelligence_officer_t *officer) {
 
     return officer->monitoring;  // Prochain état
 }
+
+
+int is_at_mailbox(counter_intelligence_officer_t *officer){
+    return (officer->location_row == memory->map.mailbox_row && officer->location_column == memory->map.mailbox_column);
+}
+
 state_t *go_to_search_for_mailbox(counter_intelligence_officer_t *officer){
     //logique pour aller a la mailbox
-    return officer->searching_for_mailbox;
+    if(is_at_mailbox(officer)){
+        return officer->searching_for_mailbox;
+    } else {
+        Node* next_step = calculate_next_step(officer->location_row, officer->location_column, 
+            memory->map.mailbox_row, memory->map.mailbox_column, &memory->map);
+        if (next_step != NULL){
+            // printf("je me déplace vers la position (%d,%d)\n", next_step->x, next_step->y);
+            officer->location_row = next_step->position[0];
+            officer->location_column = next_step->position[1];
+            return officer->going_to_search_for_mailbox;
+        } else {
+            return officer->monitoring;
+        }
+    }
 }
 
 state_t *go_to_suspect_place(counter_intelligence_officer_t *officer) {
@@ -77,9 +98,9 @@ state_t *go_to_suspect_place(counter_intelligence_officer_t *officer) {
         // printf("===============================il est temps que je retente de chercher la boite aux lettres\n");
         officer->new_day = false; // avoid searching twice the same day
         return officer->going_to_search_for_mailbox;
+    } else {
+        return officer->hiding; 
     }
-    // Logique de l'état "go_to_suspect_place"
-    return officer->hiding;  // Prochain état
 }
 
 state_t *hide(counter_intelligence_officer_t *officer) {
@@ -94,15 +115,33 @@ state_t *hide(counter_intelligence_officer_t *officer) {
     return officer->waiting_for_spy_to_steal;  // Prochain état
 }
 
+
+
 state_t *go_back_to_monitor(counter_intelligence_officer_t *officer) {
     // printf("je retourne dormir devant les caméras\n");
-    if ((officer->leaving_time.leaving_hour == memory->timer.hours && officer->leaving_time.leaving_minute == memory->timer.minutes) && officer->new_day){
+    if ((officer->leaving_time.leaving_hour == memory->timer.hours 
+        && officer->leaving_time.leaving_minute == memory->timer.minutes) 
+        && officer->new_day
+        && officer->has_found_mailbox_location){
         // printf("===============================il est temps que je retente de chercher la boite aux lettres\n");
         officer->new_day = false; // avoid searching twice the same day
         return officer->going_to_search_for_mailbox;
     }
-    // il faut implémenter le astar ici
-    return officer->monitoring;  // Prochain état
+
+    if(officer->location_column == memory->companies[2].position[1] && officer->location_row == memory->companies[2].position[0]){
+        return officer->monitoring;
+    } else {
+        Node* next_step = calculate_next_step(officer->location_row, officer->location_column, 
+            memory->companies[2].position[0], memory->companies[2].position[1], &memory->map);
+        if (next_step != NULL){
+            // printf("je me déplace vers la position (%d,%d)\n", next_step->x, next_step->y);
+            officer->location_row = next_step->position[0];
+            officer->location_column = next_step->position[1];
+            return officer->going_back_to_monitor;
+        } else {
+            return officer->monitoring;
+        }
+    }
 }
 
 state_t *wait_for_spy_to_steal(counter_intelligence_officer_t *officer) {
@@ -126,7 +165,6 @@ state_t *wait_for_spy_to_send_message(counter_intelligence_officer_t *officer) {
 
 state_t *search_for_mailbox(counter_intelligence_officer_t *officer) {
     // printf("je cherche la boite aux lettres : ");
-    
     // Logique de l'état "search_for_mailbox"
     int value = rand()%10;
     if (value < 7){
@@ -145,10 +183,38 @@ state_t *recover_message(counter_intelligence_officer_t *officer) {
     return officer->going_back_to_monitor;  
 }
 
+void update_movement_history(characterMovement *movement, int newX, int newY) {
+    // printf("Mise à jour de l'historique de mouvement : Ancienne position (%d, %d), Nouvelle position (%d, %d)\n", movement->currentRow, movement->currentColumn, newX, newY);
+
+    // Mettre à jour les positions précédentes
+    movement->previousRow = movement->currentRow;
+    movement->previousColumn = movement->currentColumn;
+
+    // Actualiser la position actuelle
+    movement->currentRow = newX;
+    movement->currentColumn = newY;
+
+    // Décaler l'historique et ajouter la position actuelle à la fin
+    for (int i = 0; i < 6; i++) {
+        movement->historyRow[i] = movement->historyRow[i + 1];
+        movement->historyColumn[i] = movement->historyColumn[i + 1];
+    }
+    movement->historyRow[6] = newX;
+    movement->historyColumn[6] = newY;
+
+    // printf("Historique de mouvement mis à jour.\n");
+}
 
 void detect_suspicious_person(memory_t *memory) {
+    // printf("Détection des personnes suspectes...\n");
+
+
+
+    // Vérification pour chaque citoyen
     for (int i = 0; i < NUM_CITIZENS; i++) {
-        if (is_movement_suspicious(&memory->citizens[i].movement)) {
+        update_movement_history(&memory->citizens[i].movement, memory->citizens[i].position[0], memory->citizens[i].position[1]);
+        if (is_movement_suspicious(&memory->citizens[i].movement, memory)) {
+            // printf("Mouvement suspect détecté chez le citoyen %d.\n", i);
             memory->surveillanceNetwork.surveillanceAI.suspicious_movement = true;
             memory->surveillanceNetwork.surveillanceAI.suspect.citizen = &memory->citizens[i];
             memory->surveillanceNetwork.surveillanceAI.suspect_type = SUSPECT_CITIZEN;
@@ -156,8 +222,11 @@ void detect_suspicious_person(memory_t *memory) {
         }
     }
 
+    // Vérification pour chaque espion
     for (int i = 0; i < SPIES_COUNT; i++) {
-        if (is_movement_suspicious(&memory->spies[i].movement)) {
+        update_movement_history(&memory->spies[i].movement, memory->spies[i].location_row, memory->spies[i].location_column);
+        if (is_movement_suspicious(&memory->spies[i].movement, memory)) {
+            // printf("Mouvement suspect détecté chez l'espion %d.\n", i);
             memory->surveillanceNetwork.surveillanceAI.suspicious_movement = true;
             memory->surveillanceNetwork.surveillanceAI.suspect.spy = &memory->spies[i];
             memory->surveillanceNetwork.surveillanceAI.suspect_type = SUSPECT_SPY;
@@ -165,24 +234,38 @@ void detect_suspicious_person(memory_t *memory) {
         }
     }
 
-    if (is_movement_suspicious(&memory->case_officer.movement)) {
+    // Vérification pour l'officier traitant
+    update_movement_history(&memory->case_officer.movement, memory->case_officer.location_row, memory->case_officer.location_column);
+    if (is_movement_suspicious(&memory->case_officer.movement, memory)) {
+        // printf("Mouvement suspect détecté chez l'officier traitant.\n");
         memory->surveillanceNetwork.surveillanceAI.suspicious_movement = true;
         memory->surveillanceNetwork.surveillanceAI.suspect.case_officer = &memory->case_officer;
         memory->surveillanceNetwork.surveillanceAI.suspect_type = SUSPECT_CASE_OFFICER;
     }
 }
 
-bool is_movement_suspicious(characterMovement *movement) {
-    const int MOVEMENT_THRESHOLD = 3;
+bool is_movement_suspicious(characterMovement *movement, memory_t *memory) {
+    int count = 0;
+    for (int i = 0; i < 7; i++) {
+        int row = movement->historyRow[i];
+        int column = movement->historyColumn[i];
 
-    if (movement->currentRow != movement->previousRow || movement->currentColumn != movement->previousColumn) {
-        if (abs(movement->currentRow - movement->previousRow) <= MOVEMENT_THRESHOLD &&
-            abs(movement->currentColumn - movement->previousColumn) <= MOVEMENT_THRESHOLD) {
-            return true;
+        // Débogage: affiche le type de cellule pour chaque position dans l'historique
+        // printf("Vérification de la position (%d, %d), Type: %d\n", row, column, memory->map.cells[row][column].type);
+
+        if (memory->map.cells[row][column].type == WASTELAND) {
+            // printf("Position (%d, %d) est une wasteland.\n", row, column);
+            count++;
+            if (count >= 3) {
+                // printf("Mouvement suspect détecté: %d fois sur une wasteland de coordonnées (%d,%d).\n", count, row, column);
+                return true;
+            }
         }
     }
+    // printf("Aucun mouvement suspect détecté.\n");
     return false;
 }
+
 
 void init_counter_intelligence_officer(memory_t * memory){
 
@@ -205,3 +288,4 @@ void init_counter_intelligence_officer(memory_t * memory){
     officer->leaving_time.leaving_hour = -1;
     officer->leaving_time.leaving_minute = -1;
 }
+
