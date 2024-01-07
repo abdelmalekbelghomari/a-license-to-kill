@@ -1,0 +1,84 @@
+\hypertarget{enemy__spy__network_2main_8c}{}\doxysection{Référence du fichier src/enemy\+\_\+spy\+\_\+network/main.c}
+\label{enemy__spy__network_2main_8c}\index{src/enemy\_spy\_network/main.c@{src/enemy\_spy\_network/main.c}}
+
+
+Main Thread Management for Enemy Spy Network.  
+
+
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}enemy\+\_\+spy\+\_\+network.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$sys/mman.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+Graphe des dépendances par inclusion de main.\+c\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_aa4cfdfe993fe1696f4f75b0557c9906c}\label{enemy__spy__network_2main_8c_aa4cfdfe993fe1696f4f75b0557c9906c}} 
+\#define {\bfseries S\+H\+A\+R\+E\+D\+\_\+\+M\+E\+M\+O\+RY}~\char`\"{}/Shared\+Memory\char`\"{}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_a075a968c2785a84e9c2c4f02c465e5cb}\label{enemy__spy__network_2main_8c_a075a968c2785a84e9c2c4f02c465e5cb}} 
+\#define {\bfseries S\+P\+Y\+\_\+\+D\+E\+B\+UG}~3
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_ae73273b562cbf711974b679e768614e9}\label{enemy__spy__network_2main_8c_ae73273b562cbf711974b679e768614e9}} 
+\#define {\bfseries S\+T\+A\+R\+T\+\_\+\+H\+O\+U\+R\+\_\+\+O\+F\+\_\+\+D\+AY}~7
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_abdbcc430d68d38943499aaf373c7e4ab}\label{enemy__spy__network_2main_8c_abdbcc430d68d38943499aaf373c7e4ab}} 
+\#define {\bfseries S\+E\+M\+A\+P\+H\+O\+R\+E\+\_\+\+C\+O\+N\+S\+U\+M\+ER}~\char`\"{}/sem\+Consumer\char`\"{}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_a1c79358e413e91752ecf5b0c75472f12}\label{enemy__spy__network_2main_8c_a1c79358e413e91752ecf5b0c75472f12}} 
+\#define {\bfseries S\+E\+M\+A\+P\+H\+O\+R\+E\+\_\+\+P\+R\+O\+D\+U\+C\+ER}~\char`\"{}/sem\+Producer\char`\"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_ab52f2814c24c383af332beb06e6eec3e}\label{enemy__spy__network_2main_8c_ab52f2814c24c383af332beb06e6eec3e}} 
+void $\ast$ {\bfseries spy\+\_\+thread} (void $\ast$arg)
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_a78728e2fcb105360266771c6fdcc1806}\label{enemy__spy__network_2main_8c_a78728e2fcb105360266771c6fdcc1806}} 
+void $\ast$ {\bfseries officer\+\_\+function} ()
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{enemy__spy__network_2main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+int {\bfseries main} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_af16d0defec41b3501a54c55c112a55d0}\label{enemy__spy__network_2main_8c_af16d0defec41b3501a54c55c112a55d0}} 
+\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$ {\bfseries memory}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_a5c905d8d60d9e4d58e9a4a5ec07ec44c}\label{enemy__spy__network_2main_8c_a5c905d8d60d9e4d58e9a4a5ec07ec44c}} 
+sem\+\_\+t $\ast$ {\bfseries sem}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_aa3f3e11b928cbc86547d0e1b4ebd2d14}\label{enemy__spy__network_2main_8c_aa3f3e11b928cbc86547d0e1b4ebd2d14}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+producer}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_a4c6703ae9acc801a2fb3c649e0c0019a}\label{enemy__spy__network_2main_8c_a4c6703ae9acc801a2fb3c649e0c0019a}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+consumer}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_ae62f1668c075f8ee1a0df91fdaf65a69}\label{enemy__spy__network_2main_8c_ae62f1668c075f8ee1a0df91fdaf65a69}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+spy\+\_\+producer}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_ada3833206a05476fa451c41f4a7ab759}\label{enemy__spy__network_2main_8c_ada3833206a05476fa451c41f4a7ab759}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+spy\+\_\+consumer}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_a171cbdf30d06cda9edf713409dca8293}\label{enemy__spy__network_2main_8c_a171cbdf30d06cda9edf713409dca8293}} 
+mqd\+\_\+t {\bfseries mq}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_aa918d7e20dcb6074f9c242bf68391bbc}\label{enemy__spy__network_2main_8c_aa918d7e20dcb6074f9c242bf68391bbc}} 
+pthread\+\_\+mutex\+\_\+t {\bfseries shared\+\_\+memory\+\_\+mutex}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_2main_8c_aca4e220cf18bdd1e214ec939ce0a7351}\label{enemy__spy__network_2main_8c_aca4e220cf18bdd1e214ec939ce0a7351}} 
+pthread\+\_\+barrier\+\_\+t {\bfseries turn\+\_\+barrier}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Main Thread Management for Enemy Spy Network. 
+
+This file serves as the main entry point for the \char`\"{}\+Enemy Spy Network\char`\"{} component, responsible for managing the threads of spies and the case officer. It coordinates espionage activities, including message theft, mailbox interactions, and message exchange with the enemy country. 

@@ -1,0 +1,100 @@
+\hypertarget{structcitizen__s}{}\doxysection{Référence de la structure citizen\+\_\+s}
+\label{structcitizen__s}\index{citizen\_s@{citizen\_s}}
+
+
+A structure representing a citizen in the simulation.  
+
+
+
+
+{\ttfamily \#include $<$memory.\+h$>$}
+
+
+
+Graphe de collaboration de citizen\+\_\+s\+:
+% FIG 0
+\doxysubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structcitizen__s_ae81bdb800c0b82a6cb6c9eb9c5b65337}\label{structcitizen__s_ae81bdb800c0b82a6cb6c9eb9c5b65337}} 
+unsigned int \mbox{\hyperlink{structcitizen__s_ae81bdb800c0b82a6cb6c9eb9c5b65337}{id}}
+\begin{DoxyCompactList}\small\item\em Unique identifier for the citizen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_a4dd43de081eaf037f69077ddcaba2193}\label{structcitizen__s_a4dd43de081eaf037f69077ddcaba2193}} 
+int \mbox{\hyperlink{structcitizen__s_a4dd43de081eaf037f69077ddcaba2193}{position}} \mbox{[}2\mbox{]}
+\begin{DoxyCompactList}\small\item\em Position of the citizen in the grid. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_a9547361539cd7117d1115604b339ebe7}\label{structcitizen__s_a9547361539cd7117d1115604b339ebe7}} 
+unsigned int \mbox{\hyperlink{structcitizen__s_a9547361539cd7117d1115604b339ebe7}{health}}
+\begin{DoxyCompactList}\small\item\em Health points of the citizen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_a14c6a9ec6d34f58d440b138eef117663}\label{structcitizen__s_a14c6a9ec6d34f58d440b138eef117663}} 
+int \mbox{\hyperlink{structcitizen__s_a14c6a9ec6d34f58d440b138eef117663}{current\+\_\+step}}
+\begin{DoxyCompactList}\small\item\em Current step in the path (if any). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_aabd5dfc4c0d2d9370323b925b2144d28}\label{structcitizen__s_aabd5dfc4c0d2d9370323b925b2144d28}} 
+int \mbox{\hyperlink{structcitizen__s_aabd5dfc4c0d2d9370323b925b2144d28}{is\+\_\+coming\+\_\+from\+\_\+company}}
+\begin{DoxyCompactList}\small\item\em Flag indicating if the citizen is returning from a company. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_af21fc768c795ca5ef076ee513b2b9bfe}\label{structcitizen__s_af21fc768c795ca5ef076ee513b2b9bfe}} 
+citizen\+\_\+type\+\_\+t \mbox{\hyperlink{structcitizen__s_af21fc768c795ca5ef076ee513b2b9bfe}{type}}
+\begin{DoxyCompactList}\small\item\em Type of the citizen (e.\+g., normal, spy, officer). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_ad11580614ee57992fb243db80503c5da}\label{structcitizen__s_ad11580614ee57992fb243db80503c5da}} 
+\mbox{\hyperlink{structbuilding__s}{building\+\_\+t}} $\ast$ \mbox{\hyperlink{structcitizen__s_ad11580614ee57992fb243db80503c5da}{workplace}}
+\begin{DoxyCompactList}\small\item\em Pointer to the citizen\textquotesingle{}s workplace. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_ab34753ec431ed2f017057529b466a6fb}\label{structcitizen__s_ab34753ec431ed2f017057529b466a6fb}} 
+\mbox{\hyperlink{structbuilding__s}{building\+\_\+t}} $\ast$ \mbox{\hyperlink{structcitizen__s_ab34753ec431ed2f017057529b466a6fb}{supermarket}}
+\begin{DoxyCompactList}\small\item\em Pointer to a random supermarket in the city. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_ae8b458ace3423c54af2bc73b6fc39351}\label{structcitizen__s_ae8b458ace3423c54af2bc73b6fc39351}} 
+int \mbox{\hyperlink{structcitizen__s_ae8b458ace3423c54af2bc73b6fc39351}{time\+\_\+spent\+\_\+shopping}}
+\begin{DoxyCompactList}\small\item\em Time spent shopping, up to 30 minutes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_a120b4d3bc867e38d276c18edf603a728}\label{structcitizen__s_a120b4d3bc867e38d276c18edf603a728}} 
+\mbox{\hyperlink{structhome__s}{home\+\_\+t}} $\ast$ \mbox{\hyperlink{structcitizen__s_a120b4d3bc867e38d276c18edf603a728}{home}}
+\begin{DoxyCompactList}\small\item\em Pointer to the citizen\textquotesingle{}s home. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_a9fa5f5acf8fc4db70c76672537c01057}\label{structcitizen__s_a9fa5f5acf8fc4db70c76672537c01057}} 
+int \mbox{\hyperlink{structcitizen__s_a9fa5f5acf8fc4db70c76672537c01057}{visited\+\_\+cells}} \mbox{[}\mbox{\hyperlink{common_8h_a2cc6f39fc4594f0e734b2588129fba03}{M\+A\+X\+\_\+\+C\+O\+L\+U\+M\+NS}}\mbox{]}\mbox{[}\mbox{\hyperlink{common_8h_a3b94af9dcb0358f28d175d80eed98330}{M\+A\+X\+\_\+\+R\+O\+WS}}\mbox{]}
+\begin{DoxyCompactList}\small\item\em Grid to track visited cells. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_a206ab6708ed1a9d47410101a879128d0}\label{structcitizen__s_a206ab6708ed1a9d47410101a879128d0}} 
+\mbox{\hyperlink{structPath}{Path}} $\ast$ \mbox{\hyperlink{structcitizen__s_a206ab6708ed1a9d47410101a879128d0}{path\+\_\+to\+\_\+work}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structPath}{Path}} to the workplace. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_a543b9de824fa941d817a6e9a2dd8ba78}\label{structcitizen__s_a543b9de824fa941d817a6e9a2dd8ba78}} 
+\mbox{\hyperlink{structPath}{Path}} $\ast$ \mbox{\hyperlink{structcitizen__s_a543b9de824fa941d817a6e9a2dd8ba78}{path\+\_\+to\+\_\+supermarket}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structPath}{Path}} to the supermarket. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_aa45d5f1b51a15d3f90dead24f40128a1}\label{structcitizen__s_aa45d5f1b51a15d3f90dead24f40128a1}} 
+\mbox{\hyperlink{structPath}{Path}} $\ast$ \mbox{\hyperlink{structcitizen__s_aa45d5f1b51a15d3f90dead24f40128a1}{path\+\_\+from\+\_\+supermarket\+\_\+to\+\_\+home}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structPath}{Path}} from the supermarket to home. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_a7abb4ac48e7b7e5be5308aeb3f60fc32}\label{structcitizen__s_a7abb4ac48e7b7e5be5308aeb3f60fc32}} 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcitizen__s_a7abb4ac48e7b7e5be5308aeb3f60fc32}{current\+\_\+state}}
+\begin{DoxyCompactList}\small\item\em Current state of the citizen. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_abdb8ff4f14e4c4e6be780f3671cc1a86}\label{structcitizen__s_abdb8ff4f14e4c4e6be780f3671cc1a86}} 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcitizen__s_abdb8ff4f14e4c4e6be780f3671cc1a86}{resting\+\_\+at\+\_\+home}}
+\begin{DoxyCompactList}\small\item\em State when resting at home. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_a235b8b9fdaf114921563c97c37cc4740}\label{structcitizen__s_a235b8b9fdaf114921563c97c37cc4740}} 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcitizen__s_a235b8b9fdaf114921563c97c37cc4740}{going\+\_\+to\+\_\+company}}
+\begin{DoxyCompactList}\small\item\em State when going to the company. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_a83ce700935fa5439ec571f604272a204}\label{structcitizen__s_a83ce700935fa5439ec571f604272a204}} 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcitizen__s_a83ce700935fa5439ec571f604272a204}{working}}
+\begin{DoxyCompactList}\small\item\em State when working. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_a144a64532137882697b0c43d9a537f21}\label{structcitizen__s_a144a64532137882697b0c43d9a537f21}} 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcitizen__s_a144a64532137882697b0c43d9a537f21}{going\+\_\+to\+\_\+supermarket}}
+\begin{DoxyCompactList}\small\item\em State when going to the supermarket. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_a240d81e3b883ca5437af650e74ebd465}\label{structcitizen__s_a240d81e3b883ca5437af650e74ebd465}} 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcitizen__s_a240d81e3b883ca5437af650e74ebd465}{doing\+\_\+some\+\_\+shopping}}
+\begin{DoxyCompactList}\small\item\em State when doing shopping. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_accab1220c8c593807b2cba17b15e47f8}\label{structcitizen__s_accab1220c8c593807b2cba17b15e47f8}} 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcitizen__s_accab1220c8c593807b2cba17b15e47f8}{going\+\_\+back\+\_\+home}}
+\begin{DoxyCompactList}\small\item\em State when going back home. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_ad5421174d223882132325026e46e4cb9}\label{structcitizen__s_ad5421174d223882132325026e46e4cb9}} 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcitizen__s_ad5421174d223882132325026e46e4cb9}{dying}}
+\begin{DoxyCompactList}\small\item\em State when dying. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_ae4aabb97c121a6832c76467e3ea3f448}\label{structcitizen__s_ae4aabb97c121a6832c76467e3ea3f448}} 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcitizen__s_ae4aabb97c121a6832c76467e3ea3f448}{finished}}
+\begin{DoxyCompactList}\small\item\em State when finished. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structcitizen__s_ac892d5a74569d771944977dd9e78b895}\label{structcitizen__s_ac892d5a74569d771944977dd9e78b895}} 
+\mbox{\hyperlink{structcharacterMovement}{character\+Movement}} \mbox{\hyperlink{structcitizen__s_ac892d5a74569d771944977dd9e78b895}{movement}}
+\begin{DoxyCompactList}\small\item\em Movement behavior of the citizen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+A structure representing a citizen in the simulation. 
+
+This structure stores information about a citizen, including their state, position, and properties. 
+
+La documentation de cette structure a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{include_2memory_8h}{memory.\+h}}\end{DoxyCompactItemize}

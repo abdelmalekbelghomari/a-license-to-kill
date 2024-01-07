@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>A License to Kill: Référence du fichier src/citizen_manager/main.c</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../ltk.jpg"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">A License to Kill
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Ce projet développe un système de simulation d&#39;espionnage sophistiqué, intégrant des techniques d&#39;intelligence artificielle vues en cours d&#39;IA et de modélisation de scénarios complexes en utilisant les méthodes et techniques vues en cours de Systèmes d&#39;Exploitations.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_32334c795b35e54fa5e5d2e3f499afbc.html">citizen_manager</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier main.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Main entry point for the spy simulation.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;memory.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d3/d54/citizen__manager_8h_source.html">citizen_manager.h</a>&quot;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;pthread.h&gt;</code><br />
+<code>#include &lt;sys/mman.h&gt;</code><br />
+<code>#include &lt;sys/types.h&gt;</code><br />
+<code>#include &lt;fcntl.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de main.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d1/d2e/citizen__manager_2main_8c__incl.png" border="0" usemap="#src_2citizen__manager_2main_8c" alt=""/></div>
+<!-- MAP 0 -->
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aa4cfdfe993fe1696f4f75b0557c9906c"><td class="memItemLeft" align="right" valign="top"><a id="aa4cfdfe993fe1696f4f75b0557c9906c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SHARED_MEMORY</b>&#160;&#160;&#160;&quot;/SharedMemory&quot;</td></tr>
+<tr class="separator:aa4cfdfe993fe1696f4f75b0557c9906c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdbcc430d68d38943499aaf373c7e4ab"><td class="memItemLeft" align="right" valign="top"><a id="abdbcc430d68d38943499aaf373c7e4ab"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SEMAPHORE_CONSUMER</b>&#160;&#160;&#160;&quot;/semConsumer&quot;</td></tr>
+<tr class="separator:abdbcc430d68d38943499aaf373c7e4ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c79358e413e91752ecf5b0c75472f12"><td class="memItemLeft" align="right" valign="top"><a id="a1c79358e413e91752ecf5b0c75472f12"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SEMAPHORE_PRODUCER</b>&#160;&#160;&#160;&quot;/semProducer&quot;</td></tr>
+<tr class="separator:a1c79358e413e91752ecf5b0c75472f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45d3b02d50da2336ac9efc710c911516"><td class="memItemLeft" align="right" valign="top"><a id="a45d3b02d50da2336ac9efc710c911516"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CITIZENS_DEBUG</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a45d3b02d50da2336ac9efc710c911516"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a8bb1e668cd38642c7a2c42f4c8f609e0"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d7f/citizen__manager_2main_8c.html#a8bb1e668cd38642c7a2c42f4c8f609e0">citizen_thread</a> (void *arg)</td></tr>
+<tr class="memdesc:a8bb1e668cd38642c7a2c42f4c8f609e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction exécutée par chaque thread de citoyen.  <a href="../../d7/d7f/citizen__manager_2main_8c.html#a8bb1e668cd38642c7a2c42f4c8f609e0">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8bb1e668cd38642c7a2c42f4c8f609e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d7f/citizen__manager_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
+<tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction principale du programme.  <a href="../../d7/d7f/citizen__manager_2main_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:af16d0defec41b3501a54c55c112a55d0"><td class="memItemLeft" align="right" valign="top"><a id="af16d0defec41b3501a54c55c112a55d0"></a>
+<a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>memory</b></td></tr>
+<tr class="separator:af16d0defec41b3501a54c55c112a55d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d10f124eea92dfd07e6d8748e0dcf37"><td class="memItemLeft" align="right" valign="top"><a id="a2d10f124eea92dfd07e6d8748e0dcf37"></a>
+sem_t *&#160;</td><td class="memItemRight" valign="bottom"><b>sem_producer</b></td></tr>
+<tr class="separator:a2d10f124eea92dfd07e6d8748e0dcf37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c6703ae9acc801a2fb3c649e0c0019a"><td class="memItemLeft" align="right" valign="top"><a id="a4c6703ae9acc801a2fb3c649e0c0019a"></a>
+sem_t *&#160;</td><td class="memItemRight" valign="bottom"><b>sem_consumer</b></td></tr>
+<tr class="separator:a4c6703ae9acc801a2fb3c649e0c0019a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa918d7e20dcb6074f9c242bf68391bbc"><td class="memItemLeft" align="right" valign="top"><a id="aa918d7e20dcb6074f9c242bf68391bbc"></a>
+pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><b>shared_memory_mutex</b></td></tr>
+<tr class="separator:aa918d7e20dcb6074f9c242bf68391bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca4e220cf18bdd1e214ec939ce0a7351"><td class="memItemLeft" align="right" valign="top"><a id="aca4e220cf18bdd1e214ec939ce0a7351"></a>
+pthread_barrier_t&#160;</td><td class="memItemRight" valign="bottom"><b>turn_barrier</b></td></tr>
+<tr class="separator:aca4e220cf18bdd1e214ec939ce0a7351"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa06e5d5a4e70daa688879817f720a20d"><td class="memItemLeft" align="right" valign="top"><a id="aa06e5d5a4e70daa688879817f720a20d"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>threads_at_barrier</b> = 0</td></tr>
+<tr class="separator:aa06e5d5a4e70daa688879817f720a20d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Main entry point for the spy simulation. </p>
+<p>This file contains the main entry point (the <code>main</code> function) for creating and managing citizens in the spy simulation. It initializes the necessary threads for handling citizens in the simulation. </p>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a8bb1e668cd38642c7a2c42f4c8f609e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bb1e668cd38642c7a2c42f4c8f609e0">&#9670;&nbsp;</a></span>citizen_thread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* citizen_thread </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>arg</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction exécutée par chaque thread de citoyen. </p>
+<p>Gère le comportement d'un citoyen dans la simulation. Cette fonction est assignée à chaque thread créé pour un citoyen et s'exécute tant que la simulation n'est pas terminée.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">arg</td><td>Pointeur vers l'identifiant du citoyen. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>Pointeur void* retourné à la fin de l'exécution du thread. </dd></dl>
+
+</div>
+</div>
+<a id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">&#9670;&nbsp;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction principale du programme. </p>
+<p>Crée et gère les threads des citoyens, et nettoie les ressources à la fin de la simulation.</p>
+<dl class="section return"><dt>Renvoie</dt><dd>int Code de sortie du programme. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

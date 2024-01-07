@@ -1,0 +1,498 @@
+\hypertarget{astar_8c}{}\doxysection{Référence du fichier src/astar/astar.c}
+\label{astar_8c}\index{src/astar/astar.c@{src/astar/astar.c}}
+
+
+Implementation of the A$\ast$ algorithm.  
+
+
+{\ttfamily \#include \char`\"{}astar.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Graphe des dépendances par inclusion de astar.\+c\+:
+% FIG 0
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structNode}{Node}} $\ast$ \mbox{\hyperlink{astar_8c_aa182a447ed2807b0399a5d30a17f4abf}{create\+\_\+node}} (int row, int column, double g, double h)
+\begin{DoxyCompactList}\small\item\em Creates a new node for A$\ast$ algorithm. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structheap__t}{heap\+\_\+t}} $\ast$ \mbox{\hyperlink{astar_8c_a486351e9d14def0f7051393b86b2dd2e}{create\+\_\+heap}} (int initial\+\_\+capacity)
+\begin{DoxyCompactList}\small\item\em Creates a new heap for A$\ast$ algorithm. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{astar_8c_aef0d873517708550e79e078802bdc986}{destroy\+\_\+heap}} (\mbox{\hyperlink{structheap__t}{heap\+\_\+t}} $\ast$heap)
+\begin{DoxyCompactList}\small\item\em Destroys a heap. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{astar_8c_a6ee5f3189d18e36c3e026fc85593e40c}{insert\+\_\+heap}} (\mbox{\hyperlink{structheap__t}{heap\+\_\+t}} $\ast$heap, \mbox{\hyperlink{structNode}{Node}} $\ast$node)
+\begin{DoxyCompactList}\small\item\em Inserts a node into the heap. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{astar_8c_a6980721f18f6b7ba8b58da680e972c38}{delete\+\_\+root}} (\mbox{\hyperlink{structheap__t}{heap\+\_\+t}} $\ast$heap, \mbox{\hyperlink{structNode}{Node}} $\ast$$\ast$deleted\+\_\+node)
+\begin{DoxyCompactList}\small\item\em Deletes the root node from the heap. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{astar_8c_abaf1163ba9aa25105e467b66369857fb}\label{astar_8c_abaf1163ba9aa25105e467b66369857fb}} 
+bool {\bfseries is\+\_\+in\+\_\+heap} (\mbox{\hyperlink{structheap__t}{heap\+\_\+t}} $\ast$heap, \mbox{\hyperlink{structNode}{Node}} $\ast$node)
+\item 
+bool \mbox{\hyperlink{astar_8c_ad900cec45c26ebd86123ebfd498c1e1e}{is\+\_\+heap\+\_\+empty}} (const \mbox{\hyperlink{structheap__t}{heap\+\_\+t}} $\ast$heap)
+\begin{DoxyCompactList}\small\item\em Checks if the heap is empty. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{astar_8c_acaccc6bbd35d1e9909ded9386ea5152f}{is\+\_\+heap\+\_\+full}} (const \mbox{\hyperlink{structheap__t}{heap\+\_\+t}} $\ast$heap)
+\begin{DoxyCompactList}\small\item\em Checks if the heap is full. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{astar_8c_aad113717113f9495334963ab053c5c5d}{print\+\_\+heap}} (const \mbox{\hyperlink{structheap__t}{heap\+\_\+t}} $\ast$heap)
+\begin{DoxyCompactList}\small\item\em Prints the contents of the heap. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{astar_8c_a97ab651105ac66b0579d952b22cf4b85}{heuristic}} (int x1, int y1, int x2, int y2)
+\begin{DoxyCompactList}\small\item\em Calculates the heuristic value between two points. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{astar_8c_a42b99f6a8467bc7d147eac2993b4f51c}{is\+\_\+goal}} (const \mbox{\hyperlink{structNode}{Node}} $\ast$node, int goal\+\_\+row, int goal\+\_\+column)
+\begin{DoxyCompactList}\small\item\em Checks if a node is the goal. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{astar_8c_a68810f17164e99454be081383707a574}{is\+\_\+cell\+\_\+full}} (\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$map, int row, int column)
+\begin{DoxyCompactList}\small\item\em Checks if a cell on the map is full. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structNode}{Node}} $\ast$$\ast$ \mbox{\hyperlink{astar_8c_a7bdd4cb4187abaf3a501bd1e10d74eea}{get\+\_\+successors}} (\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$map, \mbox{\hyperlink{structNode}{Node}} $\ast$current, int goal\+\_\+row, int goal\+\_\+column)
+\begin{DoxyCompactList}\small\item\em Gets the successors of a node in the A$\ast$ algorithm. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structNode}{Node}} $\ast$ \mbox{\hyperlink{astar_8c_ab7a8afd5aa9d5bea4c90ecb8f94b1ed2}{get\+\_\+random\+\_\+neighbours\+\_\+spy}} (\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$map, \mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Gets random neighbors for a spy character. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structNode}{Node}} $\ast$ \mbox{\hyperlink{astar_8c_a6916bae64ab5e73d78e95453ba1186e0}{get\+\_\+random\+\_\+neighbours}} (\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$map, int row, int column)
+\begin{DoxyCompactList}\small\item\em Gets random neighbors for a character. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structNode}{Node}} $\ast$ \mbox{\hyperlink{astar_8c_a4302986ecd37b342a66e76c7aaa5c522}{astar\+\_\+search}} (\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$map, int start\+\_\+row, int start\+\_\+column, int goal\+\_\+row, int goal\+\_\+column)
+\begin{DoxyCompactList}\small\item\em Performs A$\ast$ search on the map. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structPath}{Path}} $\ast$ \mbox{\hyperlink{astar_8c_a6564254294d964a1aec3f1b44a1c8271}{reconstruct\+\_\+path}} (\mbox{\hyperlink{structNode}{Node}} $\ast$goal\+\_\+node)
+\begin{DoxyCompactList}\small\item\em Reconstructs the path from the goal node. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{astar_8c_a0357832282d6eba0cd041bdf0f0499ff}{print\+\_\+path}} (\mbox{\hyperlink{structNode}{Node}} $\ast$$\ast$path, int path\+\_\+length)
+\begin{DoxyCompactList}\small\item\em Prints the path for debugging. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structNode}{Node}} $\ast$ \mbox{\hyperlink{astar_8c_a343b58f924fffcbc119b37cb0a36bf6d}{calculate\+\_\+next\+\_\+step}} (int current\+\_\+row, int current\+\_\+column, int goal\+\_\+row, int goal\+\_\+column, \mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$map)
+\begin{DoxyCompactList}\small\item\em Calculates the next step using A$\ast$ algorithm. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries D\+I\+R\+E\+C\+T\+I\+O\+NS} \mbox{[}N\+U\+M\+\_\+\+D\+I\+R\+E\+C\+T\+I\+O\+NS\mbox{]}\mbox{[}2\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Implementation of the A$\ast$ algorithm. 
+
+Implementation of the A$\ast$ algorithm for finding the shortest path between two points on a map and returning the next node to reach in the case of random movement.
+
+\begin{DoxyAuthor}{Auteur}
+Belghomari Abdelmalek @email\+: \href{mailto:abdelmalek.belghomari@ecole.ensicaen.fr}{\texttt{ abdelmalek.\+belghomari@ecole.\+ensicaen.\+fr}} 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{astar_8c_a4302986ecd37b342a66e76c7aaa5c522}\label{astar_8c_a4302986ecd37b342a66e76c7aaa5c522}} 
+\index{astar.c@{astar.c}!astar\_search@{astar\_search}}
+\index{astar\_search@{astar\_search}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{astar\_search()}{astar\_search()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structNode}{Node}}$\ast$ astar\+\_\+search (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$}]{map,  }\item[{int}]{start\+\_\+row,  }\item[{int}]{start\+\_\+column,  }\item[{int}]{goal\+\_\+row,  }\item[{int}]{goal\+\_\+column }\end{DoxyParamCaption})}
+
+
+
+Performs A$\ast$ search on the map. 
+
+Performs the A$\ast$ search algorithm on the map to find the path from the start to the goal.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em map} & A pointer to the map. \\
+\hline
+{\em start\+\_\+row} & The row coordinate of the starting point. \\
+\hline
+{\em start\+\_\+column} & The column coordinate of the starting point. \\
+\hline
+{\em goal\+\_\+row} & The row coordinate of the goal. \\
+\hline
+{\em goal\+\_\+column} & The column coordinate of the goal. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the goal node if a path is found, N\+U\+LL otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{astar_8c_a343b58f924fffcbc119b37cb0a36bf6d}\label{astar_8c_a343b58f924fffcbc119b37cb0a36bf6d}} 
+\index{astar.c@{astar.c}!calculate\_next\_step@{calculate\_next\_step}}
+\index{calculate\_next\_step@{calculate\_next\_step}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{calculate\_next\_step()}{calculate\_next\_step()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structNode}{Node}}$\ast$ calculate\+\_\+next\+\_\+step (\begin{DoxyParamCaption}\item[{int}]{current\+\_\+row,  }\item[{int}]{current\+\_\+column,  }\item[{int}]{goal\+\_\+row,  }\item[{int}]{goal\+\_\+column,  }\item[{\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$}]{map }\end{DoxyParamCaption})}
+
+
+
+Calculates the next step using A$\ast$ algorithm. 
+
+Calculates the next step for a character using the A$\ast$ algorithm.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em current\+\_\+row} & The current row coordinate of the character. \\
+\hline
+{\em current\+\_\+column} & The current column coordinate of the character. \\
+\hline
+{\em goal\+\_\+row} & The row coordinate of the goal. \\
+\hline
+{\em goal\+\_\+column} & The column coordinate of the goal. \\
+\hline
+{\em map} & A pointer to the map. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next node representing the next step. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{astar_8c_a486351e9d14def0f7051393b86b2dd2e}\label{astar_8c_a486351e9d14def0f7051393b86b2dd2e}} 
+\index{astar.c@{astar.c}!create\_heap@{create\_heap}}
+\index{create\_heap@{create\_heap}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{create\_heap()}{create\_heap()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structheap__t}{heap\+\_\+t}}$\ast$ create\+\_\+heap (\begin{DoxyParamCaption}\item[{int}]{initial\+\_\+capacity }\end{DoxyParamCaption})}
+
+
+
+Creates a new heap for A$\ast$ algorithm. 
+
+Creates a new heap with the specified initial capacity.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em initial\+\_\+capacity} & The initial capacity of the heap. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the newly created heap. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{astar_8c_aa182a447ed2807b0399a5d30a17f4abf}\label{astar_8c_aa182a447ed2807b0399a5d30a17f4abf}} 
+\index{astar.c@{astar.c}!create\_node@{create\_node}}
+\index{create\_node@{create\_node}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{create\_node()}{create\_node()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structNode}{Node}}$\ast$ create\+\_\+node (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{column,  }\item[{double}]{g,  }\item[{double}]{h }\end{DoxyParamCaption})}
+
+
+
+Creates a new node for A$\ast$ algorithm. 
+
+Creates a new node with the specified coordinates, cost, and heuristic value.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em row} & The row coordinate of the node. \\
+\hline
+{\em column} & The column coordinate of the node. \\
+\hline
+{\em g} & The cost from the start to the node. \\
+\hline
+{\em h} & The heuristic value from the node to the goal. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the newly created node. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{astar_8c_a6980721f18f6b7ba8b58da680e972c38}\label{astar_8c_a6980721f18f6b7ba8b58da680e972c38}} 
+\index{astar.c@{astar.c}!delete\_root@{delete\_root}}
+\index{delete\_root@{delete\_root}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{delete\_root()}{delete\_root()}}
+{\footnotesize\ttfamily bool delete\+\_\+root (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structheap__t}{heap\+\_\+t}} $\ast$}]{heap,  }\item[{\mbox{\hyperlink{structNode}{Node}} $\ast$$\ast$}]{deleted\+\_\+node }\end{DoxyParamCaption})}
+
+
+
+Deletes the root node from the heap. 
+
+Deletes the root node (the one with the lowest priority) from the heap.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em heap} & A pointer to the heap. \\
+\hline
+{\em deleted\+\_\+node} & A pointer to store the deleted node. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily true} if the deletion is successful, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{astar_8c_aef0d873517708550e79e078802bdc986}\label{astar_8c_aef0d873517708550e79e078802bdc986}} 
+\index{astar.c@{astar.c}!destroy\_heap@{destroy\_heap}}
+\index{destroy\_heap@{destroy\_heap}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{destroy\_heap()}{destroy\_heap()}}
+{\footnotesize\ttfamily void destroy\+\_\+heap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structheap__t}{heap\+\_\+t}} $\ast$}]{heap }\end{DoxyParamCaption})}
+
+
+
+Destroys a heap. 
+
+Frees the memory associated with a heap.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em heap} & A pointer to the heap to be destroyed. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{astar_8c_a6916bae64ab5e73d78e95453ba1186e0}\label{astar_8c_a6916bae64ab5e73d78e95453ba1186e0}} 
+\index{astar.c@{astar.c}!get\_random\_neighbours@{get\_random\_neighbours}}
+\index{get\_random\_neighbours@{get\_random\_neighbours}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{get\_random\_neighbours()}{get\_random\_neighbours()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structNode}{Node}}$\ast$ get\+\_\+random\+\_\+neighbours (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$}]{map,  }\item[{int}]{row,  }\item[{int}]{column }\end{DoxyParamCaption})}
+
+
+
+Gets random neighbors for a character. 
+
+Gets random neighboring nodes for a character at the specified row and column.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em map} & A pointer to the map. \\
+\hline
+{\em row} & The row coordinate of the character. \\
+\hline
+{\em column} & The column coordinate of the character. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to a randomly selected neighboring node. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{astar_8c_ab7a8afd5aa9d5bea4c90ecb8f94b1ed2}\label{astar_8c_ab7a8afd5aa9d5bea4c90ecb8f94b1ed2}} 
+\index{astar.c@{astar.c}!get\_random\_neighbours\_spy@{get\_random\_neighbours\_spy}}
+\index{get\_random\_neighbours\_spy@{get\_random\_neighbours\_spy}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{get\_random\_neighbours\_spy()}{get\_random\_neighbours\_spy()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structNode}{Node}}$\ast$ get\+\_\+random\+\_\+neighbours\+\_\+spy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$}]{map,  }\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Gets random neighbors for a spy character. 
+
+Gets random neighboring nodes for a spy character.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em map} & A pointer to the map. \\
+\hline
+{\em spy} & A pointer to the spy character. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{astar_8c_a7bdd4cb4187abaf3a501bd1e10d74eea}\label{astar_8c_a7bdd4cb4187abaf3a501bd1e10d74eea}} 
+\index{astar.c@{astar.c}!get\_successors@{get\_successors}}
+\index{get\_successors@{get\_successors}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{get\_successors()}{get\_successors()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structNode}{Node}}$\ast$$\ast$ get\+\_\+successors (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$}]{map,  }\item[{\mbox{\hyperlink{structNode}{Node}} $\ast$}]{current,  }\item[{int}]{goal\+\_\+row,  }\item[{int}]{goal\+\_\+column }\end{DoxyParamCaption})}
+
+
+
+Gets the successors of a node in the A$\ast$ algorithm. 
+
+Gets the successor nodes of a given node on the map.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em map} & A pointer to the map. \\
+\hline
+{\em current} & A pointer to the current node. \\
+\hline
+{\em goal\+\_\+row} & The row coordinate of the goal. \\
+\hline
+{\em goal\+\_\+column} & The column coordinate of the goal. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+An array of successor nodes. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{astar_8c_a97ab651105ac66b0579d952b22cf4b85}\label{astar_8c_a97ab651105ac66b0579d952b22cf4b85}} 
+\index{astar.c@{astar.c}!heuristic@{heuristic}}
+\index{heuristic@{heuristic}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{heuristic()}{heuristic()}}
+{\footnotesize\ttfamily double heuristic (\begin{DoxyParamCaption}\item[{int}]{row1,  }\item[{int}]{column1,  }\item[{int}]{row2,  }\item[{int}]{column2 }\end{DoxyParamCaption})}
+
+
+
+Calculates the heuristic value between two points. 
+
+Calculates the heuristic value (estimated cost) between two points using the Manhattan distance.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em row1} & The row coordinate of the first point. \\
+\hline
+{\em column1} & The column coordinate of the first point. \\
+\hline
+{\em row2} & The row coordinate of the second point. \\
+\hline
+{\em column2} & The column coordinate of the second point. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+The heuristic value between the two points. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{astar_8c_a6ee5f3189d18e36c3e026fc85593e40c}\label{astar_8c_a6ee5f3189d18e36c3e026fc85593e40c}} 
+\index{astar.c@{astar.c}!insert\_heap@{insert\_heap}}
+\index{insert\_heap@{insert\_heap}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{insert\_heap()}{insert\_heap()}}
+{\footnotesize\ttfamily bool insert\+\_\+heap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structheap__t}{heap\+\_\+t}} $\ast$}]{heap,  }\item[{\mbox{\hyperlink{structNode}{Node}} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Inserts a node into the heap. 
+
+Inserts a node into the heap according to its priority (f-\/value).
+
+
+\begin{DoxyParams}{Paramètres}
+{\em heap} & A pointer to the heap. \\
+\hline
+{\em node} & A pointer to the node to be inserted. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily true} if the insertion is successful, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{astar_8c_a68810f17164e99454be081383707a574}\label{astar_8c_a68810f17164e99454be081383707a574}} 
+\index{astar.c@{astar.c}!is\_cell\_full@{is\_cell\_full}}
+\index{is\_cell\_full@{is\_cell\_full}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{is\_cell\_full()}{is\_cell\_full()}}
+{\footnotesize\ttfamily bool is\+\_\+cell\+\_\+full (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$}]{map,  }\item[{int}]{row,  }\item[{int}]{column }\end{DoxyParamCaption})}
+
+
+
+Checks if a cell on the map is full. 
+
+Checks if a cell on the map is occupied by characters.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em map} & A pointer to the map. \\
+\hline
+{\em row} & The row of the cell. \\
+\hline
+{\em column} & The column of the cell. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily true} if the cell is full, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{astar_8c_a42b99f6a8467bc7d147eac2993b4f51c}\label{astar_8c_a42b99f6a8467bc7d147eac2993b4f51c}} 
+\index{astar.c@{astar.c}!is\_goal@{is\_goal}}
+\index{is\_goal@{is\_goal}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{is\_goal()}{is\_goal()}}
+{\footnotesize\ttfamily bool is\+\_\+goal (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structNode}{Node}} $\ast$}]{node,  }\item[{int}]{goal\+\_\+row,  }\item[{int}]{goal\+\_\+column }\end{DoxyParamCaption})}
+
+
+
+Checks if a node is the goal. 
+
+Checks if a given node is the goal node with the specified coordinates.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em node} & A pointer to the node to be checked. \\
+\hline
+{\em goal\+\_\+row} & The row coordinate of the goal. \\
+\hline
+{\em goal\+\_\+column} & The column coordinate of the goal. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily true} if the node is the goal, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{astar_8c_ad900cec45c26ebd86123ebfd498c1e1e}\label{astar_8c_ad900cec45c26ebd86123ebfd498c1e1e}} 
+\index{astar.c@{astar.c}!is\_heap\_empty@{is\_heap\_empty}}
+\index{is\_heap\_empty@{is\_heap\_empty}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{is\_heap\_empty()}{is\_heap\_empty()}}
+{\footnotesize\ttfamily bool is\+\_\+heap\+\_\+empty (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structheap__t}{heap\+\_\+t}} $\ast$}]{heap }\end{DoxyParamCaption})}
+
+
+
+Checks if the heap is empty. 
+
+Checks if the heap is empty (contains no nodes).
+
+
+\begin{DoxyParams}{Paramètres}
+{\em heap} & A pointer to the heap. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily true} if the heap is empty, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{astar_8c_acaccc6bbd35d1e9909ded9386ea5152f}\label{astar_8c_acaccc6bbd35d1e9909ded9386ea5152f}} 
+\index{astar.c@{astar.c}!is\_heap\_full@{is\_heap\_full}}
+\index{is\_heap\_full@{is\_heap\_full}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{is\_heap\_full()}{is\_heap\_full()}}
+{\footnotesize\ttfamily bool is\+\_\+heap\+\_\+full (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structheap__t}{heap\+\_\+t}} $\ast$}]{heap }\end{DoxyParamCaption})}
+
+
+
+Checks if the heap is full. 
+
+Checks if the heap is full (reached its capacity).
+
+
+\begin{DoxyParams}{Paramètres}
+{\em heap} & A pointer to the heap. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily true} if the heap is full, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{astar_8c_aad113717113f9495334963ab053c5c5d}\label{astar_8c_aad113717113f9495334963ab053c5c5d}} 
+\index{astar.c@{astar.c}!print\_heap@{print\_heap}}
+\index{print\_heap@{print\_heap}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{print\_heap()}{print\_heap()}}
+{\footnotesize\ttfamily void print\+\_\+heap (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structheap__t}{heap\+\_\+t}} $\ast$}]{heap }\end{DoxyParamCaption})}
+
+
+
+Prints the contents of the heap. 
+
+Prints the contents of the heap (for debugging purposes).
+
+
+\begin{DoxyParams}{Paramètres}
+{\em heap} & A pointer to the heap. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{astar_8c_a0357832282d6eba0cd041bdf0f0499ff}\label{astar_8c_a0357832282d6eba0cd041bdf0f0499ff}} 
+\index{astar.c@{astar.c}!print\_path@{print\_path}}
+\index{print\_path@{print\_path}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{print\_path()}{print\_path()}}
+{\footnotesize\ttfamily void print\+\_\+path (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structNode}{Node}} $\ast$$\ast$}]{path,  }\item[{int}]{path\+\_\+length }\end{DoxyParamCaption})}
+
+
+
+Prints the path for debugging. 
+
+Prints the path (for debugging purposes).
+
+
+\begin{DoxyParams}{Paramètres}
+{\em path} & An array of nodes representing the path. \\
+\hline
+{\em path\+\_\+length} & The length of the path. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{astar_8c_a6564254294d964a1aec3f1b44a1c8271}\label{astar_8c_a6564254294d964a1aec3f1b44a1c8271}} 
+\index{astar.c@{astar.c}!reconstruct\_path@{reconstruct\_path}}
+\index{reconstruct\_path@{reconstruct\_path}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{reconstruct\_path()}{reconstruct\_path()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structPath}{Path}}$\ast$ reconstruct\+\_\+path (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structNode}{Node}} $\ast$}]{goal\+\_\+node }\end{DoxyParamCaption})}
+
+
+
+Reconstructs the path from the goal node. 
+
+Reconstructs the path from the goal node to the start node.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em goal\+\_\+node} & A pointer to the goal node. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+An array of nodes representing the path. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Documentation des variables}
+\mbox{\Hypertarget{astar_8c_abd28ce8ae521b23a1328605cda932bf2}\label{astar_8c_abd28ce8ae521b23a1328605cda932bf2}} 
+\index{astar.c@{astar.c}!DIRECTIONS@{DIRECTIONS}}
+\index{DIRECTIONS@{DIRECTIONS}!astar.c@{astar.c}}
+\doxysubsubsection{\texorpdfstring{DIRECTIONS}{DIRECTIONS}}
+{\footnotesize\ttfamily int D\+I\+R\+E\+C\+T\+I\+O\+NS\mbox{[}N\+U\+M\+\_\+\+D\+I\+R\+E\+C\+T\+I\+O\+NS\mbox{]}\mbox{[}2\mbox{]}}
+
+{\bfseries Valeur initiale \+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{\{-\/1, 0\},}
+\DoxyCodeLine{                                     \{1,  0\},}
+\DoxyCodeLine{                                     \{0,  -\/1\},}
+\DoxyCodeLine{                                     \{0,  1\},}
+\DoxyCodeLine{                                     \{-\/1, -\/1\},}
+\DoxyCodeLine{                                     \{-\/1, 1\},}
+\DoxyCodeLine{                                     \{1,  -\/1\},}
+\DoxyCodeLine{                                     \{1,  1\}\}}
+
+\end{DoxyCode}

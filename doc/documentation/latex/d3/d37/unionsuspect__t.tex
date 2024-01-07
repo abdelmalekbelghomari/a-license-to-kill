@@ -1,0 +1,60 @@
+\hypertarget{unionsuspect__t}{}\doxysection{Référence de l\textquotesingle{}union suspect\+\_\+t}
+\label{unionsuspect__t}\index{suspect\_t@{suspect\_t}}
+
+
+Union representing a suspect that can be a citizen, spy, or case officer.  
+
+
+
+
+{\ttfamily \#include $<$memory.\+h$>$}
+
+
+
+Graphe de collaboration de suspect\+\_\+t\+:
+% FIG 0
+\doxysubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$ \mbox{\hyperlink{unionsuspect__t_a4faaf4f3ea423a36a5b8dcf3a4a7f89b}{citizen}}
+\item 
+\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$ \mbox{\hyperlink{unionsuspect__t_a25e538baa6998a5fe320b56d86f232c4}{spy}}
+\item 
+\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$ \mbox{\hyperlink{unionsuspect__t_ae556ef54b6d5cd084f45c09462debe9b}{case\+\_\+officer}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Union representing a suspect that can be a citizen, spy, or case officer. 
+
+It can be\+:
+\begin{DoxyItemize}
+\item citizen\+: A pointer to a citizen.
+\item spy\+: A pointer to a spy.
+\item case\+\_\+officer\+: A pointer to a case officer. 
+\end{DoxyItemize}
+
+\doxysubsection{Documentation des données membres}
+\mbox{\Hypertarget{unionsuspect__t_ae556ef54b6d5cd084f45c09462debe9b}\label{unionsuspect__t_ae556ef54b6d5cd084f45c09462debe9b}} 
+\index{suspect\_t@{suspect\_t}!case\_officer@{case\_officer}}
+\index{case\_officer@{case\_officer}!suspect\_t@{suspect\_t}}
+\doxysubsubsection{\texorpdfstring{case\_officer}{case\_officer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}}$\ast$ suspect\+\_\+t\+::case\+\_\+officer}
+
+A pointer to a case officer. \mbox{\Hypertarget{unionsuspect__t_a4faaf4f3ea423a36a5b8dcf3a4a7f89b}\label{unionsuspect__t_a4faaf4f3ea423a36a5b8dcf3a4a7f89b}} 
+\index{suspect\_t@{suspect\_t}!citizen@{citizen}}
+\index{citizen@{citizen}!suspect\_t@{suspect\_t}}
+\doxysubsubsection{\texorpdfstring{citizen}{citizen}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}}$\ast$ suspect\+\_\+t\+::citizen}
+
+A pointer to a citizen. \mbox{\Hypertarget{unionsuspect__t_a25e538baa6998a5fe320b56d86f232c4}\label{unionsuspect__t_a25e538baa6998a5fe320b56d86f232c4}} 
+\index{suspect\_t@{suspect\_t}!spy@{spy}}
+\index{spy@{spy}!suspect\_t@{suspect\_t}}
+\doxysubsubsection{\texorpdfstring{spy}{spy}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structspy__s}{spy\+\_\+t}}$\ast$ suspect\+\_\+t\+::spy}
+
+A pointer to a spy. 
+
+La documentation de cette union a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{include_2memory_8h}{memory.\+h}}\end{DoxyCompactItemize}

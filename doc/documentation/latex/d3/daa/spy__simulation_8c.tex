@@ -1,0 +1,180 @@
+\hypertarget{spy__simulation_8c}{}\doxysection{Référence du fichier src/spy\+\_\+simulation/spy\+\_\+simulation.c}
+\label{spy__simulation_8c}\index{src/spy\_simulation/spy\_simulation.c@{src/spy\_simulation/spy\_simulation.c}}
+
+
+Spy Simulation Control and Process Launcher.  
+
+
+{\ttfamily \#include \char`\"{}citizen\+\_\+manager.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}spy\+\_\+simulation.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de spy\+\_\+simulation.\+c\+:
+% FIG 0
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{spy__simulation_8c_aabb44b42efac69e056daf8d12b94fda8}\label{spy__simulation_8c_aabb44b42efac69e056daf8d12b94fda8}} 
+void {\bfseries signal\+\_\+handler} (int signal, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$shared\+\_\+memory)
+\item 
+\mbox{\Hypertarget{spy__simulation_8c_ae877ed619f00c424b3a18601b99b2990}\label{spy__simulation_8c_ae877ed619f00c424b3a18601b99b2990}} 
+bool {\bfseries is\+\_\+neighbor} (int row, int col, int end\+Row, int end\+Col)
+\item 
+bool \mbox{\hyperlink{spy__simulation_8c_a96e005164a12248c34139a520e711372}{dfs}} (\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$city\+Map, bool visited\mbox{[}\mbox{\hyperlink{common_8h_a3b94af9dcb0358f28d175d80eed98330}{M\+A\+X\+\_\+\+R\+O\+WS}}\mbox{]}\mbox{[}\mbox{\hyperlink{common_8h_a2cc6f39fc4594f0e734b2588129fba03}{M\+A\+X\+\_\+\+C\+O\+L\+U\+M\+NS}}\mbox{]}, int row, int col, int end\+Row, int end\+Col)
+\begin{DoxyCompactList}\small\item\em Performs depth-\/first search on the city map. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{spy__simulation_8c_a40cd54a45e8e55dc4f971b4a58950ac2}\label{spy__simulation_8c_a40cd54a45e8e55dc4f971b4a58950ac2}} 
+void {\bfseries reset\+\_\+checked} (bool checked\mbox{[}\mbox{\hyperlink{common_8h_a3b94af9dcb0358f28d175d80eed98330}{M\+A\+X\+\_\+\+R\+O\+WS}}\mbox{]}\mbox{[}\mbox{\hyperlink{common_8h_a2cc6f39fc4594f0e734b2588129fba03}{M\+A\+X\+\_\+\+C\+O\+L\+U\+M\+NS}}\mbox{]})
+\item 
+\mbox{\Hypertarget{spy__simulation_8c_a380042a7466f04e06394d466a02176b6}\label{spy__simulation_8c_a380042a7466f04e06394d466a02176b6}} 
+bool {\bfseries is\+\_\+path\+\_\+available} (\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$city\+Map, int start\+Row, int start\+Col, int end\+Row, int end\+Col, bool checked\mbox{[}\mbox{\hyperlink{common_8h_a3b94af9dcb0358f28d175d80eed98330}{M\+A\+X\+\_\+\+R\+O\+WS}}\mbox{]}\mbox{[}\mbox{\hyperlink{common_8h_a2cc6f39fc4594f0e734b2588129fba03}{M\+A\+X\+\_\+\+C\+O\+L\+U\+M\+NS}}\mbox{]})
+\item 
+\mbox{\Hypertarget{spy__simulation_8c_a475c6a48c69d024c218094e7b838aff8}\label{spy__simulation_8c_a475c6a48c69d024c218094e7b838aff8}} 
+void {\bfseries place\+\_\+building\+\_\+randomly} (\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$city\+Map, int building\+Type, int count, int nb\+\_\+of\+\_\+characters)
+\item 
+void \mbox{\hyperlink{spy__simulation_8c_a202c4d5d17186b7024df65a138ae2e3a}{init\+\_\+map}} (\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$city\+Map)
+\begin{DoxyCompactList}\small\item\em Initializes the city map. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spy__simulation_8c_ab742807315f9e6520aa15614a5188eb5}{init\+\_\+surveillance}} (\mbox{\hyperlink{structsurveillanceNetwork__t}{surveillance\+Network\+\_\+t}} $\ast$surveillance\+Network)
+\begin{DoxyCompactList}\small\item\em Initializes the surveillance network. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$ \mbox{\hyperlink{spy__simulation_8c_a2a28f6efd02d6976d1f0fabc2c2759de}{create\+\_\+shared\+\_\+memory}} (const char $\ast$name)
+\begin{DoxyCompactList}\small\item\em Creates a shared memory segment. \end{DoxyCompactList}\item 
+sem\+\_\+t $\ast$ \mbox{\hyperlink{spy__simulation_8c_ac842d224f2356cbf357c8398e25bbe2b}{create\+\_\+semaphore}} (const char $\ast$name, int value)
+\begin{DoxyCompactList}\small\item\em Creates a semaphore with the specified name and initial value. \end{DoxyCompactList}\item 
+sem\+\_\+t $\ast$ \mbox{\hyperlink{spy__simulation_8c_ad9764fa853ee67723f83dd9d8aeebd43}{open\+\_\+semaphore}} (const char $\ast$name)
+\begin{DoxyCompactList}\small\item\em Opens an existing semaphore with the specified name. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{spy__simulation_8c_a8ff89c4b76f2010bdfca3748920f6cf6}\label{spy__simulation_8c_a8ff89c4b76f2010bdfca3748920f6cf6}} 
+void {\bfseries start\+\_\+simulation\+\_\+processes} (\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Spy Simulation Control and Process Launcher. 
+
+This file contains the code for controlling the spy simulation, including map creation, process launching, and shared memory segment initialization. It serves as a central component for orchestrating the entire espionage simulation and intelligence operations. 
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{spy__simulation_8c_ac842d224f2356cbf357c8398e25bbe2b}\label{spy__simulation_8c_ac842d224f2356cbf357c8398e25bbe2b}} 
+\index{spy\_simulation.c@{spy\_simulation.c}!create\_semaphore@{create\_semaphore}}
+\index{create\_semaphore@{create\_semaphore}!spy\_simulation.c@{spy\_simulation.c}}
+\doxysubsubsection{\texorpdfstring{create\_semaphore()}{create\_semaphore()}}
+{\footnotesize\ttfamily sem\+\_\+t$\ast$ create\+\_\+semaphore (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name,  }\item[{int}]{value }\end{DoxyParamCaption})}
+
+
+
+Creates a semaphore with the specified name and initial value. 
+
+Creates a semaphore with the given name and initial value.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em name} & The name of the semaphore. \\
+\hline
+{\em value} & The initial value of the semaphore. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the created semaphore. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{spy__simulation_8c_a2a28f6efd02d6976d1f0fabc2c2759de}\label{spy__simulation_8c_a2a28f6efd02d6976d1f0fabc2c2759de}} 
+\index{spy\_simulation.c@{spy\_simulation.c}!create\_shared\_memory@{create\_shared\_memory}}
+\index{create\_shared\_memory@{create\_shared\_memory}!spy\_simulation.c@{spy\_simulation.c}}
+\doxysubsubsection{\texorpdfstring{create\_shared\_memory()}{create\_shared\_memory()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}}$\ast$ create\+\_\+shared\+\_\+memory (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+Creates a shared memory segment. 
+
+Creates a shared memory segment with the specified name.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em name} & The name of the shared memory segment. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the created shared memory structure. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{spy__simulation_8c_a96e005164a12248c34139a520e711372}\label{spy__simulation_8c_a96e005164a12248c34139a520e711372}} 
+\index{spy\_simulation.c@{spy\_simulation.c}!dfs@{dfs}}
+\index{dfs@{dfs}!spy\_simulation.c@{spy\_simulation.c}}
+\doxysubsubsection{\texorpdfstring{dfs()}{dfs()}}
+{\footnotesize\ttfamily bool dfs (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$}]{city\+Map,  }\item[{bool}]{visited\mbox{[}\+M\+A\+X\+\_\+\+R\+O\+W\+S\mbox{]}\mbox{[}\+M\+A\+X\+\_\+\+C\+O\+L\+U\+M\+N\+S\mbox{]},  }\item[{int}]{row,  }\item[{int}]{col,  }\item[{int}]{end\+Row,  }\item[{int}]{end\+Col }\end{DoxyParamCaption})}
+
+
+
+Performs depth-\/first search on the city map. 
+
+Performs depth-\/first search (D\+FS) on the city map to find a path.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em city\+Map} & A pointer to the city map structure. \\
+\hline
+{\em visited} & A boolean array to track visited cells. \\
+\hline
+{\em row} & The current row. \\
+\hline
+{\em col} & The current column. \\
+\hline
+{\em end\+Row} & The target row. \\
+\hline
+{\em end\+Col} & The target column. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily true} if a path is found, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{spy__simulation_8c_a202c4d5d17186b7024df65a138ae2e3a}\label{spy__simulation_8c_a202c4d5d17186b7024df65a138ae2e3a}} 
+\index{spy\_simulation.c@{spy\_simulation.c}!init\_map@{init\_map}}
+\index{init\_map@{init\_map}!spy\_simulation.c@{spy\_simulation.c}}
+\doxysubsubsection{\texorpdfstring{init\_map()}{init\_map()}}
+{\footnotesize\ttfamily void init\+\_\+map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$}]{city\+Map }\end{DoxyParamCaption})}
+
+
+
+Initializes the city map. 
+
+Initializes the city map represented by the provided {\ttfamily city\+Map}.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em city\+Map} & A pointer to the city map structure. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{spy__simulation_8c_ab742807315f9e6520aa15614a5188eb5}\label{spy__simulation_8c_ab742807315f9e6520aa15614a5188eb5}} 
+\index{spy\_simulation.c@{spy\_simulation.c}!init\_surveillance@{init\_surveillance}}
+\index{init\_surveillance@{init\_surveillance}!spy\_simulation.c@{spy\_simulation.c}}
+\doxysubsubsection{\texorpdfstring{init\_surveillance()}{init\_surveillance()}}
+{\footnotesize\ttfamily void init\+\_\+surveillance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsurveillanceNetwork__t}{surveillance\+Network\+\_\+t}} $\ast$}]{surveillance }\end{DoxyParamCaption})}
+
+
+
+Initializes the surveillance network. 
+
+Initializes the surveillance network represented by the provided {\ttfamily surveillance}.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em surveillance} & A pointer to the surveillance network structure. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{spy__simulation_8c_ad9764fa853ee67723f83dd9d8aeebd43}\label{spy__simulation_8c_ad9764fa853ee67723f83dd9d8aeebd43}} 
+\index{spy\_simulation.c@{spy\_simulation.c}!open\_semaphore@{open\_semaphore}}
+\index{open\_semaphore@{open\_semaphore}!spy\_simulation.c@{spy\_simulation.c}}
+\doxysubsubsection{\texorpdfstring{open\_semaphore()}{open\_semaphore()}}
+{\footnotesize\ttfamily sem\+\_\+t$\ast$ open\+\_\+semaphore (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+Opens an existing semaphore with the specified name. 
+
+Opens an existing semaphore with the given name.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em name} & The name of the semaphore. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the opened semaphore. 
+\end{DoxyReturn}

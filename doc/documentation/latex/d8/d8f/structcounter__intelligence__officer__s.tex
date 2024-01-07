@@ -1,0 +1,245 @@
+\hypertarget{structcounter__intelligence__officer__s}{}\doxysection{Référence de la structure counter\+\_\+intelligence\+\_\+officer\+\_\+s}
+\label{structcounter__intelligence__officer__s}\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+
+
+The counterintelligence\+\_\+officer information.  
+
+
+
+
+{\ttfamily \#include $<$memory.\+h$>$}
+
+
+
+Graphe de collaboration de counter\+\_\+intelligence\+\_\+officer\+\_\+s\+:
+% FIG 0
+\doxysubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structcounter__intelligence__officer__s_a3b55dbfd8960adba4978119b10caed53}{id}}
+\item 
+int \mbox{\hyperlink{structcounter__intelligence__officer__s_a877c58f2dac4f13bea2a3d2c872d773d}{health\+\_\+point}}
+\item 
+int \mbox{\hyperlink{structcounter__intelligence__officer__s_a989e7f64932a5faa0255258643c07ab6}{location\+\_\+row}}
+\item 
+int \mbox{\hyperlink{structcounter__intelligence__officer__s_ab7849b840b15309b9b769d1dd3acc88b}{location\+\_\+column}}
+\item 
+int \mbox{\hyperlink{structcounter__intelligence__officer__s_a7b3b9ae8daf83a9afec9298998a4faae}{city\+\_\+hall\+\_\+row}}
+\item 
+int \mbox{\hyperlink{structcounter__intelligence__officer__s_aa1d0d2b3e66f1f32967cf34a3311ad73}{city\+\_\+hall\+\_\+column}}
+\item 
+int \mbox{\hyperlink{structcounter__intelligence__officer__s_aa72cea5d21dc8097d1b764ea70096e5f}{mailbox\+\_\+row}}
+\item 
+int \mbox{\hyperlink{structcounter__intelligence__officer__s_a3b22786e9e7d474d7db18b214e7f5a07}{mailbox\+\_\+column}}
+\item 
+int \mbox{\hyperlink{structcounter__intelligence__officer__s_a9111436f7e2b42e97e5648bd86d6b770}{targeted\+\_\+character\+\_\+id}}
+\item 
+int \mbox{\hyperlink{structcounter__intelligence__officer__s_aaedf8656754b2e8f51158676170a9f9c}{targeted\+\_\+character\+\_\+row}}
+\item 
+int \mbox{\hyperlink{structcounter__intelligence__officer__s_a1fb132cd38c937692a2b3da8ac143599}{targeted\+\_\+character\+\_\+column}}
+\item 
+char \mbox{\hyperlink{structcounter__intelligence__officer__s_a769353468619c4891236bd1102a238c9}{description}} \mbox{[}40\mbox{]}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcounter__intelligence__officer__s_a6d2a7145b8973ad67d38b6896f110f3b}{monitoring}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcounter__intelligence__officer__s_ad1ca9c44a38b2277e6502661ae3c4352}{going\+\_\+to\+\_\+suspect\+\_\+place}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcounter__intelligence__officer__s_a6082ef4fadc1bf1cc6c26ceba10fbfc9}{hiding}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcounter__intelligence__officer__s_abb7aa91492c86dcd27e6b3693290e3cf}{going\+\_\+back\+\_\+to\+\_\+monitor}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcounter__intelligence__officer__s_a7cc0b3d28fa779215d415926d9eee1af}{waiting\+\_\+for\+\_\+spy\+\_\+to\+\_\+steal}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcounter__intelligence__officer__s_a3c1ad01b77b894b70a770df79077cffa}{following\+\_\+spy}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcounter__intelligence__officer__s_a4c170f5550be81267e23aa68c621c238}{waiting\+\_\+for\+\_\+spy\+\_\+to\+\_\+send\+\_\+message}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcounter__intelligence__officer__s_a923f6fd87471fe5adaee6cef7e553316}{searching\+\_\+for\+\_\+mailbox}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcounter__intelligence__officer__s_a71967d7e3be5d0a1f7b0899497622c69}{recovering\+\_\+messages}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcounter__intelligence__officer__s_a09943f6aa3f027645bc290f294340cbe}{current\+\_\+state}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcounter__intelligence__officer__s_a40dc68b673a60f12b0b7ca290d5f36a0}{going\+\_\+to\+\_\+search\+\_\+for\+\_\+mailbox}}
+\item 
+bool \mbox{\hyperlink{structcounter__intelligence__officer__s_a9012a0ab0d08efde05812acf6b2e1ead}{has\+\_\+found\+\_\+mailbox}}
+\item 
+bool \mbox{\hyperlink{structcounter__intelligence__officer__s_a1b3b659158071b11d9fc6190aa5989bb}{has\+\_\+found\+\_\+mailbox\+\_\+location}}
+\item 
+bool \mbox{\hyperlink{structcounter__intelligence__officer__s_a08e4c6e17d934b2695ef1af340181e88}{new\+\_\+day}}
+\item 
+\mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}} \mbox{\hyperlink{structcounter__intelligence__officer__s_a4221d7c126292f591e3a1e1586c475da}{leaving\+\_\+time}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+The counterintelligence\+\_\+officer information. 
+
+\doxysubsection{Documentation des données membres}
+\mbox{\Hypertarget{structcounter__intelligence__officer__s_aa1d0d2b3e66f1f32967cf34a3311ad73}\label{structcounter__intelligence__officer__s_aa1d0d2b3e66f1f32967cf34a3311ad73}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!city\_hall\_column@{city\_hall\_column}}
+\index{city\_hall\_column@{city\_hall\_column}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{city\_hall\_column}{city\_hall\_column}}
+{\footnotesize\ttfamily int counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::city\+\_\+hall\+\_\+column}
+
+The counterintelligence\+\_\+officer home column. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a7b3b9ae8daf83a9afec9298998a4faae}\label{structcounter__intelligence__officer__s_a7b3b9ae8daf83a9afec9298998a4faae}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!city\_hall\_row@{city\_hall\_row}}
+\index{city\_hall\_row@{city\_hall\_row}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{city\_hall\_row}{city\_hall\_row}}
+{\footnotesize\ttfamily int counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::city\+\_\+hall\+\_\+row}
+
+The counterintelligence\+\_\+officer home row. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a09943f6aa3f027645bc290f294340cbe}\label{structcounter__intelligence__officer__s_a09943f6aa3f027645bc290f294340cbe}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!current\_state@{current\_state}}
+\index{current\_state@{current\_state}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{current\_state}{current\_state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::current\+\_\+state}
+
+Current state of the counterintelligence officer. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a769353468619c4891236bd1102a238c9}\label{structcounter__intelligence__officer__s_a769353468619c4891236bd1102a238c9}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!description@{description}}
+\index{description@{description}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{description}{description}}
+{\footnotesize\ttfamily char counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::description\mbox{[}40\mbox{]}}
+
+Description of the counterintelligence officer. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a3c1ad01b77b894b70a770df79077cffa}\label{structcounter__intelligence__officer__s_a3c1ad01b77b894b70a770df79077cffa}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!following\_spy@{following\_spy}}
+\index{following\_spy@{following\_spy}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{following\_spy}{following\_spy}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::following\+\_\+spy}
+
+State when the counterintelligence officer is following the spy. \mbox{\Hypertarget{structcounter__intelligence__officer__s_abb7aa91492c86dcd27e6b3693290e3cf}\label{structcounter__intelligence__officer__s_abb7aa91492c86dcd27e6b3693290e3cf}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!going\_back\_to\_monitor@{going\_back\_to\_monitor}}
+\index{going\_back\_to\_monitor@{going\_back\_to\_monitor}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{going\_back\_to\_monitor}{going\_back\_to\_monitor}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::going\+\_\+back\+\_\+to\+\_\+monitor}
+
+State when the counterintelligence officer is going back to monitoring. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a40dc68b673a60f12b0b7ca290d5f36a0}\label{structcounter__intelligence__officer__s_a40dc68b673a60f12b0b7ca290d5f36a0}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!going\_to\_search\_for\_mailbox@{going\_to\_search\_for\_mailbox}}
+\index{going\_to\_search\_for\_mailbox@{going\_to\_search\_for\_mailbox}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{going\_to\_search\_for\_mailbox}{going\_to\_search\_for\_mailbox}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::going\+\_\+to\+\_\+search\+\_\+for\+\_\+mailbox}
+
+State when the counterintelligence officer is going to search for a mailbox. \mbox{\Hypertarget{structcounter__intelligence__officer__s_ad1ca9c44a38b2277e6502661ae3c4352}\label{structcounter__intelligence__officer__s_ad1ca9c44a38b2277e6502661ae3c4352}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!going\_to\_suspect\_place@{going\_to\_suspect\_place}}
+\index{going\_to\_suspect\_place@{going\_to\_suspect\_place}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{going\_to\_suspect\_place}{going\_to\_suspect\_place}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::going\+\_\+to\+\_\+suspect\+\_\+place}
+
+State when the counterintelligence officer is going to a suspect place. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a9012a0ab0d08efde05812acf6b2e1ead}\label{structcounter__intelligence__officer__s_a9012a0ab0d08efde05812acf6b2e1ead}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!has\_found\_mailbox@{has\_found\_mailbox}}
+\index{has\_found\_mailbox@{has\_found\_mailbox}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{has\_found\_mailbox}{has\_found\_mailbox}}
+{\footnotesize\ttfamily bool counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::has\+\_\+found\+\_\+mailbox}
+
+Indicates if the counterintelligence officer has found a mailbox. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a1b3b659158071b11d9fc6190aa5989bb}\label{structcounter__intelligence__officer__s_a1b3b659158071b11d9fc6190aa5989bb}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!has\_found\_mailbox\_location@{has\_found\_mailbox\_location}}
+\index{has\_found\_mailbox\_location@{has\_found\_mailbox\_location}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{has\_found\_mailbox\_location}{has\_found\_mailbox\_location}}
+{\footnotesize\ttfamily bool counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::has\+\_\+found\+\_\+mailbox\+\_\+location}
+
+Indicates if the counterintelligence officer has found the mailbox location. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a877c58f2dac4f13bea2a3d2c872d773d}\label{structcounter__intelligence__officer__s_a877c58f2dac4f13bea2a3d2c872d773d}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!health\_point@{health\_point}}
+\index{health\_point@{health\_point}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{health\_point}{health\_point}}
+{\footnotesize\ttfamily int counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::health\+\_\+point}
+
+The counterintelligence\+\_\+officer health\+\_\+point point. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a6082ef4fadc1bf1cc6c26ceba10fbfc9}\label{structcounter__intelligence__officer__s_a6082ef4fadc1bf1cc6c26ceba10fbfc9}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!hiding@{hiding}}
+\index{hiding@{hiding}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{hiding}{hiding}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::hiding}
+
+State when the counterintelligence officer is hiding. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a3b55dbfd8960adba4978119b10caed53}\label{structcounter__intelligence__officer__s_a3b55dbfd8960adba4978119b10caed53}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!id@{id}}
+\index{id@{id}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily int counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::id}
+
+The counterintelligence\+\_\+officer identification number. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a4221d7c126292f591e3a1e1586c475da}\label{structcounter__intelligence__officer__s_a4221d7c126292f591e3a1e1586c475da}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!leaving\_time@{leaving\_time}}
+\index{leaving\_time@{leaving\_time}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{leaving\_time}{leaving\_time}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}} counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::leaving\+\_\+time}
+
+The leaving time of the counterintelligence officer. \mbox{\Hypertarget{structcounter__intelligence__officer__s_ab7849b840b15309b9b769d1dd3acc88b}\label{structcounter__intelligence__officer__s_ab7849b840b15309b9b769d1dd3acc88b}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!location\_column@{location\_column}}
+\index{location\_column@{location\_column}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{location\_column}{location\_column}}
+{\footnotesize\ttfamily int counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::location\+\_\+column}
+
+The counterintelligence\+\_\+officer location column. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a989e7f64932a5faa0255258643c07ab6}\label{structcounter__intelligence__officer__s_a989e7f64932a5faa0255258643c07ab6}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!location\_row@{location\_row}}
+\index{location\_row@{location\_row}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{location\_row}{location\_row}}
+{\footnotesize\ttfamily int counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::location\+\_\+row}
+
+The counterintelligence\+\_\+officer location row. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a3b22786e9e7d474d7db18b214e7f5a07}\label{structcounter__intelligence__officer__s_a3b22786e9e7d474d7db18b214e7f5a07}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!mailbox\_column@{mailbox\_column}}
+\index{mailbox\_column@{mailbox\_column}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{mailbox\_column}{mailbox\_column}}
+{\footnotesize\ttfamily int counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::mailbox\+\_\+column}
+
+The counterintelligence\+\_\+officer mailbox column. \mbox{\Hypertarget{structcounter__intelligence__officer__s_aa72cea5d21dc8097d1b764ea70096e5f}\label{structcounter__intelligence__officer__s_aa72cea5d21dc8097d1b764ea70096e5f}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!mailbox\_row@{mailbox\_row}}
+\index{mailbox\_row@{mailbox\_row}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{mailbox\_row}{mailbox\_row}}
+{\footnotesize\ttfamily int counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::mailbox\+\_\+row}
+
+The counterintelligence\+\_\+officer mailbox row. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a6d2a7145b8973ad67d38b6896f110f3b}\label{structcounter__intelligence__officer__s_a6d2a7145b8973ad67d38b6896f110f3b}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!monitoring@{monitoring}}
+\index{monitoring@{monitoring}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{monitoring}{monitoring}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::monitoring}
+
+State when the counterintelligence officer is monitoring. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a08e4c6e17d934b2695ef1af340181e88}\label{structcounter__intelligence__officer__s_a08e4c6e17d934b2695ef1af340181e88}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!new\_day@{new\_day}}
+\index{new\_day@{new\_day}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{new\_day}{new\_day}}
+{\footnotesize\ttfamily bool counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::new\+\_\+day}
+
+Indicates if it\textquotesingle{}s a new day for the counterintelligence officer. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a71967d7e3be5d0a1f7b0899497622c69}\label{structcounter__intelligence__officer__s_a71967d7e3be5d0a1f7b0899497622c69}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!recovering\_messages@{recovering\_messages}}
+\index{recovering\_messages@{recovering\_messages}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{recovering\_messages}{recovering\_messages}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::recovering\+\_\+messages}
+
+State when the counterintelligence officer is recovering messages. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a923f6fd87471fe5adaee6cef7e553316}\label{structcounter__intelligence__officer__s_a923f6fd87471fe5adaee6cef7e553316}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!searching\_for\_mailbox@{searching\_for\_mailbox}}
+\index{searching\_for\_mailbox@{searching\_for\_mailbox}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{searching\_for\_mailbox}{searching\_for\_mailbox}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::searching\+\_\+for\+\_\+mailbox}
+
+State when the counterintelligence officer is searching for a mailbox. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a1fb132cd38c937692a2b3da8ac143599}\label{structcounter__intelligence__officer__s_a1fb132cd38c937692a2b3da8ac143599}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!targeted\_character\_column@{targeted\_character\_column}}
+\index{targeted\_character\_column@{targeted\_character\_column}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{targeted\_character\_column}{targeted\_character\_column}}
+{\footnotesize\ttfamily int counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::targeted\+\_\+character\+\_\+column}
+
+The targeted character column. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a9111436f7e2b42e97e5648bd86d6b770}\label{structcounter__intelligence__officer__s_a9111436f7e2b42e97e5648bd86d6b770}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!targeted\_character\_id@{targeted\_character\_id}}
+\index{targeted\_character\_id@{targeted\_character\_id}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{targeted\_character\_id}{targeted\_character\_id}}
+{\footnotesize\ttfamily int counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::targeted\+\_\+character\+\_\+id}
+
+The targeted character id. \mbox{\Hypertarget{structcounter__intelligence__officer__s_aaedf8656754b2e8f51158676170a9f9c}\label{structcounter__intelligence__officer__s_aaedf8656754b2e8f51158676170a9f9c}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!targeted\_character\_row@{targeted\_character\_row}}
+\index{targeted\_character\_row@{targeted\_character\_row}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{targeted\_character\_row}{targeted\_character\_row}}
+{\footnotesize\ttfamily int counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::targeted\+\_\+character\+\_\+row}
+
+The targeted character row. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a4c170f5550be81267e23aa68c621c238}\label{structcounter__intelligence__officer__s_a4c170f5550be81267e23aa68c621c238}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!waiting\_for\_spy\_to\_send\_message@{waiting\_for\_spy\_to\_send\_message}}
+\index{waiting\_for\_spy\_to\_send\_message@{waiting\_for\_spy\_to\_send\_message}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{waiting\_for\_spy\_to\_send\_message}{waiting\_for\_spy\_to\_send\_message}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::waiting\+\_\+for\+\_\+spy\+\_\+to\+\_\+send\+\_\+message}
+
+State when the counterintelligence officer is waiting for the spy to send a message. \mbox{\Hypertarget{structcounter__intelligence__officer__s_a7cc0b3d28fa779215d415926d9eee1af}\label{structcounter__intelligence__officer__s_a7cc0b3d28fa779215d415926d9eee1af}} 
+\index{counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}!waiting\_for\_spy\_to\_steal@{waiting\_for\_spy\_to\_steal}}
+\index{waiting\_for\_spy\_to\_steal@{waiting\_for\_spy\_to\_steal}!counter\_intelligence\_officer\_s@{counter\_intelligence\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{waiting\_for\_spy\_to\_steal}{waiting\_for\_spy\_to\_steal}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ counter\+\_\+intelligence\+\_\+officer\+\_\+s\+::waiting\+\_\+for\+\_\+spy\+\_\+to\+\_\+steal}
+
+State when the counterintelligence officer is waiting for the spy to steal. 
+
+La documentation de cette structure a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{include_2memory_8h}{memory.\+h}}\end{DoxyCompactItemize}

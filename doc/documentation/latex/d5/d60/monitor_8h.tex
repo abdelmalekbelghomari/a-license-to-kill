@@ -1,0 +1,424 @@
+\hypertarget{monitor_8h}{}\doxysection{Référence du fichier include/monitor.h}
+\label{monitor_8h}\index{include/monitor.h@{include/monitor.h}}
+
+
+Constants types and prototypes of the N\+Curses Terminal User Interface.  
+
+
+{\ttfamily \#include $<$ncurses.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de monitor.\+h\+:
+% FIG 0
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier \+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structmonitor__s}{monitor\+\_\+s}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{monitor_8h_a3b7c3521c43cdcdc536518cb546530bf}{N\+B\+\_\+\+O\+F\+\_\+\+I\+N\+F\+O\+R\+M\+A\+T\+I\+O\+N\+\_\+\+F\+I\+E\+L\+DS}}~8
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{monitor_8h_a359e13ccda7d2ce2a535a4a385b05d2d}\label{monitor_8h_a359e13ccda7d2ce2a535a4a385b05d2d}} 
+char $\ast$ {\bfseries get\+\_\+ci\+\_\+officer\+\_\+state\+\_\+name} (int state\+\_\+id)
+\item 
+void \mbox{\hyperlink{monitor_8h_a9daeb797ac6ffae5ce6c6e260dfd19a4}{create\+\_\+color\+\_\+pairs}} ()
+\begin{DoxyCompactList}\small\item\em Creates pairs of colors (see \char`\"{}\+N\+Curses\char`\"{} documentation). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor_8h_a53b18963f0d0f5d0c561883d6ef51ca7}{init\+\_\+monitor\+\_\+elements}} (W\+I\+N\+D\+OW $\ast$window, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$mem, int rows, int columns)
+\begin{DoxyCompactList}\small\item\em Creates the four sub-\/window boxes within the given window. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{monitor_8h_a215048bd884350b420bf853663a31619}\label{monitor_8h_a215048bd884350b420bf853663a31619}} 
+\mbox{\hyperlink{structmq__s}{mq\+\_\+t}} {\bfseries init\+\_\+mq} ()
+\item 
+void \mbox{\hyperlink{monitor_8h_ab79e1f171147ed03d04513eed6f92513}{set\+\_\+monitor\+\_\+title}} (W\+I\+N\+D\+OW $\ast$window, const char $\ast$title)
+\begin{DoxyCompactList}\small\item\em Sets the given window with the given title. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{monitor_8h_a454e3ec5399e6cbb50d0ebe914c75826}\label{monitor_8h_a454e3ec5399e6cbb50d0ebe914c75826}} 
+void \mbox{\hyperlink{monitor_8h_a454e3ec5399e6cbb50d0ebe914c75826}{detect\+\_\+mouse}} ()
+\begin{DoxyCompactList}\small\item\em Detects and displays if the current version of N\+Curses supports mouse or not. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor_8h_a513bd8954879ec20a372a5e755378ab2}{set\+\_\+city\+\_\+legend}} (W\+I\+N\+D\+OW $\ast$window, int row, int col)
+\begin{DoxyCompactList}\small\item\em Sets the city map legend within the given sub-\/window (\char`\"{}city map and
+general information\char`\"{} sub\+\_\+window). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor_8h_a88b58425470b0bdfb4ab618d676650e5}{set\+\_\+cell\+\_\+color}} (W\+I\+N\+D\+OW $\ast$window, int color, int row, int col)
+\begin{DoxyCompactList}\small\item\em Sets a cell from the city map with the given color (the city map is displayed in the \char`\"{}\+City map and status information\char`\"{} sub-\/window). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor_8h_a6035fe2cbd02d4292215ae7ccc9ec7cf}{display\+\_\+city}} (W\+I\+N\+D\+OW $\ast$window, \mbox{\hyperlink{structmap__s}{map\+\_\+t}} map, int rows, int columns, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory)
+\begin{DoxyCompactList}\small\item\em Displays the city map within the \char`\"{}\+City map and status information\char`\"{} sub-\/window. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor_8h_a0c698d6f69717324b197dd94b4d84b80}{show\+\_\+general\+\_\+information}} (W\+I\+N\+D\+OW $\ast$window)
+\begin{DoxyCompactList}\small\item\em Shows information within the \char`\"{}\+City map and status information\char`\"{} sub-\/window. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor_8h_a0a791bfffcb4017b27ba3f5267eae057}{display\+\_\+general\+\_\+information\+\_\+values}} (W\+I\+N\+D\+OW $\ast$window, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$mem)
+\begin{DoxyCompactList}\small\item\em Displays the number of steps and the elapsed time such as an ending message within the \char`\"{}\+City map and status information\char`\"{} sub-\/window. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor_8h_ad066b1803a0842de1245e9cec4e8ae2b}{update\+\_\+values}} (\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$mem)
+\begin{DoxyCompactList}\small\item\em Updates values after consulting the given memory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor_8h_ae31a0bc752a40737147deea5c694790a}{display\+\_\+citizen\+\_\+information}} (W\+I\+N\+D\+OW $\ast$window, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$mem, int row, int column)
+\begin{DoxyCompactList}\small\item\em Displays the citizen information starting at the given row and column. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor_8h_a47d86258babe3d27bc6f56db5867b75d}{display\+\_\+spy1\+\_\+information}} (W\+I\+N\+D\+OW $\ast$window, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$mem, int row, int column, int number)
+\begin{DoxyCompactList}\small\item\em Displays the information of the spy whose number is given starting at the given row and column. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor_8h_a02fd1bd832305e7174108e90c939f527}{display\+\_\+spy2\+\_\+information}} (W\+I\+N\+D\+OW $\ast$window, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$mem, int row, int column, int number)
+\begin{DoxyCompactList}\small\item\em Displays the information of the spy whose number is given starting at the given row and column. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor_8h_a431aa4e5e0c4d7cfa52f8ae18542846d}{display\+\_\+spy3\+\_\+information}} (W\+I\+N\+D\+OW $\ast$window, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$mem, int row, int column, int number)
+\begin{DoxyCompactList}\small\item\em Displays the information of the spy whose number is given starting at the given row and column. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor_8h_a241c1c2505bddeeb0916c70c496a36da}{display\+\_\+case\+\_\+officer\+\_\+information}} (W\+I\+N\+D\+OW $\ast$window, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$mem, int row, int column)
+\begin{DoxyCompactList}\small\item\em Displays the information of case officer starting at the given row and column. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor_8h_a38a7bacb4eaccc63beb81d6343f23395}{display\+\_\+counter\+\_\+officer\+\_\+information}} (W\+I\+N\+D\+OW $\ast$window, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$mem, int row, int col)
+\begin{DoxyCompactList}\small\item\em Displays the information of the counter officer starting at the given row and column. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{monitor_8h_a5b96b84f140d3185202ffb2d3f63ca1c}\label{monitor_8h_a5b96b84f140d3185202ffb2d3f63ca1c}} 
+void {\bfseries display\+\_\+character\+\_\+information} (W\+I\+N\+D\+OW $\ast$window, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$mem)
+\item 
+void \mbox{\hyperlink{monitor_8h_a24beae0e14af376a7555cde4bfef7455}{display\+\_\+mailbox\+\_\+content}} (W\+I\+N\+D\+OW $\ast$window, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$mem)
+\begin{DoxyCompactList}\small\item\em Displays the mailbox content. Messages are encrypted. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor_8h_a5586b32b5bd80361fa42124531e1e451}{display\+\_\+enemy\+\_\+country\+\_\+monitor}} (W\+I\+N\+D\+OW $\ast$window, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$mem)
+\begin{DoxyCompactList}\small\item\em Displays messages received by the enemy country. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Constants types and prototypes of the N\+Curses Terminal User Interface. 
+
+
+
+\doxysubsection{Documentation des macros}
+\mbox{\Hypertarget{monitor_8h_a3b7c3521c43cdcdc536518cb546530bf}\label{monitor_8h_a3b7c3521c43cdcdc536518cb546530bf}} 
+\index{monitor.h@{monitor.h}!NB\_OF\_INFORMATION\_FIELDS@{NB\_OF\_INFORMATION\_FIELDS}}
+\index{NB\_OF\_INFORMATION\_FIELDS@{NB\_OF\_INFORMATION\_FIELDS}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{NB\_OF\_INFORMATION\_FIELDS}{NB\_OF\_INFORMATION\_FIELDS}}
+{\footnotesize\ttfamily \#define N\+B\+\_\+\+O\+F\+\_\+\+I\+N\+F\+O\+R\+M\+A\+T\+I\+O\+N\+\_\+\+F\+I\+E\+L\+DS~8}
+
+The number of fields to display for a spy. 
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{monitor_8h_a9daeb797ac6ffae5ce6c6e260dfd19a4}\label{monitor_8h_a9daeb797ac6ffae5ce6c6e260dfd19a4}} 
+\index{monitor.h@{monitor.h}!create\_color\_pairs@{create\_color\_pairs}}
+\index{create\_color\_pairs@{create\_color\_pairs}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{create\_color\_pairs()}{create\_color\_pairs()}}
+{\footnotesize\ttfamily void create\+\_\+color\+\_\+pairs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Creates pairs of colors (see \char`\"{}\+N\+Curses\char`\"{} documentation). 
+
+Basic available colors in ncurses are\+:
+\begin{DoxyItemize}
+\item C\+O\+L\+O\+R\+\_\+\+B\+L\+A\+CK
+\item C\+O\+L\+O\+R\+\_\+\+R\+ED
+\item C\+O\+L\+O\+R\+\_\+\+G\+R\+E\+EN
+\item C\+O\+L\+O\+R\+\_\+\+Y\+E\+L\+L\+OW
+\item C\+O\+L\+O\+R\+\_\+\+B\+L\+UE
+\item C\+O\+L\+O\+R\+\_\+\+M\+A\+G\+E\+N\+TA
+\item C\+O\+L\+O\+R\+\_\+\+C\+Y\+AN
+\item C\+O\+L\+O\+R\+\_\+\+W\+H\+I\+TE 
+\end{DoxyItemize}\mbox{\Hypertarget{monitor_8h_a241c1c2505bddeeb0916c70c496a36da}\label{monitor_8h_a241c1c2505bddeeb0916c70c496a36da}} 
+\index{monitor.h@{monitor.h}!display\_case\_officer\_information@{display\_case\_officer\_information}}
+\index{display\_case\_officer\_information@{display\_case\_officer\_information}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{display\_case\_officer\_information()}{display\_case\_officer\_information()}}
+{\footnotesize\ttfamily void display\+\_\+case\+\_\+officer\+\_\+information (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{int}]{row,  }\item[{int}]{column }\end{DoxyParamCaption})}
+
+
+
+Displays the information of case officer starting at the given row and column. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The sub-\/window. \\
+\hline
+{\em mem} & The given shared memory. \\
+\hline
+{\em row} & The row to start. \\
+\hline
+{\em column} & The column to start. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_ae31a0bc752a40737147deea5c694790a}\label{monitor_8h_ae31a0bc752a40737147deea5c694790a}} 
+\index{monitor.h@{monitor.h}!display\_citizen\_information@{display\_citizen\_information}}
+\index{display\_citizen\_information@{display\_citizen\_information}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{display\_citizen\_information()}{display\_citizen\_information()}}
+{\footnotesize\ttfamily void display\+\_\+citizen\+\_\+information (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{int}]{row,  }\item[{int}]{column }\end{DoxyParamCaption})}
+
+
+
+Displays the citizen information starting at the given row and column. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The sub-\/window. \\
+\hline
+{\em mem} & The given shared memory. \\
+\hline
+{\em row} & The row to start. \\
+\hline
+{\em column} & The column to start. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_a6035fe2cbd02d4292215ae7ccc9ec7cf}\label{monitor_8h_a6035fe2cbd02d4292215ae7ccc9ec7cf}} 
+\index{monitor.h@{monitor.h}!display\_city@{display\_city}}
+\index{display\_city@{display\_city}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{display\_city()}{display\_city()}}
+{\footnotesize\ttfamily void display\+\_\+city (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{\mbox{\hyperlink{structmap__s}{map\+\_\+t}}}]{map,  }\item[{int}]{rows,  }\item[{int}]{columns,  }\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{memory }\end{DoxyParamCaption})}
+
+
+
+Displays the city map within the \char`\"{}\+City map and status information\char`\"{} sub-\/window. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The sub-\/window. \\
+\hline
+{\em map} & The map structure that defines cells. \\
+\hline
+{\em rows} & The number of rows of the city map. \\
+\hline
+{\em columns} & The number of columns of the city map. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_a38a7bacb4eaccc63beb81d6343f23395}\label{monitor_8h_a38a7bacb4eaccc63beb81d6343f23395}} 
+\index{monitor.h@{monitor.h}!display\_counter\_officer\_information@{display\_counter\_officer\_information}}
+\index{display\_counter\_officer\_information@{display\_counter\_officer\_information}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{display\_counter\_officer\_information()}{display\_counter\_officer\_information()}}
+{\footnotesize\ttfamily void display\+\_\+counter\+\_\+officer\+\_\+information (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{int}]{row,  }\item[{int}]{col }\end{DoxyParamCaption})}
+
+
+
+Displays the information of the counter officer starting at the given row and column. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The sub-\/window. \\
+\hline
+{\em mem} & The given shared memory. \\
+\hline
+{\em row} & The row to start. \\
+\hline
+{\em column} & The column to start. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_a5586b32b5bd80361fa42124531e1e451}\label{monitor_8h_a5586b32b5bd80361fa42124531e1e451}} 
+\index{monitor.h@{monitor.h}!display\_enemy\_country\_monitor@{display\_enemy\_country\_monitor}}
+\index{display\_enemy\_country\_monitor@{display\_enemy\_country\_monitor}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{display\_enemy\_country\_monitor()}{display\_enemy\_country\_monitor()}}
+{\footnotesize\ttfamily void display\+\_\+enemy\+\_\+country\+\_\+monitor (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{mem }\end{DoxyParamCaption})}
+
+
+
+Displays messages received by the enemy country. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The sub-\/window in which messages are displayed. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_a0a791bfffcb4017b27ba3f5267eae057}\label{monitor_8h_a0a791bfffcb4017b27ba3f5267eae057}} 
+\index{monitor.h@{monitor.h}!display\_general\_information\_values@{display\_general\_information\_values}}
+\index{display\_general\_information\_values@{display\_general\_information\_values}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{display\_general\_information\_values()}{display\_general\_information\_values()}}
+{\footnotesize\ttfamily void display\+\_\+general\+\_\+information\+\_\+values (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{mem }\end{DoxyParamCaption})}
+
+
+
+Displays the number of steps and the elapsed time such as an ending message within the \char`\"{}\+City map and status information\char`\"{} sub-\/window. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The sub-\/window. \\
+\hline
+{\em mem} & The given shared memory. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_a24beae0e14af376a7555cde4bfef7455}\label{monitor_8h_a24beae0e14af376a7555cde4bfef7455}} 
+\index{monitor.h@{monitor.h}!display\_mailbox\_content@{display\_mailbox\_content}}
+\index{display\_mailbox\_content@{display\_mailbox\_content}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{display\_mailbox\_content()}{display\_mailbox\_content()}}
+{\footnotesize\ttfamily void display\+\_\+mailbox\+\_\+content (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{mem }\end{DoxyParamCaption})}
+
+
+
+Displays the mailbox content. Messages are encrypted. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The sub-\/window in which encrypted messages are displayed. \\
+\hline
+{\em mem} & The given shared memory in which encrypted messages from the mailbox are retrieved. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_a47d86258babe3d27bc6f56db5867b75d}\label{monitor_8h_a47d86258babe3d27bc6f56db5867b75d}} 
+\index{monitor.h@{monitor.h}!display\_spy1\_information@{display\_spy1\_information}}
+\index{display\_spy1\_information@{display\_spy1\_information}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{display\_spy1\_information()}{display\_spy1\_information()}}
+{\footnotesize\ttfamily void display\+\_\+spy1\+\_\+information (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{int}]{row,  }\item[{int}]{column,  }\item[{int}]{number }\end{DoxyParamCaption})}
+
+
+
+Displays the information of the spy whose number is given starting at the given row and column. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The sub-\/window. \\
+\hline
+{\em mem} & The given shared memory. \\
+\hline
+{\em row} & The row to start. \\
+\hline
+{\em column} & The column to start. \\
+\hline
+{\em number} & The number of the spy (0, 1 or 2) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_a02fd1bd832305e7174108e90c939f527}\label{monitor_8h_a02fd1bd832305e7174108e90c939f527}} 
+\index{monitor.h@{monitor.h}!display\_spy2\_information@{display\_spy2\_information}}
+\index{display\_spy2\_information@{display\_spy2\_information}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{display\_spy2\_information()}{display\_spy2\_information()}}
+{\footnotesize\ttfamily void display\+\_\+spy2\+\_\+information (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{int}]{row,  }\item[{int}]{column,  }\item[{int}]{number }\end{DoxyParamCaption})}
+
+
+
+Displays the information of the spy whose number is given starting at the given row and column. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The sub-\/window. \\
+\hline
+{\em mem} & The given shared memory. \\
+\hline
+{\em row} & The row to start. \\
+\hline
+{\em column} & The column to start. \\
+\hline
+{\em number} & The number of the spy (0, 1 or 2) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_a431aa4e5e0c4d7cfa52f8ae18542846d}\label{monitor_8h_a431aa4e5e0c4d7cfa52f8ae18542846d}} 
+\index{monitor.h@{monitor.h}!display\_spy3\_information@{display\_spy3\_information}}
+\index{display\_spy3\_information@{display\_spy3\_information}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{display\_spy3\_information()}{display\_spy3\_information()}}
+{\footnotesize\ttfamily void display\+\_\+spy3\+\_\+information (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{int}]{row,  }\item[{int}]{column,  }\item[{int}]{number }\end{DoxyParamCaption})}
+
+
+
+Displays the information of the spy whose number is given starting at the given row and column. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The sub-\/window. \\
+\hline
+{\em mem} & The given shared memory. \\
+\hline
+{\em row} & The row to start. \\
+\hline
+{\em column} & The column to start. \\
+\hline
+{\em number} & The number of the spy (0, 1 or 2) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_a53b18963f0d0f5d0c561883d6ef51ca7}\label{monitor_8h_a53b18963f0d0f5d0c561883d6ef51ca7}} 
+\index{monitor.h@{monitor.h}!init\_monitor\_elements@{init\_monitor\_elements}}
+\index{init\_monitor\_elements@{init\_monitor\_elements}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{init\_monitor\_elements()}{init\_monitor\_elements()}}
+{\footnotesize\ttfamily void init\+\_\+monitor\+\_\+elements (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{mem,  }\item[{int}]{rows,  }\item[{int}]{columns }\end{DoxyParamCaption})}
+
+
+
+Creates the four sub-\/window boxes within the given window. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The main window in which we create the four boxes. \\
+\hline
+{\em mem} & The given shared memory. \\
+\hline
+{\em rows} & The number of rows of the main window. \\
+\hline
+{\em columns} & The number of columns of the main window. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_a88b58425470b0bdfb4ab618d676650e5}\label{monitor_8h_a88b58425470b0bdfb4ab618d676650e5}} 
+\index{monitor.h@{monitor.h}!set\_cell\_color@{set\_cell\_color}}
+\index{set\_cell\_color@{set\_cell\_color}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{set\_cell\_color()}{set\_cell\_color()}}
+{\footnotesize\ttfamily void set\+\_\+cell\+\_\+color (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{int}]{color,  }\item[{int}]{row,  }\item[{int}]{col }\end{DoxyParamCaption})}
+
+
+
+Sets a cell from the city map with the given color (the city map is displayed in the \char`\"{}\+City map and status information\char`\"{} sub-\/window). 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The sub-\/window. \\
+\hline
+{\em color} & The color of the cell. \\
+\hline
+{\em row} & The row of the cell. \\
+\hline
+{\em The} & column of the cell. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_a513bd8954879ec20a372a5e755378ab2}\label{monitor_8h_a513bd8954879ec20a372a5e755378ab2}} 
+\index{monitor.h@{monitor.h}!set\_city\_legend@{set\_city\_legend}}
+\index{set\_city\_legend@{set\_city\_legend}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{set\_city\_legend()}{set\_city\_legend()}}
+{\footnotesize\ttfamily void set\+\_\+city\+\_\+legend (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{int}]{row,  }\item[{int}]{col }\end{DoxyParamCaption})}
+
+
+
+Sets the city map legend within the given sub-\/window (\char`\"{}city map and
+general information\char`\"{} sub\+\_\+window). 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The sub-\/window. \\
+\hline
+{\em row} & The row of the top of city legend \\
+\hline
+{\em col} & The column of the left of city legend \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_ab79e1f171147ed03d04513eed6f92513}\label{monitor_8h_ab79e1f171147ed03d04513eed6f92513}} 
+\index{monitor.h@{monitor.h}!set\_monitor\_title@{set\_monitor\_title}}
+\index{set\_monitor\_title@{set\_monitor\_title}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{set\_monitor\_title()}{set\_monitor\_title()}}
+{\footnotesize\ttfamily void set\+\_\+monitor\+\_\+title (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{const char $\ast$}]{title }\end{DoxyParamCaption})}
+
+
+
+Sets the given window with the given title. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The window. \\
+\hline
+{\em title} & The title. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_a0c698d6f69717324b197dd94b4d84b80}\label{monitor_8h_a0c698d6f69717324b197dd94b4d84b80}} 
+\index{monitor.h@{monitor.h}!show\_general\_information@{show\_general\_information}}
+\index{show\_general\_information@{show\_general\_information}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{show\_general\_information()}{show\_general\_information()}}
+{\footnotesize\ttfamily void show\+\_\+general\+\_\+information (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window }\end{DoxyParamCaption})}
+
+
+
+Shows information within the \char`\"{}\+City map and status information\char`\"{} sub-\/window. 
+
+It displays information such as the title and labels of the number of turns and the elapsed time.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The sub-\/window. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor_8h_ad066b1803a0842de1245e9cec4e8ae2b}\label{monitor_8h_ad066b1803a0842de1245e9cec4e8ae2b}} 
+\index{monitor.h@{monitor.h}!update\_values@{update\_values}}
+\index{update\_values@{update\_values}!monitor.h@{monitor.h}}
+\doxysubsubsection{\texorpdfstring{update\_values()}{update\_values()}}
+{\footnotesize\ttfamily void update\+\_\+values (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{mem }\end{DoxyParamCaption})}
+
+
+
+Updates values after consulting the given memory. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em mem} & The given shared memory. \\
+\hline
+\end{DoxyParams}

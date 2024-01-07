@@ -1,0 +1,104 @@
+\hypertarget{citizen__manager_2main_8c}{}\doxysection{Référence du fichier src/citizen\+\_\+manager/main.c}
+\label{citizen__manager_2main_8c}\index{src/citizen\_manager/main.c@{src/citizen\_manager/main.c}}
+
+
+Main entry point for the spy simulation.  
+
+
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}citizen\+\_\+manager.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$sys/mman.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+Graphe des dépendances par inclusion de main.\+c\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{citizen__manager_2main_8c_aa4cfdfe993fe1696f4f75b0557c9906c}\label{citizen__manager_2main_8c_aa4cfdfe993fe1696f4f75b0557c9906c}} 
+\#define {\bfseries S\+H\+A\+R\+E\+D\+\_\+\+M\+E\+M\+O\+RY}~\char`\"{}/Shared\+Memory\char`\"{}
+\item 
+\mbox{\Hypertarget{citizen__manager_2main_8c_abdbcc430d68d38943499aaf373c7e4ab}\label{citizen__manager_2main_8c_abdbcc430d68d38943499aaf373c7e4ab}} 
+\#define {\bfseries S\+E\+M\+A\+P\+H\+O\+R\+E\+\_\+\+C\+O\+N\+S\+U\+M\+ER}~\char`\"{}/sem\+Consumer\char`\"{}
+\item 
+\mbox{\Hypertarget{citizen__manager_2main_8c_a1c79358e413e91752ecf5b0c75472f12}\label{citizen__manager_2main_8c_a1c79358e413e91752ecf5b0c75472f12}} 
+\#define {\bfseries S\+E\+M\+A\+P\+H\+O\+R\+E\+\_\+\+P\+R\+O\+D\+U\+C\+ER}~\char`\"{}/sem\+Producer\char`\"{}
+\item 
+\mbox{\Hypertarget{citizen__manager_2main_8c_a45d3b02d50da2336ac9efc710c911516}\label{citizen__manager_2main_8c_a45d3b02d50da2336ac9efc710c911516}} 
+\#define {\bfseries C\+I\+T\+I\+Z\+E\+N\+S\+\_\+\+D\+E\+B\+UG}~1
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \mbox{\hyperlink{citizen__manager_2main_8c_a8bb1e668cd38642c7a2c42f4c8f609e0}{citizen\+\_\+thread}} (void $\ast$arg)
+\begin{DoxyCompactList}\small\item\em Fonction exécutée par chaque thread de citoyen. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{citizen__manager_2main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Fonction principale du programme. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{citizen__manager_2main_8c_af16d0defec41b3501a54c55c112a55d0}\label{citizen__manager_2main_8c_af16d0defec41b3501a54c55c112a55d0}} 
+\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$ {\bfseries memory}
+\item 
+\mbox{\Hypertarget{citizen__manager_2main_8c_a2d10f124eea92dfd07e6d8748e0dcf37}\label{citizen__manager_2main_8c_a2d10f124eea92dfd07e6d8748e0dcf37}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+producer}
+\item 
+\mbox{\Hypertarget{citizen__manager_2main_8c_a4c6703ae9acc801a2fb3c649e0c0019a}\label{citizen__manager_2main_8c_a4c6703ae9acc801a2fb3c649e0c0019a}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+consumer}
+\item 
+\mbox{\Hypertarget{citizen__manager_2main_8c_aa918d7e20dcb6074f9c242bf68391bbc}\label{citizen__manager_2main_8c_aa918d7e20dcb6074f9c242bf68391bbc}} 
+pthread\+\_\+mutex\+\_\+t {\bfseries shared\+\_\+memory\+\_\+mutex}
+\item 
+\mbox{\Hypertarget{citizen__manager_2main_8c_aca4e220cf18bdd1e214ec939ce0a7351}\label{citizen__manager_2main_8c_aca4e220cf18bdd1e214ec939ce0a7351}} 
+pthread\+\_\+barrier\+\_\+t {\bfseries turn\+\_\+barrier}
+\item 
+\mbox{\Hypertarget{citizen__manager_2main_8c_aa06e5d5a4e70daa688879817f720a20d}\label{citizen__manager_2main_8c_aa06e5d5a4e70daa688879817f720a20d}} 
+int {\bfseries threads\+\_\+at\+\_\+barrier} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Main entry point for the spy simulation. 
+
+This file contains the main entry point (the {\ttfamily main} function) for creating and managing citizens in the spy simulation. It initializes the necessary threads for handling citizens in the simulation. 
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{citizen__manager_2main_8c_a8bb1e668cd38642c7a2c42f4c8f609e0}\label{citizen__manager_2main_8c_a8bb1e668cd38642c7a2c42f4c8f609e0}} 
+\index{main.c@{main.c}!citizen\_thread@{citizen\_thread}}
+\index{citizen\_thread@{citizen\_thread}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{citizen\_thread()}{citizen\_thread()}}
+{\footnotesize\ttfamily void$\ast$ citizen\+\_\+thread (\begin{DoxyParamCaption}\item[{void $\ast$}]{arg }\end{DoxyParamCaption})}
+
+
+
+Fonction exécutée par chaque thread de citoyen. 
+
+Gère le comportement d\textquotesingle{}un citoyen dans la simulation. Cette fonction est assignée à chaque thread créé pour un citoyen et s\textquotesingle{}exécute tant que la simulation n\textquotesingle{}est pas terminée.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em arg} & Pointeur vers l\textquotesingle{}identifiant du citoyen. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+Pointeur void$\ast$ retourné à la fin de l\textquotesingle{}exécution du thread. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{citizen__manager_2main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{citizen__manager_2main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Fonction principale du programme. 
+
+Crée et gère les threads des citoyens, et nettoie les ressources à la fin de la simulation.
+
+\begin{DoxyReturn}{Renvoie}
+int Code de sortie du programme. 
+\end{DoxyReturn}

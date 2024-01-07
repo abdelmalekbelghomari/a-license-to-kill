@@ -1,0 +1,449 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>A License to Kill: Référence du fichier include/spy_simulation.h</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../ltk.jpg"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">A License to Kill
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Ce projet développe un système de simulation d&#39;espionnage sophistiqué, intégrant des techniques d&#39;intelligence artificielle vues en cours d&#39;IA et de modélisation de scénarios complexes en utilisant les méthodes et techniques vues en cours de Systèmes d&#39;Exploitations.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Définitions de type</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier spy_simulation.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Header file for the Spy Simulation executable.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="../../db/d7e/include_2memory_8h_source.html">memory.h</a>&quot;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;time.h&gt;</code><br />
+<code>#include &lt;sys/stat.h&gt;</code><br />
+<code>#include &lt;fcntl.h&gt;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;semaphore.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de spy_simulation.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d6/dfb/spy__simulation_8h__incl.png" border="0" usemap="#include_2spy__simulation_8h" alt=""/></div>
+<!-- MAP 0 -->
+</div>
+</div><div class="textblock"><div class="dynheader">
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier :</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/d8e/spy__simulation_8h__dep__incl.png" border="0" usemap="#include_2spy__simulation_8hdep" alt=""/></div>
+<!-- MAP 1 -->
+</div>
+</div>
+<p><a href="../../d3/da6/spy__simulation_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aa8c632df4c1e684ff41da2eaf5477c6b"><td class="memItemLeft" align="right" valign="top"><a id="aa8c632df4c1e684ff41da2eaf5477c6b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CI_OFFICER_INDEX</b>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:aa8c632df4c1e684ff41da2eaf5477c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Définitions de type</h2></td></tr>
+<tr class="memitem:a57dccc2f01e73723efdf6e5c4a04aee1"><td class="memItemLeft" align="right" valign="top"><a id="a57dccc2f01e73723efdf6e5c4a04aee1"></a>
+typedef struct <a class="el" href="../../de/dd3/structmemory__s.html">memory_s</a>&#160;</td><td class="memItemRight" valign="bottom"><b>memory_t</b></td></tr>
+<tr class="separator:a57dccc2f01e73723efdf6e5c4a04aee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:aa31efd71e4cec0504918a3344db0a0c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da6/spy__simulation_8h.html#aa31efd71e4cec0504918a3344db0a0c6">handle_fatal_error</a> (const char *message)</td></tr>
+<tr class="memdesc:aa31efd71e4cec0504918a3344db0a0c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles fatal errors and exits the program with an error message.  <a href="../../d3/da6/spy__simulation_8h.html#aa31efd71e4cec0504918a3344db0a0c6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa31efd71e4cec0504918a3344db0a0c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a202c4d5d17186b7024df65a138ae2e3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da6/spy__simulation_8h.html#a202c4d5d17186b7024df65a138ae2e3a">init_map</a> (<a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *cityMap)</td></tr>
+<tr class="memdesc:a202c4d5d17186b7024df65a138ae2e3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the city map.  <a href="../../d3/da6/spy__simulation_8h.html#a202c4d5d17186b7024df65a138ae2e3a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a202c4d5d17186b7024df65a138ae2e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27bfc0309ef81823d1e1785254135590"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da6/spy__simulation_8h.html#a27bfc0309ef81823d1e1785254135590">init_surveillance</a> (<a class="el" href="../../d1/dad/structsurveillanceNetwork__t.html">surveillanceNetwork_t</a> *surveillance)</td></tr>
+<tr class="memdesc:a27bfc0309ef81823d1e1785254135590"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the surveillance network.  <a href="../../d3/da6/spy__simulation_8h.html#a27bfc0309ef81823d1e1785254135590">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a27bfc0309ef81823d1e1785254135590"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72fdd86d4bd7db87f56eac2484b069d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da6/spy__simulation_8h.html#a72fdd86d4bd7db87f56eac2484b069d5">start_simulation_processes</a> ()</td></tr>
+<tr class="memdesc:a72fdd86d4bd7db87f56eac2484b069d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the simulation processes.  <a href="../../d3/da6/spy__simulation_8h.html#a72fdd86d4bd7db87f56eac2484b069d5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a72fdd86d4bd7db87f56eac2484b069d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1a9672576fd9903d9dae4c3ca7454ad"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="../../de/dd3/structmemory__s.html">memory_s</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da6/spy__simulation_8h.html#af1a9672576fd9903d9dae4c3ca7454ad">create_shared_memory</a> (const char *name)</td></tr>
+<tr class="memdesc:af1a9672576fd9903d9dae4c3ca7454ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a shared memory segment.  <a href="../../d3/da6/spy__simulation_8h.html#af1a9672576fd9903d9dae4c3ca7454ad">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af1a9672576fd9903d9dae4c3ca7454ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a486a612dab8b171255660f7f23ce1bf4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da6/spy__simulation_8h.html#a486a612dab8b171255660f7f23ce1bf4">isConnected</a> (<a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *cityMap)</td></tr>
+<tr class="memdesc:a486a612dab8b171255660f7f23ce1bf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the city map is connected.  <a href="../../d3/da6/spy__simulation_8h.html#a486a612dab8b171255660f7f23ce1bf4">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a486a612dab8b171255660f7f23ce1bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96e005164a12248c34139a520e711372"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da6/spy__simulation_8h.html#a96e005164a12248c34139a520e711372">dfs</a> (<a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *cityMap, bool visited[<a class="el" href="../../dc/d54/common_8h.html#a3b94af9dcb0358f28d175d80eed98330">MAX_ROWS</a>][<a class="el" href="../../dc/d54/common_8h.html#a2cc6f39fc4594f0e734b2588129fba03">MAX_COLUMNS</a>], int row, int col, int endRow, int endCol)</td></tr>
+<tr class="memdesc:a96e005164a12248c34139a520e711372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs depth-first search on the city map.  <a href="../../d3/da6/spy__simulation_8h.html#a96e005164a12248c34139a520e711372">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a96e005164a12248c34139a520e711372"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac842d224f2356cbf357c8398e25bbe2b"><td class="memItemLeft" align="right" valign="top">sem_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da6/spy__simulation_8h.html#ac842d224f2356cbf357c8398e25bbe2b">create_semaphore</a> (const char *name, int value)</td></tr>
+<tr class="memdesc:ac842d224f2356cbf357c8398e25bbe2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a semaphore with the specified name and initial value.  <a href="../../d3/da6/spy__simulation_8h.html#ac842d224f2356cbf357c8398e25bbe2b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ac842d224f2356cbf357c8398e25bbe2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9764fa853ee67723f83dd9d8aeebd43"><td class="memItemLeft" align="right" valign="top">sem_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da6/spy__simulation_8h.html#ad9764fa853ee67723f83dd9d8aeebd43">open_semaphore</a> (const char *name)</td></tr>
+<tr class="memdesc:ad9764fa853ee67723f83dd9d8aeebd43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens an existing semaphore with the specified name.  <a href="../../d3/da6/spy__simulation_8h.html#ad9764fa853ee67723f83dd9d8aeebd43">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad9764fa853ee67723f83dd9d8aeebd43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Header file for the Spy Simulation executable. </p>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="ac842d224f2356cbf357c8398e25bbe2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac842d224f2356cbf357c8398e25bbe2b">&#9670;&nbsp;</a></span>create_semaphore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sem_t* create_semaphore </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a semaphore with the specified name and initial value. </p>
+<p>Creates a semaphore with the given name and initial value.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the semaphore. </td></tr>
+    <tr><td class="paramname">value</td><td>The initial value of the semaphore. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the created semaphore. </dd></dl>
+
+</div>
+</div>
+<a id="af1a9672576fd9903d9dae4c3ca7454ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1a9672576fd9903d9dae4c3ca7454ad">&#9670;&nbsp;</a></span>create_shared_memory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="../../de/dd3/structmemory__s.html">memory_s</a>* create_shared_memory </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a shared memory segment. </p>
+<p>Creates a shared memory segment with the specified name.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the shared memory segment. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the created shared memory structure. </dd></dl>
+
+</div>
+</div>
+<a id="a96e005164a12248c34139a520e711372"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96e005164a12248c34139a520e711372">&#9670;&nbsp;</a></span>dfs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool dfs </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>cityMap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>visited</em>[MAX_ROWS][MAX_COLUMNS], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>col</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>endRow</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>endCol</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs depth-first search on the city map. </p>
+<p>Performs depth-first search (DFS) on the city map to find a path.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cityMap</td><td>A pointer to the city map structure. </td></tr>
+    <tr><td class="paramname">visited</td><td>A boolean array to track visited cells. </td></tr>
+    <tr><td class="paramname">row</td><td>The current row. </td></tr>
+    <tr><td class="paramname">col</td><td>The current column. </td></tr>
+    <tr><td class="paramname">endRow</td><td>The target row. </td></tr>
+    <tr><td class="paramname">endCol</td><td>The target column. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><code>true</code> if a path is found, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="aa31efd71e4cec0504918a3344db0a0c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa31efd71e4cec0504918a3344db0a0c6">&#9670;&nbsp;</a></span>handle_fatal_error()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void handle_fatal_error </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>message</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles fatal errors and exits the program with an error message. </p>
+<p>This function prints an error message and terminates the program.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>The error message to be displayed. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a202c4d5d17186b7024df65a138ae2e3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a202c4d5d17186b7024df65a138ae2e3a">&#9670;&nbsp;</a></span>init_map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_map </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>cityMap</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the city map. </p>
+<p>Initializes the city map represented by the provided <code>cityMap</code>.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cityMap</td><td>A pointer to the city map structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a27bfc0309ef81823d1e1785254135590"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27bfc0309ef81823d1e1785254135590">&#9670;&nbsp;</a></span>init_surveillance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_surveillance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d1/dad/structsurveillanceNetwork__t.html">surveillanceNetwork_t</a> *&#160;</td>
+          <td class="paramname"><em>surveillance</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the surveillance network. </p>
+<p>Initializes the surveillance network represented by the provided <code>surveillance</code>.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">surveillance</td><td>A pointer to the surveillance network structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a486a612dab8b171255660f7f23ce1bf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a486a612dab8b171255660f7f23ce1bf4">&#9670;&nbsp;</a></span>isConnected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool isConnected </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>cityMap</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the city map is connected. </p>
+<p>Checks if the city map represented by <code>cityMap</code> is connected.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cityMap</td><td>A pointer to the city map structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><code>true</code> if the map is connected, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="ad9764fa853ee67723f83dd9d8aeebd43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9764fa853ee67723f83dd9d8aeebd43">&#9670;&nbsp;</a></span>open_semaphore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sem_t* open_semaphore </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Opens an existing semaphore with the specified name. </p>
+<p>Opens an existing semaphore with the given name.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the semaphore. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the opened semaphore. </dd></dl>
+
+</div>
+</div>
+<a id="a72fdd86d4bd7db87f56eac2484b069d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72fdd86d4bd7db87f56eac2484b069d5">&#9670;&nbsp;</a></span>start_simulation_processes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void start_simulation_processes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Starts the simulation processes. </p>
+<p>Starts the processes responsible for the simulation. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

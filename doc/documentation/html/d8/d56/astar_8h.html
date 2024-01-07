@@ -1,0 +1,906 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>A License to Kill: Référence du fichier include/astar.h</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../ltk.jpg"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">A License to Kill
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Ce projet développe un système de simulation d&#39;espionnage sophistiqué, intégrant des techniques d&#39;intelligence artificielle vues en cours d&#39;IA et de modélisation de scénarios complexes en utilisant les méthodes et techniques vues en cours de Systèmes d&#39;Exploitations.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier astar.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../db/d7e/include_2memory_8h_source.html">memory.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de astar.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d3/d02/astar_8h__incl.png" border="0" usemap="#include_2astar_8h" alt=""/></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier :</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d5/d77/astar_8h__dep__incl.png" border="0" usemap="#include_2astar_8hdep" alt=""/></div>
+</div>
+</div>
+<p><a href="../../d8/d56/astar_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A structure representing a heap for A* algorithm.  <a href="../../d9/d8a/structheap__t.html#details">Plus de détails...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:aa182a447ed2807b0399a5d30a17f4abf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d49/structNode.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#aa182a447ed2807b0399a5d30a17f4abf">create_node</a> (int row, int column, double g, double h)</td></tr>
+<tr class="memdesc:aa182a447ed2807b0399a5d30a17f4abf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new node for A* algorithm.  <a href="../../d8/d56/astar_8h.html#aa182a447ed2807b0399a5d30a17f4abf">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa182a447ed2807b0399a5d30a17f4abf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2b311b7589e11ed1d6a2f40ba029f80"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#af2b311b7589e11ed1d6a2f40ba029f80">heuristic</a> (int row1, int column1, int row2, int column2)</td></tr>
+<tr class="memdesc:af2b311b7589e11ed1d6a2f40ba029f80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the heuristic value between two points.  <a href="../../d8/d56/astar_8h.html#af2b311b7589e11ed1d6a2f40ba029f80">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af2b311b7589e11ed1d6a2f40ba029f80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a486351e9d14def0f7051393b86b2dd2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#a486351e9d14def0f7051393b86b2dd2e">create_heap</a> (int initial_capacity)</td></tr>
+<tr class="memdesc:a486351e9d14def0f7051393b86b2dd2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new heap for A* algorithm.  <a href="../../d8/d56/astar_8h.html#a486351e9d14def0f7051393b86b2dd2e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a486351e9d14def0f7051393b86b2dd2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef0d873517708550e79e078802bdc986"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#aef0d873517708550e79e078802bdc986">destroy_heap</a> (<a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a> *heap)</td></tr>
+<tr class="memdesc:aef0d873517708550e79e078802bdc986"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys a heap.  <a href="../../d8/d56/astar_8h.html#aef0d873517708550e79e078802bdc986">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aef0d873517708550e79e078802bdc986"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ee5f3189d18e36c3e026fc85593e40c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#a6ee5f3189d18e36c3e026fc85593e40c">insert_heap</a> (<a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a> *heap, <a class="el" href="../../d8/d49/structNode.html">Node</a> *node)</td></tr>
+<tr class="memdesc:a6ee5f3189d18e36c3e026fc85593e40c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a node into the heap.  <a href="../../d8/d56/astar_8h.html#a6ee5f3189d18e36c3e026fc85593e40c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6ee5f3189d18e36c3e026fc85593e40c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6980721f18f6b7ba8b58da680e972c38"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#a6980721f18f6b7ba8b58da680e972c38">delete_root</a> (<a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a> *heap, <a class="el" href="../../d8/d49/structNode.html">Node</a> **deleted_node)</td></tr>
+<tr class="memdesc:a6980721f18f6b7ba8b58da680e972c38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the root node from the heap.  <a href="../../d8/d56/astar_8h.html#a6980721f18f6b7ba8b58da680e972c38">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6980721f18f6b7ba8b58da680e972c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad900cec45c26ebd86123ebfd498c1e1e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#ad900cec45c26ebd86123ebfd498c1e1e">is_heap_empty</a> (const <a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a> *heap)</td></tr>
+<tr class="memdesc:ad900cec45c26ebd86123ebfd498c1e1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the heap is empty.  <a href="../../d8/d56/astar_8h.html#ad900cec45c26ebd86123ebfd498c1e1e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad900cec45c26ebd86123ebfd498c1e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaccc6bbd35d1e9909ded9386ea5152f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#acaccc6bbd35d1e9909ded9386ea5152f">is_heap_full</a> (const <a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a> *heap)</td></tr>
+<tr class="memdesc:acaccc6bbd35d1e9909ded9386ea5152f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the heap is full.  <a href="../../d8/d56/astar_8h.html#acaccc6bbd35d1e9909ded9386ea5152f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:acaccc6bbd35d1e9909ded9386ea5152f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad113717113f9495334963ab053c5c5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#aad113717113f9495334963ab053c5c5d">print_heap</a> (const <a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a> *heap)</td></tr>
+<tr class="memdesc:aad113717113f9495334963ab053c5c5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the contents of the heap.  <a href="../../d8/d56/astar_8h.html#aad113717113f9495334963ab053c5c5d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aad113717113f9495334963ab053c5c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42b99f6a8467bc7d147eac2993b4f51c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#a42b99f6a8467bc7d147eac2993b4f51c">is_goal</a> (const <a class="el" href="../../d8/d49/structNode.html">Node</a> *node, int goal_row, int goal_column)</td></tr>
+<tr class="memdesc:a42b99f6a8467bc7d147eac2993b4f51c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a node is the goal.  <a href="../../d8/d56/astar_8h.html#a42b99f6a8467bc7d147eac2993b4f51c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a42b99f6a8467bc7d147eac2993b4f51c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68810f17164e99454be081383707a574"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#a68810f17164e99454be081383707a574">is_cell_full</a> (<a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *map, int row, int column)</td></tr>
+<tr class="memdesc:a68810f17164e99454be081383707a574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a cell on the map is full.  <a href="../../d8/d56/astar_8h.html#a68810f17164e99454be081383707a574">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a68810f17164e99454be081383707a574"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bdd4cb4187abaf3a501bd1e10d74eea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d49/structNode.html">Node</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#a7bdd4cb4187abaf3a501bd1e10d74eea">get_successors</a> (<a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *map, <a class="el" href="../../d8/d49/structNode.html">Node</a> *current, int goal_row, int goal_column)</td></tr>
+<tr class="memdesc:a7bdd4cb4187abaf3a501bd1e10d74eea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the successors of a node in the A* algorithm.  <a href="../../d8/d56/astar_8h.html#a7bdd4cb4187abaf3a501bd1e10d74eea">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7bdd4cb4187abaf3a501bd1e10d74eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4302986ecd37b342a66e76c7aaa5c522"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d49/structNode.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#a4302986ecd37b342a66e76c7aaa5c522">astar_search</a> (<a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *map, int start_row, int start_column, int goal_row, int goal_column)</td></tr>
+<tr class="memdesc:a4302986ecd37b342a66e76c7aaa5c522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs A* search on the map.  <a href="../../d8/d56/astar_8h.html#a4302986ecd37b342a66e76c7aaa5c522">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4302986ecd37b342a66e76c7aaa5c522"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6564254294d964a1aec3f1b44a1c8271"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d20/structPath.html">Path</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#a6564254294d964a1aec3f1b44a1c8271">reconstruct_path</a> (<a class="el" href="../../d8/d49/structNode.html">Node</a> *goal_node)</td></tr>
+<tr class="memdesc:a6564254294d964a1aec3f1b44a1c8271"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstructs the path from the goal node.  <a href="../../d8/d56/astar_8h.html#a6564254294d964a1aec3f1b44a1c8271">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6564254294d964a1aec3f1b44a1c8271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0357832282d6eba0cd041bdf0f0499ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#a0357832282d6eba0cd041bdf0f0499ff">print_path</a> (<a class="el" href="../../d8/d49/structNode.html">Node</a> **path, int path_length)</td></tr>
+<tr class="memdesc:a0357832282d6eba0cd041bdf0f0499ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the path for debugging.  <a href="../../d8/d56/astar_8h.html#a0357832282d6eba0cd041bdf0f0499ff">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0357832282d6eba0cd041bdf0f0499ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a343b58f924fffcbc119b37cb0a36bf6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d49/structNode.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#a343b58f924fffcbc119b37cb0a36bf6d">calculate_next_step</a> (int current_row, int current_column, int goal_row, int goal_column, <a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *map)</td></tr>
+<tr class="memdesc:a343b58f924fffcbc119b37cb0a36bf6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the next step using A* algorithm.  <a href="../../d8/d56/astar_8h.html#a343b58f924fffcbc119b37cb0a36bf6d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a343b58f924fffcbc119b37cb0a36bf6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7a8afd5aa9d5bea4c90ecb8f94b1ed2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d49/structNode.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#ab7a8afd5aa9d5bea4c90ecb8f94b1ed2">get_random_neighbours_spy</a> (<a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *map, <a class="el" href="../../da/dff/structspy__s.html">spy_t</a> *spy)</td></tr>
+<tr class="memdesc:ab7a8afd5aa9d5bea4c90ecb8f94b1ed2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets random neighbors for a spy character.  <a href="../../d8/d56/astar_8h.html#ab7a8afd5aa9d5bea4c90ecb8f94b1ed2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab7a8afd5aa9d5bea4c90ecb8f94b1ed2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6916bae64ab5e73d78e95453ba1186e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/d49/structNode.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d56/astar_8h.html#a6916bae64ab5e73d78e95453ba1186e0">get_random_neighbours</a> (<a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *map, int row, int column)</td></tr>
+<tr class="memdesc:a6916bae64ab5e73d78e95453ba1186e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets random neighbors for a character.  <a href="../../d8/d56/astar_8h.html#a6916bae64ab5e73d78e95453ba1186e0">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6916bae64ab5e73d78e95453ba1186e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Defines structures and functions for the A* algorithm and heap management.</p>
+<dl class="section author"><dt>Auteur</dt><dd>Belghomari Abdelmalek @email: <a href="#" onclick="location.href='mai'+'lto:'+'abd'+'el'+'mal'+'ek'+'.be'+'lg'+'hom'+'ar'+'i@e'+'co'+'le.'+'en'+'sic'+'ae'+'n.f'+'r'; return false;">abdel<span style="display: none;">.nosp@m.</span>male<span style="display: none;">.nosp@m.</span>k.bel<span style="display: none;">.nosp@m.</span>ghom<span style="display: none;">.nosp@m.</span>ari@e<span style="display: none;">.nosp@m.</span>cole<span style="display: none;">.nosp@m.</span>.ensi<span style="display: none;">.nosp@m.</span>caen<span style="display: none;">.nosp@m.</span>.fr</a> </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a4302986ecd37b342a66e76c7aaa5c522"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4302986ecd37b342a66e76c7aaa5c522">&#9670;&nbsp;</a></span>astar_search()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d8/d49/structNode.html">Node</a>* astar_search </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>start_row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>start_column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>goal_row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>goal_column</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs A* search on the map. </p>
+<p>Performs the A* search algorithm on the map to find the path from the start to the goal.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>A pointer to the map. </td></tr>
+    <tr><td class="paramname">start_row</td><td>The row coordinate of the starting point. </td></tr>
+    <tr><td class="paramname">start_column</td><td>The column coordinate of the starting point. </td></tr>
+    <tr><td class="paramname">goal_row</td><td>The row coordinate of the goal. </td></tr>
+    <tr><td class="paramname">goal_column</td><td>The column coordinate of the goal. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the goal node if a path is found, NULL otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a343b58f924fffcbc119b37cb0a36bf6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a343b58f924fffcbc119b37cb0a36bf6d">&#9670;&nbsp;</a></span>calculate_next_step()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d8/d49/structNode.html">Node</a>* calculate_next_step </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>current_row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>current_column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>goal_row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>goal_column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the next step using A* algorithm. </p>
+<p>Calculates the next step for a character using the A* algorithm.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">current_row</td><td>The current row coordinate of the character. </td></tr>
+    <tr><td class="paramname">current_column</td><td>The current column coordinate of the character. </td></tr>
+    <tr><td class="paramname">goal_row</td><td>The row coordinate of the goal. </td></tr>
+    <tr><td class="paramname">goal_column</td><td>The column coordinate of the goal. </td></tr>
+    <tr><td class="paramname">map</td><td>A pointer to the map. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the next node representing the next step. </dd></dl>
+
+</div>
+</div>
+<a id="a486351e9d14def0f7051393b86b2dd2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a486351e9d14def0f7051393b86b2dd2e">&#9670;&nbsp;</a></span>create_heap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a>* create_heap </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>initial_capacity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new heap for A* algorithm. </p>
+<p>Creates a new heap with the specified initial capacity.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">initial_capacity</td><td>The initial capacity of the heap. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the newly created heap. </dd></dl>
+
+</div>
+</div>
+<a id="aa182a447ed2807b0399a5d30a17f4abf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa182a447ed2807b0399a5d30a17f4abf">&#9670;&nbsp;</a></span>create_node()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d8/d49/structNode.html">Node</a>* create_node </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>g</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>h</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new node for A* algorithm. </p>
+<p>Creates a new node with the specified coordinates, cost, and heuristic value.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">row</td><td>The row coordinate of the node. </td></tr>
+    <tr><td class="paramname">column</td><td>The column coordinate of the node. </td></tr>
+    <tr><td class="paramname">g</td><td>The cost from the start to the node. </td></tr>
+    <tr><td class="paramname">h</td><td>The heuristic value from the node to the goal. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the newly created node. </dd></dl>
+
+</div>
+</div>
+<a id="a6980721f18f6b7ba8b58da680e972c38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6980721f18f6b7ba8b58da680e972c38">&#9670;&nbsp;</a></span>delete_root()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool delete_root </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a> *&#160;</td>
+          <td class="paramname"><em>heap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d8/d49/structNode.html">Node</a> **&#160;</td>
+          <td class="paramname"><em>deleted_node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deletes the root node from the heap. </p>
+<p>Deletes the root node (the one with the lowest priority) from the heap.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">heap</td><td>A pointer to the heap. </td></tr>
+    <tr><td class="paramname">deleted_node</td><td>A pointer to store the deleted node. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><code>true</code> if the deletion is successful, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="aef0d873517708550e79e078802bdc986"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef0d873517708550e79e078802bdc986">&#9670;&nbsp;</a></span>destroy_heap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void destroy_heap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a> *&#160;</td>
+          <td class="paramname"><em>heap</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroys a heap. </p>
+<p>Frees the memory associated with a heap.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">heap</td><td>A pointer to the heap to be destroyed. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6916bae64ab5e73d78e95453ba1186e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6916bae64ab5e73d78e95453ba1186e0">&#9670;&nbsp;</a></span>get_random_neighbours()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d8/d49/structNode.html">Node</a>* get_random_neighbours </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets random neighbors for a character. </p>
+<p>Gets random neighboring nodes for a character at the specified row and column.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>A pointer to the map. </td></tr>
+    <tr><td class="paramname">row</td><td>The row coordinate of the character. </td></tr>
+    <tr><td class="paramname">column</td><td>The column coordinate of the character. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to a randomly selected neighboring node. </dd></dl>
+
+</div>
+</div>
+<a id="ab7a8afd5aa9d5bea4c90ecb8f94b1ed2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7a8afd5aa9d5bea4c90ecb8f94b1ed2">&#9670;&nbsp;</a></span>get_random_neighbours_spy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d8/d49/structNode.html">Node</a>* get_random_neighbours_spy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../da/dff/structspy__s.html">spy_t</a> *&#160;</td>
+          <td class="paramname"><em>spy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets random neighbors for a spy character. </p>
+<p>Gets random neighboring nodes for a spy character.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>A pointer to the map. </td></tr>
+    <tr><td class="paramname">spy</td><td>A pointer to the spy character. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a7bdd4cb4187abaf3a501bd1e10d74eea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bdd4cb4187abaf3a501bd1e10d74eea">&#9670;&nbsp;</a></span>get_successors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d8/d49/structNode.html">Node</a>** get_successors </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d8/d49/structNode.html">Node</a> *&#160;</td>
+          <td class="paramname"><em>current</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>goal_row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>goal_column</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the successors of a node in the A* algorithm. </p>
+<p>Gets the successor nodes of a given node on the map.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>A pointer to the map. </td></tr>
+    <tr><td class="paramname">current</td><td>A pointer to the current node. </td></tr>
+    <tr><td class="paramname">goal_row</td><td>The row coordinate of the goal. </td></tr>
+    <tr><td class="paramname">goal_column</td><td>The column coordinate of the goal. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>An array of successor nodes. </dd></dl>
+
+</div>
+</div>
+<a id="af2b311b7589e11ed1d6a2f40ba029f80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2b311b7589e11ed1d6a2f40ba029f80">&#9670;&nbsp;</a></span>heuristic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double heuristic </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the heuristic value between two points. </p>
+<p>Calculates the heuristic value (estimated cost) between two points using the Manhattan distance.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">row1</td><td>The row coordinate of the first point. </td></tr>
+    <tr><td class="paramname">column1</td><td>The column coordinate of the first point. </td></tr>
+    <tr><td class="paramname">row2</td><td>The row coordinate of the second point. </td></tr>
+    <tr><td class="paramname">column2</td><td>The column coordinate of the second point. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>The heuristic value between the two points. </dd></dl>
+
+</div>
+</div>
+<a id="a6ee5f3189d18e36c3e026fc85593e40c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ee5f3189d18e36c3e026fc85593e40c">&#9670;&nbsp;</a></span>insert_heap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool insert_heap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a> *&#160;</td>
+          <td class="paramname"><em>heap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d8/d49/structNode.html">Node</a> *&#160;</td>
+          <td class="paramname"><em>node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inserts a node into the heap. </p>
+<p>Inserts a node into the heap according to its priority (f-value).</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">heap</td><td>A pointer to the heap. </td></tr>
+    <tr><td class="paramname">node</td><td>A pointer to the node to be inserted. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><code>true</code> if the insertion is successful, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a68810f17164e99454be081383707a574"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68810f17164e99454be081383707a574">&#9670;&nbsp;</a></span>is_cell_full()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_cell_full </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/de4/structmap__s.html">map_t</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if a cell on the map is full. </p>
+<p>Checks if a cell on the map is occupied by characters.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>A pointer to the map. </td></tr>
+    <tr><td class="paramname">row</td><td>The row of the cell. </td></tr>
+    <tr><td class="paramname">column</td><td>The column of the cell. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><code>true</code> if the cell is full, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a42b99f6a8467bc7d147eac2993b4f51c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42b99f6a8467bc7d147eac2993b4f51c">&#9670;&nbsp;</a></span>is_goal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_goal </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d8/d49/structNode.html">Node</a> *&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>goal_row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>goal_column</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if a node is the goal. </p>
+<p>Checks if a given node is the goal node with the specified coordinates.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>A pointer to the node to be checked. </td></tr>
+    <tr><td class="paramname">goal_row</td><td>The row coordinate of the goal. </td></tr>
+    <tr><td class="paramname">goal_column</td><td>The column coordinate of the goal. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><code>true</code> if the node is the goal, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="ad900cec45c26ebd86123ebfd498c1e1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad900cec45c26ebd86123ebfd498c1e1e">&#9670;&nbsp;</a></span>is_heap_empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_heap_empty </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a> *&#160;</td>
+          <td class="paramname"><em>heap</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the heap is empty. </p>
+<p>Checks if the heap is empty (contains no nodes).</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">heap</td><td>A pointer to the heap. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><code>true</code> if the heap is empty, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="acaccc6bbd35d1e9909ded9386ea5152f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaccc6bbd35d1e9909ded9386ea5152f">&#9670;&nbsp;</a></span>is_heap_full()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_heap_full </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a> *&#160;</td>
+          <td class="paramname"><em>heap</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the heap is full. </p>
+<p>Checks if the heap is full (reached its capacity).</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">heap</td><td>A pointer to the heap. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><code>true</code> if the heap is full, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="aad113717113f9495334963ab053c5c5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad113717113f9495334963ab053c5c5d">&#9670;&nbsp;</a></span>print_heap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void print_heap </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d9/d8a/structheap__t.html">heap_t</a> *&#160;</td>
+          <td class="paramname"><em>heap</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prints the contents of the heap. </p>
+<p>Prints the contents of the heap (for debugging purposes).</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">heap</td><td>A pointer to the heap. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0357832282d6eba0cd041bdf0f0499ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0357832282d6eba0cd041bdf0f0499ff">&#9670;&nbsp;</a></span>print_path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void print_path </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d49/structNode.html">Node</a> **&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>path_length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prints the path for debugging. </p>
+<p>Prints the path (for debugging purposes).</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>An array of nodes representing the path. </td></tr>
+    <tr><td class="paramname">path_length</td><td>The length of the path. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6564254294d964a1aec3f1b44a1c8271"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6564254294d964a1aec3f1b44a1c8271">&#9670;&nbsp;</a></span>reconstruct_path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/d20/structPath.html">Path</a>* reconstruct_path </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d49/structNode.html">Node</a> *&#160;</td>
+          <td class="paramname"><em>goal_node</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reconstructs the path from the goal node. </p>
+<p>Reconstructs the path from the goal node to the start node.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">goal_node</td><td>A pointer to the goal node. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>An array of nodes representing the path. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

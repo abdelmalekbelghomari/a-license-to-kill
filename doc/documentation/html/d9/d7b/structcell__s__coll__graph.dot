@@ -1,0 +1,27 @@
+digraph "cell_s"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="cell_s",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="A cell within the map of the city."];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" occupants" ,fontname="Helvetica"];
+  Node2 [label="citizen_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dc/d85/structcitizen__s.html",tooltip="A structure representing a citizen in the simulation."];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" home" ,fontname="Helvetica"];
+  Node3 [label="home_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d3/d3f/structhome__s.html",tooltip="A structure representing a home in the simulation."];
+  Node2 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" citizens" ,fontname="Helvetica"];
+  Node4 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" mailbox" ,fontname="Helvetica"];
+  Node4 [label="mailbox_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d2/dc7/structmailbox__s.html",tooltip="A structure representing a mailbox in the simulation."];
+  Node5 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" workplace\nsupermarket" ,fontname="Helvetica"];
+  Node5 [label="building_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d5/dac/structbuilding__s.html",tooltip="A structure representing a building in the simulation."];
+  Node2 -> Node5 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" citizens" ,fontname="Helvetica"];
+  Node6 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" path_to_supermarket\npath_to_work\npath_from_supermarket\l_to_home" ,fontname="Helvetica"];
+  Node6 [label="Path",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d3/d20/structPath.html",tooltip="A structure representing a path in a grid."];
+  Node7 -> Node6 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" nodes" ,fontname="Helvetica"];
+  Node7 [label="Node",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d49/structNode.html",tooltip="A structure representing a node in a grid."];
+  Node7 -> Node7 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" parent" ,fontname="Helvetica"];
+  Node8 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" movement" ,fontname="Helvetica"];
+  Node8 [label="characterMovement",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d7/d19/structcharacterMovement.html",tooltip=" "];
+  Node9 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" working\ngoing_to_company\nresting_at_home\ngoing_back_home\ndoing_some_shopping\nfinished\ndying\ngoing_to_supermarket\ncurrent_state" ,fontname="Helvetica"];
+  Node9 [label="state_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d0/dd8/structstate__s.html",tooltip="Structure representing a state for a citizen."];
+  Node9 -> Node9 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" action" ,fontname="Helvetica"];
+}

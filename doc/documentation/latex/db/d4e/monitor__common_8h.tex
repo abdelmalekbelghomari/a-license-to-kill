@@ -1,0 +1,134 @@
+\hypertarget{monitor__common_8h}{}\doxysection{Référence du fichier include/monitor\+\_\+common.h}
+\label{monitor__common_8h}\index{include/monitor\_common.h@{include/monitor\_common.h}}
+
+
+Constants and prototypes of some N\+Curses functions.  
+
+
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier \+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{monitor__common_8h_a65fd90f232757535f02c46a885e49012}\label{monitor__common_8h_a65fd90f232757535f02c46a885e49012}} 
+\#define {\bfseries T\+I\+M\+E\+\_\+\+S\+T\+EP}~200000
+\item 
+\mbox{\Hypertarget{monitor__common_8h_a653275e9116bbdf6bbdf06f947127775}\label{monitor__common_8h_a653275e9116bbdf6bbdf06f947127775}} 
+\#define {\bfseries N\+O\+\_\+\+P\+A\+R\+T\+I\+C\+U\+L\+A\+R\+\_\+\+R\+E\+A\+S\+ON}~-\/1
+\end{DoxyCompactItemize}
+\doxysubsection*{Définitions de type}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{monitor__common_8h_ad7df73ed63cade432cbb259f455e080e}\label{monitor__common_8h_ad7df73ed63cade432cbb259f455e080e}} 
+typedef struct \mbox{\hyperlink{structmonitor__s}{monitor\+\_\+s}} {\bfseries monitor\+\_\+t}
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{monitor__common_8h_ac0a7ac38e3e2d0b8e3ac75673bce8b06}{quit\+\_\+after\+\_\+error}} (const char $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Quit nicely after an error occurred. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor__common_8h_afd1c56cf88f4eec0fb6e07df933541cd}{quit\+\_\+nicely}} (int reason)
+\begin{DoxyCompactList}\small\item\em Quit nicely. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor__common_8h_a9c78b826a57e4271308bc2128158a283}{clear\+\_\+line}} (W\+I\+N\+D\+OW $\ast$window, int row)
+\begin{DoxyCompactList}\small\item\em Clears a specific line in the given window. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{monitor__common_8h_ac1a7d9a5f3f9ef8b91b469047a4a0c0e}{get\+\_\+terminal\+\_\+size}} (int $\ast$rows, int $\ast$cols)
+\begin{DoxyCompactList}\small\item\em Returns the size of the terminal. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{monitor__common_8h_a354e77f7ca9dc2a93d0027ebc8f26c24}{is\+\_\+terminal\+\_\+size\+\_\+larger\+\_\+enough}} (int $\ast$rows, int $\ast$cols)
+\item 
+\mbox{\Hypertarget{monitor__common_8h_a0c45f6d074323c14925599c4fe2c9ab1}\label{monitor__common_8h_a0c45f6d074323c14925599c4fe2c9ab1}} 
+void \mbox{\hyperlink{monitor__common_8h_a0c45f6d074323c14925599c4fe2c9ab1}{set\+\_\+timer}} (void)
+\begin{DoxyCompactList}\small\item\em Sets up the timer using the T\+I\+M\+E\+\_\+\+S\+T\+EP value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{monitor__common_8h_a3597cd9be1dec938cefd909341192d7e}\label{monitor__common_8h_a3597cd9be1dec938cefd909341192d7e}} 
+void {\bfseries handler} (int signum)
+\item 
+\mbox{\Hypertarget{monitor__common_8h_aba9735e0f75f41b9395899fd503303ad}\label{monitor__common_8h_aba9735e0f75f41b9395899fd503303ad}} 
+void \mbox{\hyperlink{monitor__common_8h_aba9735e0f75f41b9395899fd503303ad}{set\+\_\+signals}} (void)
+\begin{DoxyCompactList}\small\item\em Sets up the signal handler. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Constants and prototypes of some N\+Curses functions. 
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{monitor__common_8h_a9c78b826a57e4271308bc2128158a283}\label{monitor__common_8h_a9c78b826a57e4271308bc2128158a283}} 
+\index{monitor\_common.h@{monitor\_common.h}!clear\_line@{clear\_line}}
+\index{clear\_line@{clear\_line}!monitor\_common.h@{monitor\_common.h}}
+\doxysubsubsection{\texorpdfstring{clear\_line()}{clear\_line()}}
+{\footnotesize\ttfamily void clear\+\_\+line (\begin{DoxyParamCaption}\item[{W\+I\+N\+D\+OW $\ast$}]{window,  }\item[{int}]{row }\end{DoxyParamCaption})}
+
+
+
+Clears a specific line in the given window. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em window} & The sub-\/window. \\
+\hline
+{\em row} & The row of the line to clear \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor__common_8h_ac1a7d9a5f3f9ef8b91b469047a4a0c0e}\label{monitor__common_8h_ac1a7d9a5f3f9ef8b91b469047a4a0c0e}} 
+\index{monitor\_common.h@{monitor\_common.h}!get\_terminal\_size@{get\_terminal\_size}}
+\index{get\_terminal\_size@{get\_terminal\_size}!monitor\_common.h@{monitor\_common.h}}
+\doxysubsubsection{\texorpdfstring{get\_terminal\_size()}{get\_terminal\_size()}}
+{\footnotesize\ttfamily void get\+\_\+terminal\+\_\+size (\begin{DoxyParamCaption}\item[{int $\ast$}]{rows,  }\item[{int $\ast$}]{cols }\end{DoxyParamCaption})}
+
+
+
+Returns the size of the terminal. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em rows} & The number of rows. \\
+\hline
+{\em cols} & The number of columns. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor__common_8h_a354e77f7ca9dc2a93d0027ebc8f26c24}\label{monitor__common_8h_a354e77f7ca9dc2a93d0027ebc8f26c24}} 
+\index{monitor\_common.h@{monitor\_common.h}!is\_terminal\_size\_larger\_enough@{is\_terminal\_size\_larger\_enough}}
+\index{is\_terminal\_size\_larger\_enough@{is\_terminal\_size\_larger\_enough}!monitor\_common.h@{monitor\_common.h}}
+\doxysubsubsection{\texorpdfstring{is\_terminal\_size\_larger\_enough()}{is\_terminal\_size\_larger\_enough()}}
+{\footnotesize\ttfamily int is\+\_\+terminal\+\_\+size\+\_\+larger\+\_\+enough (\begin{DoxyParamCaption}\item[{int $\ast$}]{rows,  }\item[{int $\ast$}]{cols }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Paramètres}
+{\em rows} & The number of rows. \\
+\hline
+{\em cols} & The number of columns. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{monitor__common_8h_ac0a7ac38e3e2d0b8e3ac75673bce8b06}\label{monitor__common_8h_ac0a7ac38e3e2d0b8e3ac75673bce8b06}} 
+\index{monitor\_common.h@{monitor\_common.h}!quit\_after\_error@{quit\_after\_error}}
+\index{quit\_after\_error@{quit\_after\_error}!monitor\_common.h@{monitor\_common.h}}
+\doxysubsubsection{\texorpdfstring{quit\_after\_error()}{quit\_after\_error()}}
+{\footnotesize\ttfamily void quit\+\_\+after\+\_\+error (\begin{DoxyParamCaption}\item[{const char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Quit nicely after an error occurred. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em msg} & The message to display before quitting. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{monitor__common_8h_afd1c56cf88f4eec0fb6e07df933541cd}\label{monitor__common_8h_afd1c56cf88f4eec0fb6e07df933541cd}} 
+\index{monitor\_common.h@{monitor\_common.h}!quit\_nicely@{quit\_nicely}}
+\index{quit\_nicely@{quit\_nicely}!monitor\_common.h@{monitor\_common.h}}
+\doxysubsubsection{\texorpdfstring{quit\_nicely()}{quit\_nicely()}}
+{\footnotesize\ttfamily void quit\+\_\+nicely (\begin{DoxyParamCaption}\item[{int}]{reason }\end{DoxyParamCaption})}
+
+
+
+Quit nicely. 
+
+
+\begin{DoxyParams}{Paramètres}
+{\em reason} & The reason to quit. \\
+\hline
+\end{DoxyParams}

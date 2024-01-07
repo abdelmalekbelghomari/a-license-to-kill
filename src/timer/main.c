@@ -1,9 +1,23 @@
+/**
+ * @file timer.c
+ * @brief Timer Utility for Spy Simulation Control.
+ *
+ * This file contains the code for the timer utility used in the spy simulation
+ * control. It manages time, rounds, and signal handling to synchronize and
+ * control various processes within the simulation. When the maximum round limit
+ * is reached, it triggers termination of all related processes.
+ *
+ */
+
+
 #include "timer.h"
 #include "spy_simulation.h"
 #define SHARED_MEMORY "/SharedMemory"
+#define SEMAPHORE_PRODUCER "/semProducer"
+#define SEMAPHORE_CONSUMER "/semConsumer"
 
 memory_t *memory;
-sem_t *sem;
+sem_t *sem_producer, *sem_consumer, *sem_spy_producer, *sem_spy_consumer, *sem_memory;
 
 
 simulated_clock_t new_timer(){
@@ -12,6 +26,7 @@ simulated_clock_t new_timer(){
     time.hours = 0;
     time.minutes = 0;
     time.days = 0;
+    // memory->memory_has_changed = 1;
     return time;
 }
 
@@ -31,15 +46,33 @@ void update_timer(memory_t *memory){
 void tick_clock(int sig){
     if(sig == SIGALRM){
         // memory->memory_has_changed = 1;
-        sem_wait(sem);
+        //sem_wait(sem_consumer_timer);
+        sem_wait(sem_memory);
+        // printf("Value of sem_memory after wait in timer : %d\n", sem_memory->__align);
         update_timer(memory);
-        // printf("Round: %d\n", memory->timer.round);
-        // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
+        // printf("Round du timer: %d\n", memory->timer.round);
+        // printf("Time du timer: %d:%d\n", memory->timer.hours, memory->timer.minutes);
         memory->memory_has_changed = 1;
-        sem_post(sem);
-        alarm(1);
+        sem_post(sem_memory);
+        // printf("Value of sem_memory after post in timer: %d\n", sem_memory->__align);
+        //sem_post(sem_producer_timer);
+        ualarm(200000,0);
     }
         
+}   
+
+void set_timer(void)
+{
+    struct itimerval it;
+
+    /* Clear itimerval struct members */
+    timerclear(&it.it_interval);
+    timerclear(&it.it_value);
+
+    /* Set timer */
+    it.it_interval.tv_usec = TIME_STEP;
+    it.it_value.tv_usec = TIME_STEP;
+    setitimer(ITIMER_REAL, &it, NULL);
 }
 
 int main() {
@@ -60,64 +93,54 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    sem = sem_open("/timer_sem", 0);
-    if (sem == SEM_FAILED) {
+    sem_memory = sem_open("/semMemory",0);
+    if (sem_memory == SEM_FAILED) {
         perror("sem_open failed in timer process");
         exit(EXIT_FAILURE);
     }
-    printf("sem_open timer\n");
 
+
+    // printf("sem_open timer\n");
     // Initialiser le timer
     simulated_clock_t timer = new_timer();
 
-    // sem_wait(sem);
-    printf("sem_wait timer\n");
+    //sem_wait(sem);
+    // printf("sem_wait timer\n");
     memory->timer = timer;
     // sem_post(sem);
-    printf("sem_post timer\n");
-    printf("Timer initialized\n");
+    // printf("sem_post timer\n");
+    // printf("Timer initialized\n");
 
     // Configurer le timer
-    struct itimerval it;
-    memset(&it, 0, sizeof(it)); // Initialiser la structure à 0
-
-    if (STEP >= 1000000) {
-        it.it_interval.tv_sec = STEP / 1000000;
-        it.it_value.tv_sec = STEP / 1000000;
-    } else {
-        it.it_interval.tv_usec = STEP;
-        it.it_value.tv_usec = STEP;
-    }
-    setitimer(ITIMER_REAL, &it, NULL);
+    set_timer();
 
     // Configurer le gestionnaire de signal pour SIGALRM
     struct sigaction sa_clock;
     memset(&sa_clock, 0, sizeof(sa_clock)); 
     sa_clock.sa_handler = &tick_clock;
     sigaction(SIGALRM, &sa_clock, NULL);
-    alarm(1);
+    ualarm(200000,0);
     
+
     while(1){
         pause();
+        if ((memory->simulation_has_ended != 1 
+            || memory->simulation_has_ended != 3)
+            && memory->timer.round >= MAX_ROUNDS) {
+            
+            for(int i = 0; i < NB_PROCESS - 1; i++){
+                kill(memory->pids[i], SIGINT);
+            }
+        }
+            
+        
     }
     
-    // while (memory->simulation_has_ended == 0) { 
-    //     // if(memory->simulation_has_ended){
-    //     //     break;
-    //     // } else {
-    //         // pthread_mutex_lock(&mutexTimer1);
-    //         // update_timer(memory);
-    //         // pthread_mutex_unlock(&mutexTimer1);
-    //         // printf("Round: %d\n", memory->timer.round);
-    //         // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
-    //     // }
-    //     // sleep(1);
-
-
-    //     // pause();
-    // }
-    printf("Timer ended\n");
-    sem_close(sem);
-    printf("sem_close timer\n");
+    sem_close(sem_consumer);
+    sem_close(sem_producer);
+    sem_close(sem_spy_consumer);
+    sem_close(sem_spy_producer);
+    sem_close(sem_memory);
+    sem_unlink("/semConsumer");
     return 0;
 }

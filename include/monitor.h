@@ -31,9 +31,13 @@
 /** The number of fields to display for a spy. */
 #define NB_OF_INFORMATION_FIELDS 8
 
+// sem_t *sem_producer_timer, *sem_consumer_timer;
+
 struct monitor_s {
     int has_to_update;
 };
+
+char* get_ci_officer_state_name(int state_id);
 
 /**
  * \brief Creates pairs of colors (see "NCurses" documentation).
@@ -106,7 +110,7 @@ void set_cell_color(WINDOW *window, int color, int row, int col);
  * \param rows The number of rows of the city map.
  * \param columns The number of columns of the city map.
  */
-void display_city(WINDOW *window, map_t map, int rows, int columns);
+void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *memory);
 
 /**
  * \brief Shows information within the "City map and status information"
@@ -234,6 +238,6 @@ void display_mailbox_content(WINDOW *window, memory_t *mem);
  *
  * \param window The sub-window in which messages are displayed.
  */
-void display_enemy_country_monitor(WINDOW *window);
+void display_enemy_country_monitor(WINDOW *window, memory_t *mem);
 
 #endif /* MONITOR_H */

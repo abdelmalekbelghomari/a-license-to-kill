@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>A License to Kill:  Fichier source de include/enemy_spy_network.h</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../ltk.jpg"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">A License to Kill
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Ce projet développe un système de simulation d&#39;espionnage sophistiqué, intégrant des techniques d&#39;intelligence artificielle vues en cours d&#39;IA et de modélisation de scénarios complexes en utilisant les méthodes et techniques vues en cours de Systèmes d&#39;Exploitations.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">enemy_spy_network.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d1/db7/enemy__spy__network_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#ifndef ENEMY_SPY_NETWORK_H</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define ENEMY_SPY_NETWORK_H</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;memory.h&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d5/d60/monitor_8h.html">monitor.h</a>&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#define SPY_COUNT 3</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="../../da/d28/structTimeRange.html">   28</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="../../da/d28/structTimeRange.html#a8e7b3ab2f0b17d0b0acebc76422dc702">   29</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../da/d28/structTimeRange.html#a8e7b3ab2f0b17d0b0acebc76422dc702">start_hour</a>; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="../../da/d28/structTimeRange.html#aae2c51f8cd8bf2a2258e756808b3a741">   30</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../da/d28/structTimeRange.html#aae2c51f8cd8bf2a2258e756808b3a741">end_hour</a>;   </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="../../da/d28/structTimeRange.html#a2ef5eae0d4aad8436e8079c21dd807f4">   31</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="../../da/d28/structTimeRange.html#a2ef5eae0d4aad8436e8079c21dd807f4">probability</a>; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <a class="code" href="../../da/d28/structTimeRange.html">TimeRange</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a9b6905071d1f87e80a21712985750bec">init_spies</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#abbe6dbcf318c8af07caedcfd46fb39e3">rest_at_home</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#ac23987043baf58e4d9a073b81dbe1c82">go_to_spot</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a93f636a887e5d05af66aad9653e7b5f1">spot</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a51fca8c9a367012e08846fd00d57b42c">steal</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a2eb7281562947e9c915cb8943d58537d">go_to_send_fake_message</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#ab954d652a327c904213c769cf99da2d7">send_message</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a8f0a550bdc7a2f0f74c501f9623e71a6">arrived_at_mailbox</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a5bf8c53ab4f136cbcf068e9b4d0e66af">going_back_home</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a50e38075061b5ac1e45ef0f37f023f10">go_to_send_message</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a9033a6865fe8a51f0096aa3289b99fca">go_to_supermarket</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#ad9ebe751efafc46a4e312be658db7ade">do_some_shopping</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#ad5113283860018a3501dc5769c09c26a">wait_for_residence_to_be_clear</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#aa7bfa0f1d71781428ecc3a05b6bdff4f">scout</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#ac23fc286c7f1490fc3d54f6227c0cdc8">is_hurt</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#ae0dc0f6a792e97f4070365a53abaf0fb">is_free</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a34d9be9aed6078c6720455ed845523d1">riposte</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#abf9caaab0a77e6ba37f725045607bfae">is_in_conflict</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a3ab3f691c6b0efb76fe272bdd89f3994">dying</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#aee2c2bb61623dfbf049140a10487376a">finished</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a2ff37e02978ff38cc88524ce2ccc0b50">do_something</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a6163ee6d4517d415fa75138b60eca074">new_state_spy</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *(*action)(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *));</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#ac92c1b9f3680ea3c30171e00f9ad2287">assign_leaving_time</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a4f8aef4e652b5a009489ddcde09e0b48">assign_home_to_spy</a>(<a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *memory, <a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#abb8a7fcdbc92a835da89aee6c01b0f93">is_at_home</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#ad2fbf9b19d13605a545b4adf6e5b1c1e">is_at_mailbox</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a1386007bb29dab5e01131a034bcdf17b">is_at_supermarket</a>(<a class="code" href="../../da/dff/structspy__s.html">spy_t</a> *spy);</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160; </div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a734c5e84f73f43df4e2a1a2c0fc50ab1">init_officer</a>();</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a69a42df1668b2403b8bda4176b0c3b5d">rest_at_home_officer</a>(<a class="code" href="../../d3/d91/structcase__officer__s.html">case_officer_t</a> *officer);</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a23e8c0a8937bd62a2c3285bd649ce5e4">send_messages</a>(<a class="code" href="../../d3/d91/structcase__officer__s.html">case_officer_t</a> *officer);</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a5b98265f9154b428668cc32f87255347">go_back_home_officer</a>(<a class="code" href="../../d3/d91/structcase__officer__s.html">case_officer_t</a> *officer);</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160; </div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a14b50035690189853b70ba86893fbb65">go_to_supermarket_officer</a>(<a class="code" href="../../d3/d91/structcase__officer__s.html">case_officer_t</a> *officer);</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#ac795a191425b11ee88f650e16a929c18">do_some_shopping_officer</a>(<a class="code" href="../../d3/d91/structcase__officer__s.html">case_officer_t</a> *officer);</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#ab3d5ecda9117af2014439eee64257543">go_to_mailbox</a>(<a class="code" href="../../d3/d91/structcase__officer__s.html">case_officer_t</a> *officer);</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160; </div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a13565c60d7d8047746aaa813958dd9b6">recover_messages</a>(<a class="code" href="../../d3/d91/structcase__officer__s.html">case_officer_t</a> *officer);</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160; </div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *<a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a7071152b25677875b92f8964c82c11ee">new_state_officer</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, <a class="code" href="../../d0/dd8/structstate__s.html">state_t</a> *(*action_officer)(<a class="code" href="../../d3/d91/structcase__officer__s.html">case_officer_t</a> *));</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160; </div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#ac6c57cf80403216ac96d05d8959bc99c">assign_officer_times</a>(<a class="code" href="../../d3/d91/structcase__officer__s.html">case_officer_t</a> *officer);</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a9aa25c65facdfbca54305f91b985cf9f">less_than_two_hours</a>(<a class="code" href="../../d2/d77/structleaving__time__s.html">leaving_time_t</a> time1, <a class="code" href="../../d2/d77/structleaving__time__s.html">leaving_time_t</a> time2);</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160; </div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a752a0e428dfee2e6518d49d8dff5926a">caesar_cipher</a>(<span class="keywordtype">char</span> *message);</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160; </div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a149df450dc4b48434f9bb03ebfc92e27">get_crypted_message_priority</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *message);</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160; </div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#aca2b96d30d0fd616483d8d29b8938f06">assign_home_to_officer</a>(<a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *memory, <a class="code" href="../../d3/d91/structcase__officer__s.html">case_officer_t</a> *officer);</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160; </div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a76e142a4003f0f002cde8074f9be834e">is_at_home_officer</a>(<a class="code" href="../../d3/d91/structcase__officer__s.html">case_officer_t</a> *officer);</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160; </div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#a036ff852b3297ed261a56233924fbddd">is_at_mailbox_officer</a>(<a class="code" href="../../d3/d91/structcase__officer__s.html">case_officer_t</a> *officer);</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160; </div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;<span class="keywordtype">int</span> <a class="code" href="../../d1/db7/enemy__spy__network_8h.html#ad22ab7690a724b156557c07770396980">is_at_supermarket_officer</a>(<a class="code" href="../../d3/d91/structcase__officer__s.html">case_officer_t</a> *officer);</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160; </div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* ENEMY_SPY_NETWORK_H */</span><span class="preprocessor"></span></div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aenemy__spy__network_8h_html_ac92c1b9f3680ea3c30171e00f9ad2287"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#ac92c1b9f3680ea3c30171e00f9ad2287">assign_leaving_time</a></div><div class="ttdeci">void assign_leaving_time(spy_t *spy)</div><div class="ttdoc">Assigns leaving time to a spy agent.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:43</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_ac23987043baf58e4d9a073b81dbe1c82"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#ac23987043baf58e4d9a073b81dbe1c82">go_to_spot</a></div><div class="ttdeci">state_t * go_to_spot(spy_t *spy)</div><div class="ttdoc">Handles the spy going to a spot state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:165</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a50e38075061b5ac1e45ef0f37f023f10"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a50e38075061b5ac1e45ef0f37f023f10">go_to_send_message</a></div><div class="ttdeci">state_t * go_to_send_message(spy_t *spy)</div><div class="ttdoc">Handles the spy going to send a message state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:324</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a4f8aef4e652b5a009489ddcde09e0b48"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a4f8aef4e652b5a009489ddcde09e0b48">assign_home_to_spy</a></div><div class="ttdeci">void assign_home_to_spy(memory_t *memory, spy_t *spy)</div><div class="ttdoc">Assigns a home location to a spy agent.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:805</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_ac795a191425b11ee88f650e16a929c18"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#ac795a191425b11ee88f650e16a929c18">do_some_shopping_officer</a></div><div class="ttdeci">state_t * do_some_shopping_officer(case_officer_t *officer)</div><div class="ttdoc">Handles the case officer doing some shopping state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:611</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_aa7bfa0f1d71781428ecc3a05b6bdff4f"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#aa7bfa0f1d71781428ecc3a05b6bdff4f">scout</a></div><div class="ttdeci">state_t * scout(spy_t *spy)</div><div class="ttdoc">Handles the spy scouting state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:399</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a9aa25c65facdfbca54305f91b985cf9f"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a9aa25c65facdfbca54305f91b985cf9f">less_than_two_hours</a></div><div class="ttdeci">bool less_than_two_hours(leaving_time_t time1, leaving_time_t time2)</div><div class="ttdoc">Checks if one leaving time is less than two hours ahead of another.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:106</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a7071152b25677875b92f8964c82c11ee"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a7071152b25677875b92f8964c82c11ee">new_state_officer</a></div><div class="ttdeci">state_t * new_state_officer(int id, state_t *(*action_officer)(case_officer_t *))</div><div class="ttdoc">Creates a new state for a case officer.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:515</div></div>
+<div class="ttc" id="amonitor_8h_html"><div class="ttname"><a href="../../d5/d60/monitor_8h.html">monitor.h</a></div><div class="ttdoc">Constants types and prototypes of the NCurses Terminal User Interface.</div></div>
+<div class="ttc" id="astructTimeRange_html"><div class="ttname"><a href="../../da/d28/structTimeRange.html">TimeRange</a></div><div class="ttdoc">Structure representing a time range.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.h:28</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a13565c60d7d8047746aaa813958dd9b6"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a13565c60d7d8047746aaa813958dd9b6">recover_messages</a></div><div class="ttdeci">state_t * recover_messages(case_officer_t *officer)</div><div class="ttdoc">Handles the case officer recovering messages state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:647</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_ae0dc0f6a792e97f4070365a53abaf0fb"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#ae0dc0f6a792e97f4070365a53abaf0fb">is_free</a></div><div class="ttdeci">state_t * is_free(spy_t *spy)</div><div class="ttdoc">Handles the spy being free state.</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_abbe6dbcf318c8af07caedcfd46fb39e3"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#abbe6dbcf318c8af07caedcfd46fb39e3">rest_at_home</a></div><div class="ttdeci">state_t * rest_at_home(spy_t *spy)</div><div class="ttdoc">Handles the spy resting at home state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:140</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a69a42df1668b2403b8bda4176b0c3b5d"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a69a42df1668b2403b8bda4176b0c3b5d">rest_at_home_officer</a></div><div class="ttdeci">state_t * rest_at_home_officer(case_officer_t *officer)</div><div class="ttdoc">Handles the case officer resting at home state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:522</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_ad2fbf9b19d13605a545b4adf6e5b1c1e"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#ad2fbf9b19d13605a545b4adf6e5b1c1e">is_at_mailbox</a></div><div class="ttdeci">int is_at_mailbox(spy_t *spy)</div><div class="ttdoc">Checks if a spy agent is at the mailbox.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:310</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a752a0e428dfee2e6518d49d8dff5926a"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a752a0e428dfee2e6518d49d8dff5926a">caesar_cipher</a></div><div class="ttdeci">void caesar_cipher(char *message)</div><div class="ttdoc">Performs Caesar cipher encryption on a message.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:663</div></div>
+<div class="ttc" id="astructTimeRange_html_aae2c51f8cd8bf2a2258e756808b3a741"><div class="ttname"><a href="../../da/d28/structTimeRange.html#aae2c51f8cd8bf2a2258e756808b3a741">TimeRange::end_hour</a></div><div class="ttdeci">int end_hour</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.h:30</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_abb8a7fcdbc92a835da89aee6c01b0f93"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#abb8a7fcdbc92a835da89aee6c01b0f93">is_at_home</a></div><div class="ttdeci">int is_at_home(spy_t *spy)</div><div class="ttdoc">Checks if a spy agent is at home.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:281</div></div>
+<div class="ttc" id="astructTimeRange_html_a2ef5eae0d4aad8436e8079c21dd807f4"><div class="ttname"><a href="../../da/d28/structTimeRange.html#a2ef5eae0d4aad8436e8079c21dd807f4">TimeRange::probability</a></div><div class="ttdeci">float probability</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.h:31</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a34d9be9aed6078c6720455ed845523d1"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a34d9be9aed6078c6720455ed845523d1">riposte</a></div><div class="ttdeci">state_t * riposte(spy_t *spy)</div><div class="ttdoc">Handles the spy riposte state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:487</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a93f636a887e5d05af66aad9653e7b5f1"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a93f636a887e5d05af66aad9653e7b5f1">spot</a></div><div class="ttdeci">state_t * spot(spy_t *spy)</div><div class="ttdoc">Handles the spy spotting state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:194</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a2eb7281562947e9c915cb8943d58537d"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a2eb7281562947e9c915cb8943d58537d">go_to_send_fake_message</a></div><div class="ttdeci">state_t * go_to_send_fake_message(spy_t *spy)</div><div class="ttdoc">Handles the spy going to send a fake message state.</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_ad9ebe751efafc46a4e312be658db7ade"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#ad9ebe751efafc46a4e312be658db7ade">do_some_shopping</a></div><div class="ttdeci">state_t * do_some_shopping(spy_t *spy)</div><div class="ttdoc">Handles the spy doing some shopping state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:468</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a036ff852b3297ed261a56233924fbddd"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a036ff852b3297ed261a56233924fbddd">is_at_mailbox_officer</a></div><div class="ttdeci">int is_at_mailbox_officer(case_officer_t *officer)</div><div class="ttdoc">Checks if a case officer is at the mailbox.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:623</div></div>
+<div class="ttc" id="astructstate__s_html"><div class="ttname"><a href="../../d0/dd8/structstate__s.html">state_s</a></div><div class="ttdoc">Structure representing a state for a citizen.</div><div class="ttdef"><b>Definition:</b> memory.h:242</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a51fca8c9a367012e08846fd00d57b42c"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a51fca8c9a367012e08846fd00d57b42c">steal</a></div><div class="ttdeci">state_t * steal(spy_t *spy)</div><div class="ttdoc">Handles the spy stealing state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:238</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_ab954d652a327c904213c769cf99da2d7"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#ab954d652a327c904213c769cf99da2d7">send_message</a></div><div class="ttdeci">state_t * send_message(spy_t *spy)</div><div class="ttdoc">Handles the spy sending a message state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:345</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a14b50035690189853b70ba86893fbb65"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a14b50035690189853b70ba86893fbb65">go_to_supermarket_officer</a></div><div class="ttdeci">state_t * go_to_supermarket_officer(case_officer_t *officer)</div><div class="ttdoc">Handles the case officer going to the supermarket state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:589</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a734c5e84f73f43df4e2a1a2c0fc50ab1"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a734c5e84f73f43df4e2a1a2c0fc50ab1">init_officer</a></div><div class="ttdeci">void init_officer()</div><div class="ttdoc">Initializes the case officer.</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_ab3d5ecda9117af2014439eee64257543"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#ab3d5ecda9117af2014439eee64257543">go_to_mailbox</a></div><div class="ttdeci">state_t * go_to_mailbox(case_officer_t *officer)</div><div class="ttdoc">Handles the case officer going to the mailbox state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:627</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a6163ee6d4517d415fa75138b60eca074"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a6163ee6d4517d415fa75138b60eca074">new_state_spy</a></div><div class="ttdeci">state_t * new_state_spy(int id, state_t *(*action)(spy_t *))</div><div class="ttdoc">Creates a new state for a spy agent.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:117</div></div>
+<div class="ttc" id="astructleaving__time__s_html"><div class="ttname"><a href="../../d2/d77/structleaving__time__s.html">leaving_time_s</a></div><div class="ttdoc">Structure representing leaving time.</div><div class="ttdef"><b>Definition:</b> memory.h:319</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_ac23fc286c7f1490fc3d54f6227c0cdc8"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#ac23fc286c7f1490fc3d54f6227c0cdc8">is_hurt</a></div><div class="ttdeci">state_t * is_hurt(spy_t *spy)</div><div class="ttdoc">Handles the spy being hurt state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:481</div></div>
+<div class="ttc" id="astructmemory__s_html"><div class="ttname"><a href="../../de/dd3/structmemory__s.html">memory_s</a></div><div class="ttdoc">Structure representing the shared memory used by all processes in the simulation.</div><div class="ttdef"><b>Definition:</b> memory.h:571</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a9033a6865fe8a51f0096aa3289b99fca"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a9033a6865fe8a51f0096aa3289b99fca">go_to_supermarket</a></div><div class="ttdeci">state_t * go_to_supermarket(spy_t *spy)</div><div class="ttdoc">Handles the spy going to the supermarket state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:444</div></div>
+<div class="ttc" id="astructTimeRange_html_a8e7b3ab2f0b17d0b0acebc76422dc702"><div class="ttname"><a href="../../da/d28/structTimeRange.html#a8e7b3ab2f0b17d0b0acebc76422dc702">TimeRange::start_hour</a></div><div class="ttdeci">int start_hour</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.h:29</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a9b6905071d1f87e80a21712985750bec"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a9b6905071d1f87e80a21712985750bec">init_spies</a></div><div class="ttdeci">void init_spies()</div><div class="ttdoc">Initializes the spy agents.</div></div>
+<div class="ttc" id="astructcase__officer__s_html"><div class="ttname"><a href="../../d3/d91/structcase__officer__s.html">case_officer_s</a></div><div class="ttdoc">The case_officer information.</div><div class="ttdef"><b>Definition:</b> memory.h:395</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_aca2b96d30d0fd616483d8d29b8938f06"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#aca2b96d30d0fd616483d8d29b8938f06">assign_home_to_officer</a></div><div class="ttdeci">void assign_home_to_officer(memory_t *memory, case_officer_t *officer)</div><div class="ttdoc">Assigns a home location to a case officer.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:863</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a8f0a550bdc7a2f0f74c501f9623e71a6"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a8f0a550bdc7a2f0f74c501f9623e71a6">arrived_at_mailbox</a></div><div class="ttdeci">state_t * arrived_at_mailbox(spy_t *spy)</div><div class="ttdoc">Handles the spy arriving at the mailbox state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:269</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_ac6c57cf80403216ac96d05d8959bc99c"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#ac6c57cf80403216ac96d05d8959bc99c">assign_officer_times</a></div><div class="ttdeci">void assign_officer_times(case_officer_t *officer)</div><div class="ttdoc">Assigns times to a case officer for state transitions.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:71</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a23e8c0a8937bd62a2c3285bd649ce5e4"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a23e8c0a8937bd62a2c3285bd649ce5e4">send_messages</a></div><div class="ttdeci">state_t * send_messages(case_officer_t *officer)</div><div class="ttdoc">Handles the case officer sending messages state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:543</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a149df450dc4b48434f9bb03ebfc92e27"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a149df450dc4b48434f9bb03ebfc92e27">get_crypted_message_priority</a></div><div class="ttdeci">unsigned int get_crypted_message_priority(const char *message)</div><div class="ttdoc">Retrieves the priority of a crypted message.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:710</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a5bf8c53ab4f136cbcf068e9b4d0e66af"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a5bf8c53ab4f136cbcf068e9b4d0e66af">going_back_home</a></div><div class="ttdeci">state_t * going_back_home(spy_t *spy)</div><div class="ttdoc">Handles the spy going back home state.</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a1386007bb29dab5e01131a034bcdf17b"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a1386007bb29dab5e01131a034bcdf17b">is_at_supermarket</a></div><div class="ttdeci">int is_at_supermarket(spy_t *spy)</div><div class="ttdoc">Checks if a spy agent is at the supermarket.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:314</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_abf9caaab0a77e6ba37f725045607bfae"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#abf9caaab0a77e6ba37f725045607bfae">is_in_conflict</a></div><div class="ttdeci">state_t * is_in_conflict(spy_t *spy)</div><div class="ttdoc">Handles the spy being in conflict state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:493</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a2ff37e02978ff38cc88524ce2ccc0b50"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a2ff37e02978ff38cc88524ce2ccc0b50">do_something</a></div><div class="ttdeci">state_t * do_something(spy_t *spy)</div><div class="ttdoc">Handles the spy performing an action state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:124</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a76e142a4003f0f002cde8074f9be834e"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a76e142a4003f0f002cde8074f9be834e">is_at_home_officer</a></div><div class="ttdeci">int is_at_home_officer(case_officer_t *officer)</div><div class="ttdoc">Checks if a case officer is at home.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:561</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a3ab3f691c6b0efb76fe272bdd89f3994"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a3ab3f691c6b0efb76fe272bdd89f3994">dying</a></div><div class="ttdeci">state_t * dying(spy_t *spy)</div><div class="ttdoc">Handles the spy dying state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:499</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_a5b98265f9154b428668cc32f87255347"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#a5b98265f9154b428668cc32f87255347">go_back_home_officer</a></div><div class="ttdeci">state_t * go_back_home_officer(case_officer_t *officer)</div><div class="ttdoc">Handles the case officer going back home state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:565</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_ad5113283860018a3501dc5769c09c26a"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#ad5113283860018a3501dc5769c09c26a">wait_for_residence_to_be_clear</a></div><div class="ttdeci">state_t * wait_for_residence_to_be_clear(spy_t *spy)</div><div class="ttdoc">Handles the spy waiting for the residence to be clear state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:386</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_aee2c2bb61623dfbf049140a10487376a"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#aee2c2bb61623dfbf049140a10487376a">finished</a></div><div class="ttdeci">state_t * finished(spy_t *spy)</div><div class="ttdoc">Handles the spy finished state.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:505</div></div>
+<div class="ttc" id="aenemy__spy__network_8h_html_ad22ab7690a724b156557c07770396980"><div class="ttname"><a href="../../d1/db7/enemy__spy__network_8h.html#ad22ab7690a724b156557c07770396980">is_at_supermarket_officer</a></div><div class="ttdeci">int is_at_supermarket_officer(case_officer_t *officer)</div><div class="ttdoc">Checks if a case officer is at the supermarket.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:584</div></div>
+<div class="ttc" id="astructspy__s_html"><div class="ttname"><a href="../../da/dff/structspy__s.html">spy_s</a></div><div class="ttdoc">The spy information.</div><div class="ttdef"><b>Definition:</b> memory.h:339</div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

@@ -1,0 +1,48 @@
+\hypertarget{counter__intelligence_2main_8c}{}\doxysection{Référence du fichier src/counter\+\_\+intelligence/main.c}
+\label{counter__intelligence_2main_8c}\index{src/counter\_intelligence/main.c@{src/counter\_intelligence/main.c}}
+
+
+Main entry point for counterintelligence operations.  
+
+
+{\ttfamily \#include \char`\"{}counter\+\_\+intelligence.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$sys/mman.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Graphe des dépendances par inclusion de main.\+c\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{counter__intelligence_2main_8c_aa4cfdfe993fe1696f4f75b0557c9906c}\label{counter__intelligence_2main_8c_aa4cfdfe993fe1696f4f75b0557c9906c}} 
+\#define {\bfseries S\+H\+A\+R\+E\+D\+\_\+\+M\+E\+M\+O\+RY}~\char`\"{}/Shared\+Memory\char`\"{}
+\item 
+\mbox{\Hypertarget{counter__intelligence_2main_8c_af4994f9a596e6e5b30491a58cbf07f44}\label{counter__intelligence_2main_8c_af4994f9a596e6e5b30491a58cbf07f44}} 
+\#define {\bfseries S\+E\+M\+A\+P\+H\+O\+R\+E\+\_\+\+N\+A\+ME}~\char`\"{}/sem\char`\"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{counter__intelligence_2main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{counter__intelligence_2main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+int {\bfseries main} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{counter__intelligence_2main_8c_af16d0defec41b3501a54c55c112a55d0}\label{counter__intelligence_2main_8c_af16d0defec41b3501a54c55c112a55d0}} 
+\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$ {\bfseries memory}
+\item 
+\mbox{\Hypertarget{counter__intelligence_2main_8c_af035dc3e465ac2ce477f88f221c8f829}\label{counter__intelligence_2main_8c_af035dc3e465ac2ce477f88f221c8f829}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+consumer}
+\item 
+\mbox{\Hypertarget{counter__intelligence_2main_8c_aa3f3e11b928cbc86547d0e1b4ebd2d14}\label{counter__intelligence_2main_8c_aa3f3e11b928cbc86547d0e1b4ebd2d14}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+producer}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Main entry point for counterintelligence operations. 
+
+This file serves as the main entry point for counterintelligence operations in the spy simulation. It initializes and manages counterintelligence officers and their activities. 

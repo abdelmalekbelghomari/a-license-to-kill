@@ -1,9 +1,20 @@
-#include "memory.h"
-// #include "citizen_manager.h"
+/**
+ * @file spy_simulation.c
+ * @brief Spy Simulation Control and Process Launcher.
+ *
+ * This file contains the code for controlling the spy simulation, including
+ * map creation, process launching, and shared memory segment initialization.
+ * It serves as a central component for orchestrating the entire espionage
+ * simulation and intelligence operations.
+ *
+ */
+
+#include "citizen_manager.h"
 #include <time.h>
 #include <stdbool.h>
 #include "spy_simulation.h"
 
+// extern sem_t *sem_producer_timer, *sem_consumer_timer;
 
 /*A utiliser dans citizen manager ou dans les .c correspondant
 aux protagonistes et antagonistes pour la gestion des blessures*/
@@ -24,7 +35,7 @@ bool is_neighbor(int row, int col, int endRow, int endCol) {
 
 bool dfs(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col, int endRow, int endCol) {
     // Vérifier si la position actuelle est valide
-    if (row < 0 || row >= MAX_ROWS || col < 0 || col >= MAX_COLUMNS || visited[row][col] || cityMap->cells[row][col].type != WASTELAND) {
+    if (row < 0 || row >= MAX_ROWS || col < 0 || col >= MAX_COLUMNS || visited[col][row] || cityMap->cells[col][row].type != WASTELAND) {
         return false;
     }
 
@@ -36,7 +47,7 @@ bool dfs(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col, 
     }
 
     // Marquer la case actuelle comme visitée
-    visited[row][col] = true;
+    visited[col][row] = true;
 
     // Définir les 8 directions de l'exploration (incluant les diagonales)
     int rowOffsets[] = {-1, -1, -1, 0, 1, 1, 1, 0};
@@ -53,19 +64,30 @@ bool dfs(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col, 
     }
 
     // Backtracking: Désélectionner la case actuelle avant de revenir en arrière
-    visited[row][col] = false;
+    visited[col][row] = false;
 
     return false;
 }
 
+void reset_checked(bool checked[MAX_ROWS][MAX_COLUMNS]) {
+    for (int i = 0; i < MAX_ROWS; i++) {
+        for (int j = 0; j < MAX_COLUMNS; j++) {
+            checked[j][i] = false;
+        }
+    }
+}
+
 bool is_path_available(map_t *cityMap, int startRow, int startCol, int endRow, int endCol, bool checked[MAX_ROWS][MAX_COLUMNS]) {
-    if (checked[endRow][endCol]) {
+    
+    reset_checked(checked);
+
+    if (checked[endCol][endRow]) {
         // printf("is_path_available: Path already checked from (%d, %d) to (%d, %d)\n", startRow, startCol, endRow, endCol);
         return true;
     }
     // printf("is_path_available: Checking path from (%d, %d) to (%d, %d)\n", startRow, startCol, endRow, endCol);
 
-    bool visited[MAX_ROWS][MAX_COLUMNS] = {{false}};
+    bool visited[MAX_COLUMNS][MAX_ROWS] = {{false}};
     int rowOffsets[] = {-1, -1, -1, 0, 1, 1, 1, 0};
     int colOffsets[] = {-1, 0, 1, 1, 1, 0, -1, -1};
 
@@ -75,50 +97,53 @@ bool is_path_available(map_t *cityMap, int startRow, int startCol, int endRow, i
 
         // Check if the neighboring cell is a WASTELAND and not visited
         if (newRow >= 0 && newRow < MAX_ROWS && newCol >= 0 && newCol < MAX_COLUMNS &&
-            !visited[newRow][newCol] && cityMap->cells[newRow][newCol].type == WASTELAND) {
+            !visited[newCol][newRow] && cityMap->cells[newCol][newRow].type == WASTELAND) {
             if (dfs(cityMap, visited, newRow, newCol, endRow, endCol)) {
-                checked[endRow][endCol] = true;
+                checked[endCol][endRow] = true;
                 return true;
             }
         }
     }
     // printf("no path is avaiable from (%d, %d) to (%d, %d)\n", startRow, startCol, endRow, endCol);
-    checked[endRow][endCol] = false;
+    checked[endCol][endRow] = false;
     return false;
 }
 
 
 void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb_of_characters) {
     int max_attempts = 100;
+    int companyCount = 0;
     for (int placed_count = 0; placed_count < count; ) {
         int attempts = 0;
         bool placed = false;
 
         while (!placed && attempts < max_attempts) {
             attempts++;
-            int i = rand() % MAX_ROWS;
-            int j = rand() % MAX_COLUMNS;
+            int row = rand() % MAX_ROWS;
+            int column = rand() % MAX_COLUMNS;
 
-            printf("place_building_randomly: Attempt %d to place building at (%d, %d)\n", attempts, i, j);
-            if (cityMap->cells[i][j].type == WASTELAND) {
-                cityMap->cells[i][j].type = buildingType;
-                cityMap->cells[i][j].nb_of_characters = nb_of_characters;
+            //printf("place_building_randomly: Attempt %d to place building at (%d, %d)\n", attempts, i, j);
+            if (cityMap->cells[row][column].type == WASTELAND) {
+                cityMap->cells[row][column].type = buildingType;
+                cityMap->cells[row][column].nb_of_characters = nb_of_characters;
+                // memory->companies[companyCount].position[0] = i;
+                // memory->companies[companyCount].position[1] = j;
 
                 bool allConnected = true;
-                bool checked[MAX_ROWS][MAX_COLUMNS] = {{false}};
+                bool checked[MAX_COLUMNS][MAX_ROWS] = {{false}};
 
                 // Vérifier si chaque bâtiment est accessible depuis chaque autre bâtiment
                 for (int m = 0; m < MAX_ROWS && allConnected; ++m) {
                     for (int n = 0; n < MAX_COLUMNS && allConnected; ++n) {
-                        if (cityMap->cells[m][n].type != WASTELAND) {
+                        if (cityMap->cells[n][m].type != WASTELAND) {
                             for (int p = 0; p < MAX_ROWS && allConnected; ++p) {
                                 for (int q = 0; q < MAX_COLUMNS && allConnected; ++q) {
-                                    if (cityMap->cells[p][q].type != WASTELAND && (m != p || n != q)) {
+                                    if (cityMap->cells[q][p].type != WASTELAND && (m != p || n != q)) {
                                         if (!is_path_available(cityMap, m, n, p, q, checked)) {
                                             allConnected = false;
-                                            printf("place_building_randomly: No path from (%d, %d) to (%d, %d). Retrying...\n", m, n, p, q);
-                                            cityMap->cells[i][j].type = WASTELAND;
-                                            cityMap->cells[i][j].nb_of_characters = 0;
+                                            //printf("place_building_randomly: No path from (%d, %d) to (%d, %d). Retrying...\n", m, n, p, q);
+                                            cityMap->cells[row][column].type = WASTELAND;
+                                            cityMap->cells[row][column].nb_of_characters = 0;
                                             break;
                                         }
                                     }
@@ -129,11 +154,12 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
                 }
 
                 if (allConnected) {
-                    printf("place_building_randomly: Building placed at (%d, %d)\n", i, j);
+                    //printf("place_building_randomly: Building placed at (%d, %d)\n", i, j);
                     placed = true;
                     placed_count++;
                 }
             }
+            companyCount++;
         }
 
         if (!placed) {
@@ -145,10 +171,11 @@ void place_building_randomly(map_t *cityMap, int buildingType, int count, int nb
 
 void init_map(map_t *cityMap) {
     // printf("init_map: Initializing the map\n");
-    for (int i = 0; i < MAX_ROWS; i++) {
-        for (int j = 0; j < MAX_COLUMNS; j++) {
-            cityMap->cells[i][j].type = WASTELAND;
-            cityMap->cells[i][j].nb_of_characters = 0;
+    // sem_wait(sem_consumer_timer);
+    for (int row = 0; row < MAX_ROWS; row++) {
+        for (int column = 0; column < MAX_COLUMNS; column++) {
+            cityMap->cells[row][column].type = WASTELAND;
+            cityMap->cells[row][column].nb_of_characters = 0;
         }
     }
 
@@ -160,207 +187,14 @@ void init_map(map_t *cityMap) {
     place_building_randomly(cityMap, SUPERMARKET, 2, 30);
     place_building_randomly(cityMap, COMPANY, 8, 50);
     place_building_randomly(cityMap, RESIDENTIAL_BUILDING, 11, 15);
-}
-
-double distance(unsigned int pos1[2], unsigned int pos2[2]) {
-    return abs((int)pos1[0] - (int)pos2[0]) + abs((int)pos1[1] - (int)pos2[1]);
-}
-
-void init_house(memory_t *memory){
-    int fakeHome = rand() % NB_HOMES;
-    // printf("=====================================\n");
-    // printf("fake home %d\n", fakeHome);
-    // printf("La maison %p est la maison avec la boite au lettre piégee\n", &memory->homes[fakeHome]);
-    // printf("\n\n=====================================\n");
-    for(int i = 0; i < NB_HOMES; i++){
-        if (i == fakeHome){
-            memory->homes[i].max_capacity = 0;
-        }
-        else{
-            memory->homes[i].max_capacity = 15;
-        }
-    }
-}
-
-void init_building(memory_t *memory){
-    for(int i = 0; i < NB_WORKPLACES; i++){
-        if(i < NB_STORE){
-            memory->companies[i].type = STORE;
-            memory->companies[i].max_workers = 3;
-            memory->companies[i].min_workers = 3;
-        } else if (i == NB_STORE) {
-            memory->companies[i].min_workers = 10;
-            memory->companies[i].max_workers = 10;
-            memory->companies[i].type = CITY_HALL;
-        } else {
-            memory->companies[i].min_workers = 5;
-            memory->companies[i].max_workers = 50;
-            memory->companies[i].type = CORPORATION;
-        }
-    }
-}
-
-void assign_home_to_citizen(memory_t* memory, citizen_t* citizen){
-
-    home_t *houses = memory->homes;
-    // Assign a random house, respecting max capacity
-    int house_index;
-    int attempts = 0;
-    while (attempts < NB_HOMES) {
-        house_index = rand() % NB_HOMES;
-        if (houses[house_index].nb_citizen < houses[house_index].max_capacity) {
-            citizen->home = &houses[house_index];
-            houses[house_index].nb_citizen++;
-            break;  // Sortie de la boucle une fois qu'une maison est trouvée
-        }
-        attempts++;
-    }
-}
-
-
-
-void assign_company_to_citizen(memory_t* memory, citizen_t* citizen){
-    
-    building_t *company_list = memory->companies;
-    // Assign a random company, respecting max capacity
-    int company_index;
-    int attempts = 0;  // Compteur pour éviter une boucle infinie
-
-    if(company_list[0].nb_workers < company_list[0].max_workers){
-        citizen->workplace = &company_list[0];
-        company_list[0].nb_workers++;
-
-    } else if (company_list[1].nb_workers < company_list[1].max_workers){
-        citizen->workplace = &company_list[1];
-        company_list[1].nb_workers++;
-
-    } else if (company_list[2].nb_workers < company_list[2].max_workers){
-        citizen->workplace = &company_list[2];
-        company_list[2].nb_workers++;
-
-    } else {
-        while (attempts < NB_COMPANY) {
-            company_index = 3 + rand() % NB_COMPANY;
-            building_t *company = &company_list[company_index];
-            if (company->nb_workers < company->max_workers 
-            && company->nb_workers < company->min_workers) {
-                citizen->workplace = &company;
-                company->nb_workers++;
-                break;
-            }else{
-                attempts++;
-            }
-        }
-    }
-
-//     while (1) {
-//         company_index = rand() % NB_WORKPLACES;
-//         building_t *company = &company_list[company_index];
-
-//         if (company->type == STORE && company->nb_workers < company->max_workers) {
-//             citizen->workplace = company;
-//             company->nb_workers++;
-//             break;
-//         if (company->type == CITY_HALL && company->nb_workers < company->max_workers) {
-//             citizen->workplace = company;
-//             company->nb_workers++;
-//             break;
-//         } else if (company->nb_workers < company->max_workers ||
-//                    company->nb_workers < company->min_workers) {
-//             citizen->workplace = company;
-//             company->nb_workers++;
-//             break;
-//         }
-//     }
-}
-
-// void assign_company_to_citizen(memory_t* memory, citizen_t* citizen) {
-//     building_t *buildings = memory->companies;
-//     int company_index;
-//     int found = 0;  // Indicateur pour savoir si une entreprise a été trouvée
-
-//     for (int attempts = 0; attempts < NB_WORKPLACES; attempts++) {
-//         company_index = rand() % NB_WORKPLACES;
-
-//         if (buildings[company_index].nb_workers < buildings[company_index].max_workers &&
-//             buildings[company_index].nb_workers < buildings[company_index].min_workers) {
-//             citizen->workplace = &buildings[company_index];
-//             buildings[company_index].nb_workers++;
-//             found = 1; 
-//             break;
-//         }
-//     }
-
-//     if (!found) {
-//         printf("No company found for citizen %d\n", citizen->id);
-//     }
-// }
-
-
-// void assing_company_to_citizen(memory_t* memory, citizen_t* citizen){
-    
-//     building_t *buildings = memory->companies;
-//     // Assign a random company, respecting max capacity
-//     int company_index;
-//     do {
-//         company_index = rand() % NB_WORKPLACES;
-//     } while (buildings[company_index].nb_workers >= buildings[company_index].max_workers 
-//             && buildings[company_index].nb_workers <= buildings[company_index].min_workers);
-//     citizen->workplace = &buildings[company_index];
-//     buildings[company_index].nb_workers++;
-// }
-
-void assign_random_supermarket(memory_t* memory, citizen_t* citizen){
-    
-    // Find nearest supermarket
-    building_t supermaket_list[NB_STORE] = {memory->companies[0], memory->companies[1]};
-    // Les deux premiers emplacements sont donnés aux supermarchés
-    double dist1 = distance(supermaket_list[0].position, citizen->workplace->position);
-    double dist2 = distance(supermaket_list[1].position, citizen->workplace->position);
-    int supermaketChoice = rand() % NB_STORE;
-    if(supermaketChoice == 0){
-        citizen->supermarket = &supermaket_list[0];
-    } else {
-        citizen->supermarket = &supermaket_list[1];
-    }
-    
-}
-
-
-
-void init_citizens(memory_t *memory) {
-
-    init_house(memory);
-    init_building(memory);
-
-    for (int i = 0; i < CITIZENS_COUNT; i++) {
-        citizen_t *citizen = &memory->citizens[i];
-
-        citizen->type = NORMAL;
-        citizen->health = 10;
-        // // printf("ftg Haykel ton micro de merde\n");
-
-        assign_home_to_citizen(memory, citizen);
-        //printf("maison du citoyen %d est la maison %p\n", i+1, citizen->home);
-        assign_company_to_citizen(memory, citizen);
-        // printf("entreprise du citoyen %d est l'entreprise %p\n", i+1, 
-                                                    //  citizen->workplace);
-        assign_random_supermarket(memory, citizen);
-        // printf("Le supermarché le plus proche du citoyen %d est %p\n", i+1, citizen->supermarket);
-    }
-        
+    // sem_post(sem_producer_timer);
 }
 
 
 void init_surveillance(surveillanceNetwork_t *surveillanceNetwork) {
-    for (int i = 0; i < MAX_ROWS; ++i) {
-        for (int j = 0; j < MAX_COLUMNS; ++j) {
-            surveillanceNetwork->devices[i][j].standard_camera = 1; // Standard cameras enabled by default
-            surveillanceNetwork->devices[i][j].lidar = 1; // Lidars enabled by default
-        }
-    }
-    // Initialization of the AI state
-    surveillanceNetwork->surveillanceAI.suspicious_movement = 0; // No suspicious movement detected initially
+    surveillanceNetwork->cameras.standard_camera = 0;
+    surveillanceNetwork->cameras.infrared_camera = 0;
+    surveillanceNetwork->surveillanceAI.suspicious_movement = 0; 
 }
 
 
@@ -387,15 +221,14 @@ memory_t *create_shared_memory(const char *name) {
 
     close(shm_fd);
 
-    printf("avant de faire les init");
-
     // Initialize the shared memory as necessary
     shared_memory->memory_has_changed = 0;
     shared_memory->simulation_has_ended = 0;
+    shared_memory->walking_citizens = 0;
+    shared_memory->at_home_citizens = 0;
+    shared_memory->at_work_citizens = 0;
     init_map(&shared_memory->map);
-    init_citizens(shared_memory);
     init_surveillance(&shared_memory->surveillanceNetwork);
-    //shared_memory->mqInfo = init_mq();
 
     return shared_memory;
 }
@@ -418,32 +251,16 @@ sem_t *open_semaphore(const char *name) {
     return sem;
 }
 
-void start_simulation_processes(){
-    // pid_t pid_monitor, pid_enemy_spy_network, pid_citizen_manager, pid_enemy_country,
-    // pid_counterintelligence_officer, pid_timer;
-    int num_children =0;
-    pid_t pidExecutables[3];
+void start_simulation_processes(memory_t *memory){
 
-    pidExecutables[num_children] = fork();
-    if (pidExecutables[num_children] == -1) {
-        perror("Error [fork()] monitor:");
-        exit(EXIT_FAILURE);
-    }
-    if (pidExecutables[num_children] == 0) {
-        if (execl("./bin/monitor", "monitor", NULL) == -1) {
-            perror("Error [execl] monitor: ");
-            exit(EXIT_FAILURE);
-        }
-        
-    }
-    num_children++;
+    int num_children = 0;
 
-    pidExecutables[num_children] = fork();
-    if (pidExecutables[num_children] == -1) {
+    memory->pids[num_children] = fork();
+    if (memory->pids[num_children] == -1) {
         perror("Error [fork()] timer: ");
         exit(EXIT_FAILURE);
     }
-    if (pidExecutables[num_children] == 0) {
+    if (memory->pids[num_children] == 0) {
         if (execl("./bin/timer", "timer", NULL) == -1) {
             perror("Error [execl] timer: ");
             exit(EXIT_FAILURE);
@@ -451,72 +268,88 @@ void start_simulation_processes(){
     }
     num_children++;
 
-    // pidExecutables[num_children] = fork();
-    // if (pidExecutables[num_children] == -1) {
-    //     perror("Error [fork()] citizen_manager: ");
-    //     exit(EXIT_FAILURE);
-    // }
-    // if (pidExecutables[num_children] == 0) {
-    //     if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
-    //         perror("Error [execl] citizen_manager: ");
-    //         exit(EXIT_FAILURE);
-    //     }
-    // }
-    
-   
-    for (int i = 0; i < num_children; i++) {
-        int status;
-        waitpid(pidExecutables[i], &status, 0);
-    }
-    
-    int statusSharedMemory;
-
-    // Replace 'file_name.txt' with the name of the file you want to delete
-    statusSharedMemory = remove("/dev/shm/SharedMemory");
-
-    if (statusSharedMemory == 0)
-        printf("File deleted successfully\n");
-    else
-        printf("Error: unable to delete the file\n");
-
-    return 0;
-    
-
-    /*pid_counterintelligence_officer = fork();
-    if (pid_counterintelligence_officer == -1) {
-        perror("Error [fork()] counterintelligence_officer: ");
+    memory->pids[num_children] = fork();
+    if (memory->pids[num_children] == -1) {
+        perror("Error [fork()] citizen_manager: ");
         exit(EXIT_FAILURE);
     }
-    if (pid_counterintelligence_officer == 0) {
-        if (execl("./bin/counterintelligence_officer", "counterintelligence_officer", NULL) == -1) {
-            perror("Error [execl] counterintelligence_officer: ");
+    if (memory->pids[num_children] == 0) {
+        if (execl("./bin/citizen_manager", "citizen_manager", NULL) == -1) {
+            perror("Error [execl] citizen_manager: ");
             exit(EXIT_FAILURE);
         }
-    }*/
-
-    /*pid_enemy_country = fork();
-    if (pid_enemy_country == -1) {
-        perror("Error [fork()] enemy_country: ");
-        exit(EXIT_FAILURE);
     }
-    if (pid_enemy_country == 0) {
-        if (execl("./bin/enemy_country", "enemy_country", NULL) == -1) {
-            perror("Error [execl] enemy_country: ");
-            exit(EXIT_FAILURE);
-        }
-    }*/
+    num_children++;
 
-    /*pid_enemy_spy_network = fork();
-    if (pid_enemy_spy_network == -1) {
+    memory->pids[num_children] = fork();
+    if (memory->pids[num_children] == -1) {
         perror("Error [fork()] enemy_spy_network: ");
         exit(EXIT_FAILURE);
     }
-    if (pid_enemy_spy_network == 0) {
+    if (memory->pids[num_children] == 0) {
         if (execl("./bin/enemy_spy_network", "enemy_spy_network", NULL) == -1) {
             perror("Error [execl] enemy_spy_network: ");
             exit(EXIT_FAILURE);
         }
-    }*/
+    }
+    num_children++;
+
+    memory->pids[num_children] = fork();
+    if (memory->pids[num_children] == -1) {
+        perror("Error [fork()] enemy_country: ");
+        exit(EXIT_FAILURE);
+    }
+    if (memory->pids[num_children] == 0) {
+        if (execl("./bin/enemy_country", "enemy_country", NULL) == -1) {
+            perror("Error [execl] enemy_country: ");
+            exit(EXIT_FAILURE);
+        }
+    }
+    num_children++;
+
+    memory->pids[num_children] = fork();
+    if (memory->pids[num_children] == -1) {
+        perror("Error [fork()] counter_intelligence: ");
+        exit(EXIT_FAILURE);
+    }
+    if (memory->pids[num_children] == 0) {
+        if (execl("./bin/counter_intelligence", "counter_intelligence", NULL) == -1) {
+            perror("Error [execl] : counter_intelligence");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+
+    num_children++;
+
+    memory->pids[num_children] = fork();
+    if (memory->pids[num_children] == -1) {
+        perror("Error [fork()] monitor:");
+        exit(EXIT_FAILURE);
+    }
+    if (memory->pids[num_children] == 0) {
+        if (execl("./bin/monitor", "monitor", NULL) == -1) {
+            perror("Error [execl] monitor: ");
+            exit(EXIT_FAILURE);
+        }
+        
+    }
     
+
+   
+    for (int i = 0; i < num_children; i++) {
+        int status;
+        waitpid(memory->pids[i], &status, 0);
+    }
+    
+    // int statusSharedMemory;
+
+    // Replace 'file_name.txt' with the name of the file you want to delete
+    // statusSharedMemory = remove("/dev/shm/SharedMemory");
+
+    // if (statusSharedMemory == 0)
+    //     printf("File deleted successfully\n");
+    // else
+    //     printf("Error: unable to delete the file\n");
     
 }

@@ -1,0 +1,962 @@
+\hypertarget{enemy__spy__network_8c}{}\doxysection{Référence du fichier src/enemy\+\_\+spy\+\_\+network/enemy\+\_\+spy\+\_\+network.c}
+\label{enemy__spy__network_8c}\index{src/enemy\_spy\_network/enemy\_spy\_network.c@{src/enemy\_spy\_network/enemy\_spy\_network.c}}
+
+
+Spy Network and Case Officer Management for Espionage Operations.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/shm.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}enemy\+\_\+spy\+\_\+network.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}astar.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de enemy\+\_\+spy\+\_\+network.\+c\+:
+% FIG 0
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{enemy__spy__network_8c_aa31efd71e4cec0504918a3344db0a0c6}{handle\+\_\+fatal\+\_\+error}} (const char $\ast$message)
+\begin{DoxyCompactList}\small\item\em Handles fatal errors and exits the program with an error message. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{enemy__spy__network_8c_ac92c1b9f3680ea3c30171e00f9ad2287}{assign\+\_\+leaving\+\_\+time}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Assigns leaving time to a spy agent. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{enemy__spy__network_8c_ac6c57cf80403216ac96d05d8959bc99c}{assign\+\_\+officer\+\_\+times}} (\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Assigns times to a case officer for state transitions. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{enemy__spy__network_8c_a9aa25c65facdfbca54305f91b985cf9f}{less\+\_\+than\+\_\+two\+\_\+hours}} (\mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}} time1, \mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}} time2)
+\begin{DoxyCompactList}\small\item\em Checks if one leaving time is less than two hours ahead of another. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a6163ee6d4517d415fa75138b60eca074}{new\+\_\+state\+\_\+spy}} (int id, \mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$($\ast$action)(\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$))
+\begin{DoxyCompactList}\small\item\em Creates a new state for a spy agent. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a2ff37e02978ff38cc88524ce2ccc0b50}{do\+\_\+something}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy performing an action state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_abbe6dbcf318c8af07caedcfd46fb39e3}{rest\+\_\+at\+\_\+home}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy resting at home state. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{enemy__spy__network_8c_a47ec70fca245f400e20d47405075de5d}\label{enemy__spy__network_8c_a47ec70fca245f400e20d47405075de5d}} 
+int {\bfseries is\+\_\+in\+\_\+front\+\_\+of\+\_\+targeted\+\_\+company} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_ac23987043baf58e4d9a073b81dbe1c82}{go\+\_\+to\+\_\+spot}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy going to a spot state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a93f636a887e5d05af66aad9653e7b5f1}{spot}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy spotting state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a51fca8c9a367012e08846fd00d57b42c}{steal}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy stealing state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a8f0a550bdc7a2f0f74c501f9623e71a6}{arrived\+\_\+at\+\_\+mailbox}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy arriving at the mailbox state. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{enemy__spy__network_8c_abb8a7fcdbc92a835da89aee6c01b0f93}{is\+\_\+at\+\_\+home}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Checks if a spy agent is at home. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{enemy__spy__network_8c_a4adb392862ea11e784bb38d996433312}\label{enemy__spy__network_8c_a4adb392862ea11e784bb38d996433312}} 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ {\bfseries go\+\_\+back\+\_\+home} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\item 
+int \mbox{\hyperlink{enemy__spy__network_8c_ad2fbf9b19d13605a545b4adf6e5b1c1e}{is\+\_\+at\+\_\+mailbox}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Checks if a spy agent is at the mailbox. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{enemy__spy__network_8c_a1386007bb29dab5e01131a034bcdf17b}{is\+\_\+at\+\_\+supermarket}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Checks if a spy agent is at the supermarket. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a50e38075061b5ac1e45ef0f37f023f10}{go\+\_\+to\+\_\+send\+\_\+message}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy going to send a message state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_ab954d652a327c904213c769cf99da2d7}{send\+\_\+message}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy sending a message state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_ad5113283860018a3501dc5769c09c26a}{wait\+\_\+for\+\_\+residence\+\_\+to\+\_\+be\+\_\+clear}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy waiting for the residence to be clear state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_aa7bfa0f1d71781428ecc3a05b6bdff4f}{scout}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy scouting state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a9033a6865fe8a51f0096aa3289b99fca}{go\+\_\+to\+\_\+supermarket}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy going to the supermarket state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_ad9ebe751efafc46a4e312be658db7ade}{do\+\_\+some\+\_\+shopping}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy doing some shopping state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_ac23fc286c7f1490fc3d54f6227c0cdc8}{is\+\_\+hurt}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy being hurt state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a34d9be9aed6078c6720455ed845523d1}{riposte}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy riposte state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_abf9caaab0a77e6ba37f725045607bfae}{is\+\_\+in\+\_\+conflict}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy being in conflict state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a3ab3f691c6b0efb76fe272bdd89f3994}{dying}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy dying state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_aee2c2bb61623dfbf049140a10487376a}{finished}} (\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$spy)
+\begin{DoxyCompactList}\small\item\em Handles the spy finished state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a4f688b3e4aacca84197c86589bb83b21}{new\+\_\+state\+\_\+officer}} (int id, \mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$($\ast$action)(\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$))
+\begin{DoxyCompactList}\small\item\em Creates a new state for a case officer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a69a42df1668b2403b8bda4176b0c3b5d}{rest\+\_\+at\+\_\+home\+\_\+officer}} (\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the case officer resting at home state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a23e8c0a8937bd62a2c3285bd649ce5e4}{send\+\_\+messages}} (\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the case officer sending messages state. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{enemy__spy__network_8c_a76e142a4003f0f002cde8074f9be834e}{is\+\_\+at\+\_\+home\+\_\+officer}} (\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Checks if a case officer is at home. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a5b98265f9154b428668cc32f87255347}{go\+\_\+back\+\_\+home\+\_\+officer}} (\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the case officer going back home state. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{enemy__spy__network_8c_ad22ab7690a724b156557c07770396980}{is\+\_\+at\+\_\+supermarket\+\_\+officer}} (\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Checks if a case officer is at the supermarket. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a14b50035690189853b70ba86893fbb65}{go\+\_\+to\+\_\+supermarket\+\_\+officer}} (\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the case officer going to the supermarket state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_ac795a191425b11ee88f650e16a929c18}{do\+\_\+some\+\_\+shopping\+\_\+officer}} (\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the case officer doing some shopping state. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{enemy__spy__network_8c_a036ff852b3297ed261a56233924fbddd}{is\+\_\+at\+\_\+mailbox\+\_\+officer}} (\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Checks if a case officer is at the mailbox. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_ab3d5ecda9117af2014439eee64257543}{go\+\_\+to\+\_\+mailbox}} (\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the case officer going to the mailbox state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{enemy__spy__network_8c_a13565c60d7d8047746aaa813958dd9b6}{recover\+\_\+messages}} (\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the case officer recovering messages state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{enemy__spy__network_8c_a752a0e428dfee2e6518d49d8dff5926a}{caesar\+\_\+cipher}} (char $\ast$message)
+\begin{DoxyCompactList}\small\item\em Performs Caesar cipher encryption on a message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{enemy__spy__network_8c_a7b3256d71a0559e33207df62fdb1180e}\label{enemy__spy__network_8c_a7b3256d71a0559e33207df62fdb1180e}} 
+void {\bfseries caesar\+\_\+decipher} (char $\ast$message)
+\item 
+\mbox{\Hypertarget{enemy__spy__network_8c_af7d17d8d8d69b53167d4661d8322779b}\label{enemy__spy__network_8c_af7d17d8d8d69b53167d4661d8322779b}} 
+unsigned int {\bfseries get\+\_\+message\+\_\+priority} (const char $\ast$message)
+\item 
+unsigned int \mbox{\hyperlink{enemy__spy__network_8c_a149df450dc4b48434f9bb03ebfc92e27}{get\+\_\+crypted\+\_\+message\+\_\+priority}} (const char $\ast$message)
+\begin{DoxyCompactList}\small\item\em Retrieves the priority of a crypted message. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{enemy__spy__network_8c_a9e2ec5fe38469863ec65379b6bdbe809}\label{enemy__spy__network_8c_a9e2ec5fe38469863ec65379b6bdbe809}} 
+void {\bfseries send\+\_\+messages\+\_\+to\+\_\+enemy\+\_\+country} (\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$officer)
+\item 
+\mbox{\Hypertarget{enemy__spy__network_8c_ad54ce456ed8e7924fa09ed168c19de7d}\label{enemy__spy__network_8c_ad54ce456ed8e7924fa09ed168c19de7d}} 
+void {\bfseries init\+\_\+spies} (\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory)
+\item 
+void \mbox{\hyperlink{enemy__spy__network_8c_a032b96bf1c2df4cddbb7cdbaea572792}{assign\+\_\+home\+\_\+to\+\_\+spy}} (\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory, \mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$s)
+\begin{DoxyCompactList}\small\item\em Assigns a home location to a spy agent. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{enemy__spy__network_8c_a54b007b5aa0424366c05b82d6ca7ba0f}\label{enemy__spy__network_8c_a54b007b5aa0424366c05b82d6ca7ba0f}} 
+void {\bfseries init\+\_\+officer} (\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory)
+\item 
+void \mbox{\hyperlink{enemy__spy__network_8c_adb7f94f02db6289a468d849abbcffebf}{assign\+\_\+home\+\_\+to\+\_\+officer}} (\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory, \mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$c)
+\begin{DoxyCompactList}\small\item\em Assigns a home location to a case officer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_8c_af16d0defec41b3501a54c55c112a55d0}\label{enemy__spy__network_8c_af16d0defec41b3501a54c55c112a55d0}} 
+\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$ {\bfseries memory}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_8c_a171cbdf30d06cda9edf713409dca8293}\label{enemy__spy__network_8c_a171cbdf30d06cda9edf713409dca8293}} 
+mqd\+\_\+t {\bfseries mq}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_8c_a2d10f124eea92dfd07e6d8748e0dcf37}\label{enemy__spy__network_8c_a2d10f124eea92dfd07e6d8748e0dcf37}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+producer}
+\item 
+\mbox{\Hypertarget{enemy__spy__network_8c_a4c6703ae9acc801a2fb3c649e0c0019a}\label{enemy__spy__network_8c_a4c6703ae9acc801a2fb3c649e0c0019a}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+consumer}
+\item 
+{\bfseries D\+I\+R\+E\+C\+T\+I\+ON} \mbox{[}N\+U\+M\+\_\+\+D\+I\+R\+E\+C\+T\+I\+O\+NS\mbox{]}\mbox{[}2\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Spy Network and Case Officer Management for Espionage Operations. 
+
+This file contains the code for managing the spy network and the case officer in espionage operations. Spies are responsible for stealing messages and leaving them in mailboxes, which are later retrieved by the case officer. The case officer sends these messages to the enemy country via message queues. 
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{enemy__spy__network_8c_a8f0a550bdc7a2f0f74c501f9623e71a6}\label{enemy__spy__network_8c_a8f0a550bdc7a2f0f74c501f9623e71a6}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!arrived\_at\_mailbox@{arrived\_at\_mailbox}}
+\index{arrived\_at\_mailbox@{arrived\_at\_mailbox}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{arrived\_at\_mailbox()}{arrived\_at\_mailbox()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ arrived\+\_\+at\+\_\+mailbox (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy arriving at the mailbox state. 
+
+This function represents the behavior of a spy when arriving at the mailbox.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_adb7f94f02db6289a468d849abbcffebf}\label{enemy__spy__network_8c_adb7f94f02db6289a468d849abbcffebf}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!assign\_home\_to\_officer@{assign\_home\_to\_officer}}
+\index{assign\_home\_to\_officer@{assign\_home\_to\_officer}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{assign\_home\_to\_officer()}{assign\_home\_to\_officer()}}
+{\footnotesize\ttfamily void assign\+\_\+home\+\_\+to\+\_\+officer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{memory,  }\item[{\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Assigns a home location to a case officer. 
+
+Assigns a home location to a case officer using shared memory.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em memory} & A pointer to the shared memory structure. \\
+\hline
+{\em officer} & A pointer to the case officer. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{enemy__spy__network_8c_a032b96bf1c2df4cddbb7cdbaea572792}\label{enemy__spy__network_8c_a032b96bf1c2df4cddbb7cdbaea572792}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!assign\_home\_to\_spy@{assign\_home\_to\_spy}}
+\index{assign\_home\_to\_spy@{assign\_home\_to\_spy}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{assign\_home\_to\_spy()}{assign\_home\_to\_spy()}}
+{\footnotesize\ttfamily void assign\+\_\+home\+\_\+to\+\_\+spy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{memory,  }\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Assigns a home location to a spy agent. 
+
+Assigns a home location to a spy agent using shared memory.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em memory} & A pointer to the shared memory structure. \\
+\hline
+{\em spy} & A pointer to the spy agent. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{enemy__spy__network_8c_ac92c1b9f3680ea3c30171e00f9ad2287}\label{enemy__spy__network_8c_ac92c1b9f3680ea3c30171e00f9ad2287}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!assign\_leaving\_time@{assign\_leaving\_time}}
+\index{assign\_leaving\_time@{assign\_leaving\_time}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{assign\_leaving\_time()}{assign\_leaving\_time()}}
+{\footnotesize\ttfamily void assign\+\_\+leaving\+\_\+time (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Assigns leaving time to a spy agent. 
+
+Assigns leaving time to a spy agent based on time ranges and probabilities.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy agent. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{enemy__spy__network_8c_ac6c57cf80403216ac96d05d8959bc99c}\label{enemy__spy__network_8c_ac6c57cf80403216ac96d05d8959bc99c}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!assign\_officer\_times@{assign\_officer\_times}}
+\index{assign\_officer\_times@{assign\_officer\_times}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{assign\_officer\_times()}{assign\_officer\_times()}}
+{\footnotesize\ttfamily void assign\+\_\+officer\+\_\+times (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Assigns times to a case officer for state transitions. 
+
+Assigns times to a case officer for state transitions based on shared memory.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the case officer. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{enemy__spy__network_8c_a752a0e428dfee2e6518d49d8dff5926a}\label{enemy__spy__network_8c_a752a0e428dfee2e6518d49d8dff5926a}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!caesar\_cipher@{caesar\_cipher}}
+\index{caesar\_cipher@{caesar\_cipher}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{caesar\_cipher()}{caesar\_cipher()}}
+{\footnotesize\ttfamily void caesar\+\_\+cipher (\begin{DoxyParamCaption}\item[{char $\ast$}]{message }\end{DoxyParamCaption})}
+
+
+
+Performs Caesar cipher encryption on a message. 
+
+Performs Caesar cipher encryption on a message by shifting characters.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em message} & A pointer to the message to be encrypted. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{enemy__spy__network_8c_ad9ebe751efafc46a4e312be658db7ade}\label{enemy__spy__network_8c_ad9ebe751efafc46a4e312be658db7ade}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!do\_some\_shopping@{do\_some\_shopping}}
+\index{do\_some\_shopping@{do\_some\_shopping}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{do\_some\_shopping()}{do\_some\_shopping()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ do\+\_\+some\+\_\+shopping (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy doing some shopping state. 
+
+This function represents the behavior of a spy when doing some shopping.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_ac795a191425b11ee88f650e16a929c18}\label{enemy__spy__network_8c_ac795a191425b11ee88f650e16a929c18}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!do\_some\_shopping\_officer@{do\_some\_shopping\_officer}}
+\index{do\_some\_shopping\_officer@{do\_some\_shopping\_officer}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{do\_some\_shopping\_officer()}{do\_some\_shopping\_officer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ do\+\_\+some\+\_\+shopping\+\_\+officer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the case officer doing some shopping state. 
+
+This function represents the behavior of a case officer when doing some shopping.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the case officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the case officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a2ff37e02978ff38cc88524ce2ccc0b50}\label{enemy__spy__network_8c_a2ff37e02978ff38cc88524ce2ccc0b50}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!do\_something@{do\_something}}
+\index{do\_something@{do\_something}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{do\_something()}{do\_something()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ do\+\_\+something (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy performing an action state. 
+
+This function represents the behavior of a spy when performing an action.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a3ab3f691c6b0efb76fe272bdd89f3994}\label{enemy__spy__network_8c_a3ab3f691c6b0efb76fe272bdd89f3994}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!dying@{dying}}
+\index{dying@{dying}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{dying()}{dying()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ dying (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy dying state. 
+
+This function represents the behavior of a spy when dying.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_aee2c2bb61623dfbf049140a10487376a}\label{enemy__spy__network_8c_aee2c2bb61623dfbf049140a10487376a}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!finished@{finished}}
+\index{finished@{finished}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{finished()}{finished()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ finished (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy finished state. 
+
+This function represents the behavior of a spy when finished.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a149df450dc4b48434f9bb03ebfc92e27}\label{enemy__spy__network_8c_a149df450dc4b48434f9bb03ebfc92e27}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!get\_crypted\_message\_priority@{get\_crypted\_message\_priority}}
+\index{get\_crypted\_message\_priority@{get\_crypted\_message\_priority}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{get\_crypted\_message\_priority()}{get\_crypted\_message\_priority()}}
+{\footnotesize\ttfamily unsigned int get\+\_\+crypted\+\_\+message\+\_\+priority (\begin{DoxyParamCaption}\item[{const char $\ast$}]{message }\end{DoxyParamCaption})}
+
+
+
+Retrieves the priority of a crypted message. 
+
+Retrieves the priority of a crypted message for processing.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em message} & A pointer to the crypted message. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+The priority of the crypted message. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a5b98265f9154b428668cc32f87255347}\label{enemy__spy__network_8c_a5b98265f9154b428668cc32f87255347}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!go\_back\_home\_officer@{go\_back\_home\_officer}}
+\index{go\_back\_home\_officer@{go\_back\_home\_officer}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{go\_back\_home\_officer()}{go\_back\_home\_officer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ go\+\_\+back\+\_\+home\+\_\+officer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the case officer going back home state. 
+
+This function represents the behavior of a case officer when going back home.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the case officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the case officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_ab3d5ecda9117af2014439eee64257543}\label{enemy__spy__network_8c_ab3d5ecda9117af2014439eee64257543}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!go\_to\_mailbox@{go\_to\_mailbox}}
+\index{go\_to\_mailbox@{go\_to\_mailbox}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{go\_to\_mailbox()}{go\_to\_mailbox()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ go\+\_\+to\+\_\+mailbox (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the case officer going to the mailbox state. 
+
+This function represents the behavior of a case officer when going to the mailbox.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the case officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the case officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a50e38075061b5ac1e45ef0f37f023f10}\label{enemy__spy__network_8c_a50e38075061b5ac1e45ef0f37f023f10}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!go\_to\_send\_message@{go\_to\_send\_message}}
+\index{go\_to\_send\_message@{go\_to\_send\_message}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{go\_to\_send\_message()}{go\_to\_send\_message()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ go\+\_\+to\+\_\+send\+\_\+message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy going to send a message state. 
+
+This function represents the behavior of a spy when going to send a message.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_ac23987043baf58e4d9a073b81dbe1c82}\label{enemy__spy__network_8c_ac23987043baf58e4d9a073b81dbe1c82}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!go\_to\_spot@{go\_to\_spot}}
+\index{go\_to\_spot@{go\_to\_spot}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{go\_to\_spot()}{go\_to\_spot()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ go\+\_\+to\+\_\+spot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy going to a spot state. 
+
+This function represents the behavior of a spy when going to a spot.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a9033a6865fe8a51f0096aa3289b99fca}\label{enemy__spy__network_8c_a9033a6865fe8a51f0096aa3289b99fca}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!go\_to\_supermarket@{go\_to\_supermarket}}
+\index{go\_to\_supermarket@{go\_to\_supermarket}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{go\_to\_supermarket()}{go\_to\_supermarket()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ go\+\_\+to\+\_\+supermarket (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy going to the supermarket state. 
+
+This function represents the behavior of a spy when going to the supermarket.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a14b50035690189853b70ba86893fbb65}\label{enemy__spy__network_8c_a14b50035690189853b70ba86893fbb65}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!go\_to\_supermarket\_officer@{go\_to\_supermarket\_officer}}
+\index{go\_to\_supermarket\_officer@{go\_to\_supermarket\_officer}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{go\_to\_supermarket\_officer()}{go\_to\_supermarket\_officer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ go\+\_\+to\+\_\+supermarket\+\_\+officer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the case officer going to the supermarket state. 
+
+This function represents the behavior of a case officer when going to the supermarket.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the case officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the case officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_aa31efd71e4cec0504918a3344db0a0c6}\label{enemy__spy__network_8c_aa31efd71e4cec0504918a3344db0a0c6}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!handle\_fatal\_error@{handle\_fatal\_error}}
+\index{handle\_fatal\_error@{handle\_fatal\_error}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{handle\_fatal\_error()}{handle\_fatal\_error()}}
+{\footnotesize\ttfamily void handle\+\_\+fatal\+\_\+error (\begin{DoxyParamCaption}\item[{const char $\ast$}]{message }\end{DoxyParamCaption})}
+
+
+
+Handles fatal errors and exits the program with an error message. 
+
+This function prints an error message and terminates the program.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em message} & The error message to be displayed. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{enemy__spy__network_8c_abb8a7fcdbc92a835da89aee6c01b0f93}\label{enemy__spy__network_8c_abb8a7fcdbc92a835da89aee6c01b0f93}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!is\_at\_home@{is\_at\_home}}
+\index{is\_at\_home@{is\_at\_home}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{is\_at\_home()}{is\_at\_home()}}
+{\footnotesize\ttfamily int is\+\_\+at\+\_\+home (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Checks if a spy agent is at home. 
+
+Checks if a spy agent is at their home location.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy agent. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily 1} if the spy is at home, {\ttfamily 0} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a76e142a4003f0f002cde8074f9be834e}\label{enemy__spy__network_8c_a76e142a4003f0f002cde8074f9be834e}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!is\_at\_home\_officer@{is\_at\_home\_officer}}
+\index{is\_at\_home\_officer@{is\_at\_home\_officer}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{is\_at\_home\_officer()}{is\_at\_home\_officer()}}
+{\footnotesize\ttfamily int is\+\_\+at\+\_\+home\+\_\+officer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Checks if a case officer is at home. 
+
+Checks if a case officer is at their home location.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the case officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily 1} if the case officer is at home, {\ttfamily 0} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_ad2fbf9b19d13605a545b4adf6e5b1c1e}\label{enemy__spy__network_8c_ad2fbf9b19d13605a545b4adf6e5b1c1e}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!is\_at\_mailbox@{is\_at\_mailbox}}
+\index{is\_at\_mailbox@{is\_at\_mailbox}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{is\_at\_mailbox()}{is\_at\_mailbox()}}
+{\footnotesize\ttfamily int is\+\_\+at\+\_\+mailbox (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Checks if a spy agent is at the mailbox. 
+
+Checks if a spy agent is at the mailbox location.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy agent. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily 1} if the spy is at the mailbox, {\ttfamily 0} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a036ff852b3297ed261a56233924fbddd}\label{enemy__spy__network_8c_a036ff852b3297ed261a56233924fbddd}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!is\_at\_mailbox\_officer@{is\_at\_mailbox\_officer}}
+\index{is\_at\_mailbox\_officer@{is\_at\_mailbox\_officer}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{is\_at\_mailbox\_officer()}{is\_at\_mailbox\_officer()}}
+{\footnotesize\ttfamily int is\+\_\+at\+\_\+mailbox\+\_\+officer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Checks if a case officer is at the mailbox. 
+
+Checks if a case officer is at the mailbox location.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the case officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily 1} if the case officer is at the mailbox, {\ttfamily 0} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a1386007bb29dab5e01131a034bcdf17b}\label{enemy__spy__network_8c_a1386007bb29dab5e01131a034bcdf17b}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!is\_at\_supermarket@{is\_at\_supermarket}}
+\index{is\_at\_supermarket@{is\_at\_supermarket}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{is\_at\_supermarket()}{is\_at\_supermarket()}}
+{\footnotesize\ttfamily int is\+\_\+at\+\_\+supermarket (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Checks if a spy agent is at the supermarket. 
+
+Checks if a spy agent is at the supermarket location.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy agent. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily 1} if the spy is at the supermarket, {\ttfamily 0} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_ad22ab7690a724b156557c07770396980}\label{enemy__spy__network_8c_ad22ab7690a724b156557c07770396980}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!is\_at\_supermarket\_officer@{is\_at\_supermarket\_officer}}
+\index{is\_at\_supermarket\_officer@{is\_at\_supermarket\_officer}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{is\_at\_supermarket\_officer()}{is\_at\_supermarket\_officer()}}
+{\footnotesize\ttfamily int is\+\_\+at\+\_\+supermarket\+\_\+officer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Checks if a case officer is at the supermarket. 
+
+Checks if a case officer is at the supermarket location.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the case officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily 1} if the case officer is at the supermarket, {\ttfamily 0} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_ac23fc286c7f1490fc3d54f6227c0cdc8}\label{enemy__spy__network_8c_ac23fc286c7f1490fc3d54f6227c0cdc8}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!is\_hurt@{is\_hurt}}
+\index{is\_hurt@{is\_hurt}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{is\_hurt()}{is\_hurt()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ is\+\_\+hurt (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy being hurt state. 
+
+This function represents the behavior of a spy when hurt.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_abf9caaab0a77e6ba37f725045607bfae}\label{enemy__spy__network_8c_abf9caaab0a77e6ba37f725045607bfae}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!is\_in\_conflict@{is\_in\_conflict}}
+\index{is\_in\_conflict@{is\_in\_conflict}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{is\_in\_conflict()}{is\_in\_conflict()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ is\+\_\+in\+\_\+conflict (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy being in conflict state. 
+
+This function represents the behavior of a spy when in conflict.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a9aa25c65facdfbca54305f91b985cf9f}\label{enemy__spy__network_8c_a9aa25c65facdfbca54305f91b985cf9f}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!less\_than\_two\_hours@{less\_than\_two\_hours}}
+\index{less\_than\_two\_hours@{less\_than\_two\_hours}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{less\_than\_two\_hours()}{less\_than\_two\_hours()}}
+{\footnotesize\ttfamily bool less\+\_\+than\+\_\+two\+\_\+hours (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}}}]{time1,  }\item[{\mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}}}]{time2 }\end{DoxyParamCaption})}
+
+
+
+Checks if one leaving time is less than two hours ahead of another. 
+
+Checks if {\ttfamily time1} is less than two hours ahead of {\ttfamily time2}.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em time1} & The first leaving time. \\
+\hline
+{\em time2} & The second leaving time. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily true} if {\ttfamily time1} is less than two hours ahead of {\ttfamily time2}, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a4f688b3e4aacca84197c86589bb83b21}\label{enemy__spy__network_8c_a4f688b3e4aacca84197c86589bb83b21}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!new\_state\_officer@{new\_state\_officer}}
+\index{new\_state\_officer@{new\_state\_officer}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{new\_state\_officer()}{new\_state\_officer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ new\+\_\+state\+\_\+officer (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$($\ast$)(\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$)}]{action\+\_\+officer }\end{DoxyParamCaption})}
+
+
+
+Creates a new state for a case officer. 
+
+Creates a new state for a case officer with the specified {\ttfamily id} and action.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em id} & The identifier of the case officer. \\
+\hline
+{\em action\+\_\+officer} & The action function for the case officer state. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the new case officer state. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a6163ee6d4517d415fa75138b60eca074}\label{enemy__spy__network_8c_a6163ee6d4517d415fa75138b60eca074}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!new\_state\_spy@{new\_state\_spy}}
+\index{new\_state\_spy@{new\_state\_spy}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{new\_state\_spy()}{new\_state\_spy()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ new\+\_\+state\+\_\+spy (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$($\ast$)(\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$)}]{action }\end{DoxyParamCaption})}
+
+
+
+Creates a new state for a spy agent. 
+
+Creates a new state for a spy agent with the specified {\ttfamily id} and action.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em id} & The identifier of the spy. \\
+\hline
+{\em action} & The action function for the spy state. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the new spy state. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a13565c60d7d8047746aaa813958dd9b6}\label{enemy__spy__network_8c_a13565c60d7d8047746aaa813958dd9b6}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!recover\_messages@{recover\_messages}}
+\index{recover\_messages@{recover\_messages}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{recover\_messages()}{recover\_messages()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ recover\+\_\+messages (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the case officer recovering messages state. 
+
+This function represents the behavior of a case officer when recovering messages.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the case officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the case officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_abbe6dbcf318c8af07caedcfd46fb39e3}\label{enemy__spy__network_8c_abbe6dbcf318c8af07caedcfd46fb39e3}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!rest\_at\_home@{rest\_at\_home}}
+\index{rest\_at\_home@{rest\_at\_home}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{rest\_at\_home()}{rest\_at\_home()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ rest\+\_\+at\+\_\+home (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy resting at home state. 
+
+This function represents the behavior of a spy when resting at home.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a69a42df1668b2403b8bda4176b0c3b5d}\label{enemy__spy__network_8c_a69a42df1668b2403b8bda4176b0c3b5d}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!rest\_at\_home\_officer@{rest\_at\_home\_officer}}
+\index{rest\_at\_home\_officer@{rest\_at\_home\_officer}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{rest\_at\_home\_officer()}{rest\_at\_home\_officer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ rest\+\_\+at\+\_\+home\+\_\+officer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the case officer resting at home state. 
+
+This function represents the behavior of a case officer when resting at home.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the case officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the case officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a34d9be9aed6078c6720455ed845523d1}\label{enemy__spy__network_8c_a34d9be9aed6078c6720455ed845523d1}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!riposte@{riposte}}
+\index{riposte@{riposte}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{riposte()}{riposte()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ riposte (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy riposte state. 
+
+This function represents the behavior of a spy when in riposte.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_aa7bfa0f1d71781428ecc3a05b6bdff4f}\label{enemy__spy__network_8c_aa7bfa0f1d71781428ecc3a05b6bdff4f}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!scout@{scout}}
+\index{scout@{scout}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{scout()}{scout()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ scout (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy scouting state. 
+
+This function represents the behavior of a spy when scouting.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_ab954d652a327c904213c769cf99da2d7}\label{enemy__spy__network_8c_ab954d652a327c904213c769cf99da2d7}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!send\_message@{send\_message}}
+\index{send\_message@{send\_message}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{send\_message()}{send\_message()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ send\+\_\+message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy sending a message state. 
+
+This function represents the behavior of a spy when sending a message.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a23e8c0a8937bd62a2c3285bd649ce5e4}\label{enemy__spy__network_8c_a23e8c0a8937bd62a2c3285bd649ce5e4}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!send\_messages@{send\_messages}}
+\index{send\_messages@{send\_messages}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{send\_messages()}{send\_messages()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ send\+\_\+messages (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the case officer sending messages state. 
+
+This function represents the behavior of a case officer when sending messages.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the case officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the case officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a93f636a887e5d05af66aad9653e7b5f1}\label{enemy__spy__network_8c_a93f636a887e5d05af66aad9653e7b5f1}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!spot@{spot}}
+\index{spot@{spot}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{spot()}{spot()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy spotting state. 
+
+This function represents the behavior of a spy when spotting.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_a51fca8c9a367012e08846fd00d57b42c}\label{enemy__spy__network_8c_a51fca8c9a367012e08846fd00d57b42c}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!steal@{steal}}
+\index{steal@{steal}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{steal()}{steal()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ steal (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy stealing state. 
+
+This function represents the behavior of a spy when stealing.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{enemy__spy__network_8c_ad5113283860018a3501dc5769c09c26a}\label{enemy__spy__network_8c_ad5113283860018a3501dc5769c09c26a}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!wait\_for\_residence\_to\_be\_clear@{wait\_for\_residence\_to\_be\_clear}}
+\index{wait\_for\_residence\_to\_be\_clear@{wait\_for\_residence\_to\_be\_clear}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{wait\_for\_residence\_to\_be\_clear()}{wait\_for\_residence\_to\_be\_clear()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ wait\+\_\+for\+\_\+residence\+\_\+to\+\_\+be\+\_\+clear (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} $\ast$}]{spy }\end{DoxyParamCaption})}
+
+
+
+Handles the spy waiting for the residence to be clear state. 
+
+This function represents the behavior of a spy when waiting for the residence to be clear.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em spy} & A pointer to the spy. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the spy. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Documentation des variables}
+\mbox{\Hypertarget{enemy__spy__network_8c_ab3d9c41c54ce429d3dd32fb3dfec9078}\label{enemy__spy__network_8c_ab3d9c41c54ce429d3dd32fb3dfec9078}} 
+\index{enemy\_spy\_network.c@{enemy\_spy\_network.c}!DIRECTION@{DIRECTION}}
+\index{DIRECTION@{DIRECTION}!enemy\_spy\_network.c@{enemy\_spy\_network.c}}
+\doxysubsubsection{\texorpdfstring{DIRECTION}{DIRECTION}}
+{\footnotesize\ttfamily D\+I\+R\+E\+C\+T\+I\+ON\mbox{[}N\+U\+M\+\_\+\+D\+I\+R\+E\+C\+T\+I\+O\+NS\mbox{]}\mbox{[}2\mbox{]}}
+
+{\bfseries Valeur initiale \+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    \{-\/1, 0\}, }
+\DoxyCodeLine{    \{1, 0\}, }
+\DoxyCodeLine{    \{0, -\/1\}, }
+\DoxyCodeLine{    \{0, 1\}, }
+\DoxyCodeLine{    \{-\/1, -\/1\}, }
+\DoxyCodeLine{    \{-\/1, 1\}, }
+\DoxyCodeLine{    \{1, -\/1\}, }
+\DoxyCodeLine{    \{1, 1\} }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}

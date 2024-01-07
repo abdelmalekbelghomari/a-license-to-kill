@@ -1,0 +1,402 @@
+\hypertarget{counter__intelligence_8h}{}\doxysection{Référence du fichier include/counter\+\_\+intelligence.h}
+\label{counter__intelligence_8h}\index{include/counter\_intelligence.h@{include/counter\_intelligence.h}}
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de counter\+\_\+intelligence.\+h\+:
+% FIG 0
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier \+:
+% FIG 1
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{counter__intelligence_8h_a567070d180af36000d65b9bf940891e2}{init\+\_\+counter\+\_\+intelligence\+\_\+officer}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the counter-\/intelligence officer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{counter__intelligence_8h_a66679fc4ebc4fd3522920675ec54dbb4}{monitor}} (\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the monitoring state of the counter-\/intelligence officer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{counter__intelligence_8h_aea5399a3eb8b5e7a4abf42bdf6db756a}{go\+\_\+to\+\_\+suspect\+\_\+place}} (\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the state when the counter-\/intelligence officer goes to a suspect place. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{counter__intelligence_8h_aca32a07fc24e3bc465e983a1dc138d05}{hide}} (\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the state when the counter-\/intelligence officer hides. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{counter__intelligence_8h_a5134e6f684bbc6b196aca0774c92f028}{go\+\_\+back\+\_\+to\+\_\+monitor}} (\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the state when the counter-\/intelligence officer goes back to monitoring. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{counter__intelligence_8h_a087cdf75e8dd3efc9d6ccde9f5c188b7}{wait\+\_\+for\+\_\+spy\+\_\+to\+\_\+steal}} (\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the state when the counter-\/intelligence officer waits for a spy to steal. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{counter__intelligence_8h_ab2dabc91e5839b21a48a122372cfdc0f}{follow\+\_\+spy}} (\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the state when the counter-\/intelligence officer follows a spy. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{counter__intelligence_8h_a5cbdb24b20220f77810e4165aee3216c}{wait\+\_\+for\+\_\+spy\+\_\+to\+\_\+send\+\_\+message}} (\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the state when the counter-\/intelligence officer waits for a spy to send a message. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{counter__intelligence_8h_a611c1cfee08025df6fdc5e8eb9990cef}{search\+\_\+for\+\_\+mailbox}} (\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the state when the counter-\/intelligence officer searches for a mailbox. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{counter__intelligence_8h_afd3819dcf75feb74a86ca377dab5b9b3}{recover\+\_\+message}} (\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the state when the counter-\/intelligence officer recovers a message. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{counter__intelligence_8h_a362caf2f716fb3ce2998071e643b1f27}{go\+\_\+to\+\_\+search\+\_\+for\+\_\+mailbox}} (\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Handles the state when the counter-\/intelligence officer goes to search for a mailbox. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{counter__intelligence_8h_a4fc36fb2a4c0d80642ff352c65d53a2f}{new\+\_\+state}} (int id, \mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$($\ast$action)(\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer))
+\begin{DoxyCompactList}\small\item\em Creates a new state for the counter-\/intelligence officer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{counter__intelligence_8h_aa31b1d19a996da1e013bcee1c83601e9}{detect\+\_\+suspicious\+\_\+person}} (\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory)
+\begin{DoxyCompactList}\small\item\em Detects a suspicious person using monitoring data. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{counter__intelligence_8h_a4831a0cabb460e9dbcb7fd00338038dd}{is\+\_\+movement\+\_\+suspicious}} (\mbox{\hyperlink{structcharacterMovement}{character\+Movement}} $\ast$movement, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory)
+\begin{DoxyCompactList}\small\item\em Checks if a movement is suspicious. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{counter__intelligence_8h_a3ce6b94ab77b06946deca695112db557}{update\+\_\+suspicious\+\_\+person}} (\mbox{\hyperlink{structcharacterMovement}{character\+Movement}} $\ast$movement, \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory)
+\begin{DoxyCompactList}\small\item\em Updates the status of a suspicious person based on monitoring data. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{counter__intelligence_8h_adc1a58448761c23e18fc46c7a6ab2065}{is\+\_\+at\+\_\+monitor}} (\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Checks if the counter-\/intelligence officer is at the monitoring location. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{counter__intelligence_8h_ab9d71ea368dd4f9271d0672f90ca1193}{at\+\_\+suspect\+\_\+place}} (\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Checks if the counter-\/intelligence officer is at a suspect place. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{counter__intelligence_8h_a545494685012b45605ee93c56e6a4655}{is\+\_\+at\+\_\+mailbox}} (\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer)
+\begin{DoxyCompactList}\small\item\em Checks if the counter-\/intelligence officer is at a mailbox. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Defines structures and functions related to counter-\/intelligence officers. 
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{counter__intelligence_8h_ab9d71ea368dd4f9271d0672f90ca1193}\label{counter__intelligence_8h_ab9d71ea368dd4f9271d0672f90ca1193}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!at\_suspect\_place@{at\_suspect\_place}}
+\index{at\_suspect\_place@{at\_suspect\_place}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{at\_suspect\_place()}{at\_suspect\_place()}}
+{\footnotesize\ttfamily int at\+\_\+suspect\+\_\+place (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Checks if the counter-\/intelligence officer is at a suspect place. 
+
+Checks if the counter-\/intelligence officer is at a suspect place.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the counter-\/intelligence officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily 1} if the officer is at a suspect place, {\ttfamily 0} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{counter__intelligence_8h_aa31b1d19a996da1e013bcee1c83601e9}\label{counter__intelligence_8h_aa31b1d19a996da1e013bcee1c83601e9}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!detect\_suspicious\_person@{detect\_suspicious\_person}}
+\index{detect\_suspicious\_person@{detect\_suspicious\_person}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{detect\_suspicious\_person()}{detect\_suspicious\_person()}}
+{\footnotesize\ttfamily void detect\+\_\+suspicious\+\_\+person (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{memory }\end{DoxyParamCaption})}
+
+
+
+Detects a suspicious person using monitoring data. 
+
+This function detects a suspicious person using monitoring data from cameras.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em memory} & A pointer to the shared memory structure. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{counter__intelligence_8h_ab2dabc91e5839b21a48a122372cfdc0f}\label{counter__intelligence_8h_ab2dabc91e5839b21a48a122372cfdc0f}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!follow\_spy@{follow\_spy}}
+\index{follow\_spy@{follow\_spy}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{follow\_spy()}{follow\_spy()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ follow\+\_\+spy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the state when the counter-\/intelligence officer follows a spy. 
+
+This function represents the behavior of the counter-\/intelligence officer when following a spy.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the counter-\/intelligence officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the counter-\/intelligence officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{counter__intelligence_8h_a5134e6f684bbc6b196aca0774c92f028}\label{counter__intelligence_8h_a5134e6f684bbc6b196aca0774c92f028}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!go\_back\_to\_monitor@{go\_back\_to\_monitor}}
+\index{go\_back\_to\_monitor@{go\_back\_to\_monitor}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{go\_back\_to\_monitor()}{go\_back\_to\_monitor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ go\+\_\+back\+\_\+to\+\_\+monitor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the state when the counter-\/intelligence officer goes back to monitoring. 
+
+This function represents the behavior of the counter-\/intelligence officer when going back to monitoring.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the counter-\/intelligence officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the counter-\/intelligence officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{counter__intelligence_8h_a362caf2f716fb3ce2998071e643b1f27}\label{counter__intelligence_8h_a362caf2f716fb3ce2998071e643b1f27}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!go\_to\_search\_for\_mailbox@{go\_to\_search\_for\_mailbox}}
+\index{go\_to\_search\_for\_mailbox@{go\_to\_search\_for\_mailbox}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{go\_to\_search\_for\_mailbox()}{go\_to\_search\_for\_mailbox()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ go\+\_\+to\+\_\+search\+\_\+for\+\_\+mailbox (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the state when the counter-\/intelligence officer goes to search for a mailbox. 
+
+This function represents the behavior of the counter-\/intelligence officer when going to search for a mailbox.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the counter-\/intelligence officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the counter-\/intelligence officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{counter__intelligence_8h_aea5399a3eb8b5e7a4abf42bdf6db756a}\label{counter__intelligence_8h_aea5399a3eb8b5e7a4abf42bdf6db756a}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!go\_to\_suspect\_place@{go\_to\_suspect\_place}}
+\index{go\_to\_suspect\_place@{go\_to\_suspect\_place}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{go\_to\_suspect\_place()}{go\_to\_suspect\_place()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ go\+\_\+to\+\_\+suspect\+\_\+place (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the state when the counter-\/intelligence officer goes to a suspect place. 
+
+This function represents the behavior of the counter-\/intelligence officer when going to a suspect place.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the counter-\/intelligence officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the counter-\/intelligence officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{counter__intelligence_8h_aca32a07fc24e3bc465e983a1dc138d05}\label{counter__intelligence_8h_aca32a07fc24e3bc465e983a1dc138d05}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!hide@{hide}}
+\index{hide@{hide}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{hide()}{hide()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ hide (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the state when the counter-\/intelligence officer hides. 
+
+This function represents the behavior of the counter-\/intelligence officer when hiding.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the counter-\/intelligence officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the counter-\/intelligence officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{counter__intelligence_8h_a567070d180af36000d65b9bf940891e2}\label{counter__intelligence_8h_a567070d180af36000d65b9bf940891e2}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!init\_counter\_intelligence\_officer@{init\_counter\_intelligence\_officer}}
+\index{init\_counter\_intelligence\_officer@{init\_counter\_intelligence\_officer}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{init\_counter\_intelligence\_officer()}{init\_counter\_intelligence\_officer()}}
+{\footnotesize\ttfamily void init\+\_\+counter\+\_\+intelligence\+\_\+officer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initializes the counter-\/intelligence officer. 
+
+Initializes the counter-\/intelligence officer\textquotesingle{}s attributes and state. \mbox{\Hypertarget{counter__intelligence_8h_a545494685012b45605ee93c56e6a4655}\label{counter__intelligence_8h_a545494685012b45605ee93c56e6a4655}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!is\_at\_mailbox@{is\_at\_mailbox}}
+\index{is\_at\_mailbox@{is\_at\_mailbox}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{is\_at\_mailbox()}{is\_at\_mailbox()}}
+{\footnotesize\ttfamily int is\+\_\+at\+\_\+mailbox (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Checks if the counter-\/intelligence officer is at a mailbox. 
+
+Checks if the counter-\/intelligence officer is at a mailbox.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the counter-\/intelligence officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily 1} if the officer is at a mailbox, {\ttfamily 0} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{counter__intelligence_8h_adc1a58448761c23e18fc46c7a6ab2065}\label{counter__intelligence_8h_adc1a58448761c23e18fc46c7a6ab2065}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!is\_at\_monitor@{is\_at\_monitor}}
+\index{is\_at\_monitor@{is\_at\_monitor}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{is\_at\_monitor()}{is\_at\_monitor()}}
+{\footnotesize\ttfamily int is\+\_\+at\+\_\+monitor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Checks if the counter-\/intelligence officer is at the monitoring location. 
+
+Checks if the counter-\/intelligence officer is at the monitoring location.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the counter-\/intelligence officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily 1} if the officer is at the monitoring location, {\ttfamily 0} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{counter__intelligence_8h_a4831a0cabb460e9dbcb7fd00338038dd}\label{counter__intelligence_8h_a4831a0cabb460e9dbcb7fd00338038dd}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!is\_movement\_suspicious@{is\_movement\_suspicious}}
+\index{is\_movement\_suspicious@{is\_movement\_suspicious}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{is\_movement\_suspicious()}{is\_movement\_suspicious()}}
+{\footnotesize\ttfamily bool is\+\_\+movement\+\_\+suspicious (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcharacterMovement}{character\+Movement}} $\ast$}]{movement,  }\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{memory }\end{DoxyParamCaption})}
+
+
+
+Checks if a movement is suspicious. 
+
+This function checks if a movement is suspicious based on monitoring data from cameras.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em movement} & A pointer to the movement data. \\
+\hline
+{\em memory} & A pointer to the shared memory structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily true} if the movement is suspicious, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{counter__intelligence_8h_a66679fc4ebc4fd3522920675ec54dbb4}\label{counter__intelligence_8h_a66679fc4ebc4fd3522920675ec54dbb4}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!monitor@{monitor}}
+\index{monitor@{monitor}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{monitor()}{monitor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ monitor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the monitoring state of the counter-\/intelligence officer. 
+
+This function represents the behavior of the counter-\/intelligence officer when monitoring.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the counter-\/intelligence officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the counter-\/intelligence officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{counter__intelligence_8h_a4fc36fb2a4c0d80642ff352c65d53a2f}\label{counter__intelligence_8h_a4fc36fb2a4c0d80642ff352c65d53a2f}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!new\_state@{new\_state}}
+\index{new\_state@{new\_state}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{new\_state()}{new\_state()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ new\+\_\+state (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$($\ast$)(\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$officer)}]{action }\end{DoxyParamCaption})}
+
+
+
+Creates a new state for the counter-\/intelligence officer. 
+
+Creates a new state for the counter-\/intelligence officer with the given ID and action function.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em id} & The ID of the state. \\
+\hline
+{\em action} & A function pointer representing the action for the state. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the newly created state. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{counter__intelligence_8h_afd3819dcf75feb74a86ca377dab5b9b3}\label{counter__intelligence_8h_afd3819dcf75feb74a86ca377dab5b9b3}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!recover\_message@{recover\_message}}
+\index{recover\_message@{recover\_message}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{recover\_message()}{recover\_message()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ recover\+\_\+message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the state when the counter-\/intelligence officer recovers a message. 
+
+This function represents the behavior of the counter-\/intelligence officer when recovering a message.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the counter-\/intelligence officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the counter-\/intelligence officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{counter__intelligence_8h_a611c1cfee08025df6fdc5e8eb9990cef}\label{counter__intelligence_8h_a611c1cfee08025df6fdc5e8eb9990cef}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!search\_for\_mailbox@{search\_for\_mailbox}}
+\index{search\_for\_mailbox@{search\_for\_mailbox}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{search\_for\_mailbox()}{search\_for\_mailbox()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ search\+\_\+for\+\_\+mailbox (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the state when the counter-\/intelligence officer searches for a mailbox. 
+
+This function represents the behavior of the counter-\/intelligence officer when searching for a mailbox.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the counter-\/intelligence officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the counter-\/intelligence officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{counter__intelligence_8h_a3ce6b94ab77b06946deca695112db557}\label{counter__intelligence_8h_a3ce6b94ab77b06946deca695112db557}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!update\_suspicious\_person@{update\_suspicious\_person}}
+\index{update\_suspicious\_person@{update\_suspicious\_person}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{update\_suspicious\_person()}{update\_suspicious\_person()}}
+{\footnotesize\ttfamily void update\+\_\+suspicious\+\_\+person (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcharacterMovement}{character\+Movement}} $\ast$}]{movement,  }\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{memory }\end{DoxyParamCaption})}
+
+
+
+Updates the status of a suspicious person based on monitoring data. 
+
+This function updates the status of a suspicious person based on monitoring data from cameras.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em movement} & A pointer to the movement data. \\
+\hline
+{\em memory} & A pointer to the shared memory structure. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{counter__intelligence_8h_a5cbdb24b20220f77810e4165aee3216c}\label{counter__intelligence_8h_a5cbdb24b20220f77810e4165aee3216c}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!wait\_for\_spy\_to\_send\_message@{wait\_for\_spy\_to\_send\_message}}
+\index{wait\_for\_spy\_to\_send\_message@{wait\_for\_spy\_to\_send\_message}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{wait\_for\_spy\_to\_send\_message()}{wait\_for\_spy\_to\_send\_message()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ wait\+\_\+for\+\_\+spy\+\_\+to\+\_\+send\+\_\+message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the state when the counter-\/intelligence officer waits for a spy to send a message. 
+
+This function represents the behavior of the counter-\/intelligence officer when waiting for a spy to send a message.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the counter-\/intelligence officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the counter-\/intelligence officer. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{counter__intelligence_8h_a087cdf75e8dd3efc9d6ccde9f5c188b7}\label{counter__intelligence_8h_a087cdf75e8dd3efc9d6ccde9f5c188b7}} 
+\index{counter\_intelligence.h@{counter\_intelligence.h}!wait\_for\_spy\_to\_steal@{wait\_for\_spy\_to\_steal}}
+\index{wait\_for\_spy\_to\_steal@{wait\_for\_spy\_to\_steal}!counter\_intelligence.h@{counter\_intelligence.h}}
+\doxysubsubsection{\texorpdfstring{wait\_for\_spy\_to\_steal()}{wait\_for\_spy\_to\_steal()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ wait\+\_\+for\+\_\+spy\+\_\+to\+\_\+steal (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} $\ast$}]{officer }\end{DoxyParamCaption})}
+
+
+
+Handles the state when the counter-\/intelligence officer waits for a spy to steal. 
+
+This function represents the behavior of the counter-\/intelligence officer when waiting for a spy to steal.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em officer} & A pointer to the counter-\/intelligence officer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state for the counter-\/intelligence officer. 
+\end{DoxyReturn}

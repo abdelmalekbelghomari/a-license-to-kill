@@ -1,0 +1,234 @@
+\hypertarget{spy__simulation_8h}{}\doxysection{Référence du fichier include/spy\+\_\+simulation.h}
+\label{spy__simulation_8h}\index{include/spy\_simulation.h@{include/spy\_simulation.h}}
+
+
+Header file for the Spy Simulation executable.  
+
+
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$semaphore.\+h$>$}\newline
+Graphe des dépendances par inclusion de spy\+\_\+simulation.\+h\+:
+% FIG 0
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier \+:
+% FIG 1
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{spy__simulation_8h_aa8c632df4c1e684ff41da2eaf5477c6b}\label{spy__simulation_8h_aa8c632df4c1e684ff41da2eaf5477c6b}} 
+\#define {\bfseries C\+I\+\_\+\+O\+F\+F\+I\+C\+E\+R\+\_\+\+I\+N\+D\+EX}~4
+\end{DoxyCompactItemize}
+\doxysubsection*{Définitions de type}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{spy__simulation_8h_a57dccc2f01e73723efdf6e5c4a04aee1}\label{spy__simulation_8h_a57dccc2f01e73723efdf6e5c4a04aee1}} 
+typedef struct \mbox{\hyperlink{structmemory__s}{memory\+\_\+s}} {\bfseries memory\+\_\+t}
+\end{DoxyCompactItemize}
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{spy__simulation_8h_aa31efd71e4cec0504918a3344db0a0c6}{handle\+\_\+fatal\+\_\+error}} (const char $\ast$message)
+\begin{DoxyCompactList}\small\item\em Handles fatal errors and exits the program with an error message. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spy__simulation_8h_a202c4d5d17186b7024df65a138ae2e3a}{init\+\_\+map}} (\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$city\+Map)
+\begin{DoxyCompactList}\small\item\em Initializes the city map. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spy__simulation_8h_a27bfc0309ef81823d1e1785254135590}{init\+\_\+surveillance}} (\mbox{\hyperlink{structsurveillanceNetwork__t}{surveillance\+Network\+\_\+t}} $\ast$surveillance)
+\begin{DoxyCompactList}\small\item\em Initializes the surveillance network. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spy__simulation_8h_a72fdd86d4bd7db87f56eac2484b069d5}{start\+\_\+simulation\+\_\+processes}} ()
+\begin{DoxyCompactList}\small\item\em Starts the simulation processes. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structmemory__s}{memory\+\_\+s}} $\ast$ \mbox{\hyperlink{spy__simulation_8h_af1a9672576fd9903d9dae4c3ca7454ad}{create\+\_\+shared\+\_\+memory}} (const char $\ast$name)
+\begin{DoxyCompactList}\small\item\em Creates a shared memory segment. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{spy__simulation_8h_a486a612dab8b171255660f7f23ce1bf4}{is\+Connected}} (\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$city\+Map)
+\begin{DoxyCompactList}\small\item\em Checks if the city map is connected. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{spy__simulation_8h_a96e005164a12248c34139a520e711372}{dfs}} (\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$city\+Map, bool visited\mbox{[}\mbox{\hyperlink{common_8h_a3b94af9dcb0358f28d175d80eed98330}{M\+A\+X\+\_\+\+R\+O\+WS}}\mbox{]}\mbox{[}\mbox{\hyperlink{common_8h_a2cc6f39fc4594f0e734b2588129fba03}{M\+A\+X\+\_\+\+C\+O\+L\+U\+M\+NS}}\mbox{]}, int row, int col, int end\+Row, int end\+Col)
+\begin{DoxyCompactList}\small\item\em Performs depth-\/first search on the city map. \end{DoxyCompactList}\item 
+sem\+\_\+t $\ast$ \mbox{\hyperlink{spy__simulation_8h_ac842d224f2356cbf357c8398e25bbe2b}{create\+\_\+semaphore}} (const char $\ast$name, int value)
+\begin{DoxyCompactList}\small\item\em Creates a semaphore with the specified name and initial value. \end{DoxyCompactList}\item 
+sem\+\_\+t $\ast$ \mbox{\hyperlink{spy__simulation_8h_ad9764fa853ee67723f83dd9d8aeebd43}{open\+\_\+semaphore}} (const char $\ast$name)
+\begin{DoxyCompactList}\small\item\em Opens an existing semaphore with the specified name. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Header file for the Spy Simulation executable. 
+
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{spy__simulation_8h_ac842d224f2356cbf357c8398e25bbe2b}\label{spy__simulation_8h_ac842d224f2356cbf357c8398e25bbe2b}} 
+\index{spy\_simulation.h@{spy\_simulation.h}!create\_semaphore@{create\_semaphore}}
+\index{create\_semaphore@{create\_semaphore}!spy\_simulation.h@{spy\_simulation.h}}
+\doxysubsubsection{\texorpdfstring{create\_semaphore()}{create\_semaphore()}}
+{\footnotesize\ttfamily sem\+\_\+t$\ast$ create\+\_\+semaphore (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name,  }\item[{int}]{value }\end{DoxyParamCaption})}
+
+
+
+Creates a semaphore with the specified name and initial value. 
+
+Creates a semaphore with the given name and initial value.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em name} & The name of the semaphore. \\
+\hline
+{\em value} & The initial value of the semaphore. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the created semaphore. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{spy__simulation_8h_af1a9672576fd9903d9dae4c3ca7454ad}\label{spy__simulation_8h_af1a9672576fd9903d9dae4c3ca7454ad}} 
+\index{spy\_simulation.h@{spy\_simulation.h}!create\_shared\_memory@{create\_shared\_memory}}
+\index{create\_shared\_memory@{create\_shared\_memory}!spy\_simulation.h@{spy\_simulation.h}}
+\doxysubsubsection{\texorpdfstring{create\_shared\_memory()}{create\_shared\_memory()}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structmemory__s}{memory\+\_\+s}}$\ast$ create\+\_\+shared\+\_\+memory (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+Creates a shared memory segment. 
+
+Creates a shared memory segment with the specified name.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em name} & The name of the shared memory segment. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the created shared memory structure. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{spy__simulation_8h_a96e005164a12248c34139a520e711372}\label{spy__simulation_8h_a96e005164a12248c34139a520e711372}} 
+\index{spy\_simulation.h@{spy\_simulation.h}!dfs@{dfs}}
+\index{dfs@{dfs}!spy\_simulation.h@{spy\_simulation.h}}
+\doxysubsubsection{\texorpdfstring{dfs()}{dfs()}}
+{\footnotesize\ttfamily bool dfs (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$}]{city\+Map,  }\item[{bool}]{visited\mbox{[}\+M\+A\+X\+\_\+\+R\+O\+W\+S\mbox{]}\mbox{[}\+M\+A\+X\+\_\+\+C\+O\+L\+U\+M\+N\+S\mbox{]},  }\item[{int}]{row,  }\item[{int}]{col,  }\item[{int}]{end\+Row,  }\item[{int}]{end\+Col }\end{DoxyParamCaption})}
+
+
+
+Performs depth-\/first search on the city map. 
+
+Performs depth-\/first search (D\+FS) on the city map to find a path.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em city\+Map} & A pointer to the city map structure. \\
+\hline
+{\em visited} & A boolean array to track visited cells. \\
+\hline
+{\em row} & The current row. \\
+\hline
+{\em col} & The current column. \\
+\hline
+{\em end\+Row} & The target row. \\
+\hline
+{\em end\+Col} & The target column. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily true} if a path is found, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{spy__simulation_8h_aa31efd71e4cec0504918a3344db0a0c6}\label{spy__simulation_8h_aa31efd71e4cec0504918a3344db0a0c6}} 
+\index{spy\_simulation.h@{spy\_simulation.h}!handle\_fatal\_error@{handle\_fatal\_error}}
+\index{handle\_fatal\_error@{handle\_fatal\_error}!spy\_simulation.h@{spy\_simulation.h}}
+\doxysubsubsection{\texorpdfstring{handle\_fatal\_error()}{handle\_fatal\_error()}}
+{\footnotesize\ttfamily void handle\+\_\+fatal\+\_\+error (\begin{DoxyParamCaption}\item[{const char $\ast$}]{message }\end{DoxyParamCaption})}
+
+
+
+Handles fatal errors and exits the program with an error message. 
+
+This function prints an error message and terminates the program.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em message} & The error message to be displayed. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{spy__simulation_8h_a202c4d5d17186b7024df65a138ae2e3a}\label{spy__simulation_8h_a202c4d5d17186b7024df65a138ae2e3a}} 
+\index{spy\_simulation.h@{spy\_simulation.h}!init\_map@{init\_map}}
+\index{init\_map@{init\_map}!spy\_simulation.h@{spy\_simulation.h}}
+\doxysubsubsection{\texorpdfstring{init\_map()}{init\_map()}}
+{\footnotesize\ttfamily void init\+\_\+map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$}]{city\+Map }\end{DoxyParamCaption})}
+
+
+
+Initializes the city map. 
+
+Initializes the city map represented by the provided {\ttfamily city\+Map}.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em city\+Map} & A pointer to the city map structure. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{spy__simulation_8h_a27bfc0309ef81823d1e1785254135590}\label{spy__simulation_8h_a27bfc0309ef81823d1e1785254135590}} 
+\index{spy\_simulation.h@{spy\_simulation.h}!init\_surveillance@{init\_surveillance}}
+\index{init\_surveillance@{init\_surveillance}!spy\_simulation.h@{spy\_simulation.h}}
+\doxysubsubsection{\texorpdfstring{init\_surveillance()}{init\_surveillance()}}
+{\footnotesize\ttfamily void init\+\_\+surveillance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structsurveillanceNetwork__t}{surveillance\+Network\+\_\+t}} $\ast$}]{surveillance }\end{DoxyParamCaption})}
+
+
+
+Initializes the surveillance network. 
+
+Initializes the surveillance network represented by the provided {\ttfamily surveillance}.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em surveillance} & A pointer to the surveillance network structure. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{spy__simulation_8h_a486a612dab8b171255660f7f23ce1bf4}\label{spy__simulation_8h_a486a612dab8b171255660f7f23ce1bf4}} 
+\index{spy\_simulation.h@{spy\_simulation.h}!isConnected@{isConnected}}
+\index{isConnected@{isConnected}!spy\_simulation.h@{spy\_simulation.h}}
+\doxysubsubsection{\texorpdfstring{isConnected()}{isConnected()}}
+{\footnotesize\ttfamily bool is\+Connected (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmap__s}{map\+\_\+t}} $\ast$}]{city\+Map }\end{DoxyParamCaption})}
+
+
+
+Checks if the city map is connected. 
+
+Checks if the city map represented by {\ttfamily city\+Map} is connected.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em city\+Map} & A pointer to the city map structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+{\ttfamily true} if the map is connected, {\ttfamily false} otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{spy__simulation_8h_ad9764fa853ee67723f83dd9d8aeebd43}\label{spy__simulation_8h_ad9764fa853ee67723f83dd9d8aeebd43}} 
+\index{spy\_simulation.h@{spy\_simulation.h}!open\_semaphore@{open\_semaphore}}
+\index{open\_semaphore@{open\_semaphore}!spy\_simulation.h@{spy\_simulation.h}}
+\doxysubsubsection{\texorpdfstring{open\_semaphore()}{open\_semaphore()}}
+{\footnotesize\ttfamily sem\+\_\+t$\ast$ open\+\_\+semaphore (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+Opens an existing semaphore with the specified name. 
+
+Opens an existing semaphore with the given name.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em name} & The name of the semaphore. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the opened semaphore. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{spy__simulation_8h_a72fdd86d4bd7db87f56eac2484b069d5}\label{spy__simulation_8h_a72fdd86d4bd7db87f56eac2484b069d5}} 
+\index{spy\_simulation.h@{spy\_simulation.h}!start\_simulation\_processes@{start\_simulation\_processes}}
+\index{start\_simulation\_processes@{start\_simulation\_processes}!spy\_simulation.h@{spy\_simulation.h}}
+\doxysubsubsection{\texorpdfstring{start\_simulation\_processes()}{start\_simulation\_processes()}}
+{\footnotesize\ttfamily void start\+\_\+simulation\+\_\+processes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Starts the simulation processes. 
+
+Starts the processes responsible for the simulation. 

@@ -58,8 +58,7 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "*.py": "python",
-    "spy_simulation.h": "c",
-    "cstdlib": "c",
-    "mman.h": "c"
+    "typeinfo": "c",
+    "memory.h": "c"
   }
 }

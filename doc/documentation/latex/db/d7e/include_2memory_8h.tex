@@ -1,0 +1,317 @@
+\hypertarget{include_2memory_8h}{}\doxysection{Référence du fichier include/memory.h}
+\label{include_2memory_8h}\index{include/memory.h@{include/memory.h}}
+{\ttfamily \#include \char`\"{}common.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$sys/shm.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ipc.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/mman.\+h$>$}\newline
+{\ttfamily \#include $<$mqueue.\+h$>$}\newline
+{\ttfamily \#include $<$semaphore.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+Graphe des dépendances par inclusion de memory.\+h\+:
+% FIG 0
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier \+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structSpyMessage}{Spy\+Message}}
+\item 
+struct \mbox{\hyperlink{structmq__s}{mq\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em Structure representing a message queue. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcharacterMovement}{character\+Movement}}
+\item 
+struct \mbox{\hyperlink{structsurveillanceCameras}{surveillance\+Cameras}}
+\item 
+struct \mbox{\hyperlink{structcellData}{cell\+Data}}
+\item 
+union \mbox{\hyperlink{unionsuspect__t}{suspect\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Union representing a suspect that can be a citizen, spy, or case officer. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structsurveillance__AI}{surveillance\+\_\+\+AI}}
+\item 
+struct \mbox{\hyperlink{structsurveillanceNetwork__t}{surveillance\+Network\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structstate__s}{state\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em Structure representing a state for a citizen. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcell__s}{cell\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em A cell within the map of the city. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structsimulated__clock__s}{simulated\+\_\+clock\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em Structure representing a simulated clock. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em Structure representing leaving time. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structmap__s}{map\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em The city map. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structspy__s}{spy\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em The spy information. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em The case\+\_\+officer information. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em The counterintelligence\+\_\+officer information. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structNode}{Node}}
+\begin{DoxyCompactList}\small\item\em A structure representing a node in a grid. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structPath}{Path}}
+\begin{DoxyCompactList}\small\item\em A structure representing a path in a grid. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structcitizen__s}{citizen\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em A structure representing a citizen in the simulation. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structmailbox__s}{mailbox\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em A structure representing a mailbox in the simulation. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structbuilding__s}{building\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em A structure representing a building in the simulation. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structhome__s}{home\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em A structure representing a home in the simulation. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structmemory__s}{memory\+\_\+s}}
+\begin{DoxyCompactList}\small\item\em Structure representing the shared memory used by all processes in the simulation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a42fd4445197ac64796acc0b1deb1a4cd}\label{include_2memory_8h_a42fd4445197ac64796acc0b1deb1a4cd}} 
+\#define {\bfseries N\+B\+\_\+\+P\+R\+O\+C\+E\+SS}~7
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a1bd7d5fe36d9158bf2220f779db72418}\label{include_2memory_8h_a1bd7d5fe36d9158bf2220f779db72418}} 
+\#define {\bfseries C\+I\+T\+I\+Z\+E\+N\+S\+\_\+\+C\+O\+U\+NT}~127 /$\ast$ 127 citizens in the city $\ast$/
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a3b94af9dcb0358f28d175d80eed98330}\label{include_2memory_8h_a3b94af9dcb0358f28d175d80eed98330}} 
+\#define {\bfseries M\+A\+X\+\_\+\+R\+O\+WS}~7
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a2cc6f39fc4594f0e734b2588129fba03}\label{include_2memory_8h_a2cc6f39fc4594f0e734b2588129fba03}} 
+\#define {\bfseries M\+A\+X\+\_\+\+C\+O\+L\+U\+M\+NS}~7
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a6b412b9f1e10dd97d0b677b117d8fa48}\label{include_2memory_8h_a6b412b9f1e10dd97d0b677b117d8fa48}} 
+\#define {\bfseries M\+A\+X\+\_\+\+R\+O\+U\+N\+DS}~2016
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a504adf6f3a6db8b1c20a732a52bfa31d}\label{include_2memory_8h_a504adf6f3a6db8b1c20a732a52bfa31d}} 
+\#define {\bfseries N\+U\+M\+\_\+\+C\+I\+T\+I\+Z\+E\+NS}~127
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a557a02715aa9b1769a73b76495df587b}\label{include_2memory_8h_a557a02715aa9b1769a73b76495df587b}} 
+\#define {\bfseries S\+P\+I\+E\+S\+\_\+\+C\+O\+U\+NT}~3
+\item 
+\mbox{\Hypertarget{include_2memory_8h_acb84a306ee37479f97cf0b476560f027}\label{include_2memory_8h_acb84a306ee37479f97cf0b476560f027}} 
+\#define {\bfseries M\+A\+X\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+S\+I\+ZE}~128
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a1f02f60afb419aa25921dcd8ae49f807}\label{include_2memory_8h_a1f02f60afb419aa25921dcd8ae49f807}} 
+\#define {\bfseries M\+A\+X\+\_\+\+M\+E\+S\+S\+A\+G\+ES}~10000
+\item 
+\mbox{\Hypertarget{include_2memory_8h_ac179eef68bcc694aa0ef8dd1eb09950b}\label{include_2memory_8h_ac179eef68bcc694aa0ef8dd1eb09950b}} 
+\#define {\bfseries S\+H\+I\+FT}~3
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a394b4d9597382758840287dd52c17292}\label{include_2memory_8h_a394b4d9597382758840287dd52c17292}} 
+\#define {\bfseries N\+U\+M\+\_\+\+D\+I\+R\+E\+C\+T\+I\+O\+NS}~8
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a9b0a8b559cd515ea311e88b1cca30446}\label{include_2memory_8h_a9b0a8b559cd515ea311e88b1cca30446}} 
+\#define {\bfseries N\+B\+\_\+\+C\+I\+T\+I\+Z\+E\+N\+\_\+\+H\+A\+LL}~10
+\item 
+\mbox{\Hypertarget{include_2memory_8h_aac38ed1ecd62001ed34cb9699e4951b8}\label{include_2memory_8h_aac38ed1ecd62001ed34cb9699e4951b8}} 
+\#define {\bfseries N\+B\+\_\+\+C\+I\+T\+I\+Z\+E\+N\+\_\+\+S\+T\+O\+RE}~6
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a3164a5fc445db6b411535637d5eaa345}\label{include_2memory_8h_a3164a5fc445db6b411535637d5eaa345}} 
+\#define {\bfseries N\+B\+\_\+\+C\+I\+T\+I\+Z\+E\+N\+\_\+\+C\+O\+M\+P\+A\+NY}~111
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a2c479b90337d3c4ccb115d9473f49091}\label{include_2memory_8h_a2c479b90337d3c4ccb115d9473f49091}} 
+\#define {\bfseries N\+B\+\_\+\+H\+O\+M\+ES}~11
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a6d016e474c74c4a8e0a9538624fc3059}\label{include_2memory_8h_a6d016e474c74c4a8e0a9538624fc3059}} 
+\#define {\bfseries N\+B\+\_\+\+C\+O\+M\+P\+A\+NY}~8
+\item 
+\mbox{\Hypertarget{include_2memory_8h_ac16d011d849a70f175fef433d1bcd15c}\label{include_2memory_8h_ac16d011d849a70f175fef433d1bcd15c}} 
+\#define {\bfseries N\+B\+\_\+\+S\+T\+O\+RE}~2
+\item 
+\mbox{\Hypertarget{include_2memory_8h_aaa208025393081e3fd720d79709034d5}\label{include_2memory_8h_aaa208025393081e3fd720d79709034d5}} 
+\#define {\bfseries N\+B\+\_\+\+W\+O\+R\+K\+P\+L\+A\+C\+ES}~11
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a7b1eb654aed405efa04dd0d5b6321964}\label{include_2memory_8h_a7b1eb654aed405efa04dd0d5b6321964}} 
+\#define {\bfseries N\+B\+\_\+\+H\+A\+LL}~1
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a2df6ba73a919aaca2f75252161b81579}\label{include_2memory_8h_a2df6ba73a919aaca2f75252161b81579}} 
+\#define {\bfseries M\+A\+X\+\_\+\+I\+N\+\_\+\+B\+U\+I\+L\+D\+I\+NG}~15
+\item 
+\mbox{\Hypertarget{include_2memory_8h_aa31f79a57261182cf85d4c7d17c9b82d}\label{include_2memory_8h_aa31f79a57261182cf85d4c7d17c9b82d}} 
+\#define {\bfseries M\+A\+X\+\_\+\+I\+N\+\_\+\+H\+A\+LL}~20
+\item 
+\mbox{\Hypertarget{include_2memory_8h_ad06591d7a4c0b7bd7863d9f45dad3aca}\label{include_2memory_8h_ad06591d7a4c0b7bd7863d9f45dad3aca}} 
+\#define {\bfseries M\+A\+X\+\_\+\+I\+N\+\_\+\+S\+T\+O\+RE}~30
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a854988f96701544d58be6cf55be7dfed}\label{include_2memory_8h_a854988f96701544d58be6cf55be7dfed}} 
+\#define {\bfseries M\+A\+X\+\_\+\+I\+N\+\_\+\+C\+O\+M\+P\+A\+NY}~50
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a1682aeda5a017451fab7f49776b493ab}\label{include_2memory_8h_a1682aeda5a017451fab7f49776b493ab}} 
+\#define {\bfseries N\+B\+\_\+\+C\+I\+T\+I\+Z\+E\+N\+\_\+\+S\+T\+A\+T\+ES}~6
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a30a2d659f1305a096869275888459a28}\label{include_2memory_8h_a30a2d659f1305a096869275888459a28}} 
+\#define {\bfseries C\+I\+T\+Y\+\_\+\+H\+A\+L\+L\+\_\+\+R\+OW}~3
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a65354ddb5769861412f8674eb125e8a6}\label{include_2memory_8h_a65354ddb5769861412f8674eb125e8a6}} 
+\#define {\bfseries C\+I\+T\+Y\+\_\+\+H\+A\+L\+L\+\_\+\+C\+O\+L\+U\+MN}~3
+\end{DoxyCompactItemize}
+\doxysubsection*{Définitions de type}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}\label{include_2memory_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}} 
+typedef struct \mbox{\hyperlink{structmap__s}{map\+\_\+s}} {\bfseries map\+\_\+t}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_aad26afc69eb0c54f4dd0d4d3e34d5032}\label{include_2memory_8h_aad26afc69eb0c54f4dd0d4d3e34d5032}} 
+typedef struct \mbox{\hyperlink{structmq__s}{mq\+\_\+s}} {\bfseries mq\+\_\+t}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a57dccc2f01e73723efdf6e5c4a04aee1}\label{include_2memory_8h_a57dccc2f01e73723efdf6e5c4a04aee1}} 
+typedef struct \mbox{\hyperlink{structmemory__s}{memory\+\_\+s}} {\bfseries memory\+\_\+t}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_ac9ea44d7b174535f79bac63299e70763}\label{include_2memory_8h_ac9ea44d7b174535f79bac63299e70763}} 
+typedef struct \mbox{\hyperlink{structspy__s}{spy\+\_\+s}} {\bfseries spy\+\_\+t}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_ad80993ba6b6dc1fb111c0b8d812d2edf}\label{include_2memory_8h_ad80993ba6b6dc1fb111c0b8d812d2edf}} 
+typedef struct \mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+s}} {\bfseries case\+\_\+officer\+\_\+t}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_af7cea2450f0c37beeb63e3e6cf4321f1}\label{include_2memory_8h_af7cea2450f0c37beeb63e3e6cf4321f1}} 
+typedef struct \mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+s}} {\bfseries counter\+\_\+intelligence\+\_\+officer\+\_\+t}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a458b2b8a231cd77741272218aa7e2d5d}\label{include_2memory_8h_a458b2b8a231cd77741272218aa7e2d5d}} 
+typedef struct \mbox{\hyperlink{structstate__s}{state\+\_\+s}} {\bfseries state\+\_\+t}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_aee655befad3b1afa60c5fdd49663ae66}\label{include_2memory_8h_aee655befad3b1afa60c5fdd49663ae66}} 
+typedef struct \mbox{\hyperlink{structbuilding__s}{building\+\_\+s}} {\bfseries building\+\_\+t}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a71303add9940bbad642dfc0c0150a3e7}\label{include_2memory_8h_a71303add9940bbad642dfc0c0150a3e7}} 
+typedef struct \mbox{\hyperlink{structhome__s}{home\+\_\+s}} {\bfseries home\+\_\+t}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a37baff9cdee3085cc585f41d1b0ac7c3}\label{include_2memory_8h_a37baff9cdee3085cc585f41d1b0ac7c3}} 
+typedef struct \mbox{\hyperlink{structcitizen__s}{citizen\+\_\+s}} {\bfseries citizen\+\_\+t}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a6cbd19f43f28265e49e1fb43a4cedae6}\label{include_2memory_8h_a6cbd19f43f28265e49e1fb43a4cedae6}} 
+typedef struct \mbox{\hyperlink{structmailbox__s}{mailbox\+\_\+s}} {\bfseries mailbox\+\_\+t}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_ae7c46147a70c3c8ab0ca01e39c55843b}\label{include_2memory_8h_ae7c46147a70c3c8ab0ca01e39c55843b}} 
+typedef struct \mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+s}} {\bfseries leaving\+\_\+time\+\_\+t}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a3b09f37e675bcd48a01bf22155996872}\label{include_2memory_8h_a3b09f37e675bcd48a01bf22155996872}} 
+typedef struct \mbox{\hyperlink{structNode}{Node}} {\bfseries Node}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a5fe0986311134378222e544869dc5250}\label{include_2memory_8h_a5fe0986311134378222e544869dc5250}} 
+typedef enum citizen\+\_\+type\+\_\+e {\bfseries citizen\+\_\+type\+\_\+t}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a05e66d96ab90e383817fa41b454f2b82}\label{include_2memory_8h_a05e66d96ab90e383817fa41b454f2b82}} 
+typedef enum building\+\_\+type\+\_\+e {\bfseries building\+\_\+type\+\_\+t}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_acc09da70f28930633b6920243f3aecaa}\label{include_2memory_8h_acc09da70f28930633b6920243f3aecaa}} 
+typedef enum \mbox{\hyperlink{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3}{cell\+\_\+type\+\_\+e}} \mbox{\hyperlink{include_2memory_8h_acc09da70f28930633b6920243f3aecaa}{cell\+\_\+type\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Typedef for the cell type enumeration. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{include_2memory_8h_acf197cea53ab3c8ec5fc668fa60efe22}\label{include_2memory_8h_acf197cea53ab3c8ec5fc668fa60efe22}} 
+typedef struct \mbox{\hyperlink{structcell__s}{cell\+\_\+s}} \mbox{\hyperlink{include_2memory_8h_acf197cea53ab3c8ec5fc668fa60efe22}{cell\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Typedef for the cell structure. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{include_2memory_8h_af5c9d2d81cf12f831c4800cec53de52d}\label{include_2memory_8h_af5c9d2d81cf12f831c4800cec53de52d}} 
+typedef struct \mbox{\hyperlink{structsimulated__clock__s}{simulated\+\_\+clock\+\_\+s}} {\bfseries simulated\+\_\+clock\+\_\+t}
+\item 
+typedef struct \mbox{\hyperlink{structPath}{Path}} \mbox{\hyperlink{include_2memory_8h_a3994f4c43574026e5c4662dc6ada2f28}{Path}}
+\begin{DoxyCompactList}\small\item\em A structure representing a path in a grid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Énumérations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a2ee3cb753c94a551c5c76a8c04cc7777}\label{include_2memory_8h_a2ee3cb753c94a551c5c76a8c04cc7777}} 
+enum {\bfseries citizen\+\_\+type\+\_\+e} \{ {\bfseries N\+O\+R\+M\+AL}, 
+{\bfseries S\+PY}, 
+{\bfseries C\+A\+S\+E\+\_\+\+O\+F\+F\+I\+C\+ER}, 
+{\bfseries C\+O\+U\+N\+T\+E\+R\+\_\+\+I\+N\+T\+E\+L\+L\+I\+G\+E\+N\+C\+E\+\_\+\+O\+F\+F\+I\+C\+ER}
+ \}
+\item 
+\mbox{\Hypertarget{include_2memory_8h_a7c392720e17c5f7fb38aa063550d152c}\label{include_2memory_8h_a7c392720e17c5f7fb38aa063550d152c}} 
+enum {\bfseries building\+\_\+type\+\_\+e} \{ {\bfseries C\+O\+R\+P\+O\+R\+A\+T\+I\+ON}, 
+{\bfseries S\+T\+O\+RE}, 
+{\bfseries H\+A\+LL}
+ \}
+\item 
+enum \mbox{\hyperlink{include_2memory_8h_a7de546aff4b18eaa00d03e242bf2eb16}{suspect\+\_\+type\+\_\+t}} \{ {\bfseries S\+U\+S\+P\+E\+C\+T\+\_\+\+N\+O\+NE}, 
+{\bfseries S\+U\+S\+P\+E\+C\+T\+\_\+\+C\+I\+T\+I\+Z\+EN}, 
+{\bfseries S\+U\+S\+P\+E\+C\+T\+\_\+\+S\+PY}, 
+{\bfseries S\+U\+S\+P\+E\+C\+T\+\_\+\+C\+A\+S\+E\+\_\+\+O\+F\+F\+I\+C\+ER}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration for different types of suspects. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3}{cell\+\_\+type\+\_\+e}} \{ \newline
+\mbox{\hyperlink{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3ae32c3a94f858aecd10588771c94102f2}{W\+A\+S\+T\+E\+L\+A\+ND}}, 
+\mbox{\hyperlink{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3abda3db6e52df1bf3c6d781967bf46533}{R\+E\+S\+I\+D\+E\+N\+T\+I\+A\+L\+\_\+\+B\+U\+I\+L\+D\+I\+NG}}, 
+\mbox{\hyperlink{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3ade2556d809ddd3a3ab8c7996f1441c83}{C\+I\+T\+Y\+\_\+\+H\+A\+LL}}, 
+\mbox{\hyperlink{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3ae2e623d1b5d8b8b11d3e2d2148c238ac}{C\+O\+M\+P\+A\+NY}}, 
+\newline
+\mbox{\hyperlink{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3a09972073bdff375d9ad4b1d0e9470106}{S\+U\+P\+E\+R\+M\+A\+R\+K\+ET}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration for different types of cells within the city map. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Defines structures and functions used to manipulate shared memory and related data structures.
+
+This file provides the necessary data structures and functions for managing shared memory and various components used in a simulation environment, such as map data, characters, surveillance networks, and more.
+
+Defines structures and functions used to manipulate our shared memory and also the all the structures we will need in multiple files. 
+
+\doxysubsection{Documentation des définitions de type}
+\mbox{\Hypertarget{include_2memory_8h_a3994f4c43574026e5c4662dc6ada2f28}\label{include_2memory_8h_a3994f4c43574026e5c4662dc6ada2f28}} 
+\index{memory.h@{memory.h}!Path@{Path}}
+\index{Path@{Path}!memory.h@{memory.h}}
+\doxysubsubsection{\texorpdfstring{Path}{Path}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structPath}{Path}} \mbox{\hyperlink{structPath}{Path}}}
+
+
+
+A structure representing a path in a grid. 
+
+This structure is used to store the sequence of nodes representing a path. 
+
+\doxysubsection{Documentation du type de l\textquotesingle{}énumération}
+\mbox{\Hypertarget{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3}\label{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3}} 
+\index{memory.h@{memory.h}!cell\_type\_e@{cell\_type\_e}}
+\index{cell\_type\_e@{cell\_type\_e}!memory.h@{memory.h}}
+\doxysubsubsection{\texorpdfstring{cell\_type\_e}{cell\_type\_e}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3}{cell\+\_\+type\+\_\+e}}}
+
+
+
+Enumeration for different types of cells within the city map. 
+
+\begin{DoxyEnumFields}{Valeurs énumérées}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WASTELAND@{WASTELAND}!memory.h@{memory.h}}\index{memory.h@{memory.h}!WASTELAND@{WASTELAND}}}\mbox{\Hypertarget{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3ae32c3a94f858aecd10588771c94102f2}\label{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3ae32c3a94f858aecd10588771c94102f2}} 
+W\+A\+S\+T\+E\+L\+A\+ND&An empty cell. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RESIDENTIAL\_BUILDING@{RESIDENTIAL\_BUILDING}!memory.h@{memory.h}}\index{memory.h@{memory.h}!RESIDENTIAL\_BUILDING@{RESIDENTIAL\_BUILDING}}}\mbox{\Hypertarget{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3abda3db6e52df1bf3c6d781967bf46533}\label{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3abda3db6e52df1bf3c6d781967bf46533}} 
+R\+E\+S\+I\+D\+E\+N\+T\+I\+A\+L\+\_\+\+B\+U\+I\+L\+D\+I\+NG&A cell that contains a residential building. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CITY\_HALL@{CITY\_HALL}!memory.h@{memory.h}}\index{memory.h@{memory.h}!CITY\_HALL@{CITY\_HALL}}}\mbox{\Hypertarget{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3ade2556d809ddd3a3ab8c7996f1441c83}\label{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3ade2556d809ddd3a3ab8c7996f1441c83}} 
+C\+I\+T\+Y\+\_\+\+H\+A\+LL&A cell that contains the City Hall. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{COMPANY@{COMPANY}!memory.h@{memory.h}}\index{memory.h@{memory.h}!COMPANY@{COMPANY}}}\mbox{\Hypertarget{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3ae2e623d1b5d8b8b11d3e2d2148c238ac}\label{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3ae2e623d1b5d8b8b11d3e2d2148c238ac}} 
+C\+O\+M\+P\+A\+NY&A cell that contains a company. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SUPERMARKET@{SUPERMARKET}!memory.h@{memory.h}}\index{memory.h@{memory.h}!SUPERMARKET@{SUPERMARKET}}}\mbox{\Hypertarget{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3a09972073bdff375d9ad4b1d0e9470106}\label{include_2memory_8h_ab110bc23485cf64de9fd58efddf15df3a09972073bdff375d9ad4b1d0e9470106}} 
+S\+U\+P\+E\+R\+M\+A\+R\+K\+ET&A cell that contains a supermarket. \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{include_2memory_8h_a7de546aff4b18eaa00d03e242bf2eb16}\label{include_2memory_8h_a7de546aff4b18eaa00d03e242bf2eb16}} 
+\index{memory.h@{memory.h}!suspect\_type\_t@{suspect\_type\_t}}
+\index{suspect\_type\_t@{suspect\_type\_t}!memory.h@{memory.h}}
+\doxysubsubsection{\texorpdfstring{suspect\_type\_t}{suspect\_type\_t}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{include_2memory_8h_a7de546aff4b18eaa00d03e242bf2eb16}{suspect\+\_\+type\+\_\+t}}}
+
+
+
+Enumeration for different types of suspects. 
+
+Possible values\+:
+\begin{DoxyItemize}
+\item S\+U\+S\+P\+E\+C\+T\+\_\+\+N\+O\+NE\+: No suspect.
+\item S\+U\+S\+P\+E\+C\+T\+\_\+\+C\+I\+T\+I\+Z\+EN\+: Suspect is a citizen.
+\item S\+U\+S\+P\+E\+C\+T\+\_\+\+S\+PY\+: Suspect is a spy.
+\item S\+U\+S\+P\+E\+C\+T\+\_\+\+C\+A\+S\+E\+\_\+\+O\+F\+F\+I\+C\+ER\+: Suspect is a case officer. 
+\end{DoxyItemize}

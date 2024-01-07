@@ -1,0 +1,606 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>A License to Kill: Référence du fichier src/counter_intelligence/counter_intelligence.c</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../ltk.jpg"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">A License to Kill
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Ce projet développe un système de simulation d&#39;espionnage sophistiqué, intégrant des techniques d&#39;intelligence artificielle vues en cours d&#39;IA et de modélisation de scénarios complexes en utilisant les méthodes et techniques vues en cours de Systèmes d&#39;Exploitations.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_c93395997fbf7e512b8212b335f34d98.html">counter_intelligence</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier counter_intelligence.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Implementation of counterintelligence operations.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d9/d78/counter__intelligence_8h_source.html">counter_intelligence.h</a>&quot;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/d56/astar_8h_source.html">astar.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de counter_intelligence.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d63/counter__intelligence_8c__incl.png" border="0" usemap="#src_2counter__intelligence_2counter__intelligence_8c" alt=""/></div>
+<!-- MAP 0 -->
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a320481188721cc2be41a1539dc1abd89"><td class="memItemLeft" align="right" valign="top"><a id="a320481188721cc2be41a1539dc1abd89"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>assign_officer_time</b> (<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *officer)</td></tr>
+<tr class="separator:a320481188721cc2be41a1539dc1abd89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5266581d9294b665257d1bc179bbc462"><td class="memItemLeft" align="right" valign="top"><a id="a5266581d9294b665257d1bc179bbc462"></a>
+<a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>new_state</b> (int id, <a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *(*action)(<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *))</td></tr>
+<tr class="separator:a5266581d9294b665257d1bc179bbc462"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66679fc4ebc4fd3522920675ec54dbb4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#a66679fc4ebc4fd3522920675ec54dbb4">monitor</a> (<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *officer)</td></tr>
+<tr class="memdesc:a66679fc4ebc4fd3522920675ec54dbb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the monitoring state of the counter-intelligence officer.  <a href="../../d9/d4d/counter__intelligence_8c.html#a66679fc4ebc4fd3522920675ec54dbb4">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a66679fc4ebc4fd3522920675ec54dbb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a545494685012b45605ee93c56e6a4655"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#a545494685012b45605ee93c56e6a4655">is_at_mailbox</a> (<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *officer)</td></tr>
+<tr class="memdesc:a545494685012b45605ee93c56e6a4655"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the counter-intelligence officer is at a mailbox.  <a href="../../d9/d4d/counter__intelligence_8c.html#a545494685012b45605ee93c56e6a4655">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a545494685012b45605ee93c56e6a4655"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a362caf2f716fb3ce2998071e643b1f27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#a362caf2f716fb3ce2998071e643b1f27">go_to_search_for_mailbox</a> (<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *officer)</td></tr>
+<tr class="memdesc:a362caf2f716fb3ce2998071e643b1f27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the state when the counter-intelligence officer goes to search for a mailbox.  <a href="../../d9/d4d/counter__intelligence_8c.html#a362caf2f716fb3ce2998071e643b1f27">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a362caf2f716fb3ce2998071e643b1f27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9d71ea368dd4f9271d0672f90ca1193"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#ab9d71ea368dd4f9271d0672f90ca1193">at_suspect_place</a> (<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *officer)</td></tr>
+<tr class="memdesc:ab9d71ea368dd4f9271d0672f90ca1193"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the counter-intelligence officer is at a suspect place.  <a href="../../d9/d4d/counter__intelligence_8c.html#ab9d71ea368dd4f9271d0672f90ca1193">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab9d71ea368dd4f9271d0672f90ca1193"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea5399a3eb8b5e7a4abf42bdf6db756a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#aea5399a3eb8b5e7a4abf42bdf6db756a">go_to_suspect_place</a> (<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *officer)</td></tr>
+<tr class="memdesc:aea5399a3eb8b5e7a4abf42bdf6db756a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the state when the counter-intelligence officer goes to a suspect place.  <a href="../../d9/d4d/counter__intelligence_8c.html#aea5399a3eb8b5e7a4abf42bdf6db756a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aea5399a3eb8b5e7a4abf42bdf6db756a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc1a58448761c23e18fc46c7a6ab2065"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#adc1a58448761c23e18fc46c7a6ab2065">is_at_monitor</a> (<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *officer)</td></tr>
+<tr class="memdesc:adc1a58448761c23e18fc46c7a6ab2065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the counter-intelligence officer is at the monitoring location.  <a href="../../d9/d4d/counter__intelligence_8c.html#adc1a58448761c23e18fc46c7a6ab2065">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adc1a58448761c23e18fc46c7a6ab2065"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca32a07fc24e3bc465e983a1dc138d05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#aca32a07fc24e3bc465e983a1dc138d05">hide</a> (<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *officer)</td></tr>
+<tr class="memdesc:aca32a07fc24e3bc465e983a1dc138d05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the state when the counter-intelligence officer hides.  <a href="../../d9/d4d/counter__intelligence_8c.html#aca32a07fc24e3bc465e983a1dc138d05">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aca32a07fc24e3bc465e983a1dc138d05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5134e6f684bbc6b196aca0774c92f028"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#a5134e6f684bbc6b196aca0774c92f028">go_back_to_monitor</a> (<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *officer)</td></tr>
+<tr class="memdesc:a5134e6f684bbc6b196aca0774c92f028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the state when the counter-intelligence officer goes back to monitoring.  <a href="../../d9/d4d/counter__intelligence_8c.html#a5134e6f684bbc6b196aca0774c92f028">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5134e6f684bbc6b196aca0774c92f028"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a087cdf75e8dd3efc9d6ccde9f5c188b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#a087cdf75e8dd3efc9d6ccde9f5c188b7">wait_for_spy_to_steal</a> (<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *officer)</td></tr>
+<tr class="memdesc:a087cdf75e8dd3efc9d6ccde9f5c188b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the state when the counter-intelligence officer waits for a spy to steal.  <a href="../../d9/d4d/counter__intelligence_8c.html#a087cdf75e8dd3efc9d6ccde9f5c188b7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a087cdf75e8dd3efc9d6ccde9f5c188b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2dabc91e5839b21a48a122372cfdc0f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#ab2dabc91e5839b21a48a122372cfdc0f">follow_spy</a> (<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *officer)</td></tr>
+<tr class="memdesc:ab2dabc91e5839b21a48a122372cfdc0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the state when the counter-intelligence officer follows a spy.  <a href="../../d9/d4d/counter__intelligence_8c.html#ab2dabc91e5839b21a48a122372cfdc0f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab2dabc91e5839b21a48a122372cfdc0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cbdb24b20220f77810e4165aee3216c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#a5cbdb24b20220f77810e4165aee3216c">wait_for_spy_to_send_message</a> (<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *officer)</td></tr>
+<tr class="memdesc:a5cbdb24b20220f77810e4165aee3216c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the state when the counter-intelligence officer waits for a spy to send a message.  <a href="../../d9/d4d/counter__intelligence_8c.html#a5cbdb24b20220f77810e4165aee3216c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5cbdb24b20220f77810e4165aee3216c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a611c1cfee08025df6fdc5e8eb9990cef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#a611c1cfee08025df6fdc5e8eb9990cef">search_for_mailbox</a> (<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *officer)</td></tr>
+<tr class="memdesc:a611c1cfee08025df6fdc5e8eb9990cef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the state when the counter-intelligence officer searches for a mailbox.  <a href="../../d9/d4d/counter__intelligence_8c.html#a611c1cfee08025df6fdc5e8eb9990cef">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a611c1cfee08025df6fdc5e8eb9990cef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd3819dcf75feb74a86ca377dab5b9b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#afd3819dcf75feb74a86ca377dab5b9b3">recover_message</a> (<a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *officer)</td></tr>
+<tr class="memdesc:afd3819dcf75feb74a86ca377dab5b9b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the state when the counter-intelligence officer recovers a message.  <a href="../../d9/d4d/counter__intelligence_8c.html#afd3819dcf75feb74a86ca377dab5b9b3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afd3819dcf75feb74a86ca377dab5b9b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a457b5a4c93028e77c31646d9b3b07fc9"><td class="memItemLeft" align="right" valign="top"><a id="a457b5a4c93028e77c31646d9b3b07fc9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>update_movement_history</b> (<a class="el" href="../../d7/d19/structcharacterMovement.html">characterMovement</a> *movement, int newX, int newY)</td></tr>
+<tr class="separator:a457b5a4c93028e77c31646d9b3b07fc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa31b1d19a996da1e013bcee1c83601e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#aa31b1d19a996da1e013bcee1c83601e9">detect_suspicious_person</a> (<a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *memory)</td></tr>
+<tr class="memdesc:aa31b1d19a996da1e013bcee1c83601e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects a suspicious person using monitoring data.  <a href="../../d9/d4d/counter__intelligence_8c.html#aa31b1d19a996da1e013bcee1c83601e9">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa31b1d19a996da1e013bcee1c83601e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4831a0cabb460e9dbcb7fd00338038dd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d4d/counter__intelligence_8c.html#a4831a0cabb460e9dbcb7fd00338038dd">is_movement_suspicious</a> (<a class="el" href="../../d7/d19/structcharacterMovement.html">characterMovement</a> *movement, <a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *memory)</td></tr>
+<tr class="memdesc:a4831a0cabb460e9dbcb7fd00338038dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a movement is suspicious.  <a href="../../d9/d4d/counter__intelligence_8c.html#a4831a0cabb460e9dbcb7fd00338038dd">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4831a0cabb460e9dbcb7fd00338038dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad78efb847e7080da2d04d3406398e5c5"><td class="memItemLeft" align="right" valign="top"><a id="ad78efb847e7080da2d04d3406398e5c5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>init_counter_intelligence_officer</b> (<a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *memory)</td></tr>
+<tr class="separator:ad78efb847e7080da2d04d3406398e5c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:af16d0defec41b3501a54c55c112a55d0"><td class="memItemLeft" align="right" valign="top"><a id="af16d0defec41b3501a54c55c112a55d0"></a>
+<a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>memory</b></td></tr>
+<tr class="separator:af16d0defec41b3501a54c55c112a55d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d10f124eea92dfd07e6d8748e0dcf37"><td class="memItemLeft" align="right" valign="top"><a id="a2d10f124eea92dfd07e6d8748e0dcf37"></a>
+sem_t *&#160;</td><td class="memItemRight" valign="bottom"><b>sem_producer</b></td></tr>
+<tr class="separator:a2d10f124eea92dfd07e6d8748e0dcf37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c6703ae9acc801a2fb3c649e0c0019a"><td class="memItemLeft" align="right" valign="top"><a id="a4c6703ae9acc801a2fb3c649e0c0019a"></a>
+sem_t *&#160;</td><td class="memItemRight" valign="bottom"><b>sem_consumer</b></td></tr>
+<tr class="separator:a4c6703ae9acc801a2fb3c649e0c0019a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Implementation of counterintelligence operations. </p>
+<p>This file contains the implementation of counterintelligence operations within the spy simulation. It includes functions for monitoring, tracking suspicious activity, and responding to espionage threats. </p>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="ab9d71ea368dd4f9271d0672f90ca1193"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9d71ea368dd4f9271d0672f90ca1193">&#9670;&nbsp;</a></span>at_suspect_place()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int at_suspect_place </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *&#160;</td>
+          <td class="paramname"><em>officer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the counter-intelligence officer is at a suspect place. </p>
+<p>Checks if the counter-intelligence officer is at a suspect place.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">officer</td><td>A pointer to the counter-intelligence officer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><code>1</code> if the officer is at a suspect place, <code>0</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="aa31b1d19a996da1e013bcee1c83601e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa31b1d19a996da1e013bcee1c83601e9">&#9670;&nbsp;</a></span>detect_suspicious_person()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void detect_suspicious_person </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>memory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Detects a suspicious person using monitoring data. </p>
+<p>This function detects a suspicious person using monitoring data from cameras.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">memory</td><td>A pointer to the shared memory structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab2dabc91e5839b21a48a122372cfdc0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2dabc91e5839b21a48a122372cfdc0f">&#9670;&nbsp;</a></span>follow_spy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* follow_spy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *&#160;</td>
+          <td class="paramname"><em>officer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles the state when the counter-intelligence officer follows a spy. </p>
+<p>This function represents the behavior of the counter-intelligence officer when following a spy.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">officer</td><td>A pointer to the counter-intelligence officer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the next state for the counter-intelligence officer. </dd></dl>
+
+</div>
+</div>
+<a id="a5134e6f684bbc6b196aca0774c92f028"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5134e6f684bbc6b196aca0774c92f028">&#9670;&nbsp;</a></span>go_back_to_monitor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* go_back_to_monitor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *&#160;</td>
+          <td class="paramname"><em>officer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles the state when the counter-intelligence officer goes back to monitoring. </p>
+<p>This function represents the behavior of the counter-intelligence officer when going back to monitoring.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">officer</td><td>A pointer to the counter-intelligence officer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the next state for the counter-intelligence officer. </dd></dl>
+
+</div>
+</div>
+<a id="a362caf2f716fb3ce2998071e643b1f27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a362caf2f716fb3ce2998071e643b1f27">&#9670;&nbsp;</a></span>go_to_search_for_mailbox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* go_to_search_for_mailbox </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *&#160;</td>
+          <td class="paramname"><em>officer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles the state when the counter-intelligence officer goes to search for a mailbox. </p>
+<p>This function represents the behavior of the counter-intelligence officer when going to search for a mailbox.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">officer</td><td>A pointer to the counter-intelligence officer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the next state for the counter-intelligence officer. </dd></dl>
+
+</div>
+</div>
+<a id="aea5399a3eb8b5e7a4abf42bdf6db756a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea5399a3eb8b5e7a4abf42bdf6db756a">&#9670;&nbsp;</a></span>go_to_suspect_place()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* go_to_suspect_place </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *&#160;</td>
+          <td class="paramname"><em>officer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles the state when the counter-intelligence officer goes to a suspect place. </p>
+<p>This function represents the behavior of the counter-intelligence officer when going to a suspect place.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">officer</td><td>A pointer to the counter-intelligence officer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the next state for the counter-intelligence officer. </dd></dl>
+
+</div>
+</div>
+<a id="aca32a07fc24e3bc465e983a1dc138d05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca32a07fc24e3bc465e983a1dc138d05">&#9670;&nbsp;</a></span>hide()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* hide </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *&#160;</td>
+          <td class="paramname"><em>officer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles the state when the counter-intelligence officer hides. </p>
+<p>This function represents the behavior of the counter-intelligence officer when hiding.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">officer</td><td>A pointer to the counter-intelligence officer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the next state for the counter-intelligence officer. </dd></dl>
+
+</div>
+</div>
+<a id="a545494685012b45605ee93c56e6a4655"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a545494685012b45605ee93c56e6a4655">&#9670;&nbsp;</a></span>is_at_mailbox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_at_mailbox </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *&#160;</td>
+          <td class="paramname"><em>officer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the counter-intelligence officer is at a mailbox. </p>
+<p>Checks if the counter-intelligence officer is at a mailbox.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">officer</td><td>A pointer to the counter-intelligence officer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><code>1</code> if the officer is at a mailbox, <code>0</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="adc1a58448761c23e18fc46c7a6ab2065"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc1a58448761c23e18fc46c7a6ab2065">&#9670;&nbsp;</a></span>is_at_monitor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_at_monitor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *&#160;</td>
+          <td class="paramname"><em>officer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the counter-intelligence officer is at the monitoring location. </p>
+<p>Checks if the counter-intelligence officer is at the monitoring location.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">officer</td><td>A pointer to the counter-intelligence officer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><code>1</code> if the officer is at the monitoring location, <code>0</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a4831a0cabb460e9dbcb7fd00338038dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4831a0cabb460e9dbcb7fd00338038dd">&#9670;&nbsp;</a></span>is_movement_suspicious()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool is_movement_suspicious </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/d19/structcharacterMovement.html">characterMovement</a> *&#160;</td>
+          <td class="paramname"><em>movement</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>memory</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if a movement is suspicious. </p>
+<p>This function checks if a movement is suspicious based on monitoring data from cameras.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">movement</td><td>A pointer to the movement data. </td></tr>
+    <tr><td class="paramname">memory</td><td>A pointer to the shared memory structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd><code>true</code> if the movement is suspicious, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a66679fc4ebc4fd3522920675ec54dbb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66679fc4ebc4fd3522920675ec54dbb4">&#9670;&nbsp;</a></span>monitor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* monitor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *&#160;</td>
+          <td class="paramname"><em>officer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles the monitoring state of the counter-intelligence officer. </p>
+<p>This function represents the behavior of the counter-intelligence officer when monitoring.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">officer</td><td>A pointer to the counter-intelligence officer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the next state for the counter-intelligence officer. </dd></dl>
+
+</div>
+</div>
+<a id="afd3819dcf75feb74a86ca377dab5b9b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd3819dcf75feb74a86ca377dab5b9b3">&#9670;&nbsp;</a></span>recover_message()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* recover_message </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *&#160;</td>
+          <td class="paramname"><em>officer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles the state when the counter-intelligence officer recovers a message. </p>
+<p>This function represents the behavior of the counter-intelligence officer when recovering a message.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">officer</td><td>A pointer to the counter-intelligence officer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the next state for the counter-intelligence officer. </dd></dl>
+
+</div>
+</div>
+<a id="a611c1cfee08025df6fdc5e8eb9990cef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a611c1cfee08025df6fdc5e8eb9990cef">&#9670;&nbsp;</a></span>search_for_mailbox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* search_for_mailbox </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *&#160;</td>
+          <td class="paramname"><em>officer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles the state when the counter-intelligence officer searches for a mailbox. </p>
+<p>This function represents the behavior of the counter-intelligence officer when searching for a mailbox.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">officer</td><td>A pointer to the counter-intelligence officer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the next state for the counter-intelligence officer. </dd></dl>
+
+</div>
+</div>
+<a id="a5cbdb24b20220f77810e4165aee3216c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cbdb24b20220f77810e4165aee3216c">&#9670;&nbsp;</a></span>wait_for_spy_to_send_message()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* wait_for_spy_to_send_message </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *&#160;</td>
+          <td class="paramname"><em>officer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles the state when the counter-intelligence officer waits for a spy to send a message. </p>
+<p>This function represents the behavior of the counter-intelligence officer when waiting for a spy to send a message.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">officer</td><td>A pointer to the counter-intelligence officer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the next state for the counter-intelligence officer. </dd></dl>
+
+</div>
+</div>
+<a id="a087cdf75e8dd3efc9d6ccde9f5c188b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a087cdf75e8dd3efc9d6ccde9f5c188b7">&#9670;&nbsp;</a></span>wait_for_spy_to_steal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* wait_for_spy_to_steal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d8/d8f/structcounter__intelligence__officer__s.html">counter_intelligence_officer_t</a> *&#160;</td>
+          <td class="paramname"><em>officer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles the state when the counter-intelligence officer waits for a spy to steal. </p>
+<p>This function represents the behavior of the counter-intelligence officer when waiting for a spy to steal.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">officer</td><td>A pointer to the counter-intelligence officer. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>A pointer to the next state for the counter-intelligence officer. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

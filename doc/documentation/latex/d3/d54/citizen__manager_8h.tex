@@ -1,0 +1,382 @@
+\hypertarget{citizen__manager_8h}{}\doxysection{Référence du fichier include/citizen\+\_\+manager.h}
+\label{citizen__manager_8h}\index{include/citizen\_manager.h@{include/citizen\_manager.h}}
+
+
+Header for citizen management in the espionage simulation project.  
+
+
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de citizen\+\_\+manager.\+h\+:
+% FIG 0
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier \+:
+% FIG 1
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{citizen__manager_8h_a0352adeadb08573d6a3f4d93a6ac234e}{assign\+\_\+home\+\_\+to\+\_\+citizen}} (\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory, \mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$citizen)
+\begin{DoxyCompactList}\small\item\em Assign a home to a citizen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{citizen__manager_8h_a05672efb91f53dc68740fd427be2f63a}{assign\+\_\+company\+\_\+to\+\_\+citizen}} (\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory, \mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$citizen)
+\begin{DoxyCompactList}\small\item\em Assign a workplace to a citizen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{citizen__manager_8h_a19c1c33d8d0804f384c1dd663d8e5359}{assign\+\_\+random\+\_\+supermarket}} (\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory, \mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$citizen)
+\begin{DoxyCompactList}\small\item\em Assign a supermarket to a citizen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{citizen__manager_8h_a942e33052f3b1e498ab5515264457864}{init\+\_\+citizens}} (\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory)
+\begin{DoxyCompactList}\small\item\em Initialize the citizens. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{citizen__manager_8h_a8d9597dfc64073493879425651319732}{init\+\_\+house}} (\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory)
+\begin{DoxyCompactList}\small\item\em Initialize the houses in the simulation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{citizen__manager_8h_a36693536e4d06ae1c9cd91319b268e8e}{init\+\_\+building}} (\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory)
+\begin{DoxyCompactList}\small\item\em Initialize the buildings (companies and supermarkets) in the simulation. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{citizen__manager_8h_aad7b8c667301044657d7043491ec12e8}{new\+\_\+state}} (int id, \mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$($\ast$action)(\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$))
+\begin{DoxyCompactList}\small\item\em Create a new state for a citizen. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{citizen__manager_8h_a25f41fb95c05ebf1548ddccb0bd276ca}{rest\+\_\+at\+\_\+home}} (\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$c)
+\begin{DoxyCompactList}\small\item\em Action for the \char`\"{}resting at home\char`\"{} state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{citizen__manager_8h_af0521046c72ffe1eee467d63476aa45c}{go\+\_\+to\+\_\+company}} (\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$c)
+\begin{DoxyCompactList}\small\item\em Action for the \char`\"{}going to work\char`\"{} state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{citizen__manager_8h_a9298c91aa7f6cabfa8f7ad0ffbd295b1}{work}} (\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$c)
+\begin{DoxyCompactList}\small\item\em Action for the \char`\"{}working\char`\"{} state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{citizen__manager_8h_a7e45f0bb5bbf2b8bf3bf3925e3ce9ce1}{go\+\_\+to\+\_\+supermarket}} (\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$c)
+\begin{DoxyCompactList}\small\item\em Action for the \char`\"{}going to supermarket\char`\"{} state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{citizen__manager_8h_a32a178ec9d0c991a6bddeaa182475fee}{go\+\_\+back\+\_\+home}} (\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$c)
+\begin{DoxyCompactList}\small\item\em Action for the \char`\"{}going back home\char`\"{} state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{citizen__manager_8h_ad822abcac0f5a20844683e6093bbe651}{do\+\_\+some\+\_\+shopping}} (\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$c)
+\begin{DoxyCompactList}\small\item\em Action for the \char`\"{}doing some shopping\char`\"{} state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{citizen__manager_8h_af3dc71b27a369b4d340d73d5512afd95}{dying}} (\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$c)
+\begin{DoxyCompactList}\small\item\em Action for the \char`\"{}dying\char`\"{} state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{citizen__manager_8h_a56e393d7f2a560ab6cc0d11e871cd926}{finished}} (\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$c)
+\begin{DoxyCompactList}\small\item\em Action for the \char`\"{}finished\char`\"{} state. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{citizen__manager_8h_a496debb536c33fe8b24767ea0aad1592}{get\+\_\+current\+\_\+simulation\+\_\+time}} (\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory)
+\begin{DoxyCompactList}\small\item\em Calculate the current simulation time. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} \mbox{\hyperlink{citizen__manager_8h_af1921e0fcbe1ed6c5267096e0499807a}{open\+\_\+shared\+\_\+memory}} ()
+\begin{DoxyCompactList}\small\item\em Open shared memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Header for citizen management in the espionage simulation project. 
+
+Declares the functions and structures necessary for managing citizens in the context of an espionage simulation, including assigning homes, workplaces, and managing the states of citizens. 
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{citizen__manager_8h_a05672efb91f53dc68740fd427be2f63a}\label{citizen__manager_8h_a05672efb91f53dc68740fd427be2f63a}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!assign\_company\_to\_citizen@{assign\_company\_to\_citizen}}
+\index{assign\_company\_to\_citizen@{assign\_company\_to\_citizen}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{assign\_company\_to\_citizen()}{assign\_company\_to\_citizen()}}
+{\footnotesize\ttfamily void assign\+\_\+company\+\_\+to\+\_\+citizen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{memory,  }\item[{\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$}]{citizen }\end{DoxyParamCaption})}
+
+
+
+Assign a workplace to a citizen. 
+
+Randomly assigns a company to a citizen while respecting the maximum and minimum capacity of companies.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em memory} & Pointer to the shared memory structure. \\
+\hline
+{\em citizen} & Pointer to the citizen to whom a workplace is to be assigned. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{citizen__manager_8h_a0352adeadb08573d6a3f4d93a6ac234e}\label{citizen__manager_8h_a0352adeadb08573d6a3f4d93a6ac234e}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!assign\_home\_to\_citizen@{assign\_home\_to\_citizen}}
+\index{assign\_home\_to\_citizen@{assign\_home\_to\_citizen}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{assign\_home\_to\_citizen()}{assign\_home\_to\_citizen()}}
+{\footnotesize\ttfamily void assign\+\_\+home\+\_\+to\+\_\+citizen (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{memory,  }\item[{\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$}]{citizen }\end{DoxyParamCaption})}
+
+
+
+Assign a home to a citizen. 
+
+Randomly assigns a home to a citizen while respecting the maximum capacity of homes.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em memory} & Pointer to the shared memory structure. \\
+\hline
+{\em citizen} & Pointer to the citizen to whom a home is to be assigned. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{citizen__manager_8h_a19c1c33d8d0804f384c1dd663d8e5359}\label{citizen__manager_8h_a19c1c33d8d0804f384c1dd663d8e5359}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!assign\_random\_supermarket@{assign\_random\_supermarket}}
+\index{assign\_random\_supermarket@{assign\_random\_supermarket}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{assign\_random\_supermarket()}{assign\_random\_supermarket()}}
+{\footnotesize\ttfamily void assign\+\_\+random\+\_\+supermarket (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{memory,  }\item[{\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$}]{citizen }\end{DoxyParamCaption})}
+
+
+
+Assign a supermarket to a citizen. 
+
+Randomly assigns a supermarket to a citizen.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em memory} & Pointer to the shared memory structure. \\
+\hline
+{\em citizen} & Pointer to the citizen to whom a supermarket is to be assigned. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{citizen__manager_8h_ad822abcac0f5a20844683e6093bbe651}\label{citizen__manager_8h_ad822abcac0f5a20844683e6093bbe651}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!do\_some\_shopping@{do\_some\_shopping}}
+\index{do\_some\_shopping@{do\_some\_shopping}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{do\_some\_shopping()}{do\_some\_shopping()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ do\+\_\+some\+\_\+shopping (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Action for the \char`\"{}doing some shopping\char`\"{} state. 
+
+Manages the logic of a citizen doing shopping in a supermarket.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em c} & Pointer to the citizen. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+state\+\_\+t$\ast$ Pointer to the next state. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{citizen__manager_8h_af3dc71b27a369b4d340d73d5512afd95}\label{citizen__manager_8h_af3dc71b27a369b4d340d73d5512afd95}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!dying@{dying}}
+\index{dying@{dying}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{dying()}{dying()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ dying (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Action for the \char`\"{}dying\char`\"{} state. 
+
+Manages the end-\/of-\/life logic for a citizen.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em c} & Pointer to the citizen. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+state\+\_\+t$\ast$ Pointer to the death state. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{citizen__manager_8h_a56e393d7f2a560ab6cc0d11e871cd926}\label{citizen__manager_8h_a56e393d7f2a560ab6cc0d11e871cd926}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!finished@{finished}}
+\index{finished@{finished}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{finished()}{finished()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ finished (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Action for the \char`\"{}finished\char`\"{} state. 
+
+Marks the end of the life cycle of a citizen.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em c} & Pointer to the citizen. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+state\+\_\+t$\ast$ Pointer to the state indicating completion. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{citizen__manager_8h_a496debb536c33fe8b24767ea0aad1592}\label{citizen__manager_8h_a496debb536c33fe8b24767ea0aad1592}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!get\_current\_simulation\_time@{get\_current\_simulation\_time}}
+\index{get\_current\_simulation\_time@{get\_current\_simulation\_time}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{get\_current\_simulation\_time()}{get\_current\_simulation\_time()}}
+{\footnotesize\ttfamily double get\+\_\+current\+\_\+simulation\+\_\+time (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{memory }\end{DoxyParamCaption})}
+
+
+
+Calculate the current simulation time. 
+
+Computes and returns the current time in the simulation in hours and minutes.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em memory} & Pointer to the shared memory structure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+double The current time in the simulation. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{citizen__manager_8h_a32a178ec9d0c991a6bddeaa182475fee}\label{citizen__manager_8h_a32a178ec9d0c991a6bddeaa182475fee}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!go\_back\_home@{go\_back\_home}}
+\index{go\_back\_home@{go\_back\_home}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{go\_back\_home()}{go\_back\_home()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ go\+\_\+back\+\_\+home (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Action for the \char`\"{}going back home\char`\"{} state. 
+
+Manages the logic of a citizen moving back to their home.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em c} & Pointer to the citizen. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+state\+\_\+t$\ast$ Pointer to the next state. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{citizen__manager_8h_af0521046c72ffe1eee467d63476aa45c}\label{citizen__manager_8h_af0521046c72ffe1eee467d63476aa45c}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!go\_to\_company@{go\_to\_company}}
+\index{go\_to\_company@{go\_to\_company}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{go\_to\_company()}{go\_to\_company()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ go\+\_\+to\+\_\+company (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Action for the \char`\"{}going to work\char`\"{} state. 
+
+Manages the logic of a citizen moving to their workplace.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em c} & Pointer to the citizen. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+state\+\_\+t$\ast$ Pointer to the next state. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{citizen__manager_8h_a7e45f0bb5bbf2b8bf3bf3925e3ce9ce1}\label{citizen__manager_8h_a7e45f0bb5bbf2b8bf3bf3925e3ce9ce1}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!go\_to\_supermarket@{go\_to\_supermarket}}
+\index{go\_to\_supermarket@{go\_to\_supermarket}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{go\_to\_supermarket()}{go\_to\_supermarket()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ go\+\_\+to\+\_\+supermarket (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Action for the \char`\"{}going to supermarket\char`\"{} state. 
+
+Manages the logic of a citizen moving to a supermarket.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em c} & Pointer to the citizen. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+state\+\_\+t$\ast$ Pointer to the next state. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{citizen__manager_8h_a36693536e4d06ae1c9cd91319b268e8e}\label{citizen__manager_8h_a36693536e4d06ae1c9cd91319b268e8e}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!init\_building@{init\_building}}
+\index{init\_building@{init\_building}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{init\_building()}{init\_building()}}
+{\footnotesize\ttfamily void init\+\_\+building (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{memory }\end{DoxyParamCaption})}
+
+
+
+Initialize the buildings (companies and supermarkets) in the simulation. 
+
+Configures buildings by setting their type, capacity, and position.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em memory} & Pointer to the shared memory structure. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{citizen__manager_8h_a942e33052f3b1e498ab5515264457864}\label{citizen__manager_8h_a942e33052f3b1e498ab5515264457864}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!init\_citizens@{init\_citizens}}
+\index{init\_citizens@{init\_citizens}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{init\_citizens()}{init\_citizens()}}
+{\footnotesize\ttfamily void init\+\_\+citizens (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{memory }\end{DoxyParamCaption})}
+
+
+
+Initialize the citizens. 
+
+Initializes citizens with default data, assigns homes, workplaces, and sets initial paths.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em memory} & Pointer to the shared memory structure. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{citizen__manager_8h_a8d9597dfc64073493879425651319732}\label{citizen__manager_8h_a8d9597dfc64073493879425651319732}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!init\_house@{init\_house}}
+\index{init\_house@{init\_house}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{init\_house()}{init\_house()}}
+{\footnotesize\ttfamily void init\+\_\+house (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$}]{memory }\end{DoxyParamCaption})}
+
+
+
+Initialize the houses in the simulation. 
+
+Creates and configures houses for citizens, including setting their capacity, position, and other necessary properties.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em memory} & Pointer to the shared memory structure. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{citizen__manager_8h_aad7b8c667301044657d7043491ec12e8}\label{citizen__manager_8h_aad7b8c667301044657d7043491ec12e8}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!new\_state@{new\_state}}
+\index{new\_state@{new\_state}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{new\_state()}{new\_state()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ new\+\_\+state (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$($\ast$)(\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$)}]{action }\end{DoxyParamCaption})}
+
+
+
+Create a new state for a citizen. 
+
+Allocates and initializes a new state with an identifier and an action function.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em id} & Identifier of the state. \\
+\hline
+{\em action} & Function to execute when the state is active. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+state\+\_\+t$\ast$ Pointer to the newly created state. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{citizen__manager_8h_af1921e0fcbe1ed6c5267096e0499807a}\label{citizen__manager_8h_af1921e0fcbe1ed6c5267096e0499807a}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!open\_shared\_memory@{open\_shared\_memory}}
+\index{open\_shared\_memory@{open\_shared\_memory}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{open\_shared\_memory()}{open\_shared\_memory()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} open\+\_\+shared\+\_\+memory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Open shared memory. 
+
+Opens and maps the shared memory used for storing shared data structures among different processes in the simulation.
+
+\begin{DoxyReturn}{Renvoie}
+memory\+\_\+t Data structure of the shared memory. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{citizen__manager_8h_a25f41fb95c05ebf1548ddccb0bd276ca}\label{citizen__manager_8h_a25f41fb95c05ebf1548ddccb0bd276ca}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!rest\_at\_home@{rest\_at\_home}}
+\index{rest\_at\_home@{rest\_at\_home}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{rest\_at\_home()}{rest\_at\_home()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ rest\+\_\+at\+\_\+home (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Action for the \char`\"{}resting at home\char`\"{} state. 
+
+Manages the logic for a citizen resting at home. Changes state if necessary.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em c} & Pointer to the citizen. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+state\+\_\+t$\ast$ Pointer to the next state. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{citizen__manager_8h_a9298c91aa7f6cabfa8f7ad0ffbd295b1}\label{citizen__manager_8h_a9298c91aa7f6cabfa8f7ad0ffbd295b1}} 
+\index{citizen\_manager.h@{citizen\_manager.h}!work@{work}}
+\index{work@{work}!citizen\_manager.h@{citizen\_manager.h}}
+\doxysubsubsection{\texorpdfstring{work()}{work()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ work (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Action for the \char`\"{}working\char`\"{} state. 
+
+Manages the working logic of a citizen at their company.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em c} & Pointer to the citizen. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+state\+\_\+t$\ast$ Pointer to the next state. 
+\end{DoxyReturn}

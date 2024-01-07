@@ -1,0 +1,62 @@
+\hypertarget{monitor_2main_8c}{}\doxysection{Référence du fichier src/monitor/main.c}
+\label{monitor_2main_8c}\index{src/monitor/main.c@{src/monitor/main.c}}
+
+
+Creates a new \char`\"{}\+Terminal User Interface\char`\"{} using ncurses and associated with the given shared memory.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$ncurses.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$locale.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}monitor\+\_\+common.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}monitor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}spy\+\_\+simulation.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}timer.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de main.\+c\+:
+% FIG 0
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{monitor_2main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{monitor_2main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+int {\bfseries main} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{monitor_2main_8c_ae8b3df59b98fc4aecfbe16b1ad4eca71}\label{monitor_2main_8c_ae8b3df59b98fc4aecfbe16b1ad4eca71}} 
+W\+I\+N\+D\+OW $\ast$ {\bfseries main\+\_\+window}
+\item 
+\mbox{\Hypertarget{monitor_2main_8c_a54e6fa5208aa7062f120c4f918e49631}\label{monitor_2main_8c_a54e6fa5208aa7062f120c4f918e49631}} 
+int {\bfseries old\+\_\+cursor}
+\item 
+\mbox{\Hypertarget{monitor_2main_8c_a2d10f124eea92dfd07e6d8748e0dcf37}\label{monitor_2main_8c_a2d10f124eea92dfd07e6d8748e0dcf37}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+producer}
+\item 
+\mbox{\Hypertarget{monitor_2main_8c_a4c6703ae9acc801a2fb3c649e0c0019a}\label{monitor_2main_8c_a4c6703ae9acc801a2fb3c649e0c0019a}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+consumer}
+\item 
+\mbox{\Hypertarget{monitor_2main_8c_ae62f1668c075f8ee1a0df91fdaf65a69}\label{monitor_2main_8c_ae62f1668c075f8ee1a0df91fdaf65a69}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+spy\+\_\+producer}
+\item 
+\mbox{\Hypertarget{monitor_2main_8c_ada3833206a05476fa451c41f4a7ab759}\label{monitor_2main_8c_ada3833206a05476fa451c41f4a7ab759}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+spy\+\_\+consumer}
+\item 
+\mbox{\Hypertarget{monitor_2main_8c_acac4123e8236b40355b0bed2c66cf1dc}\label{monitor_2main_8c_acac4123e8236b40355b0bed2c66cf1dc}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+memory}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Creates a new \char`\"{}\+Terminal User Interface\char`\"{} using ncurses and associated with the given shared memory. 
+
+The size of the terminal must have at least 40 rows and 145 columns. It is decomposed in four sub-\/windows\+:
+\begin{DoxyItemize}
+\item The \char`\"{}city map and status\char`\"{} window (upper-\/left)
+\item The \char`\"{}character information\char`\"{} window (upper-\/right)
+\item The \char`\"{}mailbox content\char`\"{} window (bottom-\/left)
+\item The \char`\"{}enemy country monitor\char`\"{} window (bottom-\/right) \textquotesingle{}Q\textquotesingle{}, \textquotesingle{}q\textquotesingle{} and \textquotesingle{}Esc\textquotesingle{} keys are used to exit from the T\+UI. 
+\end{DoxyItemize}
