@@ -1,0 +1,9 @@
+digraph "src/pattern_examples/state" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_0f6e6e7e366de92a3ec359a229fccb03 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="pattern_examples" fontname="Helvetica", fontsize="10", URL="dir_0f6e6e7e366de92a3ec359a229fccb03.html"]
+  dir_b39912614945a0ecd4a117ca7ccd2e00 [shape=box, label="state", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_b39912614945a0ecd4a117ca7ccd2e00.html"];
+  }
+}

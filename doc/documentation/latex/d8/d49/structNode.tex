@@ -1,0 +1,43 @@
+\hypertarget{structNode}{}\doxysection{Référence de la structure Node}
+\label{structNode}\index{Node@{Node}}
+
+
+A structure representing a node in a grid.  
+
+
+
+
+{\ttfamily \#include $<$memory.\+h$>$}
+
+
+
+Graphe de collaboration de Node\+:
+% FIG 0
+\doxysubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structNode_aa3000bd39af39d61b3c9d58d0e62cd98}\label{structNode_aa3000bd39af39d61b3c9d58d0e62cd98}} 
+int \mbox{\hyperlink{structNode_aa3000bd39af39d61b3c9d58d0e62cd98}{position}} \mbox{[}2\mbox{]}
+\begin{DoxyCompactList}\small\item\em Position of the node in the grid. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structNode_af93b606cf10abfe1766617ad9de59b01}\label{structNode_af93b606cf10abfe1766617ad9de59b01}} 
+double \mbox{\hyperlink{structNode_af93b606cf10abfe1766617ad9de59b01}{g}}
+\begin{DoxyCompactList}\small\item\em Cost of the path from the start node to this node. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structNode_ae96fc081027353fbe793c35ea511116b}\label{structNode_ae96fc081027353fbe793c35ea511116b}} 
+double \mbox{\hyperlink{structNode_ae96fc081027353fbe793c35ea511116b}{h}}
+\begin{DoxyCompactList}\small\item\em Heuristic cost estimate to reach the goal from this node. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structNode_aa78fc6cd04892bc631b80d023ef088c4}\label{structNode_aa78fc6cd04892bc631b80d023ef088c4}} 
+double \mbox{\hyperlink{structNode_aa78fc6cd04892bc631b80d023ef088c4}{f}}
+\begin{DoxyCompactList}\small\item\em Total cost (f = g + h). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structNode_a34f3ab9670c7b70dad8905359a243c92}\label{structNode_a34f3ab9670c7b70dad8905359a243c92}} 
+struct \mbox{\hyperlink{structNode}{Node}} $\ast$ \mbox{\hyperlink{structNode_a34f3ab9670c7b70dad8905359a243c92}{parent}}
+\begin{DoxyCompactList}\small\item\em Parent node in the path. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+A structure representing a node in a grid. 
+
+This structure is used for pathfinding and representing positions in a grid. 
+
+La documentation de cette structure a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{include_2memory_8h}{memory.\+h}}\end{DoxyCompactItemize}

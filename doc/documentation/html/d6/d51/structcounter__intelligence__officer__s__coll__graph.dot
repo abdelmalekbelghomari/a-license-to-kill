@@ -1,0 +1,12 @@
+digraph "counter_intelligence_officer_s"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="counter_intelligence\l_officer_s",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="The counterintelligence_officer information."];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" going_to_search_for\l_mailbox\nwaiting_for_spy_to\l_send_message\nfollowing_spy\ngoing_back_to_monitor\ngoing_to_suspect_place\nmonitoring\ncurrent_state\nrecovering_messages\nsearching_for_mailbox\nwaiting_for_spy_to\l_steal\n..." ,fontname="Helvetica"];
+  Node2 [label="state_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d0/dd8/structstate__s.html",tooltip="Structure representing a state for a citizen."];
+  Node2 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" action" ,fontname="Helvetica"];
+  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" leaving_time" ,fontname="Helvetica"];
+  Node3 [label="leaving_time_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d2/d77/structleaving__time__s.html",tooltip="Structure representing leaving time."];
+}

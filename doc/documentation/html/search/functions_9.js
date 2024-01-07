@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['new_5fstate_486',['new_state',['../d3/d54/citizen__manager_8h.html#aad7b8c667301044657d7043491ec12e8',1,'new_state(int id, state_t *(*action)(citizen_t *)):&#160;citizen_manager.c'],['../d9/d78/counter__intelligence_8h.html#a4fc36fb2a4c0d80642ff352c65d53a2f',1,'new_state(int id, state_t *(*action)(counter_intelligence_officer_t *officer)):&#160;counter_intelligence.h'],['../dc/da7/citizen__manager_8c.html#aad7b8c667301044657d7043491ec12e8',1,'new_state(int id, state_t *(*action)(citizen_t *)):&#160;citizen_manager.c']]],
+  ['new_5fstate_5fofficer_487',['new_state_officer',['../d1/db7/enemy__spy__network_8h.html#a7071152b25677875b92f8964c82c11ee',1,'new_state_officer(int id, state_t *(*action_officer)(case_officer_t *)):&#160;enemy_spy_network.c'],['../da/dd8/enemy__spy__network_8c.html#a4f688b3e4aacca84197c86589bb83b21',1,'new_state_officer(int id, state_t *(*action)(case_officer_t *)):&#160;enemy_spy_network.c']]],
+  ['new_5fstate_5fspy_488',['new_state_spy',['../d1/db7/enemy__spy__network_8h.html#a6163ee6d4517d415fa75138b60eca074',1,'new_state_spy(int id, state_t *(*action)(spy_t *)):&#160;enemy_spy_network.c'],['../da/dd8/enemy__spy__network_8c.html#a6163ee6d4517d415fa75138b60eca074',1,'new_state_spy(int id, state_t *(*action)(spy_t *)):&#160;enemy_spy_network.c']]],
+  ['new_5ftimer_489',['new_timer',['../d5/dd0/timer_8h.html#ad3c96501e5d03f7cf295e8bfa7253fae',1,'main.c']]]
+];

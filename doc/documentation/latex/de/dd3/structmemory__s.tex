@@ -1,0 +1,122 @@
+\hypertarget{structmemory__s}{}\doxysection{Référence de la structure memory\+\_\+s}
+\label{structmemory__s}\index{memory\_s@{memory\_s}}
+
+
+Structure representing the shared memory used by all processes in the simulation.  
+
+
+
+
+{\ttfamily \#include $<$memory.\+h$>$}
+
+
+
+Graphe de collaboration de memory\+\_\+s\+:
+% FIG 0
+\doxysubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structmemory__s_aeeb1da36fabf1bf349b37bec5ea4eea9}{memory\+\_\+has\+\_\+changed}}
+\item 
+int \mbox{\hyperlink{structmemory__s_ac43d50a3f4e3173347c8ee499514e3f8}{simulation\+\_\+has\+\_\+ended}}
+\item 
+\mbox{\Hypertarget{structmemory__s_a62f9aea68bab1941a94db1161e8e4a13}\label{structmemory__s_a62f9aea68bab1941a94db1161e8e4a13}} 
+\mbox{\hyperlink{structmap__s}{map\+\_\+t}} \mbox{\hyperlink{structmemory__s_a62f9aea68bab1941a94db1161e8e4a13}{map}}
+\begin{DoxyCompactList}\small\item\em Map of the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_a732c7dc5fcdacfe7ccf157bcfe0e1d50}\label{structmemory__s_a732c7dc5fcdacfe7ccf157bcfe0e1d50}} 
+\mbox{\hyperlink{structspy__s}{spy\+\_\+t}} \mbox{\hyperlink{structmemory__s_a732c7dc5fcdacfe7ccf157bcfe0e1d50}{spies}} \mbox{[}S\+P\+I\+E\+S\+\_\+\+C\+O\+U\+NT\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array of spies in the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_a89c087764831212db15141de9cd0d8aa}\label{structmemory__s_a89c087764831212db15141de9cd0d8aa}} 
+\mbox{\hyperlink{structcase__officer__s}{case\+\_\+officer\+\_\+t}} \mbox{\hyperlink{structmemory__s_a89c087764831212db15141de9cd0d8aa}{case\+\_\+officer}}
+\begin{DoxyCompactList}\small\item\em Case officer in the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_ab4a943a774425f3947e0ef9e0cbd32f1}\label{structmemory__s_ab4a943a774425f3947e0ef9e0cbd32f1}} 
+\mbox{\hyperlink{structcounter__intelligence__officer__s}{counter\+\_\+intelligence\+\_\+officer\+\_\+t}} \mbox{\hyperlink{structmemory__s_ab4a943a774425f3947e0ef9e0cbd32f1}{counter\+\_\+intelligence\+\_\+officer}}
+\begin{DoxyCompactList}\small\item\em Counterintelligence officer in the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_ac68f4add0213fc1882a9a3e6dd94cbf4}\label{structmemory__s_ac68f4add0213fc1882a9a3e6dd94cbf4}} 
+\mbox{\hyperlink{structsimulated__clock__s}{simulated\+\_\+clock\+\_\+t}} \mbox{\hyperlink{structmemory__s_ac68f4add0213fc1882a9a3e6dd94cbf4}{timer}}
+\begin{DoxyCompactList}\small\item\em Clock keeping track of the simulation time. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_a807589f6b1ada169dc238e5fcf633fcc}\label{structmemory__s_a807589f6b1ada169dc238e5fcf633fcc}} 
+char \mbox{\hyperlink{structmemory__s_a807589f6b1ada169dc238e5fcf633fcc}{messages}} \mbox{[}M\+A\+X\+\_\+\+M\+E\+S\+S\+A\+G\+ES\mbox{]}\mbox{[}M\+A\+X\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+S\+I\+ZE\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array of messages in the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_a08c4c889e4c9d0fb48124123ed13a44b}\label{structmemory__s_a08c4c889e4c9d0fb48124123ed13a44b}} 
+int \mbox{\hyperlink{structmemory__s_a08c4c889e4c9d0fb48124123ed13a44b}{message\+\_\+count}}
+\begin{DoxyCompactList}\small\item\em Count of messages in the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_a21c591ea3ece4f67b5d515eb614a96f5}\label{structmemory__s_a21c591ea3ece4f67b5d515eb614a96f5}} 
+int \mbox{\hyperlink{structmemory__s_a21c591ea3ece4f67b5d515eb614a96f5}{end\+\_\+round}}
+\begin{DoxyCompactList}\small\item\em Round number marking the end of the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_aaff57cc40ba51691bf47e5f11055c2fc}\label{structmemory__s_aaff57cc40ba51691bf47e5f11055c2fc}} 
+pid\+\_\+t \mbox{\hyperlink{structmemory__s_aaff57cc40ba51691bf47e5f11055c2fc}{pids}} \mbox{[}N\+B\+\_\+\+P\+R\+O\+C\+E\+SS -\/ 1\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array of process I\+Ds. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_a45f30e5bd154bc306526afd9a663352f}\label{structmemory__s_a45f30e5bd154bc306526afd9a663352f}} 
+\mbox{\hyperlink{structmq__s}{mq\+\_\+t}} \mbox{\hyperlink{structmemory__s_a45f30e5bd154bc306526afd9a663352f}{mq\+Info}}
+\begin{DoxyCompactList}\small\item\em Message queue information. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_ac124567fb504f2284f3303e2eacb6785}\label{structmemory__s_ac124567fb504f2284f3303e2eacb6785}} 
+\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} \mbox{\hyperlink{structmemory__s_ac124567fb504f2284f3303e2eacb6785}{citizens}} \mbox{[}C\+I\+T\+I\+Z\+E\+N\+S\+\_\+\+C\+O\+U\+NT\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array of citizens in the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_a31b8fe5c6e1dd0cf5883d601d87d4ddc}\label{structmemory__s_a31b8fe5c6e1dd0cf5883d601d87d4ddc}} 
+int \mbox{\hyperlink{structmemory__s_a31b8fe5c6e1dd0cf5883d601d87d4ddc}{walking\+\_\+citizens}}
+\begin{DoxyCompactList}\small\item\em Count of citizens currently walking. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_a4fa7ca487f417daf665948367653cbed}\label{structmemory__s_a4fa7ca487f417daf665948367653cbed}} 
+int \mbox{\hyperlink{structmemory__s_a4fa7ca487f417daf665948367653cbed}{at\+\_\+home\+\_\+citizens}}
+\begin{DoxyCompactList}\small\item\em Count of citizens currently at home. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_aa01fe5a0189754c675b921955546c153}\label{structmemory__s_aa01fe5a0189754c675b921955546c153}} 
+int \mbox{\hyperlink{structmemory__s_aa01fe5a0189754c675b921955546c153}{at\+\_\+work\+\_\+citizens}}
+\begin{DoxyCompactList}\small\item\em Count of citizens currently at work. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_a22f6ce5b8b12a7a5d9225b274e109dbd}\label{structmemory__s_a22f6ce5b8b12a7a5d9225b274e109dbd}} 
+\mbox{\hyperlink{structsurveillanceNetwork__t}{surveillance\+Network\+\_\+t}} \mbox{\hyperlink{structmemory__s_a22f6ce5b8b12a7a5d9225b274e109dbd}{surveillance\+Network}}
+\begin{DoxyCompactList}\small\item\em Surveillance network in the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_a21785b5a0abce7572ef74dcfc64df972}\label{structmemory__s_a21785b5a0abce7572ef74dcfc64df972}} 
+\mbox{\hyperlink{structhome__s}{home\+\_\+t}} \mbox{\hyperlink{structmemory__s_a21785b5a0abce7572ef74dcfc64df972}{homes}} \mbox{[}N\+B\+\_\+\+H\+O\+M\+ES\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array of homes in the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_ac5d867e8ffd0c911abe5bd2fc3dddc27}\label{structmemory__s_ac5d867e8ffd0c911abe5bd2fc3dddc27}} 
+\mbox{\hyperlink{structbuilding__s}{building\+\_\+t}} \mbox{\hyperlink{structmemory__s_ac5d867e8ffd0c911abe5bd2fc3dddc27}{companies}} \mbox{[}N\+B\+\_\+\+W\+O\+R\+K\+P\+L\+A\+C\+ES\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array of workplaces in the simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmemory__s_acca26aeeafb463824183c768a6f12552}\label{structmemory__s_acca26aeeafb463824183c768a6f12552}} 
+int {\bfseries fields} \mbox{[}3\mbox{]}
+\item 
+\mbox{\Hypertarget{structmemory__s_a477963c06e4871635b5dde44a8f91407}\label{structmemory__s_a477963c06e4871635b5dde44a8f91407}} 
+int($\ast$ {\bfseries get\+\_\+int\+\_\+value} )(\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$memory, int index)
+\item 
+\mbox{\Hypertarget{structmemory__s_a2a702d3d6d78ea9ab0fa7806e4d4de20}\label{structmemory__s_a2a702d3d6d78ea9ab0fa7806e4d4de20}} 
+\mbox{\hyperlink{structobserver__s}{observer\+\_\+t}} $\ast$ {\bfseries obs} \mbox{[}M\+A\+X\+\_\+\+O\+B\+S\+E\+R\+V\+E\+RS\mbox{]}
+\item 
+\mbox{\Hypertarget{structmemory__s_aefffebb2a58bfb65be729c558c779718}\label{structmemory__s_aefffebb2a58bfb65be729c558c779718}} 
+void($\ast$ {\bfseries attach} )(\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$, \mbox{\hyperlink{structobserver__s}{observer\+\_\+t}} $\ast$)
+\item 
+\mbox{\Hypertarget{structmemory__s_a38883431394a9574092051ac2a415aa9}\label{structmemory__s_a38883431394a9574092051ac2a415aa9}} 
+void($\ast$ {\bfseries detach} )(\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$, \mbox{\hyperlink{structobserver__s}{observer\+\_\+t}} $\ast$)
+\item 
+\mbox{\Hypertarget{structmemory__s_aa84814ab0746cb81fcd457d20b287f67}\label{structmemory__s_aa84814ab0746cb81fcd457d20b287f67}} 
+void($\ast$ {\bfseries notify} )(\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$, event\+\_\+t e)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Structure representing the shared memory used by all processes in the simulation. 
+
+This structure includes various components of the simulation, such as the map, citizens, spies, and more. 
+
+\doxysubsection{Documentation des données membres}
+\mbox{\Hypertarget{structmemory__s_aeeb1da36fabf1bf349b37bec5ea4eea9}\label{structmemory__s_aeeb1da36fabf1bf349b37bec5ea4eea9}} 
+\index{memory\_s@{memory\_s}!memory\_has\_changed@{memory\_has\_changed}}
+\index{memory\_has\_changed@{memory\_has\_changed}!memory\_s@{memory\_s}}
+\doxysubsubsection{\texorpdfstring{memory\_has\_changed}{memory\_has\_changed}}
+{\footnotesize\ttfamily int memory\+\_\+s\+::memory\+\_\+has\+\_\+changed}
+
+Flag set to 1 when the memory is modified. \mbox{\Hypertarget{structmemory__s_ac43d50a3f4e3173347c8ee499514e3f8}\label{structmemory__s_ac43d50a3f4e3173347c8ee499514e3f8}} 
+\index{memory\_s@{memory\_s}!simulation\_has\_ended@{simulation\_has\_ended}}
+\index{simulation\_has\_ended@{simulation\_has\_ended}!memory\_s@{memory\_s}}
+\doxysubsubsection{\texorpdfstring{simulation\_has\_ended}{simulation\_has\_ended}}
+{\footnotesize\ttfamily int memory\+\_\+s\+::simulation\+\_\+has\+\_\+ended}
+
+Flag indicating the end state of the simulation\+:
+\begin{DoxyItemize}
+\item 0\+: not ended;
+\item 1\+: spy network has fled (wins);
+\item 2\+: counterintelligence officer discovered the mailbox (wins);
+\item 3\+: counterintelligence officer did not discover mailbox (spy network wins). 
+\end{DoxyItemize}
+
+La documentation de cette structure a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{include_2memory_8h}{memory.\+h}}\end{DoxyCompactItemize}

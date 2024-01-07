@@ -1,0 +1,51 @@
+digraph "surveillanceNetwork_t"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="surveillanceNetwork_t",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" cameras" ];
+  Node2 [label="surveillanceCameras",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d6/d5a/structsurveillanceCameras.html",tooltip=" "];
+  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" cells" ];
+  Node3 [label="cellData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dc/d23/structcellData.html",tooltip=" "];
+  Node4 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" surveillanceAI" ];
+  Node4 [label="surveillance_AI",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$de/d86/structsurveillance__AI.html",tooltip=" "];
+  Node5 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" suspect" ];
+  Node5 [label="suspect_t",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d3/d37/unionsuspect__t.html",tooltip="Union representing a suspect that can be a citizen, spy, or case officer."];
+  Node6 -> Node5 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" citizen" ];
+  Node6 [label="citizen_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dc/d85/structcitizen__s.html",tooltip="A structure representing a citizen in the simulation."];
+  Node7 -> Node6 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" home" ];
+  Node7 [label="home_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d3/d3f/structhome__s.html",tooltip="A structure representing a home in the simulation."];
+  Node6 -> Node7 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" citizens" ];
+  Node8 -> Node7 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" mailbox" ];
+  Node8 [label="mailbox_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d2/dc7/structmailbox__s.html",tooltip="A structure representing a mailbox in the simulation."];
+  Node9 -> Node6 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" workplace\nsupermarket" ];
+  Node9 [label="building_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d5/dac/structbuilding__s.html",tooltip="A structure representing a building in the simulation."];
+  Node6 -> Node9 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" citizens" ];
+  Node10 -> Node6 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" path_to_supermarket\npath_to_work\npath_from_supermarket\l_to_home" ];
+  Node10 [label="Path",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d3/d20/structPath.html",tooltip="A structure representing a path in a grid."];
+  Node11 -> Node10 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" nodes" ];
+  Node11 [label="Node",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d49/structNode.html",tooltip="A structure representing a node in a grid."];
+  Node11 -> Node11 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" parent" ];
+  Node12 -> Node6 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" movement" ];
+  Node12 [label="characterMovement",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d7/d19/structcharacterMovement.html",tooltip=" "];
+  Node13 -> Node6 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" working\ngoing_to_company\nresting_at_home\ngoing_back_home\ndoing_some_shopping\nfinished\ndying\ngoing_to_supermarket\ncurrent_state" ];
+  Node13 [label="state_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d0/dd8/structstate__s.html",tooltip="Structure representing a state for a citizen."];
+  Node13 -> Node13 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" action" ];
+  Node14 -> Node5 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" spy" ];
+  Node14 [label="spy_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/dff/structspy__s.html",tooltip="The spy information."];
+  Node11 -> Node14 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" random_neighbour" ];
+  Node9 -> Node14 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" targeted_company" ];
+  Node15 -> Node14 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" allowed_company" ];
+  Node15 [label="cell_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/db0/structcell__s.html",tooltip="A cell within the map of the city."];
+  Node6 -> Node15 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" occupants" ];
+  Node12 -> Node14 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" movement" ];
+  Node13 -> Node14 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" is_hurt\nis_in_conflict\nis_free\nresting_at_home\l_before_going_to\l_send_message\nwaiting_for_residence\l_to_be_clear\nresting_at_home\nspotting\ngoing_to_spot\ndoing_some_shopping\ngoing_back_home\n..." ];
+  Node16 -> Node14 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" leaving_time" ];
+  Node16 [label="leaving_time_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d2/d77/structleaving__time__s.html",tooltip="Structure representing leaving time."];
+  Node17 -> Node5 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" case_officer" ];
+  Node17 [label="case_officer_s",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d3/d91/structcase__officer__s.html",tooltip="The case_officer information."];
+  Node12 -> Node17 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" movement" ];
+  Node13 -> Node17 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" resting_at_home\nsending_messages\ngoing_back_home\ndoing_some_shopping\ngoing_to_mailbox\ngoing_to_supermarket\ncurrent_state\nrecovering_messages" ];
+  Node16 -> Node17 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" messaging_time\nsecond_leaving_time\nshopping_time\nfirst_leaving_time" ];
+}

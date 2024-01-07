@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>A License to Kill: Référence du fichier src/enemy_spy_network/main.c</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../ltk.jpg"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">A License to Kill
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Ce projet développe un système de simulation d&#39;espionnage sophistiqué, intégrant des techniques d&#39;intelligence artificielle vues en cours d&#39;IA et de modélisation de scénarios complexes en utilisant les méthodes et techniques vues en cours de Systèmes d&#39;Exploitations.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_4617158ad041d8c849ee76315bb3192a.html">enemy_spy_network</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier main.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Main Thread Management for Enemy Spy Network.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;memory.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d1/db7/enemy__spy__network_8h_source.html">enemy_spy_network.h</a>&quot;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;pthread.h&gt;</code><br />
+<code>#include &lt;sys/mman.h&gt;</code><br />
+<code>#include &lt;sys/types.h&gt;</code><br />
+<code>#include &lt;fcntl.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de main.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../df/d84/enemy__spy__network_2main_8c__incl.png" border="0" usemap="#src_2enemy__spy__network_2main_8c" alt=""/></div>
+<!-- MAP 0 -->
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aa4cfdfe993fe1696f4f75b0557c9906c"><td class="memItemLeft" align="right" valign="top"><a id="aa4cfdfe993fe1696f4f75b0557c9906c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SHARED_MEMORY</b>&#160;&#160;&#160;&quot;/SharedMemory&quot;</td></tr>
+<tr class="separator:aa4cfdfe993fe1696f4f75b0557c9906c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a075a968c2785a84e9c2c4f02c465e5cb"><td class="memItemLeft" align="right" valign="top"><a id="a075a968c2785a84e9c2c4f02c465e5cb"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SPY_DEBUG</b>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a075a968c2785a84e9c2c4f02c465e5cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae73273b562cbf711974b679e768614e9"><td class="memItemLeft" align="right" valign="top"><a id="ae73273b562cbf711974b679e768614e9"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>START_HOUR_OF_DAY</b>&#160;&#160;&#160;7</td></tr>
+<tr class="separator:ae73273b562cbf711974b679e768614e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdbcc430d68d38943499aaf373c7e4ab"><td class="memItemLeft" align="right" valign="top"><a id="abdbcc430d68d38943499aaf373c7e4ab"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SEMAPHORE_CONSUMER</b>&#160;&#160;&#160;&quot;/semConsumer&quot;</td></tr>
+<tr class="separator:abdbcc430d68d38943499aaf373c7e4ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c79358e413e91752ecf5b0c75472f12"><td class="memItemLeft" align="right" valign="top"><a id="a1c79358e413e91752ecf5b0c75472f12"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SEMAPHORE_PRODUCER</b>&#160;&#160;&#160;&quot;/semProducer&quot;</td></tr>
+<tr class="separator:a1c79358e413e91752ecf5b0c75472f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:ab52f2814c24c383af332beb06e6eec3e"><td class="memItemLeft" align="right" valign="top"><a id="ab52f2814c24c383af332beb06e6eec3e"></a>
+void *&#160;</td><td class="memItemRight" valign="bottom"><b>spy_thread</b> (void *arg)</td></tr>
+<tr class="separator:ab52f2814c24c383af332beb06e6eec3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78728e2fcb105360266771c6fdcc1806"><td class="memItemLeft" align="right" valign="top"><a id="a78728e2fcb105360266771c6fdcc1806"></a>
+void *&#160;</td><td class="memItemRight" valign="bottom"><b>officer_function</b> ()</td></tr>
+<tr class="separator:a78728e2fcb105360266771c6fdcc1806"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top"><a id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> ()</td></tr>
+<tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:af16d0defec41b3501a54c55c112a55d0"><td class="memItemLeft" align="right" valign="top"><a id="af16d0defec41b3501a54c55c112a55d0"></a>
+<a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>memory</b></td></tr>
+<tr class="separator:af16d0defec41b3501a54c55c112a55d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c905d8d60d9e4d58e9a4a5ec07ec44c"><td class="memItemLeft" align="right" valign="top"><a id="a5c905d8d60d9e4d58e9a4a5ec07ec44c"></a>
+sem_t *&#160;</td><td class="memItemRight" valign="bottom"><b>sem</b></td></tr>
+<tr class="separator:a5c905d8d60d9e4d58e9a4a5ec07ec44c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3f3e11b928cbc86547d0e1b4ebd2d14"><td class="memItemLeft" align="right" valign="top"><a id="aa3f3e11b928cbc86547d0e1b4ebd2d14"></a>
+sem_t *&#160;</td><td class="memItemRight" valign="bottom"><b>sem_producer</b></td></tr>
+<tr class="separator:aa3f3e11b928cbc86547d0e1b4ebd2d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c6703ae9acc801a2fb3c649e0c0019a"><td class="memItemLeft" align="right" valign="top"><a id="a4c6703ae9acc801a2fb3c649e0c0019a"></a>
+sem_t *&#160;</td><td class="memItemRight" valign="bottom"><b>sem_consumer</b></td></tr>
+<tr class="separator:a4c6703ae9acc801a2fb3c649e0c0019a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae62f1668c075f8ee1a0df91fdaf65a69"><td class="memItemLeft" align="right" valign="top"><a id="ae62f1668c075f8ee1a0df91fdaf65a69"></a>
+sem_t *&#160;</td><td class="memItemRight" valign="bottom"><b>sem_spy_producer</b></td></tr>
+<tr class="separator:ae62f1668c075f8ee1a0df91fdaf65a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada3833206a05476fa451c41f4a7ab759"><td class="memItemLeft" align="right" valign="top"><a id="ada3833206a05476fa451c41f4a7ab759"></a>
+sem_t *&#160;</td><td class="memItemRight" valign="bottom"><b>sem_spy_consumer</b></td></tr>
+<tr class="separator:ada3833206a05476fa451c41f4a7ab759"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a171cbdf30d06cda9edf713409dca8293"><td class="memItemLeft" align="right" valign="top"><a id="a171cbdf30d06cda9edf713409dca8293"></a>
+mqd_t&#160;</td><td class="memItemRight" valign="bottom"><b>mq</b></td></tr>
+<tr class="separator:a171cbdf30d06cda9edf713409dca8293"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa918d7e20dcb6074f9c242bf68391bbc"><td class="memItemLeft" align="right" valign="top"><a id="aa918d7e20dcb6074f9c242bf68391bbc"></a>
+pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><b>shared_memory_mutex</b></td></tr>
+<tr class="separator:aa918d7e20dcb6074f9c242bf68391bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca4e220cf18bdd1e214ec939ce0a7351"><td class="memItemLeft" align="right" valign="top"><a id="aca4e220cf18bdd1e214ec939ce0a7351"></a>
+pthread_barrier_t&#160;</td><td class="memItemRight" valign="bottom"><b>turn_barrier</b></td></tr>
+<tr class="separator:aca4e220cf18bdd1e214ec939ce0a7351"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Main Thread Management for Enemy Spy Network. </p>
+<p>This file serves as the main entry point for the "Enemy Spy Network" component, responsible for managing the threads of spies and the case officer. It coordinates espionage activities, including message theft, mailbox interactions, and message exchange with the enemy country. </p>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

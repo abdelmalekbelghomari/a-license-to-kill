@@ -1,0 +1,55 @@
+\hypertarget{structbuilding__s}{}\doxysection{Référence de la structure building\+\_\+s}
+\label{structbuilding__s}\index{building\_s@{building\_s}}
+
+
+A structure representing a building in the simulation.  
+
+
+
+
+{\ttfamily \#include $<$memory.\+h$>$}
+
+
+
+Graphe de collaboration de building\+\_\+s\+:
+% FIG 0
+\doxysubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structbuilding__s_a848a63803be26145e0de8579a28fa0ba}\label{structbuilding__s_a848a63803be26145e0de8579a28fa0ba}} 
+int \mbox{\hyperlink{structbuilding__s_a848a63803be26145e0de8579a28fa0ba}{position}} \mbox{[}2\mbox{]}
+\begin{DoxyCompactList}\small\item\em Position of the building. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structbuilding__s_a7c6d2863a1c4dd94a60b23280d5a0775}\label{structbuilding__s_a7c6d2863a1c4dd94a60b23280d5a0775}} 
+building\+\_\+type\+\_\+t \mbox{\hyperlink{structbuilding__s_a7c6d2863a1c4dd94a60b23280d5a0775}{type}}
+\begin{DoxyCompactList}\small\item\em Type of the building (e.\+g., company, supermarket). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structbuilding__s_ab0a665330561fc63e3497ca83df1478b}\label{structbuilding__s_ab0a665330561fc63e3497ca83df1478b}} 
+\mbox{\hyperlink{include_2memory_8h_acc09da70f28930633b6920243f3aecaa}{cell\+\_\+type\+\_\+t}} \mbox{\hyperlink{structbuilding__s_ab0a665330561fc63e3497ca83df1478b}{cell\+\_\+type}}
+\begin{DoxyCompactList}\small\item\em Cell type of the building. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structbuilding__s_a0cfbecd9a298d17a8f3dbff316ea96d5}\label{structbuilding__s_a0cfbecd9a298d17a8f3dbff316ea96d5}} 
+unsigned int \mbox{\hyperlink{structbuilding__s_a0cfbecd9a298d17a8f3dbff316ea96d5}{nb\+\_\+citizen}}
+\begin{DoxyCompactList}\small\item\em Number of citizens associated with this building. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structbuilding__s_a3cc989dacdaac931724df2c6970fa969}\label{structbuilding__s_a3cc989dacdaac931724df2c6970fa969}} 
+unsigned int \mbox{\hyperlink{structbuilding__s_a3cc989dacdaac931724df2c6970fa969}{max\+\_\+capacity}}
+\begin{DoxyCompactList}\small\item\em Maximum capacity of the building. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structbuilding__s_a2ec4dd843beb4ccb2ee3dbdad6247470}\label{structbuilding__s_a2ec4dd843beb4ccb2ee3dbdad6247470}} 
+unsigned int \mbox{\hyperlink{structbuilding__s_a2ec4dd843beb4ccb2ee3dbdad6247470}{max\+\_\+workers}}
+\begin{DoxyCompactList}\small\item\em Maximum number of workers for a company building. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structbuilding__s_ab528180dfd00a7297723f765dfae2c48}\label{structbuilding__s_ab528180dfd00a7297723f765dfae2c48}} 
+unsigned int \mbox{\hyperlink{structbuilding__s_ab528180dfd00a7297723f765dfae2c48}{min\+\_\+workers}}
+\begin{DoxyCompactList}\small\item\em Minimum number of workers for a company building. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structbuilding__s_a21afecbd84a22600809a06670235b438}\label{structbuilding__s_a21afecbd84a22600809a06670235b438}} 
+unsigned int \mbox{\hyperlink{structbuilding__s_a21afecbd84a22600809a06670235b438}{nb\+\_\+workers}}
+\begin{DoxyCompactList}\small\item\em Current number of workers in the building. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structbuilding__s_ab30bbe573ec5f4bfb5128d4b2be77cb4}\label{structbuilding__s_ab30bbe573ec5f4bfb5128d4b2be77cb4}} 
+\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$ \mbox{\hyperlink{structbuilding__s_ab30bbe573ec5f4bfb5128d4b2be77cb4}{citizens}}
+\begin{DoxyCompactList}\small\item\em Array of pointers to citizens associated with this building. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+A structure representing a building in the simulation. 
+
+This structure stores information about a building, such as its type, position, and associated citizens. 
+
+La documentation de cette structure a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{include_2memory_8h}{memory.\+h}}\end{DoxyCompactItemize}

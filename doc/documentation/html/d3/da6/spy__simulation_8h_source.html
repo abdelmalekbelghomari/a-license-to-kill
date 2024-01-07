@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>A License to Kill:  Fichier source de include/spy_simulation.h</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../ltk.jpg"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">A License to Kill
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Ce projet développe un système de simulation d&#39;espionnage sophistiqué, intégrant des techniques d&#39;intelligence artificielle vues en cours d&#39;IA et de modélisation de scénarios complexes en utilisant les méthodes et techniques vues en cours de Systèmes d&#39;Exploitations.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">spy_simulation.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d3/da6/spy__simulation_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifndef SPY_SIMULATION</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define SPY_SIMULATION </span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;memory.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;time.h&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;sys/stat.h&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;fcntl.h&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;semaphore.h&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="../../de/dd3/structmemory__s.html">memory_s</a> <a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#define CI_OFFICER_INDEX 4</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d3/da6/spy__simulation_8h.html#aa31efd71e4cec0504918a3344db0a0c6">handle_fatal_error</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *message);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d3/da6/spy__simulation_8h.html#a202c4d5d17186b7024df65a138ae2e3a">init_map</a>(<a class="code" href="../../d7/de4/structmap__s.html">map_t</a> *cityMap);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d3/da6/spy__simulation_8h.html#a27bfc0309ef81823d1e1785254135590">init_surveillance</a>(<a class="code" href="../../d1/dad/structsurveillanceNetwork__t.html">surveillanceNetwork_t</a> *surveillance);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d3/da6/spy__simulation_8h.html#a72fdd86d4bd7db87f56eac2484b069d5">start_simulation_processes</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">struct </span><a class="code" href="../../de/dd3/structmemory__s.html">memory_s</a> *<a class="code" href="../../d3/da6/spy__simulation_8h.html#af1a9672576fd9903d9dae4c3ca7454ad">create_shared_memory</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *name);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d3/da6/spy__simulation_8h.html#a486a612dab8b171255660f7f23ce1bf4">isConnected</a>(<a class="code" href="../../d7/de4/structmap__s.html">map_t</a> *cityMap);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="../../d3/da6/spy__simulation_8h.html#a96e005164a12248c34139a520e711372">dfs</a>(<a class="code" href="../../d7/de4/structmap__s.html">map_t</a> *cityMap, <span class="keywordtype">bool</span> visited[<a class="code" href="../../dc/d54/common_8h.html#a3b94af9dcb0358f28d175d80eed98330">MAX_ROWS</a>][<a class="code" href="../../dc/d54/common_8h.html#a2cc6f39fc4594f0e734b2588129fba03">MAX_COLUMNS</a>], <span class="keywordtype">int</span> row, <span class="keywordtype">int</span> col, <span class="keywordtype">int</span> endRow, <span class="keywordtype">int</span> endCol);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;sem_t *<a class="code" href="../../d3/da6/spy__simulation_8h.html#ac842d224f2356cbf357c8398e25bbe2b">create_semaphore</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *name, <span class="keywordtype">int</span> value);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;sem_t *<a class="code" href="../../d3/da6/spy__simulation_8h.html#ad9764fa853ee67723f83dd9d8aeebd43">open_semaphore</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *name);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#endif // SPY_SIMULATION</span></div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aspy__simulation_8h_html_ad9764fa853ee67723f83dd9d8aeebd43"><div class="ttname"><a href="../../d3/da6/spy__simulation_8h.html#ad9764fa853ee67723f83dd9d8aeebd43">open_semaphore</a></div><div class="ttdeci">sem_t * open_semaphore(const char *name)</div><div class="ttdoc">Opens an existing semaphore with the specified name.</div><div class="ttdef"><b>Definition:</b> spy_simulation.c:245</div></div>
+<div class="ttc" id="aspy__simulation_8h_html_a96e005164a12248c34139a520e711372"><div class="ttname"><a href="../../d3/da6/spy__simulation_8h.html#a96e005164a12248c34139a520e711372">dfs</a></div><div class="ttdeci">bool dfs(map_t *cityMap, bool visited[MAX_ROWS][MAX_COLUMNS], int row, int col, int endRow, int endCol)</div><div class="ttdoc">Performs depth-first search on the city map.</div><div class="ttdef"><b>Definition:</b> spy_simulation.c:36</div></div>
+<div class="ttc" id="aspy__simulation_8h_html_a72fdd86d4bd7db87f56eac2484b069d5"><div class="ttname"><a href="../../d3/da6/spy__simulation_8h.html#a72fdd86d4bd7db87f56eac2484b069d5">start_simulation_processes</a></div><div class="ttdeci">void start_simulation_processes()</div><div class="ttdoc">Starts the simulation processes.</div></div>
+<div class="ttc" id="aspy__simulation_8h_html_a486a612dab8b171255660f7f23ce1bf4"><div class="ttname"><a href="../../d3/da6/spy__simulation_8h.html#a486a612dab8b171255660f7f23ce1bf4">isConnected</a></div><div class="ttdeci">bool isConnected(map_t *cityMap)</div><div class="ttdoc">Checks if the city map is connected.</div></div>
+<div class="ttc" id="aspy__simulation_8h_html_ac842d224f2356cbf357c8398e25bbe2b"><div class="ttname"><a href="../../d3/da6/spy__simulation_8h.html#ac842d224f2356cbf357c8398e25bbe2b">create_semaphore</a></div><div class="ttdeci">sem_t * create_semaphore(const char *name, int value)</div><div class="ttdoc">Creates a semaphore with the specified name and initial value.</div><div class="ttdef"><b>Definition:</b> spy_simulation.c:236</div></div>
+<div class="ttc" id="aspy__simulation_8h_html_a27bfc0309ef81823d1e1785254135590"><div class="ttname"><a href="../../d3/da6/spy__simulation_8h.html#a27bfc0309ef81823d1e1785254135590">init_surveillance</a></div><div class="ttdeci">void init_surveillance(surveillanceNetwork_t *surveillance)</div><div class="ttdoc">Initializes the surveillance network.</div><div class="ttdef"><b>Definition:</b> spy_simulation.c:194</div></div>
+<div class="ttc" id="aspy__simulation_8h_html_a202c4d5d17186b7024df65a138ae2e3a"><div class="ttname"><a href="../../d3/da6/spy__simulation_8h.html#a202c4d5d17186b7024df65a138ae2e3a">init_map</a></div><div class="ttdeci">void init_map(map_t *cityMap)</div><div class="ttdoc">Initializes the city map.</div><div class="ttdef"><b>Definition:</b> spy_simulation.c:172</div></div>
+<div class="ttc" id="aspy__simulation_8h_html_af1a9672576fd9903d9dae4c3ca7454ad"><div class="ttname"><a href="../../d3/da6/spy__simulation_8h.html#af1a9672576fd9903d9dae4c3ca7454ad">create_shared_memory</a></div><div class="ttdeci">struct memory_s * create_shared_memory(const char *name)</div><div class="ttdoc">Creates a shared memory segment.</div><div class="ttdef"><b>Definition:</b> spy_simulation.c:202</div></div>
+<div class="ttc" id="astructmap__s_html"><div class="ttname"><a href="../../d7/de4/structmap__s.html">map_s</a></div><div class="ttdoc">The city map.</div><div class="ttdef"><b>Definition:</b> memory.h:327</div></div>
+<div class="ttc" id="astructmemory__s_html"><div class="ttname"><a href="../../de/dd3/structmemory__s.html">memory_s</a></div><div class="ttdoc">Structure representing the shared memory used by all processes in the simulation.</div><div class="ttdef"><b>Definition:</b> memory.h:571</div></div>
+<div class="ttc" id="aspy__simulation_8h_html_aa31efd71e4cec0504918a3344db0a0c6"><div class="ttname"><a href="../../d3/da6/spy__simulation_8h.html#aa31efd71e4cec0504918a3344db0a0c6">handle_fatal_error</a></div><div class="ttdeci">void handle_fatal_error(const char *message)</div><div class="ttdoc">Handles fatal errors and exits the program with an error message.</div><div class="ttdef"><b>Definition:</b> enemy_spy_network.c:26</div></div>
+<div class="ttc" id="acommon_8h_html_a2cc6f39fc4594f0e734b2588129fba03"><div class="ttname"><a href="../../dc/d54/common_8h.html#a2cc6f39fc4594f0e734b2588129fba03">MAX_COLUMNS</a></div><div class="ttdeci">#define MAX_COLUMNS</div><div class="ttdef"><b>Definition:</b> common.h:32</div></div>
+<div class="ttc" id="acommon_8h_html_a3b94af9dcb0358f28d175d80eed98330"><div class="ttname"><a href="../../dc/d54/common_8h.html#a3b94af9dcb0358f28d175d80eed98330">MAX_ROWS</a></div><div class="ttdeci">#define MAX_ROWS</div><div class="ttdef"><b>Definition:</b> common.h:33</div></div>
+<div class="ttc" id="astructsurveillanceNetwork__t_html"><div class="ttname"><a href="../../d1/dad/structsurveillanceNetwork__t.html">surveillanceNetwork_t</a></div><div class="ttdef"><b>Definition:</b> memory.h:231</div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

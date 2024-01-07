@@ -1,0 +1,253 @@
+\hypertarget{structcase__officer__s}{}\doxysection{Référence de la structure case\+\_\+officer\+\_\+s}
+\label{structcase__officer__s}\index{case\_officer\_s@{case\_officer\_s}}
+
+
+The case\+\_\+officer information.  
+
+
+
+
+{\ttfamily \#include $<$memory.\+h$>$}
+
+
+
+Graphe de collaboration de case\+\_\+officer\+\_\+s\+:
+% FIG 0
+\doxysubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structcase__officer__s_a23a8a4c4f8f20ab4a29fa6a8549603f2}{id}}
+\item 
+int \mbox{\hyperlink{structcase__officer__s_abd26e6755d4b7b9cf7080176d395b1bb}{health\+\_\+point}}
+\item 
+int \mbox{\hyperlink{structcase__officer__s_a157677da0da0af2ad02a2eea158e1848}{location\+\_\+row}}
+\item 
+int \mbox{\hyperlink{structcase__officer__s_a54d3189e1f0ade2eb793637cccffd421}{location\+\_\+column}}
+\item 
+int \mbox{\hyperlink{structcase__officer__s_ae760cb8bf8461919d9cb53db17166fa2}{home\+\_\+row}}
+\item 
+int \mbox{\hyperlink{structcase__officer__s_a0b7faf445d1355388122a0f708448f2c}{home\+\_\+column}}
+\item 
+int \mbox{\hyperlink{structcase__officer__s_ae93ba476c258a786abb063524973126e}{mailbox\+\_\+row}}
+\item 
+int \mbox{\hyperlink{structcase__officer__s_af76e0ae341d4a387518a1a6660f9e6f9}{mailbox\+\_\+column}}
+\item 
+int \mbox{\hyperlink{structcase__officer__s_ab2a28e99c068d2629cfc773b9d53c044}{nb\+\_\+of\+\_\+outing}}
+\item 
+int \mbox{\hyperlink{structcase__officer__s_a6bee654d2e29593c1bfe654f1c5f7932}{row\+\_\+supermarket}}
+\item 
+int \mbox{\hyperlink{structcase__officer__s_a5651ddb4380484b2b6d1e4667bb2e7b2}{column\+\_\+supermarket}}
+\item 
+\mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}} \mbox{\hyperlink{structcase__officer__s_a95cbdfed58ab72b61b9b8c88a1f24e64}{first\+\_\+leaving\+\_\+time}}
+\item 
+\mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}} \mbox{\hyperlink{structcase__officer__s_ac297285e10fb3416597f2a0e05c632b5}{second\+\_\+leaving\+\_\+time}}
+\item 
+\mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}} \mbox{\hyperlink{structcase__officer__s_ae5c51b1f2428f5c2cf1ed7642ed02546}{shopping\+\_\+time}}
+\item 
+int \mbox{\hyperlink{structcase__officer__s_a3a7eb169d084c7ed78a9ca51004390f4}{turns\+\_\+spent\+\_\+shopping}}
+\item 
+\mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}} \mbox{\hyperlink{structcase__officer__s_ae6408a59bec08be427425c176839d17d}{messaging\+\_\+time}}
+\item 
+char \mbox{\hyperlink{structcase__officer__s_a6866d49f4121be673bc7bd7483e1ed2c}{messages}} \mbox{[}M\+A\+X\+\_\+\+M\+E\+S\+S\+A\+G\+ES\mbox{]}\mbox{[}M\+A\+X\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+S\+I\+ZE\mbox{]}
+\item 
+int \mbox{\hyperlink{structcase__officer__s_a6d38f7147ba6fddcf564141ea8f3b89f}{message\+\_\+count}}
+\item 
+\mbox{\hyperlink{structcharacterMovement}{character\+Movement}} \mbox{\hyperlink{structcase__officer__s_a56164df998c8b76793f4b5428a14a052}{movement}}
+\item 
+char \mbox{\hyperlink{structcase__officer__s_a2040f4ac7cfdd5b5e46b9e531bbf4b25}{description}} \mbox{[}30\mbox{]}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcase__officer__s_a3ccb8463e901fd65aa807d61618d9bc8}{current\+\_\+state}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcase__officer__s_a10d0c092d21ed180bfa25f60c0487327}{resting\+\_\+at\+\_\+home}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcase__officer__s_a6edead3ec770e50f55c5a9fa814cee2a}{going\+\_\+to\+\_\+supermarket}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcase__officer__s_a9e9ec9ac58d74663b49d22ff5e0922b2}{doing\+\_\+some\+\_\+shopping}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcase__officer__s_a9e94b5039d790a4b0bc3032920b1b677}{going\+\_\+back\+\_\+home}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcase__officer__s_a64e16c6cf906455f943e3739ace50191}{going\+\_\+to\+\_\+mailbox}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcase__officer__s_ac4ca6e44b375baea4e1e527288d5059f}{sending\+\_\+messages}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structcase__officer__s_ad51b3ea7e35074258b3f5d4e14f5e5a6}{recovering\+\_\+messages}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+The case\+\_\+officer information. 
+
+\doxysubsection{Documentation des données membres}
+\mbox{\Hypertarget{structcase__officer__s_a5651ddb4380484b2b6d1e4667bb2e7b2}\label{structcase__officer__s_a5651ddb4380484b2b6d1e4667bb2e7b2}} 
+\index{case\_officer\_s@{case\_officer\_s}!column\_supermarket@{column\_supermarket}}
+\index{column\_supermarket@{column\_supermarket}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{column\_supermarket}{column\_supermarket}}
+{\footnotesize\ttfamily int case\+\_\+officer\+\_\+s\+::column\+\_\+supermarket}
+
+Column of the supermarket. \mbox{\Hypertarget{structcase__officer__s_a3ccb8463e901fd65aa807d61618d9bc8}\label{structcase__officer__s_a3ccb8463e901fd65aa807d61618d9bc8}} 
+\index{case\_officer\_s@{case\_officer\_s}!current\_state@{current\_state}}
+\index{current\_state@{current\_state}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{current\_state}{current\_state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ case\+\_\+officer\+\_\+s\+::current\+\_\+state}
+
+Current state of the case officer. \mbox{\Hypertarget{structcase__officer__s_a2040f4ac7cfdd5b5e46b9e531bbf4b25}\label{structcase__officer__s_a2040f4ac7cfdd5b5e46b9e531bbf4b25}} 
+\index{case\_officer\_s@{case\_officer\_s}!description@{description}}
+\index{description@{description}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{description}{description}}
+{\footnotesize\ttfamily char case\+\_\+officer\+\_\+s\+::description\mbox{[}30\mbox{]}}
+
+Description of the case officer. \mbox{\Hypertarget{structcase__officer__s_a9e9ec9ac58d74663b49d22ff5e0922b2}\label{structcase__officer__s_a9e9ec9ac58d74663b49d22ff5e0922b2}} 
+\index{case\_officer\_s@{case\_officer\_s}!doing\_some\_shopping@{doing\_some\_shopping}}
+\index{doing\_some\_shopping@{doing\_some\_shopping}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{doing\_some\_shopping}{doing\_some\_shopping}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ case\+\_\+officer\+\_\+s\+::doing\+\_\+some\+\_\+shopping}
+
+State when the case officer is doing some shopping. \mbox{\Hypertarget{structcase__officer__s_a95cbdfed58ab72b61b9b8c88a1f24e64}\label{structcase__officer__s_a95cbdfed58ab72b61b9b8c88a1f24e64}} 
+\index{case\_officer\_s@{case\_officer\_s}!first\_leaving\_time@{first\_leaving\_time}}
+\index{first\_leaving\_time@{first\_leaving\_time}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{first\_leaving\_time}{first\_leaving\_time}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}} case\+\_\+officer\+\_\+s\+::first\+\_\+leaving\+\_\+time}
+
+The first leaving time of the case officer. \mbox{\Hypertarget{structcase__officer__s_a9e94b5039d790a4b0bc3032920b1b677}\label{structcase__officer__s_a9e94b5039d790a4b0bc3032920b1b677}} 
+\index{case\_officer\_s@{case\_officer\_s}!going\_back\_home@{going\_back\_home}}
+\index{going\_back\_home@{going\_back\_home}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{going\_back\_home}{going\_back\_home}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ case\+\_\+officer\+\_\+s\+::going\+\_\+back\+\_\+home}
+
+State when the case officer is going back home. \mbox{\Hypertarget{structcase__officer__s_a64e16c6cf906455f943e3739ace50191}\label{structcase__officer__s_a64e16c6cf906455f943e3739ace50191}} 
+\index{case\_officer\_s@{case\_officer\_s}!going\_to\_mailbox@{going\_to\_mailbox}}
+\index{going\_to\_mailbox@{going\_to\_mailbox}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{going\_to\_mailbox}{going\_to\_mailbox}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ case\+\_\+officer\+\_\+s\+::going\+\_\+to\+\_\+mailbox}
+
+State when the case officer is going to the mailbox. \mbox{\Hypertarget{structcase__officer__s_a6edead3ec770e50f55c5a9fa814cee2a}\label{structcase__officer__s_a6edead3ec770e50f55c5a9fa814cee2a}} 
+\index{case\_officer\_s@{case\_officer\_s}!going\_to\_supermarket@{going\_to\_supermarket}}
+\index{going\_to\_supermarket@{going\_to\_supermarket}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{going\_to\_supermarket}{going\_to\_supermarket}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ case\+\_\+officer\+\_\+s\+::going\+\_\+to\+\_\+supermarket}
+
+State when the case officer is going to the supermarket. \mbox{\Hypertarget{structcase__officer__s_abd26e6755d4b7b9cf7080176d395b1bb}\label{structcase__officer__s_abd26e6755d4b7b9cf7080176d395b1bb}} 
+\index{case\_officer\_s@{case\_officer\_s}!health\_point@{health\_point}}
+\index{health\_point@{health\_point}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{health\_point}{health\_point}}
+{\footnotesize\ttfamily int case\+\_\+officer\+\_\+s\+::health\+\_\+point}
+
+The case\+\_\+officer health\+\_\+point point. \mbox{\Hypertarget{structcase__officer__s_a0b7faf445d1355388122a0f708448f2c}\label{structcase__officer__s_a0b7faf445d1355388122a0f708448f2c}} 
+\index{case\_officer\_s@{case\_officer\_s}!home\_column@{home\_column}}
+\index{home\_column@{home\_column}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{home\_column}{home\_column}}
+{\footnotesize\ttfamily int case\+\_\+officer\+\_\+s\+::home\+\_\+column}
+
+The case\+\_\+officer home column. \mbox{\Hypertarget{structcase__officer__s_ae760cb8bf8461919d9cb53db17166fa2}\label{structcase__officer__s_ae760cb8bf8461919d9cb53db17166fa2}} 
+\index{case\_officer\_s@{case\_officer\_s}!home\_row@{home\_row}}
+\index{home\_row@{home\_row}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{home\_row}{home\_row}}
+{\footnotesize\ttfamily int case\+\_\+officer\+\_\+s\+::home\+\_\+row}
+
+The case\+\_\+officer home row. \mbox{\Hypertarget{structcase__officer__s_a23a8a4c4f8f20ab4a29fa6a8549603f2}\label{structcase__officer__s_a23a8a4c4f8f20ab4a29fa6a8549603f2}} 
+\index{case\_officer\_s@{case\_officer\_s}!id@{id}}
+\index{id@{id}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily int case\+\_\+officer\+\_\+s\+::id}
+
+The case\+\_\+officer identification number. \mbox{\Hypertarget{structcase__officer__s_a54d3189e1f0ade2eb793637cccffd421}\label{structcase__officer__s_a54d3189e1f0ade2eb793637cccffd421}} 
+\index{case\_officer\_s@{case\_officer\_s}!location\_column@{location\_column}}
+\index{location\_column@{location\_column}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{location\_column}{location\_column}}
+{\footnotesize\ttfamily int case\+\_\+officer\+\_\+s\+::location\+\_\+column}
+
+The case\+\_\+officer location column. \mbox{\Hypertarget{structcase__officer__s_a157677da0da0af2ad02a2eea158e1848}\label{structcase__officer__s_a157677da0da0af2ad02a2eea158e1848}} 
+\index{case\_officer\_s@{case\_officer\_s}!location\_row@{location\_row}}
+\index{location\_row@{location\_row}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{location\_row}{location\_row}}
+{\footnotesize\ttfamily int case\+\_\+officer\+\_\+s\+::location\+\_\+row}
+
+The case\+\_\+officer location row. \mbox{\Hypertarget{structcase__officer__s_af76e0ae341d4a387518a1a6660f9e6f9}\label{structcase__officer__s_af76e0ae341d4a387518a1a6660f9e6f9}} 
+\index{case\_officer\_s@{case\_officer\_s}!mailbox\_column@{mailbox\_column}}
+\index{mailbox\_column@{mailbox\_column}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{mailbox\_column}{mailbox\_column}}
+{\footnotesize\ttfamily int case\+\_\+officer\+\_\+s\+::mailbox\+\_\+column}
+
+The case\+\_\+officer mailbox column. \mbox{\Hypertarget{structcase__officer__s_ae93ba476c258a786abb063524973126e}\label{structcase__officer__s_ae93ba476c258a786abb063524973126e}} 
+\index{case\_officer\_s@{case\_officer\_s}!mailbox\_row@{mailbox\_row}}
+\index{mailbox\_row@{mailbox\_row}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{mailbox\_row}{mailbox\_row}}
+{\footnotesize\ttfamily int case\+\_\+officer\+\_\+s\+::mailbox\+\_\+row}
+
+The case\+\_\+officer mailbox row. \mbox{\Hypertarget{structcase__officer__s_a6d38f7147ba6fddcf564141ea8f3b89f}\label{structcase__officer__s_a6d38f7147ba6fddcf564141ea8f3b89f}} 
+\index{case\_officer\_s@{case\_officer\_s}!message\_count@{message\_count}}
+\index{message\_count@{message\_count}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{message\_count}{message\_count}}
+{\footnotesize\ttfamily int case\+\_\+officer\+\_\+s\+::message\+\_\+count}
+
+The count of stored messages. \mbox{\Hypertarget{structcase__officer__s_a6866d49f4121be673bc7bd7483e1ed2c}\label{structcase__officer__s_a6866d49f4121be673bc7bd7483e1ed2c}} 
+\index{case\_officer\_s@{case\_officer\_s}!messages@{messages}}
+\index{messages@{messages}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{messages}{messages}}
+{\footnotesize\ttfamily char case\+\_\+officer\+\_\+s\+::messages\mbox{[}M\+A\+X\+\_\+\+M\+E\+S\+S\+A\+G\+ES\mbox{]}\mbox{[}M\+A\+X\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+S\+I\+ZE\mbox{]}}
+
+Array of messages stored by the case officer. \mbox{\Hypertarget{structcase__officer__s_ae6408a59bec08be427425c176839d17d}\label{structcase__officer__s_ae6408a59bec08be427425c176839d17d}} 
+\index{case\_officer\_s@{case\_officer\_s}!messaging\_time@{messaging\_time}}
+\index{messaging\_time@{messaging\_time}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{messaging\_time}{messaging\_time}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}} case\+\_\+officer\+\_\+s\+::messaging\+\_\+time}
+
+The messaging time of the case officer. \mbox{\Hypertarget{structcase__officer__s_a56164df998c8b76793f4b5428a14a052}\label{structcase__officer__s_a56164df998c8b76793f4b5428a14a052}} 
+\index{case\_officer\_s@{case\_officer\_s}!movement@{movement}}
+\index{movement@{movement}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{movement}{movement}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcharacterMovement}{character\+Movement}} case\+\_\+officer\+\_\+s\+::movement}
+
+Information about the case officer\textquotesingle{}s movement. \mbox{\Hypertarget{structcase__officer__s_ab2a28e99c068d2629cfc773b9d53c044}\label{structcase__officer__s_ab2a28e99c068d2629cfc773b9d53c044}} 
+\index{case\_officer\_s@{case\_officer\_s}!nb\_of\_outing@{nb\_of\_outing}}
+\index{nb\_of\_outing@{nb\_of\_outing}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{nb\_of\_outing}{nb\_of\_outing}}
+{\footnotesize\ttfamily int case\+\_\+officer\+\_\+s\+::nb\+\_\+of\+\_\+outing}
+
+The number of outings of case\+\_\+officer \mbox{\Hypertarget{structcase__officer__s_ad51b3ea7e35074258b3f5d4e14f5e5a6}\label{structcase__officer__s_ad51b3ea7e35074258b3f5d4e14f5e5a6}} 
+\index{case\_officer\_s@{case\_officer\_s}!recovering\_messages@{recovering\_messages}}
+\index{recovering\_messages@{recovering\_messages}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{recovering\_messages}{recovering\_messages}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ case\+\_\+officer\+\_\+s\+::recovering\+\_\+messages}
+
+State when the case officer is recovering messages. \mbox{\Hypertarget{structcase__officer__s_a10d0c092d21ed180bfa25f60c0487327}\label{structcase__officer__s_a10d0c092d21ed180bfa25f60c0487327}} 
+\index{case\_officer\_s@{case\_officer\_s}!resting\_at\_home@{resting\_at\_home}}
+\index{resting\_at\_home@{resting\_at\_home}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{resting\_at\_home}{resting\_at\_home}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ case\+\_\+officer\+\_\+s\+::resting\+\_\+at\+\_\+home}
+
+State when the case officer is resting at home. \mbox{\Hypertarget{structcase__officer__s_a6bee654d2e29593c1bfe654f1c5f7932}\label{structcase__officer__s_a6bee654d2e29593c1bfe654f1c5f7932}} 
+\index{case\_officer\_s@{case\_officer\_s}!row\_supermarket@{row\_supermarket}}
+\index{row\_supermarket@{row\_supermarket}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{row\_supermarket}{row\_supermarket}}
+{\footnotesize\ttfamily int case\+\_\+officer\+\_\+s\+::row\+\_\+supermarket}
+
+Row of the supermarket. \mbox{\Hypertarget{structcase__officer__s_ac297285e10fb3416597f2a0e05c632b5}\label{structcase__officer__s_ac297285e10fb3416597f2a0e05c632b5}} 
+\index{case\_officer\_s@{case\_officer\_s}!second\_leaving\_time@{second\_leaving\_time}}
+\index{second\_leaving\_time@{second\_leaving\_time}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{second\_leaving\_time}{second\_leaving\_time}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}} case\+\_\+officer\+\_\+s\+::second\+\_\+leaving\+\_\+time}
+
+The second leaving time of the case officer. \mbox{\Hypertarget{structcase__officer__s_ac4ca6e44b375baea4e1e527288d5059f}\label{structcase__officer__s_ac4ca6e44b375baea4e1e527288d5059f}} 
+\index{case\_officer\_s@{case\_officer\_s}!sending\_messages@{sending\_messages}}
+\index{sending\_messages@{sending\_messages}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{sending\_messages}{sending\_messages}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ case\+\_\+officer\+\_\+s\+::sending\+\_\+messages}
+
+State when the case officer is sending messages. \mbox{\Hypertarget{structcase__officer__s_ae5c51b1f2428f5c2cf1ed7642ed02546}\label{structcase__officer__s_ae5c51b1f2428f5c2cf1ed7642ed02546}} 
+\index{case\_officer\_s@{case\_officer\_s}!shopping\_time@{shopping\_time}}
+\index{shopping\_time@{shopping\_time}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{shopping\_time}{shopping\_time}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}} case\+\_\+officer\+\_\+s\+::shopping\+\_\+time}
+
+The shopping time of the case officer. \mbox{\Hypertarget{structcase__officer__s_a3a7eb169d084c7ed78a9ca51004390f4}\label{structcase__officer__s_a3a7eb169d084c7ed78a9ca51004390f4}} 
+\index{case\_officer\_s@{case\_officer\_s}!turns\_spent\_shopping@{turns\_spent\_shopping}}
+\index{turns\_spent\_shopping@{turns\_spent\_shopping}!case\_officer\_s@{case\_officer\_s}}
+\doxysubsubsection{\texorpdfstring{turns\_spent\_shopping}{turns\_spent\_shopping}}
+{\footnotesize\ttfamily int case\+\_\+officer\+\_\+s\+::turns\+\_\+spent\+\_\+shopping}
+
+The number of turns spent shopping. 
+
+La documentation de cette structure a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{include_2memory_8h}{memory.\+h}}\end{DoxyCompactItemize}

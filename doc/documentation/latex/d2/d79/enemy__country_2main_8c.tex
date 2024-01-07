@@ -1,0 +1,37 @@
+\hypertarget{enemy__country_2main_8c}{}\doxysection{Référence du fichier src/enemy\+\_\+country/main.c}
+\label{enemy__country_2main_8c}\index{src/enemy\_country/main.c@{src/enemy\_country/main.c}}
+
+
+Message Queue-\/\+Based Message Receiver and Decrypter for Enemy Country.  
+
+
+{\ttfamily \#include \char`\"{}memory.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de main.\+c\+:
+% FIG 0
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{enemy__country_2main_8c_a7b3256d71a0559e33207df62fdb1180e}\label{enemy__country_2main_8c_a7b3256d71a0559e33207df62fdb1180e}} 
+void {\bfseries caesar\+\_\+decipher} (char $\ast$message)
+\item 
+\mbox{\Hypertarget{enemy__country_2main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{enemy__country_2main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+int {\bfseries main} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{enemy__country_2main_8c_af16d0defec41b3501a54c55c112a55d0}\label{enemy__country_2main_8c_af16d0defec41b3501a54c55c112a55d0}} 
+\mbox{\hyperlink{structmemory__s}{memory\+\_\+t}} $\ast$ {\bfseries memory}
+\item 
+\mbox{\Hypertarget{enemy__country_2main_8c_af035dc3e465ac2ce477f88f221c8f829}\label{enemy__country_2main_8c_af035dc3e465ac2ce477f88f221c8f829}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+consumer}
+\item 
+\mbox{\Hypertarget{enemy__country_2main_8c_aa3f3e11b928cbc86547d0e1b4ebd2d14}\label{enemy__country_2main_8c_aa3f3e11b928cbc86547d0e1b4ebd2d14}} 
+sem\+\_\+t $\ast$ {\bfseries sem\+\_\+producer}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Message Queue-\/\+Based Message Receiver and Decrypter for Enemy Country. 
+
+This file contains the code for the \char`\"{}\+Enemy Country\char`\"{} component responsible for receiving encrypted messages using a message queue, decrypting them, and displaying the content. 

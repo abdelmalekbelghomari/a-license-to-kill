@@ -1,0 +1,965 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>A License to Kill: Référence du fichier include/monitor.h</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../ltk.jpg"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">A License to Kill
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Ce projet développe un système de simulation d&#39;espionnage sophistiqué, intégrant des techniques d&#39;intelligence artificielle vues en cours d&#39;IA et de modélisation de scénarios complexes en utilisant les méthodes et techniques vues en cours de Systèmes d&#39;Exploitations.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier monitor.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Constants types and prototypes of the NCurses Terminal User Interface.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;ncurses.h&gt;</code><br />
+<code>#include &lt;pthread.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../db/d7e/include_2memory_8h_source.html">memory.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de monitor.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dc/d42/monitor_8h__incl.png" border="0" usemap="#include_2monitor_8h" alt=""/></div>
+<!-- MAP 0 -->
+</div>
+</div><div class="textblock"><div class="dynheader">
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier :</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d8/d82/monitor_8h__dep__incl.png" border="0" usemap="#include_2monitor_8hdep" alt=""/></div>
+<!-- MAP 1 -->
+</div>
+</div>
+<p><a href="../../d5/d60/monitor_8h_source.html">Aller au code source de ce fichier.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/dac/structmonitor__s.html">monitor_s</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a3b7c3521c43cdcdc536518cb546530bf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a3b7c3521c43cdcdc536518cb546530bf">NB_OF_INFORMATION_FIELDS</a>&#160;&#160;&#160;8</td></tr>
+<tr class="separator:a3b7c3521c43cdcdc536518cb546530bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a359e13ccda7d2ce2a535a4a385b05d2d"><td class="memItemLeft" align="right" valign="top"><a id="a359e13ccda7d2ce2a535a4a385b05d2d"></a>
+char *&#160;</td><td class="memItemRight" valign="bottom"><b>get_ci_officer_state_name</b> (int state_id)</td></tr>
+<tr class="separator:a359e13ccda7d2ce2a535a4a385b05d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9daeb797ac6ffae5ce6c6e260dfd19a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a9daeb797ac6ffae5ce6c6e260dfd19a4">create_color_pairs</a> ()</td></tr>
+<tr class="memdesc:a9daeb797ac6ffae5ce6c6e260dfd19a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates pairs of colors (see "NCurses" documentation).  <a href="../../d5/d60/monitor_8h.html#a9daeb797ac6ffae5ce6c6e260dfd19a4">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9daeb797ac6ffae5ce6c6e260dfd19a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53b18963f0d0f5d0c561883d6ef51ca7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a53b18963f0d0f5d0c561883d6ef51ca7">init_monitor_elements</a> (WINDOW *window, <a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem, int rows, int columns)</td></tr>
+<tr class="memdesc:a53b18963f0d0f5d0c561883d6ef51ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the four sub-window boxes within the given window.  <a href="../../d5/d60/monitor_8h.html#a53b18963f0d0f5d0c561883d6ef51ca7">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a53b18963f0d0f5d0c561883d6ef51ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a215048bd884350b420bf853663a31619"><td class="memItemLeft" align="right" valign="top"><a id="a215048bd884350b420bf853663a31619"></a>
+<a class="el" href="../../d8/de7/structmq__s.html">mq_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>init_mq</b> ()</td></tr>
+<tr class="separator:a215048bd884350b420bf853663a31619"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab79e1f171147ed03d04513eed6f92513"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#ab79e1f171147ed03d04513eed6f92513">set_monitor_title</a> (WINDOW *window, const char *title)</td></tr>
+<tr class="memdesc:ab79e1f171147ed03d04513eed6f92513"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the given window with the given title.  <a href="../../d5/d60/monitor_8h.html#ab79e1f171147ed03d04513eed6f92513">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ab79e1f171147ed03d04513eed6f92513"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a454e3ec5399e6cbb50d0ebe914c75826"><td class="memItemLeft" align="right" valign="top"><a id="a454e3ec5399e6cbb50d0ebe914c75826"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a454e3ec5399e6cbb50d0ebe914c75826">detect_mouse</a> ()</td></tr>
+<tr class="memdesc:a454e3ec5399e6cbb50d0ebe914c75826"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects and displays if the current version of NCurses supports mouse or not. <br /></td></tr>
+<tr class="separator:a454e3ec5399e6cbb50d0ebe914c75826"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a513bd8954879ec20a372a5e755378ab2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a513bd8954879ec20a372a5e755378ab2">set_city_legend</a> (WINDOW *window, int row, int col)</td></tr>
+<tr class="memdesc:a513bd8954879ec20a372a5e755378ab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the city map legend within the given sub-window ("city map and
+general information" sub_window).  <a href="../../d5/d60/monitor_8h.html#a513bd8954879ec20a372a5e755378ab2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a513bd8954879ec20a372a5e755378ab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88b58425470b0bdfb4ab618d676650e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a88b58425470b0bdfb4ab618d676650e5">set_cell_color</a> (WINDOW *window, int color, int row, int col)</td></tr>
+<tr class="memdesc:a88b58425470b0bdfb4ab618d676650e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a cell from the city map with the given color (the city map is displayed in the "City map and status information" sub-window).  <a href="../../d5/d60/monitor_8h.html#a88b58425470b0bdfb4ab618d676650e5">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a88b58425470b0bdfb4ab618d676650e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6035fe2cbd02d4292215ae7ccc9ec7cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a6035fe2cbd02d4292215ae7ccc9ec7cf">display_city</a> (WINDOW *window, <a class="el" href="../../d7/de4/structmap__s.html">map_t</a> map, int rows, int columns, <a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *memory)</td></tr>
+<tr class="memdesc:a6035fe2cbd02d4292215ae7ccc9ec7cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the city map within the "City map and status information" sub-window.  <a href="../../d5/d60/monitor_8h.html#a6035fe2cbd02d4292215ae7ccc9ec7cf">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6035fe2cbd02d4292215ae7ccc9ec7cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c698d6f69717324b197dd94b4d84b80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a0c698d6f69717324b197dd94b4d84b80">show_general_information</a> (WINDOW *window)</td></tr>
+<tr class="memdesc:a0c698d6f69717324b197dd94b4d84b80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shows information within the "City map and status information" sub-window.  <a href="../../d5/d60/monitor_8h.html#a0c698d6f69717324b197dd94b4d84b80">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0c698d6f69717324b197dd94b4d84b80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a791bfffcb4017b27ba3f5267eae057"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a0a791bfffcb4017b27ba3f5267eae057">display_general_information_values</a> (WINDOW *window, <a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem)</td></tr>
+<tr class="memdesc:a0a791bfffcb4017b27ba3f5267eae057"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the number of steps and the elapsed time such as an ending message within the "City map and status information" sub-window.  <a href="../../d5/d60/monitor_8h.html#a0a791bfffcb4017b27ba3f5267eae057">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0a791bfffcb4017b27ba3f5267eae057"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad066b1803a0842de1245e9cec4e8ae2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#ad066b1803a0842de1245e9cec4e8ae2b">update_values</a> (<a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem)</td></tr>
+<tr class="memdesc:ad066b1803a0842de1245e9cec4e8ae2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates values after consulting the given memory.  <a href="../../d5/d60/monitor_8h.html#ad066b1803a0842de1245e9cec4e8ae2b">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad066b1803a0842de1245e9cec4e8ae2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae31a0bc752a40737147deea5c694790a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#ae31a0bc752a40737147deea5c694790a">display_citizen_information</a> (WINDOW *window, <a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem, int row, int column)</td></tr>
+<tr class="memdesc:ae31a0bc752a40737147deea5c694790a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the citizen information starting at the given row and column.  <a href="../../d5/d60/monitor_8h.html#ae31a0bc752a40737147deea5c694790a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae31a0bc752a40737147deea5c694790a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47d86258babe3d27bc6f56db5867b75d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a47d86258babe3d27bc6f56db5867b75d">display_spy1_information</a> (WINDOW *window, <a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem, int row, int column, int number)</td></tr>
+<tr class="memdesc:a47d86258babe3d27bc6f56db5867b75d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the information of the spy whose number is given starting at the given row and column.  <a href="../../d5/d60/monitor_8h.html#a47d86258babe3d27bc6f56db5867b75d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a47d86258babe3d27bc6f56db5867b75d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02fd1bd832305e7174108e90c939f527"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a02fd1bd832305e7174108e90c939f527">display_spy2_information</a> (WINDOW *window, <a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem, int row, int column, int number)</td></tr>
+<tr class="memdesc:a02fd1bd832305e7174108e90c939f527"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the information of the spy whose number is given starting at the given row and column.  <a href="../../d5/d60/monitor_8h.html#a02fd1bd832305e7174108e90c939f527">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a02fd1bd832305e7174108e90c939f527"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a431aa4e5e0c4d7cfa52f8ae18542846d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a431aa4e5e0c4d7cfa52f8ae18542846d">display_spy3_information</a> (WINDOW *window, <a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem, int row, int column, int number)</td></tr>
+<tr class="memdesc:a431aa4e5e0c4d7cfa52f8ae18542846d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the information of the spy whose number is given starting at the given row and column.  <a href="../../d5/d60/monitor_8h.html#a431aa4e5e0c4d7cfa52f8ae18542846d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a431aa4e5e0c4d7cfa52f8ae18542846d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a241c1c2505bddeeb0916c70c496a36da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a241c1c2505bddeeb0916c70c496a36da">display_case_officer_information</a> (WINDOW *window, <a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem, int row, int column)</td></tr>
+<tr class="memdesc:a241c1c2505bddeeb0916c70c496a36da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the information of case officer starting at the given row and column.  <a href="../../d5/d60/monitor_8h.html#a241c1c2505bddeeb0916c70c496a36da">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a241c1c2505bddeeb0916c70c496a36da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38a7bacb4eaccc63beb81d6343f23395"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a38a7bacb4eaccc63beb81d6343f23395">display_counter_officer_information</a> (WINDOW *window, <a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem, int row, int col)</td></tr>
+<tr class="memdesc:a38a7bacb4eaccc63beb81d6343f23395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the information of the counter officer starting at the given row and column.  <a href="../../d5/d60/monitor_8h.html#a38a7bacb4eaccc63beb81d6343f23395">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a38a7bacb4eaccc63beb81d6343f23395"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b96b84f140d3185202ffb2d3f63ca1c"><td class="memItemLeft" align="right" valign="top"><a id="a5b96b84f140d3185202ffb2d3f63ca1c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>display_character_information</b> (WINDOW *window, <a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem)</td></tr>
+<tr class="separator:a5b96b84f140d3185202ffb2d3f63ca1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24beae0e14af376a7555cde4bfef7455"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a24beae0e14af376a7555cde4bfef7455">display_mailbox_content</a> (WINDOW *window, <a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem)</td></tr>
+<tr class="memdesc:a24beae0e14af376a7555cde4bfef7455"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the mailbox content. Messages are encrypted.  <a href="../../d5/d60/monitor_8h.html#a24beae0e14af376a7555cde4bfef7455">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a24beae0e14af376a7555cde4bfef7455"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5586b32b5bd80361fa42124531e1e451"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d60/monitor_8h.html#a5586b32b5bd80361fa42124531e1e451">display_enemy_country_monitor</a> (WINDOW *window, <a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem)</td></tr>
+<tr class="memdesc:a5586b32b5bd80361fa42124531e1e451"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays messages received by the enemy country.  <a href="../../d5/d60/monitor_8h.html#a5586b32b5bd80361fa42124531e1e451">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a5586b32b5bd80361fa42124531e1e451"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Constants types and prototypes of the NCurses Terminal User Interface. </p>
+</div><h2 class="groupheader">Documentation des macros</h2>
+<a id="a3b7c3521c43cdcdc536518cb546530bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b7c3521c43cdcdc536518cb546530bf">&#9670;&nbsp;</a></span>NB_OF_INFORMATION_FIELDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NB_OF_INFORMATION_FIELDS&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The number of fields to display for a spy. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a9daeb797ac6ffae5ce6c6e260dfd19a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9daeb797ac6ffae5ce6c6e260dfd19a4">&#9670;&nbsp;</a></span>create_color_pairs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void create_color_pairs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates pairs of colors (see "NCurses" documentation). </p>
+<p>Basic available colors in ncurses are:</p><ul>
+<li>COLOR_BLACK</li>
+<li>COLOR_RED</li>
+<li>COLOR_GREEN</li>
+<li>COLOR_YELLOW</li>
+<li>COLOR_BLUE</li>
+<li>COLOR_MAGENTA</li>
+<li>COLOR_CYAN</li>
+<li>COLOR_WHITE </li>
+</ul>
+
+</div>
+</div>
+<a id="a241c1c2505bddeeb0916c70c496a36da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a241c1c2505bddeeb0916c70c496a36da">&#9670;&nbsp;</a></span>display_case_officer_information()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void display_case_officer_information </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>mem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Displays the information of case officer starting at the given row and column. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The sub-window. </td></tr>
+    <tr><td class="paramname">mem</td><td>The given shared memory. </td></tr>
+    <tr><td class="paramname">row</td><td>The row to start. </td></tr>
+    <tr><td class="paramname">column</td><td>The column to start. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae31a0bc752a40737147deea5c694790a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae31a0bc752a40737147deea5c694790a">&#9670;&nbsp;</a></span>display_citizen_information()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void display_citizen_information </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>mem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Displays the citizen information starting at the given row and column. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The sub-window. </td></tr>
+    <tr><td class="paramname">mem</td><td>The given shared memory. </td></tr>
+    <tr><td class="paramname">row</td><td>The row to start. </td></tr>
+    <tr><td class="paramname">column</td><td>The column to start. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6035fe2cbd02d4292215ae7ccc9ec7cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6035fe2cbd02d4292215ae7ccc9ec7cf">&#9670;&nbsp;</a></span>display_city()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void display_city </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d7/de4/structmap__s.html">map_t</a>&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>columns</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>memory</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Displays the city map within the "City map and status information" sub-window. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The sub-window. </td></tr>
+    <tr><td class="paramname">map</td><td>The map structure that defines cells. </td></tr>
+    <tr><td class="paramname">rows</td><td>The number of rows of the city map. </td></tr>
+    <tr><td class="paramname">columns</td><td>The number of columns of the city map. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a38a7bacb4eaccc63beb81d6343f23395"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38a7bacb4eaccc63beb81d6343f23395">&#9670;&nbsp;</a></span>display_counter_officer_information()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void display_counter_officer_information </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>mem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>col</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Displays the information of the counter officer starting at the given row and column. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The sub-window. </td></tr>
+    <tr><td class="paramname">mem</td><td>The given shared memory. </td></tr>
+    <tr><td class="paramname">row</td><td>The row to start. </td></tr>
+    <tr><td class="paramname">column</td><td>The column to start. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5586b32b5bd80361fa42124531e1e451"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5586b32b5bd80361fa42124531e1e451">&#9670;&nbsp;</a></span>display_enemy_country_monitor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void display_enemy_country_monitor </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>mem</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Displays messages received by the enemy country. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The sub-window in which messages are displayed. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0a791bfffcb4017b27ba3f5267eae057"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a791bfffcb4017b27ba3f5267eae057">&#9670;&nbsp;</a></span>display_general_information_values()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void display_general_information_values </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>mem</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Displays the number of steps and the elapsed time such as an ending message within the "City map and status information" sub-window. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The sub-window. </td></tr>
+    <tr><td class="paramname">mem</td><td>The given shared memory. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a24beae0e14af376a7555cde4bfef7455"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24beae0e14af376a7555cde4bfef7455">&#9670;&nbsp;</a></span>display_mailbox_content()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void display_mailbox_content </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>mem</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Displays the mailbox content. Messages are encrypted. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The sub-window in which encrypted messages are displayed. </td></tr>
+    <tr><td class="paramname">mem</td><td>The given shared memory in which encrypted messages from the mailbox are retrieved. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a47d86258babe3d27bc6f56db5867b75d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47d86258babe3d27bc6f56db5867b75d">&#9670;&nbsp;</a></span>display_spy1_information()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void display_spy1_information </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>mem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Displays the information of the spy whose number is given starting at the given row and column. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The sub-window. </td></tr>
+    <tr><td class="paramname">mem</td><td>The given shared memory. </td></tr>
+    <tr><td class="paramname">row</td><td>The row to start. </td></tr>
+    <tr><td class="paramname">column</td><td>The column to start. </td></tr>
+    <tr><td class="paramname">number</td><td>The number of the spy (0, 1 or 2) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a02fd1bd832305e7174108e90c939f527"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02fd1bd832305e7174108e90c939f527">&#9670;&nbsp;</a></span>display_spy2_information()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void display_spy2_information </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>mem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Displays the information of the spy whose number is given starting at the given row and column. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The sub-window. </td></tr>
+    <tr><td class="paramname">mem</td><td>The given shared memory. </td></tr>
+    <tr><td class="paramname">row</td><td>The row to start. </td></tr>
+    <tr><td class="paramname">column</td><td>The column to start. </td></tr>
+    <tr><td class="paramname">number</td><td>The number of the spy (0, 1 or 2) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a431aa4e5e0c4d7cfa52f8ae18542846d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a431aa4e5e0c4d7cfa52f8ae18542846d">&#9670;&nbsp;</a></span>display_spy3_information()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void display_spy3_information </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>mem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>number</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Displays the information of the spy whose number is given starting at the given row and column. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The sub-window. </td></tr>
+    <tr><td class="paramname">mem</td><td>The given shared memory. </td></tr>
+    <tr><td class="paramname">row</td><td>The row to start. </td></tr>
+    <tr><td class="paramname">column</td><td>The column to start. </td></tr>
+    <tr><td class="paramname">number</td><td>The number of the spy (0, 1 or 2) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a53b18963f0d0f5d0c561883d6ef51ca7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53b18963f0d0f5d0c561883d6ef51ca7">&#9670;&nbsp;</a></span>init_monitor_elements()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_monitor_elements </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>mem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>columns</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the four sub-window boxes within the given window. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The main window in which we create the four boxes. </td></tr>
+    <tr><td class="paramname">mem</td><td>The given shared memory. </td></tr>
+    <tr><td class="paramname">rows</td><td>The number of rows of the main window. </td></tr>
+    <tr><td class="paramname">columns</td><td>The number of columns of the main window. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a88b58425470b0bdfb4ab618d676650e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88b58425470b0bdfb4ab618d676650e5">&#9670;&nbsp;</a></span>set_cell_color()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void set_cell_color </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>col</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a cell from the city map with the given color (the city map is displayed in the "City map and status information" sub-window). </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The sub-window. </td></tr>
+    <tr><td class="paramname">color</td><td>The color of the cell. </td></tr>
+    <tr><td class="paramname">row</td><td>The row of the cell. </td></tr>
+    <tr><td class="paramname">The</td><td>column of the cell. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a513bd8954879ec20a372a5e755378ab2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a513bd8954879ec20a372a5e755378ab2">&#9670;&nbsp;</a></span>set_city_legend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void set_city_legend </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>col</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the city map legend within the given sub-window ("city map and
+general information" sub_window). </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The sub-window. </td></tr>
+    <tr><td class="paramname">row</td><td>The row of the top of city legend </td></tr>
+    <tr><td class="paramname">col</td><td>The column of the left of city legend </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab79e1f171147ed03d04513eed6f92513"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab79e1f171147ed03d04513eed6f92513">&#9670;&nbsp;</a></span>set_monitor_title()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void set_monitor_title </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>title</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the given window with the given title. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The window. </td></tr>
+    <tr><td class="paramname">title</td><td>The title. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0c698d6f69717324b197dd94b4d84b80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c698d6f69717324b197dd94b4d84b80">&#9670;&nbsp;</a></span>show_general_information()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void show_general_information </td>
+          <td>(</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname"><em>window</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shows information within the "City map and status information" sub-window. </p>
+<p>It displays information such as the title and labels of the number of turns and the elapsed time.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">window</td><td>The sub-window. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad066b1803a0842de1245e9cec4e8ae2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad066b1803a0842de1245e9cec4e8ae2b">&#9670;&nbsp;</a></span>update_values()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void update_values </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>mem</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates values after consulting the given memory. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mem</td><td>The given shared memory. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

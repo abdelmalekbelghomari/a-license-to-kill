@@ -1,0 +1,50 @@
+digraph "include/memory.h"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="include/memory.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="include/astar.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d56/astar_8h.html",tooltip=" "];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="src/astar/astar.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d0/dd4/astar_8c.html",tooltip="Implementation of the A* algorithm."];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="src/citizen_manager\l/citizen_manager.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dc/da7/citizen__manager_8c.html",tooltip="Managing the citizens in the simulation."];
+  Node2 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="src/counter_intelligence\l/counter_intelligence.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d9/d4d/counter__intelligence_8c.html",tooltip="Implementation of counterintelligence operations."];
+  Node2 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="src/enemy_spy_network\l/enemy_spy_network.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/dd8/enemy__spy__network_8c.html",tooltip="Spy Network and Case Officer Management for Espionage Operations."];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="include/citizen_manager.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d3/d54/citizen__manager_8h.html",tooltip="Header for citizen management in the espionage simulation project."];
+  Node7 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="src/citizen_manager\l/main.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d7/d7f/citizen__manager_2main_8c.html",tooltip="Main entry point for the spy simulation."];
+  Node7 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="src/spy_simulation\l/spy_simulation.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d3/daa/spy__simulation_8c.html",tooltip="Spy Simulation Control and Process Launcher."];
+  Node1 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="include/counter_intelligence.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d9/d78/counter__intelligence_8h.html",tooltip=" "];
+  Node10 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="src/counter_intelligence\l/main.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d9/d4a/counter__intelligence_2main_8c.html",tooltip="Main entry point for counterintelligence operations."];
+  Node1 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="include/enemy_spy_network.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d1/db7/enemy__spy__network_8h.html",tooltip="Header file for the Enemy Spy Network executable."];
+  Node12 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="src/enemy_spy_network\l/main.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$db/dee/enemy__spy__network_2main_8c.html",tooltip="Main Thread Management for Enemy Spy Network."];
+  Node1 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="include/monitor.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d5/d60/monitor_8h.html",tooltip="Constants types and prototypes of the NCurses Terminal User Interface."];
+  Node14 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="src/monitor/main.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d4/d99/monitor_2main_8c.html",tooltip="Creates a new \"Terminal User Interface\" using ncurses and associated with the given shared memory."];
+  Node14 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="src/spy_simulation\l/main.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d9/d94/spy__simulation_2main_8c.html",tooltip="Main Entry Point for Spy Simulation."];
+  Node1 -> Node17 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 [label="include/spy_simulation.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d3/da6/spy__simulation_8h.html",tooltip="Header file for the Spy Simulation executable."];
+  Node17 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node18 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 [label="include/timer.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d5/dd0/timer_8h.html",tooltip="Header file for the Timer executable."];
+  Node18 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

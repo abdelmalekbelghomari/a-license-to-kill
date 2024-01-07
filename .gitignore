@@ -12,16 +12,6 @@
 !.vscode/extensions.json
 *.code-workspace
 
-# Local History for Visual Studio Code
-.history/
-
-*.html
-*.js
-*.md5
-*.pdf
-*.png
-*.tex
-
 ### C template
 # Prerequisites
 *.d

@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['scouting_646',['scouting',['../da/dff/structspy__s.html#a32017c0e2f94cae4575d7093ca5852c8',1,'spy_s']]],
+  ['searching_5ffor_5fmailbox_647',['searching_for_mailbox',['../d8/d8f/structcounter__intelligence__officer__s.html#a923f6fd87471fe5adaee6cef7e553316',1,'counter_intelligence_officer_s']]],
+  ['second_5fleaving_5ftime_648',['second_leaving_time',['../d3/d91/structcase__officer__s.html#ac297285e10fb3416597f2a0e05c632b5',1,'case_officer_s']]],
+  ['sending_5fmessage_649',['sending_message',['../da/dff/structspy__s.html#a7a20c46d25ed1129f443d9127ecb7b93',1,'spy_s']]],
+  ['sending_5fmessages_650',['sending_messages',['../d3/d91/structcase__officer__s.html#ac4ca6e44b375baea4e1e527288d5059f',1,'case_officer_s']]],
+  ['shopping_5ftime_651',['shopping_time',['../d3/d91/structcase__officer__s.html#ae5c51b1f2428f5c2cf1ed7642ed02546',1,'case_officer_s']]],
+  ['simulation_5fhas_5fended_652',['simulation_has_ended',['../de/dd3/structmemory__s.html#ac43d50a3f4e3173347c8ee499514e3f8',1,'memory_s']]],
+  ['size_653',['size',['../d9/d8a/structheap__t.html#a68a7c23b74435e86a411474e81ed1d05',1,'heap_t']]],
+  ['spies_654',['spies',['../de/dd3/structmemory__s.html#a732c7dc5fcdacfe7ccf157bcfe0e1d50',1,'memory_s']]],
+  ['spotting_655',['spotting',['../da/dff/structspy__s.html#a50ce62d0f15b2879018bdd2ca8a0ccff',1,'spy_s']]],
+  ['spy_656',['spy',['../d3/d37/unionsuspect__t.html#a25e538baa6998a5fe320b56d86f232c4',1,'suspect_t']]],
+  ['standard_5fcamera_657',['standard_camera',['../d6/d5a/structsurveillanceCameras.html#a8f6d6cac6c92f87cad5a6632d8e6cfb2',1,'surveillanceCameras']]],
+  ['start_5fhour_658',['start_hour',['../da/d28/structTimeRange.html#a8e7b3ab2f0b17d0b0acebc76422dc702',1,'TimeRange']]],
+  ['stealing_659',['stealing',['../da/dff/structspy__s.html#a362ef11e3ac79111d9da04beb1d1a26e',1,'spy_s']]],
+  ['stolen_5fmessage_5fcontent_660',['stolen_message_content',['../da/dff/structspy__s.html#aae9a737333a5e1ecdaf54b0c65aaf897',1,'spy_s']]],
+  ['supermarket_661',['supermarket',['../dc/d85/structcitizen__s.html#ab34753ec431ed2f017057529b466a6fb',1,'citizen_s']]],
+  ['surveillanceai_662',['surveillanceAI',['../d1/dad/structsurveillanceNetwork__t.html#a23ca45806bd08e5be24147e11b93b740',1,'surveillanceNetwork_t']]],
+  ['surveillancenetwork_663',['surveillanceNetwork',['../de/dd3/structmemory__s.html#a22f6ce5b8b12a7a5d9225b274e109dbd',1,'memory_s']]],
+  ['suspect_664',['suspect',['../de/d86/structsurveillance__AI.html#a0e993b21c484f606102330889549b82b',1,'surveillance_AI']]],
+  ['suspect_5ftype_665',['suspect_type',['../de/d86/structsurveillance__AI.html#a3bcbc4b0161ca2ad349d7891fdcedf82',1,'surveillance_AI']]],
+  ['suspicious_5fmovement_666',['suspicious_movement',['../de/d86/structsurveillance__AI.html#a7de12dbd69ebcc11403ed176f4a0ad0b',1,'surveillance_AI']]]
+];

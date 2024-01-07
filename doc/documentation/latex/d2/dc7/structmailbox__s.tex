@@ -1,0 +1,48 @@
+\hypertarget{structmailbox__s}{}\doxysection{Référence de la structure mailbox\+\_\+s}
+\label{structmailbox__s}\index{mailbox\_s@{mailbox\_s}}
+
+
+A structure representing a mailbox in the simulation.  
+
+
+
+
+{\ttfamily \#include $<$memory.\+h$>$}
+
+\doxysubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structmailbox__s_a1fedf36025c74ac174ce9d0f8810676c}\label{structmailbox__s_a1fedf36025c74ac174ce9d0f8810676c}} 
+bool \mbox{\hyperlink{structmailbox__s_a1fedf36025c74ac174ce9d0f8810676c}{is\+\_\+occupied}}
+\begin{DoxyCompactList}\small\item\em Flag indicating if the mailbox is occupied. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmailbox__s_a12e5c86d9d03f0c7f928c386c34be041}\label{structmailbox__s_a12e5c86d9d03f0c7f928c386c34be041}} 
+int \mbox{\hyperlink{structmailbox__s_a12e5c86d9d03f0c7f928c386c34be041}{row}}
+\begin{DoxyCompactList}\small\item\em Row position of the mailbox. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmailbox__s_ab23646fd11ceeff45dbd89449d5ef94d}\label{structmailbox__s_ab23646fd11ceeff45dbd89449d5ef94d}} 
+int \mbox{\hyperlink{structmailbox__s_ab23646fd11ceeff45dbd89449d5ef94d}{column}}
+\begin{DoxyCompactList}\small\item\em Column position of the mailbox. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmailbox__s_a2c5a2f28517d23383105919ce51615a8}\label{structmailbox__s_a2c5a2f28517d23383105919ce51615a8}} 
+int \mbox{\hyperlink{structmailbox__s_a2c5a2f28517d23383105919ce51615a8}{row\+\_\+in\+\_\+front}}
+\begin{DoxyCompactList}\small\item\em Row in front of the mailbox. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmailbox__s_a4fb6d719260a38ced0560813073eddfb}\label{structmailbox__s_a4fb6d719260a38ced0560813073eddfb}} 
+int \mbox{\hyperlink{structmailbox__s_a4fb6d719260a38ced0560813073eddfb}{column\+\_\+in\+\_\+front}}
+\begin{DoxyCompactList}\small\item\em Column in front of the mailbox. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmailbox__s_a39a77a70fe238aea4d256ffa946eb140}\label{structmailbox__s_a39a77a70fe238aea4d256ffa946eb140}} 
+char \mbox{\hyperlink{structmailbox__s_a39a77a70fe238aea4d256ffa946eb140}{messages}} \mbox{[}M\+A\+X\+\_\+\+M\+E\+S\+S\+A\+G\+ES\mbox{]}\mbox{[}M\+A\+X\+\_\+\+M\+E\+S\+S\+A\+G\+E\+\_\+\+S\+I\+ZE\mbox{]}
+\begin{DoxyCompactList}\small\item\em Array of messages stored in the mailbox. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmailbox__s_af05240dcee7e7f60fb3bb52f5ecd373c}\label{structmailbox__s_af05240dcee7e7f60fb3bb52f5ecd373c}} 
+int \mbox{\hyperlink{structmailbox__s_af05240dcee7e7f60fb3bb52f5ecd373c}{message\+\_\+count}}
+\begin{DoxyCompactList}\small\item\em Number of messages in the mailbox. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structmailbox__s_a939115b415ba33569aa51ea64ba338f8}\label{structmailbox__s_a939115b415ba33569aa51ea64ba338f8}} 
+int \mbox{\hyperlink{structmailbox__s_a939115b415ba33569aa51ea64ba338f8}{priority}} \mbox{[}M\+A\+X\+\_\+\+M\+E\+S\+S\+A\+G\+ES\mbox{]}
+\begin{DoxyCompactList}\small\item\em Priority of each message. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+A structure representing a mailbox in the simulation. 
+
+This structure stores information about a mailbox, including its position and stored messages. 
+
+La documentation de cette structure a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{include_2memory_8h}{memory.\+h}}\end{DoxyCompactItemize}

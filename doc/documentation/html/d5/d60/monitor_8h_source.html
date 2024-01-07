@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>A License to Kill:  Fichier source de include/monitor.h</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../ltk.jpg"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">A License to Kill
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Ce projet développe un système de simulation d&#39;espionnage sophistiqué, intégrant des techniques d&#39;intelligence artificielle vues en cours d&#39;IA et de modélisation de scénarios complexes en utilisant les méthodes et techniques vues en cours de Systèmes d&#39;Exploitations.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">monitor.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d5/d60/monitor_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * The License to Kill Project</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * Copyright (C) 1995-2022 Alain Lebret &lt;alain.lebret [at] ensicaen [dot] fr&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"> * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"> * you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"> *     http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> * Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"> * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"> * See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"> * limitations under the License.</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#ifndef MONITOR_H</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#define MONITOR_H</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;ncurses.h&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;pthread.h&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;memory.h&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="../../d5/d60/monitor_8h.html#a3b7c3521c43cdcdc536518cb546530bf">   32</a></span>&#160;<span class="preprocessor">#define NB_OF_INFORMATION_FIELDS 8</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">// sem_t *sem_producer_timer, *sem_consumer_timer;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="../../d6/dac/structmonitor__s.html">   36</a></span>&#160;<span class="keyword">struct </span><a class="code" href="../../d6/dac/structmonitor__s.html">monitor_s</a> {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">int</span> has_to_update;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keywordtype">char</span>* get_ci_officer_state_name(<span class="keywordtype">int</span> state_id);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a9daeb797ac6ffae5ce6c6e260dfd19a4">create_color_pairs</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a53b18963f0d0f5d0c561883d6ef51ca7">init_monitor_elements</a>(WINDOW *window, <a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem, <span class="keywordtype">int</span> rows, <span class="keywordtype">int</span> columns);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<a class="code" href="../../d8/de7/structmq__s.html">mq_t</a> init_mq();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#ab79e1f171147ed03d04513eed6f92513">set_monitor_title</a>(WINDOW *window, <span class="keyword">const</span> <span class="keywordtype">char</span> *title);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a454e3ec5399e6cbb50d0ebe914c75826">detect_mouse</a>();</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a513bd8954879ec20a372a5e755378ab2">set_city_legend</a>(WINDOW *window, <span class="keywordtype">int</span> row, <span class="keywordtype">int</span> col);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a88b58425470b0bdfb4ab618d676650e5">set_cell_color</a>(WINDOW *window, <span class="keywordtype">int</span> color, <span class="keywordtype">int</span> row, <span class="keywordtype">int</span> col);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a6035fe2cbd02d4292215ae7ccc9ec7cf">display_city</a>(WINDOW *window, <a class="code" href="../../d7/de4/structmap__s.html">map_t</a> map, <span class="keywordtype">int</span> rows, <span class="keywordtype">int</span> columns, <a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *memory);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a0c698d6f69717324b197dd94b4d84b80">show_general_information</a>(WINDOW *window);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a0a791bfffcb4017b27ba3f5267eae057">display_general_information_values</a>(WINDOW *window, <a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#ad066b1803a0842de1245e9cec4e8ae2b">update_values</a>(<a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#ae31a0bc752a40737147deea5c694790a">display_citizen_information</a>(WINDOW *window, <a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem, <span class="keywordtype">int</span> row, <span class="keywordtype">int</span> column);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a47d86258babe3d27bc6f56db5867b75d">display_spy1_information</a>(WINDOW *window, <a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem, <span class="keywordtype">int</span> row, <span class="keywordtype">int</span> column, <span class="keywordtype">int</span> number);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a02fd1bd832305e7174108e90c939f527">display_spy2_information</a>(WINDOW *window, <a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem, <span class="keywordtype">int</span> row, <span class="keywordtype">int</span> column, <span class="keywordtype">int</span> number);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a431aa4e5e0c4d7cfa52f8ae18542846d">display_spy3_information</a>(WINDOW *window, <a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem, <span class="keywordtype">int</span> row, <span class="keywordtype">int</span> column, <span class="keywordtype">int</span> number);</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a241c1c2505bddeeb0916c70c496a36da">display_case_officer_information</a>(WINDOW *window, <a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem, <span class="keywordtype">int</span> row, <span class="keywordtype">int</span> column);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a38a7bacb4eaccc63beb81d6343f23395">display_counter_officer_information</a>(WINDOW *window, <a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem, <span class="keywordtype">int</span> row, <span class="keywordtype">int</span> col);</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="keywordtype">void</span> display_character_information(WINDOW *window, <a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem);</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a24beae0e14af376a7555cde4bfef7455">display_mailbox_content</a>(WINDOW *window, <a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="keywordtype">void</span> <a class="code" href="../../d5/d60/monitor_8h.html#a5586b32b5bd80361fa42124531e1e451">display_enemy_country_monitor</a>(WINDOW *window, <a class="code" href="../../de/dd3/structmemory__s.html">memory_t</a> *mem);</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* MONITOR_H */</span><span class="preprocessor"></span></div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="amonitor_8h_html_a454e3ec5399e6cbb50d0ebe914c75826"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a454e3ec5399e6cbb50d0ebe914c75826">detect_mouse</a></div><div class="ttdeci">void detect_mouse()</div><div class="ttdoc">Detects and displays if the current version of NCurses supports mouse or not.</div><div class="ttdef"><b>Definition:</b> monitor.c:40</div></div>
+<div class="ttc" id="amonitor_8h_html_a0a791bfffcb4017b27ba3f5267eae057"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a0a791bfffcb4017b27ba3f5267eae057">display_general_information_values</a></div><div class="ttdeci">void display_general_information_values(WINDOW *window, memory_t *mem)</div><div class="ttdoc">Displays the number of steps and the elapsed time such as an ending message within the &quot;City map and ...</div><div class="ttdef"><b>Definition:</b> monitor.c:268</div></div>
+<div class="ttc" id="amonitor_8h_html_a88b58425470b0bdfb4ab618d676650e5"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a88b58425470b0bdfb4ab618d676650e5">set_cell_color</a></div><div class="ttdeci">void set_cell_color(WINDOW *window, int color, int row, int col)</div><div class="ttdoc">Sets a cell from the city map with the given color (the city map is displayed in the &quot;City map and st...</div><div class="ttdef"><b>Definition:</b> monitor.c:245</div></div>
+<div class="ttc" id="amonitor_8h_html_a431aa4e5e0c4d7cfa52f8ae18542846d"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a431aa4e5e0c4d7cfa52f8ae18542846d">display_spy3_information</a></div><div class="ttdeci">void display_spy3_information(WINDOW *window, memory_t *mem, int row, int column, int number)</div><div class="ttdoc">Displays the information of the spy whose number is given starting at the given row and column.</div></div>
+<div class="ttc" id="amonitor_8h_html_a5586b32b5bd80361fa42124531e1e451"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a5586b32b5bd80361fa42124531e1e451">display_enemy_country_monitor</a></div><div class="ttdeci">void display_enemy_country_monitor(WINDOW *window, memory_t *mem)</div><div class="ttdoc">Displays messages received by the enemy country.</div><div class="ttdef"><b>Definition:</b> monitor.c:590</div></div>
+<div class="ttc" id="amonitor_8h_html_ad066b1803a0842de1245e9cec4e8ae2b"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#ad066b1803a0842de1245e9cec4e8ae2b">update_values</a></div><div class="ttdeci">void update_values(memory_t *mem)</div><div class="ttdoc">Updates values after consulting the given memory.</div><div class="ttdef"><b>Definition:</b> monitor.c:626</div></div>
+<div class="ttc" id="amonitor_8h_html_a241c1c2505bddeeb0916c70c496a36da"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a241c1c2505bddeeb0916c70c496a36da">display_case_officer_information</a></div><div class="ttdeci">void display_case_officer_information(WINDOW *window, memory_t *mem, int row, int column)</div><div class="ttdoc">Displays the information of case officer starting at the given row and column.</div><div class="ttdef"><b>Definition:</b> monitor.c:429</div></div>
+<div class="ttc" id="amonitor_8h_html_a24beae0e14af376a7555cde4bfef7455"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a24beae0e14af376a7555cde4bfef7455">display_mailbox_content</a></div><div class="ttdeci">void display_mailbox_content(WINDOW *window, memory_t *mem)</div><div class="ttdoc">Displays the mailbox content. Messages are encrypted.</div><div class="ttdef"><b>Definition:</b> monitor.c:549</div></div>
+<div class="ttc" id="amonitor_8h_html_a513bd8954879ec20a372a5e755378ab2"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a513bd8954879ec20a372a5e755378ab2">set_city_legend</a></div><div class="ttdeci">void set_city_legend(WINDOW *window, int row, int col)</div><div class="ttdoc">Sets the city map legend within the given sub-window (&quot;city map and general information&quot; sub_window).</div><div class="ttdef"><b>Definition:</b> monitor.c:126</div></div>
+<div class="ttc" id="astructmap__s_html"><div class="ttname"><a href="../../d7/de4/structmap__s.html">map_s</a></div><div class="ttdoc">The city map.</div><div class="ttdef"><b>Definition:</b> memory.h:327</div></div>
+<div class="ttc" id="amonitor_8h_html_a38a7bacb4eaccc63beb81d6343f23395"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a38a7bacb4eaccc63beb81d6343f23395">display_counter_officer_information</a></div><div class="ttdeci">void display_counter_officer_information(WINDOW *window, memory_t *mem, int row, int col)</div><div class="ttdoc">Displays the information of the counter officer starting at the given row and column.</div></div>
+<div class="ttc" id="amonitor_8h_html_a53b18963f0d0f5d0c561883d6ef51ca7"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a53b18963f0d0f5d0c561883d6ef51ca7">init_monitor_elements</a></div><div class="ttdeci">void init_monitor_elements(WINDOW *window, memory_t *mem, int rows, int columns)</div><div class="ttdoc">Creates the four sub-window boxes within the given window.</div><div class="ttdef"><b>Definition:</b> monitor.c:90</div></div>
+<div class="ttc" id="astructmemory__s_html"><div class="ttname"><a href="../../de/dd3/structmemory__s.html">memory_s</a></div><div class="ttdoc">Structure representing the shared memory used by all processes in the simulation.</div><div class="ttdef"><b>Definition:</b> memory.h:571</div></div>
+<div class="ttc" id="amonitor_8h_html_a6035fe2cbd02d4292215ae7ccc9ec7cf"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a6035fe2cbd02d4292215ae7ccc9ec7cf">display_city</a></div><div class="ttdeci">void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *memory)</div><div class="ttdoc">Displays the city map within the &quot;City map and status information&quot; sub-window.</div><div class="ttdef"><b>Definition:</b> monitor.c:156</div></div>
+<div class="ttc" id="amonitor_8h_html_a0c698d6f69717324b197dd94b4d84b80"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a0c698d6f69717324b197dd94b4d84b80">show_general_information</a></div><div class="ttdeci">void show_general_information(WINDOW *window)</div><div class="ttdoc">Shows information within the &quot;City map and status information&quot; sub-window.</div><div class="ttdef"><b>Definition:</b> monitor.c:252</div></div>
+<div class="ttc" id="amonitor_8h_html_a47d86258babe3d27bc6f56db5867b75d"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a47d86258babe3d27bc6f56db5867b75d">display_spy1_information</a></div><div class="ttdeci">void display_spy1_information(WINDOW *window, memory_t *mem, int row, int column, int number)</div><div class="ttdoc">Displays the information of the spy whose number is given starting at the given row and column.</div></div>
+<div class="ttc" id="astructmonitor__s_html"><div class="ttname"><a href="../../d6/dac/structmonitor__s.html">monitor_s</a></div><div class="ttdef"><b>Definition:</b> monitor.h:36</div></div>
+<div class="ttc" id="astructmq__s_html"><div class="ttname"><a href="../../d8/de7/structmq__s.html">mq_s</a></div><div class="ttdoc">Structure representing a message queue.</div><div class="ttdef"><b>Definition:</b> memory.h:153</div></div>
+<div class="ttc" id="amonitor_8h_html_ab79e1f171147ed03d04513eed6f92513"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#ab79e1f171147ed03d04513eed6f92513">set_monitor_title</a></div><div class="ttdeci">void set_monitor_title(WINDOW *window, const char *title)</div><div class="ttdoc">Sets the given window with the given title.</div><div class="ttdef"><b>Definition:</b> monitor.c:116</div></div>
+<div class="ttc" id="amonitor_8h_html_a9daeb797ac6ffae5ce6c6e260dfd19a4"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a9daeb797ac6ffae5ce6c6e260dfd19a4">create_color_pairs</a></div><div class="ttdeci">void create_color_pairs()</div><div class="ttdoc">Creates pairs of colors (see &quot;NCurses&quot; documentation).</div><div class="ttdef"><b>Definition:</b> monitor.c:60</div></div>
+<div class="ttc" id="amonitor_8h_html_a02fd1bd832305e7174108e90c939f527"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#a02fd1bd832305e7174108e90c939f527">display_spy2_information</a></div><div class="ttdeci">void display_spy2_information(WINDOW *window, memory_t *mem, int row, int column, int number)</div><div class="ttdoc">Displays the information of the spy whose number is given starting at the given row and column.</div></div>
+<div class="ttc" id="amonitor_8h_html_ae31a0bc752a40737147deea5c694790a"><div class="ttname"><a href="../../d5/d60/monitor_8h.html#ae31a0bc752a40737147deea5c694790a">display_citizen_information</a></div><div class="ttdeci">void display_citizen_information(WINDOW *window, memory_t *mem, int row, int column)</div><div class="ttdoc">Displays the citizen information starting at the given row and column.</div><div class="ttdef"><b>Definition:</b> monitor.c:312</div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

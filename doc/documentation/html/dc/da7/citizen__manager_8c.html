@@ -1,0 +1,721 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>A License to Kill: Référence du fichier src/citizen_manager/citizen_manager.c</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="../../ltk.jpg"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">A License to Kill
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Ce projet développe un système de simulation d&#39;espionnage sophistiqué, intégrant des techniques d&#39;intelligence artificielle vues en cours d&#39;IA et de modélisation de scénarios complexes en utilisant les méthodes et techniques vues en cours de Systèmes d&#39;Exploitations.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "../../search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('../../',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_32334c795b35e54fa5e5d2e3f499afbc.html">citizen_manager</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Fonctions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">Référence du fichier citizen_manager.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Managing the citizens in the simulation.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d3/d54/citizen__manager_8h_source.html">citizen_manager.h</a>&quot;</code><br />
+<code>#include &lt;pthread.h&gt;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
+<code>#include &lt;bits/pthreadtypes.h&gt;</code><br />
+<code>#include &lt;float.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="../../d8/d56/astar_8h_source.html">astar.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Graphe des dépendances par inclusion de citizen_manager.c:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../df/da0/citizen__manager_8c__incl.png" border="0" usemap="#src_2citizen__manager_2citizen__manager_8c" alt=""/></div>
+<!-- MAP 0 -->
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aa4cfdfe993fe1696f4f75b0557c9906c"><td class="memItemLeft" align="right" valign="top"><a id="aa4cfdfe993fe1696f4f75b0557c9906c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SHARED_MEMORY</b>&#160;&#160;&#160;&quot;/SharedMemory&quot;</td></tr>
+<tr class="separator:aa4cfdfe993fe1696f4f75b0557c9906c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:af1921e0fcbe1ed6c5267096e0499807a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#af1921e0fcbe1ed6c5267096e0499807a">open_shared_memory</a> ()</td></tr>
+<tr class="memdesc:af1921e0fcbe1ed6c5267096e0499807a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open shared memory.  <a href="../../dc/da7/citizen__manager_8c.html#af1921e0fcbe1ed6c5267096e0499807a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af1921e0fcbe1ed6c5267096e0499807a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40c7049731ca1d26d5669f203cca4058"><td class="memItemLeft" align="right" valign="top"><a id="a40c7049731ca1d26d5669f203cca4058"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>distance</b> (unsigned int pos1[2], unsigned int pos2[2])</td></tr>
+<tr class="separator:a40c7049731ca1d26d5669f203cca4058"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d9597dfc64073493879425651319732"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#a8d9597dfc64073493879425651319732">init_house</a> (<a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *memory)</td></tr>
+<tr class="memdesc:a8d9597dfc64073493879425651319732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the houses in the simulation.  <a href="../../dc/da7/citizen__manager_8c.html#a8d9597dfc64073493879425651319732">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8d9597dfc64073493879425651319732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36693536e4d06ae1c9cd91319b268e8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#a36693536e4d06ae1c9cd91319b268e8e">init_building</a> (<a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *memory)</td></tr>
+<tr class="memdesc:a36693536e4d06ae1c9cd91319b268e8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the buildings (companies and supermarkets) in the simulation.  <a href="../../dc/da7/citizen__manager_8c.html#a36693536e4d06ae1c9cd91319b268e8e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a36693536e4d06ae1c9cd91319b268e8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a942e33052f3b1e498ab5515264457864"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#a942e33052f3b1e498ab5515264457864">init_citizens</a> (<a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *memory)</td></tr>
+<tr class="memdesc:a942e33052f3b1e498ab5515264457864"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the citizens.  <a href="../../dc/da7/citizen__manager_8c.html#a942e33052f3b1e498ab5515264457864">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a942e33052f3b1e498ab5515264457864"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0352adeadb08573d6a3f4d93a6ac234e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#a0352adeadb08573d6a3f4d93a6ac234e">assign_home_to_citizen</a> (<a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *memory, <a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *citizen)</td></tr>
+<tr class="memdesc:a0352adeadb08573d6a3f4d93a6ac234e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign a home to a citizen.  <a href="../../dc/da7/citizen__manager_8c.html#a0352adeadb08573d6a3f4d93a6ac234e">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0352adeadb08573d6a3f4d93a6ac234e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05672efb91f53dc68740fd427be2f63a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#a05672efb91f53dc68740fd427be2f63a">assign_company_to_citizen</a> (<a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *memory, <a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *citizen)</td></tr>
+<tr class="memdesc:a05672efb91f53dc68740fd427be2f63a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign a workplace to a citizen.  <a href="../../dc/da7/citizen__manager_8c.html#a05672efb91f53dc68740fd427be2f63a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a05672efb91f53dc68740fd427be2f63a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19c1c33d8d0804f384c1dd663d8e5359"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#a19c1c33d8d0804f384c1dd663d8e5359">assign_random_supermarket</a> (<a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *memory, <a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *citizen)</td></tr>
+<tr class="memdesc:a19c1c33d8d0804f384c1dd663d8e5359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assign a supermarket to a citizen.  <a href="../../dc/da7/citizen__manager_8c.html#a19c1c33d8d0804f384c1dd663d8e5359">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a19c1c33d8d0804f384c1dd663d8e5359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a496debb536c33fe8b24767ea0aad1592"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#a496debb536c33fe8b24767ea0aad1592">get_current_simulation_time</a> (<a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *memory)</td></tr>
+<tr class="memdesc:a496debb536c33fe8b24767ea0aad1592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the current simulation time.  <a href="../../dc/da7/citizen__manager_8c.html#a496debb536c33fe8b24767ea0aad1592">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a496debb536c33fe8b24767ea0aad1592"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad7b8c667301044657d7043491ec12e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#aad7b8c667301044657d7043491ec12e8">new_state</a> (int id, <a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *(*action)(<a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *))</td></tr>
+<tr class="memdesc:aad7b8c667301044657d7043491ec12e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new state for a citizen.  <a href="../../dc/da7/citizen__manager_8c.html#aad7b8c667301044657d7043491ec12e8">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aad7b8c667301044657d7043491ec12e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f41fb95c05ebf1548ddccb0bd276ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#a25f41fb95c05ebf1548ddccb0bd276ca">rest_at_home</a> (<a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *c)</td></tr>
+<tr class="memdesc:a25f41fb95c05ebf1548ddccb0bd276ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action for the "resting at home" state.  <a href="../../dc/da7/citizen__manager_8c.html#a25f41fb95c05ebf1548ddccb0bd276ca">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a25f41fb95c05ebf1548ddccb0bd276ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0521046c72ffe1eee467d63476aa45c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#af0521046c72ffe1eee467d63476aa45c">go_to_company</a> (<a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *c)</td></tr>
+<tr class="memdesc:af0521046c72ffe1eee467d63476aa45c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action for the "going to work" state.  <a href="../../dc/da7/citizen__manager_8c.html#af0521046c72ffe1eee467d63476aa45c">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af0521046c72ffe1eee467d63476aa45c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9298c91aa7f6cabfa8f7ad0ffbd295b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#a9298c91aa7f6cabfa8f7ad0ffbd295b1">work</a> (<a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *c)</td></tr>
+<tr class="memdesc:a9298c91aa7f6cabfa8f7ad0ffbd295b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action for the "working" state.  <a href="../../dc/da7/citizen__manager_8c.html#a9298c91aa7f6cabfa8f7ad0ffbd295b1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9298c91aa7f6cabfa8f7ad0ffbd295b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e45f0bb5bbf2b8bf3bf3925e3ce9ce1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#a7e45f0bb5bbf2b8bf3bf3925e3ce9ce1">go_to_supermarket</a> (<a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *c)</td></tr>
+<tr class="memdesc:a7e45f0bb5bbf2b8bf3bf3925e3ce9ce1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action for the "going to supermarket" state.  <a href="../../dc/da7/citizen__manager_8c.html#a7e45f0bb5bbf2b8bf3bf3925e3ce9ce1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7e45f0bb5bbf2b8bf3bf3925e3ce9ce1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32a178ec9d0c991a6bddeaa182475fee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#a32a178ec9d0c991a6bddeaa182475fee">go_back_home</a> (<a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *c)</td></tr>
+<tr class="memdesc:a32a178ec9d0c991a6bddeaa182475fee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action for the "going back home" state.  <a href="../../dc/da7/citizen__manager_8c.html#a32a178ec9d0c991a6bddeaa182475fee">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a32a178ec9d0c991a6bddeaa182475fee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad822abcac0f5a20844683e6093bbe651"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#ad822abcac0f5a20844683e6093bbe651">do_some_shopping</a> (<a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *c)</td></tr>
+<tr class="memdesc:ad822abcac0f5a20844683e6093bbe651"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action for the "doing some shopping" state.  <a href="../../dc/da7/citizen__manager_8c.html#ad822abcac0f5a20844683e6093bbe651">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ad822abcac0f5a20844683e6093bbe651"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3dc71b27a369b4d340d73d5512afd95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#af3dc71b27a369b4d340d73d5512afd95">dying</a> (<a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *c)</td></tr>
+<tr class="memdesc:af3dc71b27a369b4d340d73d5512afd95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action for the "dying" state.  <a href="../../dc/da7/citizen__manager_8c.html#af3dc71b27a369b4d340d73d5512afd95">Plus de détails...</a><br /></td></tr>
+<tr class="separator:af3dc71b27a369b4d340d73d5512afd95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56e393d7f2a560ab6cc0d11e871cd926"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/da7/citizen__manager_8c.html#a56e393d7f2a560ab6cc0d11e871cd926">finished</a> (<a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *c)</td></tr>
+<tr class="memdesc:a56e393d7f2a560ab6cc0d11e871cd926"><td class="mdescLeft">&#160;</td><td class="mdescRight">Action for the "finished" state.  <a href="../../dc/da7/citizen__manager_8c.html#a56e393d7f2a560ab6cc0d11e871cd926">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a56e393d7f2a560ab6cc0d11e871cd926"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a2d10f124eea92dfd07e6d8748e0dcf37"><td class="memItemLeft" align="right" valign="top"><a id="a2d10f124eea92dfd07e6d8748e0dcf37"></a>
+sem_t *&#160;</td><td class="memItemRight" valign="bottom"><b>sem_producer</b></td></tr>
+<tr class="separator:a2d10f124eea92dfd07e6d8748e0dcf37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c6703ae9acc801a2fb3c649e0c0019a"><td class="memItemLeft" align="right" valign="top"><a id="a4c6703ae9acc801a2fb3c649e0c0019a"></a>
+sem_t *&#160;</td><td class="memItemRight" valign="bottom"><b>sem_consumer</b></td></tr>
+<tr class="separator:a4c6703ae9acc801a2fb3c649e0c0019a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a2fba15e132d38767f80d00a2b5ced8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><b>DIRECTION</b> [NUM_DIRECTIONS][2]</td></tr>
+<tr class="separator:a0a2fba15e132d38767f80d00a2b5ced8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4acff8232e4aec9cd5c6dc200ac55ef3"><td class="memItemLeft" align="right" valign="top"><a id="a4acff8232e4aec9cd5c6dc200ac55ef3"></a>
+pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><b>mutex</b> = PTHREAD_MUTEX_INITIALIZER</td></tr>
+<tr class="separator:a4acff8232e4aec9cd5c6dc200ac55ef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a997fb124a9fc55fa1faace13d2ca3f4d"><td class="memItemLeft" align="right" valign="top"><a id="a997fb124a9fc55fa1faace13d2ca3f4d"></a>
+pthread_barrier_t&#160;</td><td class="memItemRight" valign="bottom"><b>end_of_the_day_barrier</b></td></tr>
+<tr class="separator:a997fb124a9fc55fa1faace13d2ca3f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af16d0defec41b3501a54c55c112a55d0"><td class="memItemLeft" align="right" valign="top"><a id="af16d0defec41b3501a54c55c112a55d0"></a>
+<a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>memory</b></td></tr>
+<tr class="separator:af16d0defec41b3501a54c55c112a55d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p>Managing the citizens in the simulation. </p>
+<p>This file implements the necessary functions for managing citizens in the context of a spy simulation. It handles initialization, updates, and state management of citizens. </p>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a05672efb91f53dc68740fd427be2f63a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05672efb91f53dc68740fd427be2f63a">&#9670;&nbsp;</a></span>assign_company_to_citizen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void assign_company_to_citizen </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>memory</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *&#160;</td>
+          <td class="paramname"><em>citizen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assign a workplace to a citizen. </p>
+<p>Randomly assigns a company to a citizen while respecting the maximum and minimum capacity of companies.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">memory</td><td>Pointer to the shared memory structure. </td></tr>
+    <tr><td class="paramname">citizen</td><td>Pointer to the citizen to whom a workplace is to be assigned. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0352adeadb08573d6a3f4d93a6ac234e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0352adeadb08573d6a3f4d93a6ac234e">&#9670;&nbsp;</a></span>assign_home_to_citizen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void assign_home_to_citizen </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>memory</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *&#160;</td>
+          <td class="paramname"><em>citizen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assign a home to a citizen. </p>
+<p>Randomly assigns a home to a citizen while respecting the maximum capacity of homes.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">memory</td><td>Pointer to the shared memory structure. </td></tr>
+    <tr><td class="paramname">citizen</td><td>Pointer to the citizen to whom a home is to be assigned. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a19c1c33d8d0804f384c1dd663d8e5359"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19c1c33d8d0804f384c1dd663d8e5359">&#9670;&nbsp;</a></span>assign_random_supermarket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void assign_random_supermarket </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>memory</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *&#160;</td>
+          <td class="paramname"><em>citizen</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assign a supermarket to a citizen. </p>
+<p>Randomly assigns a supermarket to a citizen.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">memory</td><td>Pointer to the shared memory structure. </td></tr>
+    <tr><td class="paramname">citizen</td><td>Pointer to the citizen to whom a supermarket is to be assigned. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad822abcac0f5a20844683e6093bbe651"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad822abcac0f5a20844683e6093bbe651">&#9670;&nbsp;</a></span>do_some_shopping()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* do_some_shopping </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Action for the "doing some shopping" state. </p>
+<p>Manages the logic of a citizen doing shopping in a supermarket.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>Pointer to the citizen. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>state_t* Pointer to the next state. </dd></dl>
+
+</div>
+</div>
+<a id="af3dc71b27a369b4d340d73d5512afd95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3dc71b27a369b4d340d73d5512afd95">&#9670;&nbsp;</a></span>dying()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* dying </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Action for the "dying" state. </p>
+<p>Manages the end-of-life logic for a citizen.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>Pointer to the citizen. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>state_t* Pointer to the death state. </dd></dl>
+
+</div>
+</div>
+<a id="a56e393d7f2a560ab6cc0d11e871cd926"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56e393d7f2a560ab6cc0d11e871cd926">&#9670;&nbsp;</a></span>finished()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* finished </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Action for the "finished" state. </p>
+<p>Marks the end of the life cycle of a citizen.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>Pointer to the citizen. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>state_t* Pointer to the state indicating completion. </dd></dl>
+
+</div>
+</div>
+<a id="a496debb536c33fe8b24767ea0aad1592"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a496debb536c33fe8b24767ea0aad1592">&#9670;&nbsp;</a></span>get_current_simulation_time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double get_current_simulation_time </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>memory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculate the current simulation time. </p>
+<p>Computes and returns the current time in the simulation in hours and minutes.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">memory</td><td>Pointer to the shared memory structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>double The current time in the simulation. </dd></dl>
+
+</div>
+</div>
+<a id="a32a178ec9d0c991a6bddeaa182475fee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32a178ec9d0c991a6bddeaa182475fee">&#9670;&nbsp;</a></span>go_back_home()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* go_back_home </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Action for the "going back home" state. </p>
+<p>Manages the logic of a citizen moving back to their home.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>Pointer to the citizen. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>state_t* Pointer to the next state. </dd></dl>
+
+</div>
+</div>
+<a id="af0521046c72ffe1eee467d63476aa45c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0521046c72ffe1eee467d63476aa45c">&#9670;&nbsp;</a></span>go_to_company()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* go_to_company </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Action for the "going to work" state. </p>
+<p>Manages the logic of a citizen moving to their workplace.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>Pointer to the citizen. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>state_t* Pointer to the next state. </dd></dl>
+
+</div>
+</div>
+<a id="a7e45f0bb5bbf2b8bf3bf3925e3ce9ce1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e45f0bb5bbf2b8bf3bf3925e3ce9ce1">&#9670;&nbsp;</a></span>go_to_supermarket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* go_to_supermarket </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Action for the "going to supermarket" state. </p>
+<p>Manages the logic of a citizen moving to a supermarket.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>Pointer to the citizen. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>state_t* Pointer to the next state. </dd></dl>
+
+</div>
+</div>
+<a id="a36693536e4d06ae1c9cd91319b268e8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36693536e4d06ae1c9cd91319b268e8e">&#9670;&nbsp;</a></span>init_building()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_building </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>memory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the buildings (companies and supermarkets) in the simulation. </p>
+<p>Configures buildings by setting their type, capacity, and position.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">memory</td><td>Pointer to the shared memory structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a942e33052f3b1e498ab5515264457864"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a942e33052f3b1e498ab5515264457864">&#9670;&nbsp;</a></span>init_citizens()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_citizens </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>memory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the citizens. </p>
+<p>Initializes citizens with default data, assigns homes, workplaces, and sets initial paths.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">memory</td><td>Pointer to the shared memory structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8d9597dfc64073493879425651319732"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d9597dfc64073493879425651319732">&#9670;&nbsp;</a></span>init_house()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_house </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> *&#160;</td>
+          <td class="paramname"><em>memory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the houses in the simulation. </p>
+<p>Creates and configures houses for citizens, including setting their capacity, position, and other necessary properties.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">memory</td><td>Pointer to the shared memory structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aad7b8c667301044657d7043491ec12e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad7b8c667301044657d7043491ec12e8">&#9670;&nbsp;</a></span>new_state()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* new_state </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a> *(*)(<a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *)&#160;</td>
+          <td class="paramname"><em>action</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a new state for a citizen. </p>
+<p>Allocates and initializes a new state with an identifier and an action function.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Identifier of the state. </td></tr>
+    <tr><td class="paramname">action</td><td>Function to execute when the state is active. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>state_t* Pointer to the newly created state. </dd></dl>
+
+</div>
+</div>
+<a id="af1921e0fcbe1ed6c5267096e0499807a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1921e0fcbe1ed6c5267096e0499807a">&#9670;&nbsp;</a></span>open_shared_memory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../de/dd3/structmemory__s.html">memory_t</a> open_shared_memory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Open shared memory. </p>
+<p>Opens and maps the shared memory used for storing shared data structures among different processes in the simulation.</p>
+<dl class="section return"><dt>Renvoie</dt><dd>memory_t Data structure of the shared memory. </dd></dl>
+
+</div>
+</div>
+<a id="a25f41fb95c05ebf1548ddccb0bd276ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25f41fb95c05ebf1548ddccb0bd276ca">&#9670;&nbsp;</a></span>rest_at_home()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* rest_at_home </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Action for the "resting at home" state. </p>
+<p>Manages the logic for a citizen resting at home. Changes state if necessary.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>Pointer to the citizen. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>state_t* Pointer to the next state. </dd></dl>
+
+</div>
+</div>
+<a id="a9298c91aa7f6cabfa8f7ad0ffbd295b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9298c91aa7f6cabfa8f7ad0ffbd295b1">&#9670;&nbsp;</a></span>work()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d0/dd8/structstate__s.html">state_t</a>* work </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dc/d85/structcitizen__s.html">citizen_t</a> *&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Action for the "working" state. </p>
+<p>Manages the working logic of a citizen at their company.</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>Pointer to the citizen. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>state_t* Pointer to the next state. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des variables</h2>
+<a id="a0a2fba15e132d38767f80d00a2b5ced8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a2fba15e132d38767f80d00a2b5ced8">&#9670;&nbsp;</a></span>DIRECTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int DIRECTION[NUM_DIRECTIONS][2]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Valeur initiale :</b><div class="fragment"><div class="line">= {{-1, 0},</div>
+<div class="line">                                     {1,  0},</div>
+<div class="line">                                     {0,  -1},</div>
+<div class="line">                                     {0,  1},</div>
+<div class="line">                                     {-1, -1},</div>
+<div class="line">                                     {-1, 1},</div>
+<div class="line">                                     {1,  -1},</div>
+<div class="line">                                     {1,  1}}</div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

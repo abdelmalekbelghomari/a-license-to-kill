@@ -1,0 +1,89 @@
+\hypertarget{structstate__s}{}\doxysection{Référence de la structure state\+\_\+s}
+\label{structstate__s}\index{state\_s@{state\_s}}
+
+
+Structure representing a state for a citizen.  
+
+
+
+
+{\ttfamily \#include $<$memory.\+h$>$}
+
+
+
+Graphe de collaboration de state\+\_\+s\+:
+% FIG 0
+\doxysubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structstate__s_a1eac00d895cead1d0571f8c6f2c8577c}{id}}
+\item 
+char $\ast$ \mbox{\hyperlink{structstate__s_a0d3a60bf7f1aee9516f0a1d0dbb70c13}{description}}
+\item 
+void($\ast$ \mbox{\hyperlink{structstate__s_a7f3432137377505a7f15e642a84caeac}{change\+\_\+state}} )(\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$, \mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$)
+\begin{DoxyCompactList}\small\item\em Function pointer to change the state of a citizen. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$($\ast$ \mbox{\hyperlink{structstate__s_a4a254c68b0868457114208e3ca999cde}{action}} )(\mbox{\hyperlink{structcitizen__s}{citizen\+\_\+t}} $\ast$)
+\begin{DoxyCompactList}\small\item\em Function pointer to perform an action for a citizen\textquotesingle{}s state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Structure representing a state for a citizen. 
+
+\doxysubsection{Documentation des données membres}
+\mbox{\Hypertarget{structstate__s_a4a254c68b0868457114208e3ca999cde}\label{structstate__s_a4a254c68b0868457114208e3ca999cde}} 
+\index{state\_s@{state\_s}!action@{action}}
+\index{action@{action}!state\_s@{state\_s}}
+\doxysubsubsection{\texorpdfstring{action}{action}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$($\ast$ state\+\_\+s\+::action)(\mbox{\hyperlink{structcharacter__s}{character\+\_\+t}} $\ast$)}
+
+
+
+Function pointer to perform an action for a citizen\textquotesingle{}s state. 
+
+This function performs an action for a citizen\textquotesingle{}s state.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em citizen} & A pointer to the citizen for which the action is performed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Renvoie}
+A pointer to the next state of the citizen. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structstate__s_a7f3432137377505a7f15e642a84caeac}\label{structstate__s_a7f3432137377505a7f15e642a84caeac}} 
+\index{state\_s@{state\_s}!change\_state@{change\_state}}
+\index{change\_state@{change\_state}!state\_s@{state\_s}}
+\doxysubsubsection{\texorpdfstring{change\_state}{change\_state}}
+{\footnotesize\ttfamily void($\ast$ state\+\_\+s\+::change\+\_\+state)(\mbox{\hyperlink{structcharacter__s}{character\+\_\+t}} $\ast$, \mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$)}
+
+
+
+Function pointer to change the state of a citizen. 
+
+This function changes the state of a citizen based on certain conditions.
+
+
+\begin{DoxyParams}{Paramètres}
+{\em citizen} & A pointer to the citizen whose state is being changed. \\
+\hline
+{\em state} & A pointer to the new state. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{structstate__s_a0d3a60bf7f1aee9516f0a1d0dbb70c13}\label{structstate__s_a0d3a60bf7f1aee9516f0a1d0dbb70c13}} 
+\index{state\_s@{state\_s}!description@{description}}
+\index{description@{description}!state\_s@{state\_s}}
+\doxysubsubsection{\texorpdfstring{description}{description}}
+{\footnotesize\ttfamily char$\ast$ state\+\_\+s\+::description}
+
+Description of the state. \mbox{\Hypertarget{structstate__s_a1eac00d895cead1d0571f8c6f2c8577c}\label{structstate__s_a1eac00d895cead1d0571f8c6f2c8577c}} 
+\index{state\_s@{state\_s}!id@{id}}
+\index{id@{id}!state\_s@{state\_s}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily int state\+\_\+s\+::id}
+
+Unique identifier for the state. 
+
+La documentation de cette structure a été générée à partir des fichiers suivants \+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{include_2memory_8h}{memory.\+h}}\item 
+src/pattern\+\_\+examples/state/character.\+h\end{DoxyCompactItemize}

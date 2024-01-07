@@ -1,0 +1,413 @@
+\hypertarget{structspy__s}{}\doxysection{Référence de la structure spy\+\_\+s}
+\label{structspy__s}\index{spy\_s@{spy\_s}}
+
+
+The spy information.  
+
+
+
+
+{\ttfamily \#include $<$memory.\+h$>$}
+
+
+
+Graphe de collaboration de spy\+\_\+s\+:
+% FIG 0
+\doxysubsection*{Attributs publics}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structspy__s_a2fcfedc6257a5f026e222103f36cc8fd}{id}}
+\item 
+int \mbox{\hyperlink{structspy__s_a13fd79d051fb9cd8dbb9ad5db6143156}{health\+\_\+point}}
+\item 
+int \mbox{\hyperlink{structspy__s_a4633cb867adcbea6aa7e311bdc6eba65}{location\+\_\+row}}
+\item 
+int \mbox{\hyperlink{structspy__s_a952fb79ad098f3f775648aaaec71bdd0}{location\+\_\+column}}
+\item 
+int \mbox{\hyperlink{structspy__s_a17786d57415df52afbf4076cd44e553c}{home\+\_\+row}}
+\item 
+int \mbox{\hyperlink{structspy__s_a8766bee33d2df8904227142443f149a3}{home\+\_\+column}}
+\item 
+int \mbox{\hyperlink{structspy__s_a0bbff6319ffdb9ddacf9ccfff7b7fb54}{nb\+\_\+of\+\_\+stolen\+\_\+companies}}
+\item 
+int \mbox{\hyperlink{structspy__s_ad34c36175d2aaa0e23f9c66843d1690d}{has\+\_\+license\+\_\+to\+\_\+kill}}
+\item 
+char \mbox{\hyperlink{structspy__s_aae9a737333a5e1ecdaf54b0c65aaf897}{stolen\+\_\+message\+\_\+content}} \mbox{[}\mbox{\hyperlink{common_8h_af46363ef4ce0a4100e11cba500e6a423}{M\+A\+X\+\_\+\+L\+E\+N\+G\+T\+H\+\_\+\+O\+F\+\_\+\+M\+E\+S\+S\+A\+GE}}\mbox{]}
+\item 
+\mbox{\hyperlink{include_2memory_8h_acf197cea53ab3c8ec5fc668fa60efe22}{cell\+\_\+t}} \mbox{\hyperlink{structspy__s_ac196d12a171967c5d048e6ce63ecef8c}{allowed\+\_\+company}} \mbox{[}8\mbox{]}
+\item 
+\mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}} \mbox{\hyperlink{structspy__s_a725262e087261185f4efef8e16ad22ad}{leaving\+\_\+time}}
+\item 
+int \mbox{\hyperlink{structspy__s_a96c52d3fb4e2abb3ecab48a5b4fe2362}{turns\+\_\+spent\+\_\+scouting}}
+\item 
+int \mbox{\hyperlink{structspy__s_ab3cd7f63b5f395ec6e82de6947ced195}{turns\+\_\+spent\+\_\+spotting}}
+\item 
+int \mbox{\hyperlink{structspy__s_ae0aca100eec98da9c90779afe7689392}{turns\+\_\+spent\+\_\+stealing}}
+\item 
+int \mbox{\hyperlink{structspy__s_a9e93af12f4eb6a9d862762d8df5932b4}{turns\+\_\+spent\+\_\+shopping}}
+\item 
+int \mbox{\hyperlink{structspy__s_abce484f5b0bebd3f1ed1c418bf988fca}{turns\+\_\+spent\+\_\+waiting}}
+\item 
+bool \mbox{\hyperlink{structspy__s_a47fba3b9bf28f306f51526d698bfc3fd}{has\+\_\+targeted\+\_\+company}}
+\item 
+\mbox{\hyperlink{structbuilding__s}{building\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a0c02e69b2155731c72ff12ff59448dd4}{targeted\+\_\+company}}
+\item 
+int \mbox{\hyperlink{structspy__s_a8c171508dda61d7a37a1e4d524fb2852}{row\+\_\+in\+\_\+front\+\_\+of\+\_\+targeted\+\_\+company}}
+\item 
+int \mbox{\hyperlink{structspy__s_aaf3653edea6ce4cfe7bec155c6dc84ee}{column\+\_\+in\+\_\+front\+\_\+of\+\_\+targeted\+\_\+company}}
+\item 
+\mbox{\hyperlink{structNode}{Node}} $\ast$ \mbox{\hyperlink{structspy__s_af7c70652177600d3a88557d8594945b3}{random\+\_\+neighbour}}
+\item 
+int \mbox{\hyperlink{structspy__s_a791a74e1f0b1bd4cb4e36fd3e588cccd}{row\+\_\+supermarket}}
+\item 
+int \mbox{\hyperlink{structspy__s_a696fa3e82d3918468ef7f1ffe758d00f}{column\+\_\+supermarket}}
+\item 
+bool \mbox{\hyperlink{structspy__s_a1f2bcac3b8a9bab8b477edcca1ed5167}{has\+\_\+a\+\_\+message}}
+\item 
+bool \mbox{\hyperlink{structspy__s_af2cc9ce9fe0709295e53f939d11852ad}{has\+\_\+a\+\_\+fake\+\_\+message}}
+\item 
+\mbox{\hyperlink{structcharacterMovement}{character\+Movement}} \mbox{\hyperlink{structspy__s_a7f7e25e8a27355fc2a85dc06c3e7e921}{movement}}
+\item 
+char \mbox{\hyperlink{structspy__s_aaff80e02fa3c61ae2a7e77c61940aaf8}{description}} \mbox{[}40\mbox{]}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a123bea46a08a079ceb55c24c5d2356f8}{current\+\_\+state}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a2435258e7611ddf4042bdf9b8fbf057c}{resting\+\_\+at\+\_\+home}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a3442d2ee7d82028038d61fe7d6edf255}{going\+\_\+to\+\_\+spot}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a50ce62d0f15b2879018bdd2ca8a0ccff}{spotting}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a362ef11e3ac79111d9da04beb1d1a26e}{stealing}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a32017c0e2f94cae4575d7093ca5852c8}{scouting}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a32ac93c417eb26010c909817f6f20799}{going\+\_\+to\+\_\+send\+\_\+fake\+\_\+message}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a92474395fb1ca7e286346c053cabc545}{going\+\_\+back\+\_\+home}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a1a096620f335f04259a6c3647bef8db1}{going\+\_\+to\+\_\+send\+\_\+message}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a7a20c46d25ed1129f443d9127ecb7b93}{sending\+\_\+message}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a98248316e2a1c10a371fb61cd2f30506}{resting\+\_\+at\+\_\+home\+\_\+before\+\_\+going\+\_\+to\+\_\+send\+\_\+message}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a5532a786ec0a1ef42fa9caa95e86030f}{waiting\+\_\+for\+\_\+residence\+\_\+to\+\_\+be\+\_\+clear}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a03d94903b9b10edb20f114a5bcafb3ab}{going\+\_\+to\+\_\+supermarket}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a011b8f9628c32b27c279dc1efbb0751b}{doing\+\_\+some\+\_\+shopping}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_ace78055adad84bf5b9b34efed8e28c5a}{arriving\+\_\+at\+\_\+mailbox}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a86227eb66645b1c35ff278aa778ae995}{is\+\_\+hurt}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_ade52fcc721e038e5dd7b9c031ae29d3d}{is\+\_\+free}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a3d797b8d4cbd216aae261641ac04f38d}{riposte}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_a956f5c2d61e762c5f296f3110b57a5d2}{is\+\_\+in\+\_\+conflict}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_ad74eb4c3f5f831d581d2ad5e74264f97}{dying}}
+\item 
+\mbox{\hyperlink{structstate__s}{state\+\_\+t}} $\ast$ \mbox{\hyperlink{structspy__s_af4f7bdbeddd6888a3b239b3705490694}{finished}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+The spy information. 
+
+\doxysubsection{Documentation des données membres}
+\mbox{\Hypertarget{structspy__s_ac196d12a171967c5d048e6ce63ecef8c}\label{structspy__s_ac196d12a171967c5d048e6ce63ecef8c}} 
+\index{spy\_s@{spy\_s}!allowed\_company@{allowed\_company}}
+\index{allowed\_company@{allowed\_company}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{allowed\_company}{allowed\_company}}
+{\footnotesize\ttfamily \mbox{\hyperlink{include_2memory_8h_acf197cea53ab3c8ec5fc668fa60efe22}{cell\+\_\+t}} spy\+\_\+s\+::allowed\+\_\+company\mbox{[}8\mbox{]}}
+
+The allowed cells around a target company \mbox{\Hypertarget{structspy__s_ace78055adad84bf5b9b34efed8e28c5a}\label{structspy__s_ace78055adad84bf5b9b34efed8e28c5a}} 
+\index{spy\_s@{spy\_s}!arriving\_at\_mailbox@{arriving\_at\_mailbox}}
+\index{arriving\_at\_mailbox@{arriving\_at\_mailbox}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{arriving\_at\_mailbox}{arriving\_at\_mailbox}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::arriving\+\_\+at\+\_\+mailbox}
+
+State when the spy is arriving at the mailbox. \mbox{\Hypertarget{structspy__s_aaf3653edea6ce4cfe7bec155c6dc84ee}\label{structspy__s_aaf3653edea6ce4cfe7bec155c6dc84ee}} 
+\index{spy\_s@{spy\_s}!column\_in\_front\_of\_targeted\_company@{column\_in\_front\_of\_targeted\_company}}
+\index{column\_in\_front\_of\_targeted\_company@{column\_in\_front\_of\_targeted\_company}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{column\_in\_front\_of\_targeted\_company}{column\_in\_front\_of\_targeted\_company}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::column\+\_\+in\+\_\+front\+\_\+of\+\_\+targeted\+\_\+company}
+
+Column in front of the targeted company. \mbox{\Hypertarget{structspy__s_a696fa3e82d3918468ef7f1ffe758d00f}\label{structspy__s_a696fa3e82d3918468ef7f1ffe758d00f}} 
+\index{spy\_s@{spy\_s}!column\_supermarket@{column\_supermarket}}
+\index{column\_supermarket@{column\_supermarket}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{column\_supermarket}{column\_supermarket}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::column\+\_\+supermarket}
+
+Column of the supermarket. \mbox{\Hypertarget{structspy__s_a123bea46a08a079ceb55c24c5d2356f8}\label{structspy__s_a123bea46a08a079ceb55c24c5d2356f8}} 
+\index{spy\_s@{spy\_s}!current\_state@{current\_state}}
+\index{current\_state@{current\_state}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{current\_state}{current\_state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::current\+\_\+state}
+
+Current state of the spy. \mbox{\Hypertarget{structspy__s_aaff80e02fa3c61ae2a7e77c61940aaf8}\label{structspy__s_aaff80e02fa3c61ae2a7e77c61940aaf8}} 
+\index{spy\_s@{spy\_s}!description@{description}}
+\index{description@{description}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{description}{description}}
+{\footnotesize\ttfamily char spy\+\_\+s\+::description\mbox{[}40\mbox{]}}
+
+Description of the spy. \mbox{\Hypertarget{structspy__s_a011b8f9628c32b27c279dc1efbb0751b}\label{structspy__s_a011b8f9628c32b27c279dc1efbb0751b}} 
+\index{spy\_s@{spy\_s}!doing\_some\_shopping@{doing\_some\_shopping}}
+\index{doing\_some\_shopping@{doing\_some\_shopping}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{doing\_some\_shopping}{doing\_some\_shopping}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::doing\+\_\+some\+\_\+shopping}
+
+State when the spy is doing some shopping. \mbox{\Hypertarget{structspy__s_ad74eb4c3f5f831d581d2ad5e74264f97}\label{structspy__s_ad74eb4c3f5f831d581d2ad5e74264f97}} 
+\index{spy\_s@{spy\_s}!dying@{dying}}
+\index{dying@{dying}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{dying}{dying}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::dying}
+
+State when the spy is dying. \mbox{\Hypertarget{structspy__s_af4f7bdbeddd6888a3b239b3705490694}\label{structspy__s_af4f7bdbeddd6888a3b239b3705490694}} 
+\index{spy\_s@{spy\_s}!finished@{finished}}
+\index{finished@{finished}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{finished}{finished}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::finished}
+
+State when the spy is finished. \mbox{\Hypertarget{structspy__s_a92474395fb1ca7e286346c053cabc545}\label{structspy__s_a92474395fb1ca7e286346c053cabc545}} 
+\index{spy\_s@{spy\_s}!going\_back\_home@{going\_back\_home}}
+\index{going\_back\_home@{going\_back\_home}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{going\_back\_home}{going\_back\_home}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::going\+\_\+back\+\_\+home}
+
+State when the spy is going back home. \mbox{\Hypertarget{structspy__s_a32ac93c417eb26010c909817f6f20799}\label{structspy__s_a32ac93c417eb26010c909817f6f20799}} 
+\index{spy\_s@{spy\_s}!going\_to\_send\_fake\_message@{going\_to\_send\_fake\_message}}
+\index{going\_to\_send\_fake\_message@{going\_to\_send\_fake\_message}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{going\_to\_send\_fake\_message}{going\_to\_send\_fake\_message}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::going\+\_\+to\+\_\+send\+\_\+fake\+\_\+message}
+
+State when the spy is going to send a fake message. \mbox{\Hypertarget{structspy__s_a1a096620f335f04259a6c3647bef8db1}\label{structspy__s_a1a096620f335f04259a6c3647bef8db1}} 
+\index{spy\_s@{spy\_s}!going\_to\_send\_message@{going\_to\_send\_message}}
+\index{going\_to\_send\_message@{going\_to\_send\_message}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{going\_to\_send\_message}{going\_to\_send\_message}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::going\+\_\+to\+\_\+send\+\_\+message}
+
+State when the spy is going to send a message. \mbox{\Hypertarget{structspy__s_a3442d2ee7d82028038d61fe7d6edf255}\label{structspy__s_a3442d2ee7d82028038d61fe7d6edf255}} 
+\index{spy\_s@{spy\_s}!going\_to\_spot@{going\_to\_spot}}
+\index{going\_to\_spot@{going\_to\_spot}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{going\_to\_spot}{going\_to\_spot}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::going\+\_\+to\+\_\+spot}
+
+State when the spy is going to a spot. \mbox{\Hypertarget{structspy__s_a03d94903b9b10edb20f114a5bcafb3ab}\label{structspy__s_a03d94903b9b10edb20f114a5bcafb3ab}} 
+\index{spy\_s@{spy\_s}!going\_to\_supermarket@{going\_to\_supermarket}}
+\index{going\_to\_supermarket@{going\_to\_supermarket}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{going\_to\_supermarket}{going\_to\_supermarket}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::going\+\_\+to\+\_\+supermarket}
+
+State when the spy is going to the supermarket. \mbox{\Hypertarget{structspy__s_af2cc9ce9fe0709295e53f939d11852ad}\label{structspy__s_af2cc9ce9fe0709295e53f939d11852ad}} 
+\index{spy\_s@{spy\_s}!has\_a\_fake\_message@{has\_a\_fake\_message}}
+\index{has\_a\_fake\_message@{has\_a\_fake\_message}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{has\_a\_fake\_message}{has\_a\_fake\_message}}
+{\footnotesize\ttfamily bool spy\+\_\+s\+::has\+\_\+a\+\_\+fake\+\_\+message}
+
+Indicates if the spy has a fake message. \mbox{\Hypertarget{structspy__s_a1f2bcac3b8a9bab8b477edcca1ed5167}\label{structspy__s_a1f2bcac3b8a9bab8b477edcca1ed5167}} 
+\index{spy\_s@{spy\_s}!has\_a\_message@{has\_a\_message}}
+\index{has\_a\_message@{has\_a\_message}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{has\_a\_message}{has\_a\_message}}
+{\footnotesize\ttfamily bool spy\+\_\+s\+::has\+\_\+a\+\_\+message}
+
+Indicates if the spy has a message. \mbox{\Hypertarget{structspy__s_ad34c36175d2aaa0e23f9c66843d1690d}\label{structspy__s_ad34c36175d2aaa0e23f9c66843d1690d}} 
+\index{spy\_s@{spy\_s}!has\_license\_to\_kill@{has\_license\_to\_kill}}
+\index{has\_license\_to\_kill@{has\_license\_to\_kill}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{has\_license\_to\_kill}{has\_license\_to\_kill}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::has\+\_\+license\+\_\+to\+\_\+kill}
+
+The spy\textquotesingle{}s authorization to kill. \mbox{\Hypertarget{structspy__s_a47fba3b9bf28f306f51526d698bfc3fd}\label{structspy__s_a47fba3b9bf28f306f51526d698bfc3fd}} 
+\index{spy\_s@{spy\_s}!has\_targeted\_company@{has\_targeted\_company}}
+\index{has\_targeted\_company@{has\_targeted\_company}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{has\_targeted\_company}{has\_targeted\_company}}
+{\footnotesize\ttfamily bool spy\+\_\+s\+::has\+\_\+targeted\+\_\+company}
+
+Indicates if the spy has a targeted company. \mbox{\Hypertarget{structspy__s_a13fd79d051fb9cd8dbb9ad5db6143156}\label{structspy__s_a13fd79d051fb9cd8dbb9ad5db6143156}} 
+\index{spy\_s@{spy\_s}!health\_point@{health\_point}}
+\index{health\_point@{health\_point}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{health\_point}{health\_point}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::health\+\_\+point}
+
+The spy health\+\_\+point point. \mbox{\Hypertarget{structspy__s_a8766bee33d2df8904227142443f149a3}\label{structspy__s_a8766bee33d2df8904227142443f149a3}} 
+\index{spy\_s@{spy\_s}!home\_column@{home\_column}}
+\index{home\_column@{home\_column}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{home\_column}{home\_column}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::home\+\_\+column}
+
+The spy home column. \mbox{\Hypertarget{structspy__s_a17786d57415df52afbf4076cd44e553c}\label{structspy__s_a17786d57415df52afbf4076cd44e553c}} 
+\index{spy\_s@{spy\_s}!home\_row@{home\_row}}
+\index{home\_row@{home\_row}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{home\_row}{home\_row}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::home\+\_\+row}
+
+The spy home row. \mbox{\Hypertarget{structspy__s_a2fcfedc6257a5f026e222103f36cc8fd}\label{structspy__s_a2fcfedc6257a5f026e222103f36cc8fd}} 
+\index{spy\_s@{spy\_s}!id@{id}}
+\index{id@{id}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::id}
+
+The spy identification number. \mbox{\Hypertarget{structspy__s_ade52fcc721e038e5dd7b9c031ae29d3d}\label{structspy__s_ade52fcc721e038e5dd7b9c031ae29d3d}} 
+\index{spy\_s@{spy\_s}!is\_free@{is\_free}}
+\index{is\_free@{is\_free}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{is\_free}{is\_free}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::is\+\_\+free}
+
+State when the spy is free. \mbox{\Hypertarget{structspy__s_a86227eb66645b1c35ff278aa778ae995}\label{structspy__s_a86227eb66645b1c35ff278aa778ae995}} 
+\index{spy\_s@{spy\_s}!is\_hurt@{is\_hurt}}
+\index{is\_hurt@{is\_hurt}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{is\_hurt}{is\_hurt}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::is\+\_\+hurt}
+
+State when the spy is hurt. \mbox{\Hypertarget{structspy__s_a956f5c2d61e762c5f296f3110b57a5d2}\label{structspy__s_a956f5c2d61e762c5f296f3110b57a5d2}} 
+\index{spy\_s@{spy\_s}!is\_in\_conflict@{is\_in\_conflict}}
+\index{is\_in\_conflict@{is\_in\_conflict}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{is\_in\_conflict}{is\_in\_conflict}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::is\+\_\+in\+\_\+conflict}
+
+State when the spy is in conflict. \mbox{\Hypertarget{structspy__s_a725262e087261185f4efef8e16ad22ad}\label{structspy__s_a725262e087261185f4efef8e16ad22ad}} 
+\index{spy\_s@{spy\_s}!leaving\_time@{leaving\_time}}
+\index{leaving\_time@{leaving\_time}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{leaving\_time}{leaving\_time}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structleaving__time__s}{leaving\+\_\+time\+\_\+t}} spy\+\_\+s\+::leaving\+\_\+time}
+
+The time the spy leaves a location. \mbox{\Hypertarget{structspy__s_a952fb79ad098f3f775648aaaec71bdd0}\label{structspy__s_a952fb79ad098f3f775648aaaec71bdd0}} 
+\index{spy\_s@{spy\_s}!location\_column@{location\_column}}
+\index{location\_column@{location\_column}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{location\_column}{location\_column}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::location\+\_\+column}
+
+The spy location column. \mbox{\Hypertarget{structspy__s_a4633cb867adcbea6aa7e311bdc6eba65}\label{structspy__s_a4633cb867adcbea6aa7e311bdc6eba65}} 
+\index{spy\_s@{spy\_s}!location\_row@{location\_row}}
+\index{location\_row@{location\_row}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{location\_row}{location\_row}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::location\+\_\+row}
+
+The spy location row. \mbox{\Hypertarget{structspy__s_a7f7e25e8a27355fc2a85dc06c3e7e921}\label{structspy__s_a7f7e25e8a27355fc2a85dc06c3e7e921}} 
+\index{spy\_s@{spy\_s}!movement@{movement}}
+\index{movement@{movement}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{movement}{movement}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structcharacterMovement}{character\+Movement}} spy\+\_\+s\+::movement}
+
+Information about the spy\textquotesingle{}s movement. \mbox{\Hypertarget{structspy__s_a0bbff6319ffdb9ddacf9ccfff7b7fb54}\label{structspy__s_a0bbff6319ffdb9ddacf9ccfff7b7fb54}} 
+\index{spy\_s@{spy\_s}!nb\_of\_stolen\_companies@{nb\_of\_stolen\_companies}}
+\index{nb\_of\_stolen\_companies@{nb\_of\_stolen\_companies}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{nb\_of\_stolen\_companies}{nb\_of\_stolen\_companies}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::nb\+\_\+of\+\_\+stolen\+\_\+companies}
+
+The number of stolen companies stolen by the spy. \mbox{\Hypertarget{structspy__s_af7c70652177600d3a88557d8594945b3}\label{structspy__s_af7c70652177600d3a88557d8594945b3}} 
+\index{spy\_s@{spy\_s}!random\_neighbour@{random\_neighbour}}
+\index{random\_neighbour@{random\_neighbour}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{random\_neighbour}{random\_neighbour}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structNode}{Node}}$\ast$ spy\+\_\+s\+::random\+\_\+neighbour}
+
+Pointer to a random neighboring node. \mbox{\Hypertarget{structspy__s_a2435258e7611ddf4042bdf9b8fbf057c}\label{structspy__s_a2435258e7611ddf4042bdf9b8fbf057c}} 
+\index{spy\_s@{spy\_s}!resting\_at\_home@{resting\_at\_home}}
+\index{resting\_at\_home@{resting\_at\_home}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{resting\_at\_home}{resting\_at\_home}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::resting\+\_\+at\+\_\+home}
+
+State when the spy is resting at home. \mbox{\Hypertarget{structspy__s_a98248316e2a1c10a371fb61cd2f30506}\label{structspy__s_a98248316e2a1c10a371fb61cd2f30506}} 
+\index{spy\_s@{spy\_s}!resting\_at\_home\_before\_going\_to\_send\_message@{resting\_at\_home\_before\_going\_to\_send\_message}}
+\index{resting\_at\_home\_before\_going\_to\_send\_message@{resting\_at\_home\_before\_going\_to\_send\_message}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{resting\_at\_home\_before\_going\_to\_send\_message}{resting\_at\_home\_before\_going\_to\_send\_message}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::resting\+\_\+at\+\_\+home\+\_\+before\+\_\+going\+\_\+to\+\_\+send\+\_\+message}
+
+State when the spy is resting at home before sending a message. \mbox{\Hypertarget{structspy__s_a3d797b8d4cbd216aae261641ac04f38d}\label{structspy__s_a3d797b8d4cbd216aae261641ac04f38d}} 
+\index{spy\_s@{spy\_s}!riposte@{riposte}}
+\index{riposte@{riposte}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{riposte}{riposte}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::riposte}
+
+State when the spy is riposte. \mbox{\Hypertarget{structspy__s_a8c171508dda61d7a37a1e4d524fb2852}\label{structspy__s_a8c171508dda61d7a37a1e4d524fb2852}} 
+\index{spy\_s@{spy\_s}!row\_in\_front\_of\_targeted\_company@{row\_in\_front\_of\_targeted\_company}}
+\index{row\_in\_front\_of\_targeted\_company@{row\_in\_front\_of\_targeted\_company}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{row\_in\_front\_of\_targeted\_company}{row\_in\_front\_of\_targeted\_company}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::row\+\_\+in\+\_\+front\+\_\+of\+\_\+targeted\+\_\+company}
+
+Row in front of the targeted company. \mbox{\Hypertarget{structspy__s_a791a74e1f0b1bd4cb4e36fd3e588cccd}\label{structspy__s_a791a74e1f0b1bd4cb4e36fd3e588cccd}} 
+\index{spy\_s@{spy\_s}!row\_supermarket@{row\_supermarket}}
+\index{row\_supermarket@{row\_supermarket}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{row\_supermarket}{row\_supermarket}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::row\+\_\+supermarket}
+
+Row of the supermarket. \mbox{\Hypertarget{structspy__s_a32017c0e2f94cae4575d7093ca5852c8}\label{structspy__s_a32017c0e2f94cae4575d7093ca5852c8}} 
+\index{spy\_s@{spy\_s}!scouting@{scouting}}
+\index{scouting@{scouting}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{scouting}{scouting}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::scouting}
+
+State when the spy is scouting. \mbox{\Hypertarget{structspy__s_a7a20c46d25ed1129f443d9127ecb7b93}\label{structspy__s_a7a20c46d25ed1129f443d9127ecb7b93}} 
+\index{spy\_s@{spy\_s}!sending\_message@{sending\_message}}
+\index{sending\_message@{sending\_message}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{sending\_message}{sending\_message}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::sending\+\_\+message}
+
+State when the spy is sending a message. \mbox{\Hypertarget{structspy__s_a50ce62d0f15b2879018bdd2ca8a0ccff}\label{structspy__s_a50ce62d0f15b2879018bdd2ca8a0ccff}} 
+\index{spy\_s@{spy\_s}!spotting@{spotting}}
+\index{spotting@{spotting}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{spotting}{spotting}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::spotting}
+
+State when the spy is spotting. \mbox{\Hypertarget{structspy__s_a362ef11e3ac79111d9da04beb1d1a26e}\label{structspy__s_a362ef11e3ac79111d9da04beb1d1a26e}} 
+\index{spy\_s@{spy\_s}!stealing@{stealing}}
+\index{stealing@{stealing}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{stealing}{stealing}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::stealing}
+
+State when the spy is stealing. \mbox{\Hypertarget{structspy__s_aae9a737333a5e1ecdaf54b0c65aaf897}\label{structspy__s_aae9a737333a5e1ecdaf54b0c65aaf897}} 
+\index{spy\_s@{spy\_s}!stolen\_message\_content@{stolen\_message\_content}}
+\index{stolen\_message\_content@{stolen\_message\_content}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{stolen\_message\_content}{stolen\_message\_content}}
+{\footnotesize\ttfamily char spy\+\_\+s\+::stolen\+\_\+message\+\_\+content\mbox{[}\mbox{\hyperlink{common_8h_af46363ef4ce0a4100e11cba500e6a423}{M\+A\+X\+\_\+\+L\+E\+N\+G\+T\+H\+\_\+\+O\+F\+\_\+\+M\+E\+S\+S\+A\+GE}}\mbox{]}}
+
+The content of stolen message. \mbox{\Hypertarget{structspy__s_a0c02e69b2155731c72ff12ff59448dd4}\label{structspy__s_a0c02e69b2155731c72ff12ff59448dd4}} 
+\index{spy\_s@{spy\_s}!targeted\_company@{targeted\_company}}
+\index{targeted\_company@{targeted\_company}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{targeted\_company}{targeted\_company}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structbuilding__s}{building\+\_\+t}}$\ast$ spy\+\_\+s\+::targeted\+\_\+company}
+
+Pointer to the targeted company. \mbox{\Hypertarget{structspy__s_a96c52d3fb4e2abb3ecab48a5b4fe2362}\label{structspy__s_a96c52d3fb4e2abb3ecab48a5b4fe2362}} 
+\index{spy\_s@{spy\_s}!turns\_spent\_scouting@{turns\_spent\_scouting}}
+\index{turns\_spent\_scouting@{turns\_spent\_scouting}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{turns\_spent\_scouting}{turns\_spent\_scouting}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::turns\+\_\+spent\+\_\+scouting}
+
+The number of turns spent scouting. \mbox{\Hypertarget{structspy__s_a9e93af12f4eb6a9d862762d8df5932b4}\label{structspy__s_a9e93af12f4eb6a9d862762d8df5932b4}} 
+\index{spy\_s@{spy\_s}!turns\_spent\_shopping@{turns\_spent\_shopping}}
+\index{turns\_spent\_shopping@{turns\_spent\_shopping}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{turns\_spent\_shopping}{turns\_spent\_shopping}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::turns\+\_\+spent\+\_\+shopping}
+
+The number of turns spent shopping. \mbox{\Hypertarget{structspy__s_ab3cd7f63b5f395ec6e82de6947ced195}\label{structspy__s_ab3cd7f63b5f395ec6e82de6947ced195}} 
+\index{spy\_s@{spy\_s}!turns\_spent\_spotting@{turns\_spent\_spotting}}
+\index{turns\_spent\_spotting@{turns\_spent\_spotting}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{turns\_spent\_spotting}{turns\_spent\_spotting}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::turns\+\_\+spent\+\_\+spotting}
+
+The number of turns spent spotting. \mbox{\Hypertarget{structspy__s_ae0aca100eec98da9c90779afe7689392}\label{structspy__s_ae0aca100eec98da9c90779afe7689392}} 
+\index{spy\_s@{spy\_s}!turns\_spent\_stealing@{turns\_spent\_stealing}}
+\index{turns\_spent\_stealing@{turns\_spent\_stealing}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{turns\_spent\_stealing}{turns\_spent\_stealing}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::turns\+\_\+spent\+\_\+stealing}
+
+The number of turns spent stealing. \mbox{\Hypertarget{structspy__s_abce484f5b0bebd3f1ed1c418bf988fca}\label{structspy__s_abce484f5b0bebd3f1ed1c418bf988fca}} 
+\index{spy\_s@{spy\_s}!turns\_spent\_waiting@{turns\_spent\_waiting}}
+\index{turns\_spent\_waiting@{turns\_spent\_waiting}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{turns\_spent\_waiting}{turns\_spent\_waiting}}
+{\footnotesize\ttfamily int spy\+\_\+s\+::turns\+\_\+spent\+\_\+waiting}
+
+The number of turns spent waiting. \mbox{\Hypertarget{structspy__s_a5532a786ec0a1ef42fa9caa95e86030f}\label{structspy__s_a5532a786ec0a1ef42fa9caa95e86030f}} 
+\index{spy\_s@{spy\_s}!waiting\_for\_residence\_to\_be\_clear@{waiting\_for\_residence\_to\_be\_clear}}
+\index{waiting\_for\_residence\_to\_be\_clear@{waiting\_for\_residence\_to\_be\_clear}!spy\_s@{spy\_s}}
+\doxysubsubsection{\texorpdfstring{waiting\_for\_residence\_to\_be\_clear}{waiting\_for\_residence\_to\_be\_clear}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structstate__s}{state\+\_\+t}}$\ast$ spy\+\_\+s\+::waiting\+\_\+for\+\_\+residence\+\_\+to\+\_\+be\+\_\+clear}
+
+State when the spy is waiting for the residence to be clear. 
+
+La documentation de cette structure a été générée à partir du fichier suivant \+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{include_2memory_8h}{memory.\+h}}\end{DoxyCompactItemize}
