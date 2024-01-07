@@ -10,12 +10,12 @@
 
 #define SHARED_MEMORY "/SharedMemory"
 #define SPY_DEBUG 3
-#define START_HOUR_OF_DAY 0 
+#define START_HOUR_OF_DAY 7
 #define SEMAPHORE_CONSUMER "/semConsumer"
 #define SEMAPHORE_PRODUCER "/semProducer"
 
 memory_t *memory;
-sem_t *sem, *sem_producer, *sem_consumer;
+sem_t *sem, *sem_producer, *sem_consumer, *sem_spy_producer, *sem_spy_consumer;
 mqd_t mq;
 pthread_mutex_t shared_memory_mutex;
 pthread_barrier_t turn_barrier;
@@ -27,8 +27,11 @@ void* spy_thread(void* arg) {
     int current_round = memory->timer.round;
     int current_day = memory->timer.days;
     while(current_round != 2016 /* || memory->simulation_has_ended==0 */) {
-        //sem_wait(sem); // Attente pour accéder à la mémoire partagée
-        //printf("current timer round : %d\n", memory->timer.round);
+        if (last_round_checked == -1) {
+            while(memory->timer.hours <= 7) {
+                usleep(100000);
+            }
+        }
         current_round = memory->timer.round;
         current_day = memory->timer.days;
         int hour_of_day = (current_round / 6) % 24; // Calcule l'heure actuelle du jour
@@ -45,11 +48,10 @@ void* spy_thread(void* arg) {
             }
             // state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);
             // memory->spies[spy_id].current_state = next_state;
-            // sem_wait(sem);
+            // sem_wait(sem_spy_consumer);
             state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);
             memory->spies[spy_id].current_state = next_state;
-            // printf("numero de l'état de l'espion %d est %d, heure  %d:%d : \n",spy_id, memory->spies[spy_id].current_state->id , memory->timer.hours , memory->timer.minutes);
-            // sem_post(sem);
+            // sem_post(sem_spy_producer);
             last_day_checked = current_day;
             last_round_checked = current_round;
             pthread_mutex_unlock(&shared_memory_mutex);
@@ -88,8 +90,11 @@ void* officer_function(){
             // printf("first leaving time : %d : %d  , second leaving_time : %d : %d , third_leaving_time : %d : %d", 
             // memory->case_officer.first_leaving_time.leaving_hour, memory->case_officer.first_leaving_time.leaving_minute, memory->case_officer.second_leaving_time.leaving_hour,
             // memory->case_officer.second_leaving_time.leaving_minute,memory->case_officer.shopping_time.leaving_hour,memory->case_officer.shopping_time.leaving_minute);
+            // sem_wait(sem_spy_consumer);
             state_t *next_state = memory->case_officer.current_state->action(&memory->case_officer);
             memory->case_officer.current_state = next_state;
+            // printf("State of the officer : %s\n", memory->case_officer.current_state->description);
+            // sem_post(sem_spy_producer);
             // printf("numero de l'état de l'officier est %d, heure  %d:%d : \n", memory->case_officer.current_state->id , memory->timer.hours , memory->timer.minutes);
             // sem_wait(sem);
             // sem_post(sem);
@@ -100,7 +105,7 @@ void* officer_function(){
             // printf ("\nspy id : %d , walking_spies : %d , at_home_spies : %d at_work_spies : %d\n",spy_id, memory->walking_spies , memory->at_home_spies, memory->at_work_spies);
         }
 
-        usleep(100000); // 100 ms pour réduire la consommation CPU
+        usleep(1000); // 100 ms pour réduire la consommation CPU
     }
 
     return NULL;
@@ -141,12 +146,17 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    // Ouvrir le sémaphore
-    // sem = sem_open(SEMAPHORE_NAME, 0);
-    // if (sem == SEM_FAILED) {
-    //     perror("sem_open enemy_spy_network opening");
-    //     exit(EXIT_FAILURE);
-    // }   
+    sem_spy_consumer = sem_open("/semSpyConsumer", O_CREAT, 0644, 1);
+    if (sem_spy_consumer == SEM_FAILED) {
+        perror("sem_open spy_consumer");
+        exit(EXIT_FAILURE);
+    }
+
+    sem_spy_producer = sem_open("/semSpyProducer", O_CREAT, 0644, 0);
+    if (sem_spy_producer == SEM_FAILED) {
+        perror("sem_open spy_producer");
+        exit(EXIT_FAILURE);
+    }
 
     // Ouvrir le sémaphore
     sem_consumer = sem_open(SEMAPHORE_CONSUMER, 0);

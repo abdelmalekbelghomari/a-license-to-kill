@@ -5,7 +5,7 @@
 #define SEMAPHORE_CONSUMER "/semConsumer"
 
 memory_t *memory;
-sem_t *sem_producer, *sem_consumer;
+sem_t *sem_producer, *sem_consumer, *sem_spy_producer, *sem_spy_consumer, *sem_memory;
 
 
 simulated_clock_t new_timer(){
@@ -35,10 +35,14 @@ void tick_clock(int sig){
     if(sig == SIGALRM){
         // memory->memory_has_changed = 1;
         //sem_wait(sem_consumer_timer);
+        sem_wait(sem_memory);
+        // printf("Value of sem_memory after wait in timer : %d\n", sem_memory->__align);
         update_timer(memory);
-        // printf("Round: %d\n", memory->timer.round);
-        // printf("Time: %d:%d\n", memory->timer.hours, memory->timer.minutes);
+        // printf("Round du timer: %d\n", memory->timer.round);
+        // printf("Time du timer: %d:%d\n", memory->timer.hours, memory->timer.minutes);
         memory->memory_has_changed = 1;
+        sem_post(sem_memory);
+        // printf("Value of sem_memory after post in timer: %d\n", sem_memory->__align);
         //sem_post(sem_producer_timer);
         ualarm(200000,0);
     }
@@ -87,6 +91,23 @@ int main() {
         perror("sem_open failed in timer process");
         exit(EXIT_FAILURE);
     }
+    sem_spy_consumer = sem_open("/semSpyConsumer", 0);
+    if (sem_spy_consumer == SEM_FAILED) {
+        perror("sem_open failed in timer process");
+        exit(EXIT_FAILURE);
+    }
+    sem_spy_producer = sem_open("/semSpyProducer", 0);
+    if (sem_spy_producer == SEM_FAILED) {
+        perror("sem_open failed in timer process");
+        exit(EXIT_FAILURE);
+    }
+    sem_memory = sem_open("/semMemory", O_CREAT, 0644, 1);
+    if (sem_memory == SEM_FAILED) {
+        perror("sem_open failed");
+        exit(EXIT_FAILURE);
+    }
+
+
     // printf("sem_open timer\n");
 
     // Initialiser le timer
@@ -112,16 +133,23 @@ int main() {
 
     while(1){
         pause();
-        if (memory->timer.round >= MAX_ROUNDS) {
-            for (int i = 0; i < NB_PROCESS - 1 ; i++) {
-                kill(memory->pids[i], SIGINT);
+        if ((memory->simulation_has_ended != 1 
+            || memory->simulation_has_ended != 3)
+            && memory->timer.round >= MAX_ROUNDS) {
+            
+            for(int i = 0; i < NB_PROCESS - 1; i++){
+                kill(memory->pids[i], SIGUSR1);
             }
-            break;
         }
+            
+        
     }
     
     sem_close(sem_consumer);
     sem_close(sem_producer);
-    shm_unlink(SHARED_MEMORY);
+    sem_close(sem_spy_consumer);
+    sem_close(sem_spy_producer);
+    sem_close(sem_memory);
+    sem_unlink("/semConsumer");
     return 0;
 }

@@ -246,20 +246,6 @@ void start_simulation_processes(memory_t *memory){
 
     memory->pids[num_children] = fork();
     if (memory->pids[num_children] == -1) {
-        perror("Error [fork()] monitor:");
-        exit(EXIT_FAILURE);
-    }
-    if (memory->pids[num_children] == 0) {
-        if (execl("./bin/monitor", "monitor", NULL) == -1) {
-            perror("Error [execl] monitor: ");
-            exit(EXIT_FAILURE);
-        }
-        
-    }
-    num_children++;
-
-    memory->pids[num_children] = fork();
-    if (memory->pids[num_children] == -1) {
         perror("Error [fork()] citizen_manager: ");
         exit(EXIT_FAILURE);
     }
@@ -308,6 +294,7 @@ void start_simulation_processes(memory_t *memory){
             exit(EXIT_FAILURE);
         }
     }
+
     num_children++;
 
     memory->pids[num_children] = fork();
@@ -321,6 +308,22 @@ void start_simulation_processes(memory_t *memory){
             exit(EXIT_FAILURE);
         }
     }
+    
+    num_children++;
+
+    memory->pids[num_children] = fork();
+    if (memory->pids[num_children] == -1) {
+        perror("Error [fork()] monitor:");
+        exit(EXIT_FAILURE);
+    }
+    if (memory->pids[num_children] == 0) {
+        if (execl("./bin/monitor", "monitor", NULL) == -1) {
+            perror("Error [execl] monitor: ");
+            exit(EXIT_FAILURE);
+        }
+        
+    }
+    
 
    
     for (int i = 0; i < num_children; i++) {

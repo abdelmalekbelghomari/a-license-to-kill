@@ -160,6 +160,7 @@ typedef struct {
 
 struct state_s {
     int id;
+    char *description;
 
     void (*change_state)(citizen_t *, state_t *);
     state_t *(*action)(citizen_t *);
@@ -290,6 +291,8 @@ struct case_officer_s {
     char messages[MAX_MESSAGES][MAX_MESSAGE_SIZE];
     int message_count;
     characterMovement movement;
+
+    char description[30];
 
     state_t *current_state;
     state_t *resting_at_home;

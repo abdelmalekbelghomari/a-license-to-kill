@@ -271,6 +271,17 @@ void init_counter_intelligence_officer(memory_t * memory){
 
     // sem_wait(sem_producer);
     counter_intelligence_officer_t *officer = &memory->counter_intelligence_officer;
+
+    officer->id = 1;
+    officer->health_point = 10;
+    officer->current_state = officer->monitoring;
+    officer->city_hall_row = memory->companies[2].position[0];
+    officer->city_hall_column = memory->companies[2].position[1];
+    officer->location_row = officer->city_hall_row;
+    officer->location_column = officer->city_hall_column;
+    officer->mailbox_column = -1;
+    officer->mailbox_row = -1;
+
     officer->monitoring = new_state(0, monitor);
     officer->going_to_suspect_place = new_state(1, go_to_suspect_place);
     officer->hiding = new_state(2, hide);
@@ -281,14 +292,6 @@ void init_counter_intelligence_officer(memory_t * memory){
     officer->searching_for_mailbox = new_state(6, search_for_mailbox);
     officer->recovering_messages = new_state(6, recover_message);
     officer->going_to_search_for_mailbox = new_state(7, go_to_search_for_mailbox);
-
-    officer->current_state = officer->monitoring;
-
-    officer->city_hall_column = memory->companies[2].position[1];
-    officer->city_hall_row = memory->companies[2].position[0];
-
-    officer->location_row = officer->city_hall_row;
-    officer->location_column = officer->city_hall_column;
 
     officer->has_found_mailbox = false;
     officer->has_found_mailbox_location = false;

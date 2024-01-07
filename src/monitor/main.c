@@ -29,7 +29,7 @@
 
 extern WINDOW *main_window;
 extern int old_cursor;
-sem_t *sem_producer, *sem_consumer;
+sem_t *sem_producer, *sem_consumer, *sem_spy_producer, *sem_spy_consumer, *sem_memory;
 
 
 /**
@@ -62,17 +62,18 @@ int main()
     /* ---------------------------------------------------------------------- */ 
     /* The following code only allows to avoid segmentation fault !           */ 
     /* Change it to access to the real shared memory.                         */
-    shm = shm_open("SharedMemory", O_RDONLY, 0666);
+    shm = shm_open("/SharedMemory", O_RDWR, 0666);
     if (shm == -1) {
         perror("shm_open error");
         exit(EXIT_FAILURE);
     }
 
-    memory = (memory_t *)mmap(NULL, sizeof(memory_t), PROT_READ, MAP_SHARED, shm, 0);
+    memory = (memory_t *)mmap(NULL, sizeof(memory_t), PROT_READ | PROT_WRITE, MAP_SHARED, shm, 0);
     if (memory == MAP_FAILED) {
         perror("mmap error");
         exit(EXIT_FAILURE);
     }
+
     /* ---------------------------------------------------------------------- */
     /*Initialisation des sémaphores                                           */
 
@@ -84,6 +85,21 @@ int main()
     sem_consumer = sem_open("/semConsumer", 0);
     if (sem_consumer == SEM_FAILED) {
         perror("sem_open monitor");
+        exit(EXIT_FAILURE);
+    }
+    sem_spy_producer = sem_open("/semSpyProducer", 0);
+    if (sem_spy_producer == SEM_FAILED) {
+        perror("sem_open monitor");
+        exit(EXIT_FAILURE);
+    }
+    sem_spy_consumer = sem_open("/semSpyConsumer", 0);
+    if (sem_spy_consumer == SEM_FAILED) {
+        perror("sem_open monitor");
+        exit(EXIT_FAILURE);
+    }
+    sem_memory = sem_open("/semMemory", 0);
+    if (sem_memory == SEM_FAILED) {
+        perror("sem_open failed in monitor");
         exit(EXIT_FAILURE);
     }
 
@@ -163,14 +179,26 @@ int main()
             default:
                 break;
         }
-        
+        // int sval;
+        // sem_getvalue(sem_memory, &sval);
+        // printf("Current value of sem_memory before wait: %d\n", sval);
+        sem_wait(sem_memory);
+        // sem_getvalue(sem_memory, &sval);
+        // printf("Current value of sem_memory after wait: %d\n", sval);  
         if (memory->memory_has_changed) {
             update_values(memory);
-        }
+            memory->memory_has_changed = 0;
+        } 
+        sem_post(sem_memory);
+        // sem_getvalue(sem_memory, &sval);
+        // printf("Current value of sem_memory after post: %d\n", sval);("Value of sem_memory after post: %d\n", sem_memory->__align);
 
     }
     sem_close(sem_consumer);
     sem_close(sem_producer);
+    sem_close(sem_spy_consumer);
+    sem_close(sem_spy_producer);
+    sem_close(sem_memory);
 
 }
 

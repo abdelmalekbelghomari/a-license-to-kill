@@ -28,6 +28,7 @@ WINDOW *city_window;
 WINDOW *character_window;
 WINDOW *mailbox_content_window;
 WINDOW *enemy_country_monitor;
+sem_t *sem_spy_producer, *sem_spy_consumer, *sem_memory;
 
 // extern sem_t *sem_producer_timer, *sem_consumer_timer;
 
@@ -218,7 +219,6 @@ void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *me
             if (memory->spies[2].location_row == i && memory->spies[2].location_column == j) {
                     mvwaddstr(window, row_offset, col_offset, "S"); // Afficher l'espion
             }
-            
 
             
             // // Affichage de l'officier du contre-espionnage
@@ -330,7 +330,7 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
 {
     /* --------------------------------------------------------------------- */
     /*     Get information from mem about the spy with the given number      */
-
+    sem_wait(sem_spy_producer);
     spy_t * spy = &mem->spies[number];
 
     int id;
@@ -400,26 +400,35 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
 
     // switch (spy->current_state->id) {
     //     case 0: mvwprintw(window, row + 8, column + 9, "Resting at Home"); break;
-    //     case 1: mvwprintw(window, row + 8, column + 9, "Going to Spot"); break;
-    //     case 2: mvwprintw(window, row + 8, column + 9, "Spotting"); break;
-    //     case 3: mvwprintw(window, row + 8, column + 9, "Stealing"); break;
-    //     case 4: mvwprintw(window, row + 8, column + 9, "Going Back Home"); break;
-    //     case 5: mvwprintw(window, row + 8, column + 9, "Going to Send Message"); break;
-    //     case 6: mvwprintw(window, row + 8, column + 9, "Sending Message"); break;
-    //     case 7: mvwprintw(window, row + 8, column + 9, "Waiting for Residence to be Clear"); break;
-    //     case 8: mvwprintw(window, row + 8, column + 9, "Going to Supermarket"); break;
-    //     case 9: mvwprintw(window, row + 8, column + 9, "Doing Some Shopping"); break;
-    //     case 10: mvwprintw(window, row + 8, column + 9, "Is Hurt"); break;
-    //     case 11: mvwprintw(window, row + 8, column + 9, "Riposte"); break;
-    //     case 12: mvwprintw(window, row + 8, column + 9, "Is in Conflict"); break;
-    //     case 13: mvwprintw(window, row + 8, column + 9, "Dying"); break;
-    //     case 14: mvwprintw(window, row + 8, column + 9, "Finished"); break;
-    //     case 15: mvwprintw(window, row + 8, column + 9, "Scouting"); break;
-    //     case 16: mvwprintw(window, row + 8, column + 9, "Arriving at Mailbox"); break;
-    //     case 17: mvwprintw(window, row + 8, column + 9, "Free"); break;
-    //     default: mvwprintw(window, row + 8, column + 9, "Unknown");
-    // }
     wrefresh(window);
+    sem_post(sem_spy_producer);
+}
+
+// char* get_state_of_officer(memory_t *memory){
+//     static char state_description[100]; // Taille arbitraire, assez grande pour la plupart des états
+//     strncpy(state_description, memory->case_officer.current_state->description, sizeof(state_description) - 1);
+//     state_description[sizeof(state_description) - 1] = '\0'; // Assurez-vous que la chaîne est terminée par '\0'
+//     return state_description;
+// }
+
+char* get_state_of_officer(memory_t *memory) {
+    // Taille arbitraire, assurez-vous qu'elle est suffisante pour votre cas d'utilisation
+    static char local_state_description[100]; 
+
+    // Verrouillez l'accès à la mémoire partagée
+    sem_wait(&sem_memory);
+
+    // Copiez la chaîne dans le buffer local
+    strncpy(local_state_description, memory->case_officer.current_state->description, sizeof(local_state_description) - 1);
+
+    // Assurez-vous que la chaîne est terminée par '\0'
+    local_state_description[sizeof(local_state_description) - 1] = '\0';
+
+    // Déverrouillez l'accès à la mémoire partagée
+    sem_post(&sem_memory);
+
+    // Retournez la copie locale
+    return local_state_description;
 }
 
 void display_case_officer_information(WINDOW *window, memory_t *mem, int row, int column)
@@ -427,6 +436,7 @@ void display_case_officer_information(WINDOW *window, memory_t *mem, int row, in
     /* --------------------------------------------------------------------- */
     /*           Get information from mem about the case officer             */
 
+    // sem_wait(sem_spy_producer);
     case_officer_t * officer = &mem->case_officer;
 
     int id;
@@ -437,8 +447,9 @@ void display_case_officer_information(WINDOW *window, memory_t *mem, int row, in
     int home_column;
     int mailbox_row;
     int mailbox_column;
+    char state_description[30];
 
-    id              = 0;
+    id              = officer->id;
     health_points   = officer->health_point;
     location_row    = officer->location_column;
     location_column = officer->location_row;
@@ -446,45 +457,25 @@ void display_case_officer_information(WINDOW *window, memory_t *mem, int row, in
     home_column     = officer->home_row;
     mailbox_row     = mem->map.mailbox_column;
     mailbox_column  = mem->map.mailbox_row;
+    strcpy(state_description,officer->description);
    /* ---------------------------------------------------------------------- */
-    // char *state_description;
-    // switch (officer->current_state->id) {
-    //     case 0:
-    //         state_description = "Resting at Home";
-    //         break;
-    //     case 1:
-    //         state_description = "Going Back Home";
-    //         break;
-    //     case 2:
-    //         state_description = "Sending Messages";
-    //         break;
-    //     case 3:
-    //         state_description = "Going to Supermarket";
-    //         break;
-    //     case 4:
-    //         state_description = "Doing Some Shopping";
-    //         break;
-    //     case 5:
-    //         state_description = "Going to Mailbox";
-    //         break;
-    //     case 6:
-    //         state_description = "Recovering Messages";
-    //         break;
-    //     default:
-    //         state_description = "Unknown";
-    // }
 
     wattron(window, A_BOLD);
     mvwprintw(window, row, column, "Case Officer");
     wattroff(window, A_BOLD);
+    mvwprintw(window, row + 6, column, "%50s", "");
     mvwprintw(window, row + 1, column, "  Id: %d", id);
     mvwprintw(window, row + 2, column, "  Health: %d", health_points);
     mvwprintw(window, row + 3, column, "  Position: (%d,%d)", location_row, location_column);
     mvwprintw(window, row + 4, column, "  Home pos: (%d,%d)", home_row, home_column);
     mvwprintw(window, row + 5, column, "  Mailbox pos: (%d,%d)", mailbox_row, mailbox_column);
-    mvwprintw(window, row + 6, column, "  State: %s", "Resting at home");
+    mvwprintw(window, row + 6, column, "  State: %s", state_description);
     wrefresh(window);
+    // printw("State of the officer : %s\n", state_description); // Pour le debug
+    // wrefresh(window);
+    // sem_post(sem_spy_consumer);
 }
+
 
 void display_counterintelligence_officer_information(WINDOW *window, memory_t *mem, int row, int col)
 {
@@ -503,15 +494,15 @@ void display_counterintelligence_officer_information(WINDOW *window, memory_t *m
     int mailbox_column;
     int targeted_character_id;
 
-    id                    = 0;
+    id                    = officer->id;
     health_points         = officer->health_point;
     location_row          = officer->location_row;
     location_column       = officer->location_column;
     city_hall_row         = officer->city_hall_row;
     city_hall_column      = officer->city_hall_column;
-    mailbox_row           = 0;
-    mailbox_column        = 0;
-    targeted_character_id = 0;
+    mailbox_row           = officer->mailbox_row;
+    mailbox_column        = officer->mailbox_column;
+    targeted_character_id = officer->targeted_character_id;
    /* ---------------------------------------------------------------------- */
 
     char *state_description;
@@ -524,13 +515,13 @@ void display_counterintelligence_officer_information(WINDOW *window, memory_t *m
     mvwprintw(window, row + 2, col, "  Health: %d", health_points);
     mvwprintw(window, row + 3, col, "  Position: (%d,%d)", location_row, location_column);
     mvwprintw(window, row + 4, col, "  City Hall pos: (%d,%d)", city_hall_row, city_hall_column);
-    if (location_row != -1) {
+    if (mailbox_row != -1) {
         mvwprintw(window, row + 5, col, "  Mailbox pos: (%d,%d)    ", mailbox_row, mailbox_column);
     } else {
         mvwprintw(window, row + 5, col, "  Mailbox pos: not found");
     }
     mvwprintw(window, row + 6, col, "  Target:     ");
-    mvwprintw(window, row + 7, col, "  State: %s", "cc");
+    mvwprintw(window, row + 7, col, "  State: %s", "in the matrix");
 
     wrefresh(window);
 }
@@ -639,15 +630,17 @@ void update_values(memory_t *mem) {
     
     int rows, columns;
     getmaxyx(city_window, rows, columns);
-    
+
     display_general_information_values(city_window, mem);
     display_city(city_window, mem->map, rows, columns, mem);
     display_character_information(character_window, mem);
     display_mailbox_content(mailbox_content_window, mem);
     display_enemy_country_monitor(enemy_country_monitor, mem);
     // sem_wait(sem_producer);
+    // sem_wait(sem_spy_producer);
 	// mem->memory_has_changed = 0;
-    // sem_post(sem_consumer);
+    // sem_wait(sem_spy_consumer);
+    // // sem_post(sem_consumer);
 
 }
 
