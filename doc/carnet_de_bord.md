@@ -15,7 +15,7 @@
 
 ### 31/12 :
 - J'ai oublié de noter les jours d'avant
-- timer fonctionnel avec test des sémaphores 
+- timer fonctionnel avec test des sémaphores ( note du 06/01 : la memoire n'tait pas modifiable à cause du mappage fait en lecture only........)
 - j'ai du reprendre toutes les fonctions d'initialisation des citizen pour utiliser citizen_manager proprement
 - Haykel a codé un CSP pour la génération de map. (il est chaud)
 - bonne compréhension des mutex et barrieres
@@ -38,4 +38,5 @@
 ### 06/01 :
 
 - Travail sur les caméras et le reseau de maille.  
--
+- WOOOOOOOOORKING better, i achieved the displaying of states and i noticed an error in the main.c of monitor (now corrected) -> en gros on voit juste bien tous les deplacemenst et les etats. ça m'a quand meme pris beaucoup de temps pour debuger le code.... le mmap a ete fait en lecture only dans le main.c du monitor, tu m'etonnes que ça marchait pas.
+- Demain, on améliore le reseau de maille et on fais la baisse de point de vie s'il reste du temps.
