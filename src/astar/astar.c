@@ -167,8 +167,8 @@ Node **get_successors(map_t *map, Node *current, int goal_row, int goal_column) 
 
     int number_of_neighbors = 0;
     for (int i = 0; i < NUM_DIRECTIONS; i++) {
-    int row = current->position[0] + DIRECTIONS[i][0]; // Lignes
-    int column = current->position[1] + DIRECTIONS[i][1]; // Colonnes
+    int row = current->position[0] + DIRECTIONS[i][0];
+    int column = current->position[1] + DIRECTIONS[i][1]; 
 
     if (row < 0 || row >= MAX_ROWS || column < 0 || column >= MAX_COLUMNS /*|| is_cell_full(map, row, row)*/ ) {
         continue;

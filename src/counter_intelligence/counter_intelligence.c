@@ -141,7 +141,6 @@ state_t *hide(counter_intelligence_officer_t *officer) {
         
         return officer->going_back_to_monitor;
     }
-    // printf("c'est un suspect !!! il faut que je le suit apres qu'il fini de voler\n");
     return officer->waiting_for_spy_to_steal;  // Prochain état
 }
 
@@ -154,7 +153,7 @@ state_t *go_back_to_monitor(counter_intelligence_officer_t *officer) {
         && officer->leaving_time.leaving_minute == memory->timer.minutes) 
         && officer->new_day
         && officer->has_found_mailbox_location){
-        // printf("===============================il est temps que je retente de chercher la boite aux lettres\n");
+
         officer->new_day = false; // avoid searching twice the same day
         return officer->going_to_search_for_mailbox;
     }
@@ -177,30 +176,23 @@ state_t *go_back_to_monitor(counter_intelligence_officer_t *officer) {
 
 state_t *wait_for_spy_to_steal(counter_intelligence_officer_t *officer) {
     strcpy(officer->description, "Waiting for spy to steal");
-    // printf("j'attends que l'imposteur arrete de chipper\n");
-    // Logique de l'état "wait_for_spy_to_steal"
     return officer->following_spy;  // Prochain état
 }
 
 state_t *follow_spy(counter_intelligence_officer_t *officer) {
     strcpy(officer->description, "Following spy");
-    // printf("je suit le chippeur jusqu'à la boite aux lettres\n");
-    // Logique de l'état "follow_spy"
     return officer->waiting_for_spy_to_send_message;  // Prochain état
 }
 
 state_t *wait_for_spy_to_send_message(counter_intelligence_officer_t *officer) {
     strcpy(officer->description, "Waiting for spy to send message");
-    // printf("j'attends que l'imposteur envoie des messages\n");
-    // Logique de l'état "wait_for_spy_to_send_message"
     officer->has_found_mailbox_location = true;
     return officer->searching_for_mailbox;  // Prochain état
 }
 
 state_t *search_for_mailbox(counter_intelligence_officer_t *officer) {
     strcpy(officer->description, "Searching for mailbox");
-    // printf("je cherche la boite aux lettres : ");
-    // Logique de l'état "search_for_mailbox"
+
     int value = rand()%10;
     if (value < 7){
         // printf("j'ai réussi à la trouver !\n");
@@ -219,9 +211,7 @@ state_t *recover_message(counter_intelligence_officer_t *officer) {
 }
 
 void update_movement_history(characterMovement *movement, int newX, int newY) {
-    // printf("Mise à jour de l'historique de mouvement : Ancienne position (%d, %d), Nouvelle position (%d, %d)\n", movement->currentRow, movement->currentColumn, newX, newY);
 
-    // Mettre à jour les positions précédentes
     movement->previousRow = movement->currentRow;
     movement->previousColumn = movement->currentColumn;
 
@@ -237,12 +227,6 @@ void update_movement_history(characterMovement *movement, int newX, int newY) {
     movement->historyRow[6] = newX;
     movement->historyColumn[6] = newY;
 
-    // printf("Historique de mouvement :\n");
-    // for (int i = 0; i < 7; i++) {
-    //     printf("Position %d : (%d, %d)\n", i, movement->historyRow[i], movement->historyColumn[i]);
-    // }
-
-    // printf("Historique de mouvement mis à jour.\n");
 }
 
 void detect_suspicious_person(memory_t *memory) {
@@ -288,14 +272,10 @@ bool is_movement_suspicious(characterMovement *movement, memory_t *memory) {
         int row = movement->historyRow[i];
         int column = movement->historyColumn[i];
 
-        // Débogage: affiche le type de cellule pour chaque position dans l'historique
-        // printf("Vérification de la position (%d, %d), Type: %d\n", row, column, memory->map.cells[row][column].type);
 
         if (memory->map.cells[row][column].type == WASTELAND && (row != 0 || column != 0)) {
-            // printf("Position (%d, %d) est une wasteland.\n", row, column);
             count++;
             if (count >= 3) {
-                // printf("Mouvement suspect détecté: %d fois sur une wasteland de coordonnées (%d,%d).\n", count, row, column);
                 return true;
             }
         }
@@ -307,7 +287,6 @@ bool is_movement_suspicious(characterMovement *movement, memory_t *memory) {
 
 void init_counter_intelligence_officer(memory_t * memory){
 
-    // sem_wait(sem_producer);
     counter_intelligence_officer_t *officer = &memory->counter_intelligence_officer;
 
     officer->id = 1;
@@ -335,6 +314,5 @@ void init_counter_intelligence_officer(memory_t * memory){
     officer->has_found_mailbox_location = false;
     officer->leaving_time.leaving_hour = -1;
     officer->leaving_time.leaving_minute = -1;
-    // sem_post(sem_consumer);
 }
 

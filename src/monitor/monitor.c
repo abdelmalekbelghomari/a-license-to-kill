@@ -399,12 +399,6 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     wrefresh(window);
 }
 
-// char* get_state_of_officer(memory_t *memory){
-//     static char state_description[100]; // Taille arbitraire, assez grande pour la plupart des états
-//     strncpy(state_description, memory->case_officer.current_state->description, sizeof(state_description) - 1);
-//     state_description[sizeof(state_description) - 1] = '\0'; // Assurez-vous que la chaîne est terminée par '\0'
-//     return state_description;
-// }
 
 char* get_state_of_officer(memory_t *memory) {
     // Taille arbitraire, assurez-vous qu'elle est suffisante pour votre cas d'utilisation
@@ -467,9 +461,7 @@ void display_case_officer_information(WINDOW *window, memory_t *mem, int row, in
     mvwprintw(window, row + 5, column, "  Mailbox pos: (%d,%d)", mailbox_row, mailbox_column);
     mvwprintw(window, row + 6, column, "  State: %s", state_description);
     wrefresh(window);
-    // printw("State of the officer : %s\n", state_description); // Pour le debug
-    // wrefresh(window);
-    // sem_post(sem_spy_consumer);
+
 }
 
 

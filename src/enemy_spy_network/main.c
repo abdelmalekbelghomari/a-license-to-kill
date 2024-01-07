@@ -37,37 +37,22 @@ void* spy_thread(void* arg) {
     int last_day_checked = -1;
     int current_round = memory->timer.round;
     int current_day = memory->timer.days;
-    while(current_round != 2016 /* || memory->simulation_has_ended==0 */) {
-        // if (last_round_checked == -1) {
-        //     while(memory->timer.hours <= 7) {
-        //         usleep(100000);
-        //     }
-        // }
+    while(current_round != 2016 /*|| memory->simulation_has_ended==0*/ ) {
         current_round = memory->timer.round;
         current_day = memory->timer.days;
         int hour_of_day = (current_round / 6) % 24; // Calcule l'heure actuelle du jour
-        // printf("caca\n");
-        //sem_post(sem);
 
         if (last_round_checked != current_round) {
             pthread_mutex_lock(&shared_memory_mutex);
-            //modifie ca pour implémenter le patron état
-            // printf("spy id : %d , current state : %d\n", spy_id, memory->spies[spy_id].current_state->id);
             if (hour_of_day == START_HOUR_OF_DAY && memory->timer.minutes == 0) {
                 assign_leaving_time(&memory->spies[spy_id]);
-                // printf("========================= NEW DAY ==========================");
             }
-            // state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);
-            // memory->spies[spy_id].current_state = next_state;
-            // sem_wait(sem_spy_consumer);
             state_t *next_state = memory->spies[spy_id].current_state->action(&memory->spies[spy_id]);
             memory->spies[spy_id].current_state = next_state;
-            // sem_post(sem_spy_producer);
             last_day_checked = current_day;
             last_round_checked = current_round;
             pthread_mutex_unlock(&shared_memory_mutex);
             pthread_barrier_wait(&turn_barrier);
-            // printf ("\nspy id : %d , walking_spies : %d , at_home_spies : %d at_work_spies : %d\n",spy_id, memory->walking_spies , memory->at_home_spies, memory->at_work_spies);
         }
 
         usleep(100000); // 100 ms pour réduire la consommation CPU
@@ -82,38 +67,20 @@ void* officer_function(){
     int last_day_checked = -1;
     int current_day = memory->timer.days;
     while(current_round != 2016 /* || memory->simulation_has_ended==0 */) {
-        //sem_wait(sem); // Attente pour accéder à la mémoire partagée
-        //printf("current timer round : %d\n", memory->timer.round);
         current_round = memory->timer.round;
         current_day = memory->timer.days;
-        // printf("caca\n");
-        //sem_post(sem);
 
         if (last_round_checked != current_round) {
             pthread_mutex_lock(&shared_memory_mutex);
             if(last_day_checked != current_day){    
                 assign_officer_times(&memory->case_officer);
-                // printf("first leaving time : %d : %d  , second leaving_time : %d : %d , shopping_time_time : %d : %d , messaging_time : %d:%d\n", 
-                // memory->case_officer.first_leaving_time.leaving_hour, memory->case_officer.first_leaving_time.leaving_minute, memory->case_officer.second_leaving_time.leaving_hour,
-                // memory->case_officer.second_leaving_time.leaving_minute,memory->case_officer.shopping_time.leaving_hour,memory->case_officer.shopping_time.leaving_minute,
-                // memory->case_officer.messaging_time.leaving_hour, memory->case_officer.messaging_time.leaving_minute);
             }
-            // printf("first leaving time : %d : %d  , second leaving_time : %d : %d , third_leaving_time : %d : %d", 
-            // memory->case_officer.first_leaving_time.leaving_hour, memory->case_officer.first_leaving_time.leaving_minute, memory->case_officer.second_leaving_time.leaving_hour,
-            // memory->case_officer.second_leaving_time.leaving_minute,memory->case_officer.shopping_time.leaving_hour,memory->case_officer.shopping_time.leaving_minute);
-            // sem_wait(sem_spy_consumer);
             state_t *next_state = memory->case_officer.current_state->action(&memory->case_officer);
             memory->case_officer.current_state = next_state;
-            // printf("State of the officer : %s\n", memory->case_officer.current_state->description);
-            // sem_post(sem_spy_producer);
-            // printf("numero de l'état de l'officier est %d, heure  %d:%d : \n", memory->case_officer.current_state->id , memory->timer.hours , memory->timer.minutes);
-            // sem_wait(sem);
-            // sem_post(sem);
             last_day_checked = current_day;
             last_round_checked = current_round;
             pthread_mutex_unlock(&shared_memory_mutex);
             pthread_barrier_wait(&turn_barrier);
-            // printf ("\nspy id : %d , walking_spies : %d , at_home_spies : %d at_work_spies : %d\n",spy_id, memory->walking_spies , memory->at_home_spies, memory->at_work_spies);
         }
 
         usleep(1000); // 100 ms pour réduire la consommation CPU
@@ -123,7 +90,6 @@ void* officer_function(){
 }
 
 int main() {
-    // printf("\n");
     srand(time(NULL) ^ getpid());// la graine doit être différente du parent
     pthread_t threads[SPY_DEBUG];
     pthread_t officer_thread;

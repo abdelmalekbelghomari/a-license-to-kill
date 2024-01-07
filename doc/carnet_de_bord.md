@@ -42,4 +42,4 @@
 - Demain, on améliore le reseau de maille et on fais la baisse de point de vie s'il reste du temps.
 
 ### 07/01:
-- 
+- Travail sur le rendu final du projet. 
