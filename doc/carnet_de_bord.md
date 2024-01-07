@@ -40,3 +40,6 @@
 - Travail sur les caméras et le reseau de maille.  
 - WOOOOOOOOORKING better, i achieved the displaying of states and i noticed an error in the main.c of monitor (now corrected) -> en gros on voit juste bien tous les deplacemenst et les etats. ça m'a quand meme pris beaucoup de temps pour debuger le code.... le mmap a ete fait en lecture only dans le main.c du monitor, tu m'etonnes que ça marchait pas.
 - Demain, on améliore le reseau de maille et on fais la baisse de point de vie s'il reste du temps.
+
+### 07/01:
+- 

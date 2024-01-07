@@ -27,11 +27,11 @@ void* spy_thread(void* arg) {
     int current_round = memory->timer.round;
     int current_day = memory->timer.days;
     while(current_round != 2016 /* || memory->simulation_has_ended==0 */) {
-        if (last_round_checked == -1) {
-            while(memory->timer.hours <= 7) {
-                usleep(100000);
-            }
-        }
+        // if (last_round_checked == -1) {
+        //     while(memory->timer.hours <= 7) {
+        //         usleep(100000);
+        //     }
+        // }
         current_round = memory->timer.round;
         current_day = memory->timer.days;
         int hour_of_day = (current_round / 6) % 24; // Calcule l'heure actuelle du jour

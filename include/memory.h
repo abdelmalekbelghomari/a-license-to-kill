@@ -234,6 +234,7 @@ struct spy_s {
     int turns_spent_stealing;
     int turns_spent_shopping;
     int turns_spent_waiting;
+    bool has_targeted_company;
     building_t *targeted_company;
     int row_in_front_of_targeted_company;
     int column_in_front_of_targeted_company;
@@ -244,7 +245,7 @@ struct spy_s {
     bool has_a_fake_message;
     characterMovement movement;
 
-
+    char description[40];
     state_t *current_state;
     state_t *resting_at_home;
     state_t *going_to_spot;

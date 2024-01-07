@@ -17,6 +17,8 @@
  */
 #include <string.h>
 #include <ncurses.h>
+#include <ncursesw/ncurses.h>
+
 
 #include "monitor.h"
 #include "monitor_common.h"
@@ -28,9 +30,8 @@ WINDOW *city_window;
 WINDOW *character_window;
 WINDOW *mailbox_content_window;
 WINDOW *enemy_country_monitor;
-sem_t *sem_spy_producer, *sem_spy_consumer, *sem_memory;
+extern sem_t *sem_spy_producer, *sem_spy_consumer, *sem_memory;
 
-// extern sem_t *sem_producer_timer, *sem_consumer_timer;
 
 int old_cursor;
 int cell_type_colors[5];
@@ -330,7 +331,7 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
 {
     /* --------------------------------------------------------------------- */
     /*     Get information from mem about the spy with the given number      */
-    sem_wait(sem_spy_producer);
+    // sem_wait(sem_spy_producer);
     spy_t * spy = &mem->spies[number];
 
     int id;
@@ -342,7 +343,7 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     int nb_of_stolen_companies;
     int has_license_to_kill;
     char stolen_message_content[MAX_LENGTH_OF_MESSAGE];
-    int state_id;
+    char state[40];
     
 
     id                     = spy->id;
@@ -353,11 +354,12 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     home_column            = spy->home_row;
     nb_of_stolen_companies = spy->nb_of_stolen_companies;
     has_license_to_kill    = spy->has_license_to_kill;
-    state_id               = spy->current_state->id;
+    strcpy(state, spy->description);
 
     if (spy->id == 1){
         id = 7;         // Petite référence à James Bond
     }
+
 	
    /* ---------------------------------------------------------------------- */
    
@@ -365,9 +367,11 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     mvwprintw(window, row, column, "Spy n°%d", number);
     wattroff(window, A_BOLD);
     if (spy->id == 1){
-        mvwprintw(window, row + 1, column, "  Id: %.3d (James Bond)", id);
+        mvwprintw(window, row + 1, column, "  Id Code: %.3d (James Bond)", id);
+    } else if (spy->id == 0){
+        mvwprintw(window, row + 1, column, "  Id Code: %d (Gru)", id);
     } else {
-        mvwprintw(window, row + 1, column, "  Id: %d", id);
+        mvwprintw(window, row + 1, column, "  Id Code: %d (Une Totally Spy !)", id);
     }
     mvwprintw(window, row + 2, column, "  Health: %d", health_points);
     mvwprintw(window, row + 3, column, "  Position: (%d,%d)", location_row, location_column);
@@ -383,9 +387,10 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     } else {
         mvwprintw(window, row + 7, column, "  License to kill: no ");
     }
+    mvwprintw(window, row + 8, column, "  State: %s", state);
 
 
-    wmove(window, row + 8, column);
+    // wmove(window, row + 8, column);
     wclrtoeol(window);
 
     // Print the state based on the value of state_id
@@ -401,7 +406,7 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     // switch (spy->current_state->id) {
     //     case 0: mvwprintw(window, row + 8, column + 9, "Resting at Home"); break;
     wrefresh(window);
-    sem_post(sem_spy_producer);
+    // sem_post(sem_spy_producer);
 }
 
 // char* get_state_of_officer(memory_t *memory){
@@ -458,13 +463,14 @@ void display_case_officer_information(WINDOW *window, memory_t *mem, int row, in
     mailbox_row     = mem->map.mailbox_column;
     mailbox_column  = mem->map.mailbox_row;
     strcpy(state_description,officer->description);
+
    /* ---------------------------------------------------------------------- */
 
     wattron(window, A_BOLD);
     mvwprintw(window, row, column, "Case Officer");
     wattroff(window, A_BOLD);
     mvwprintw(window, row + 6, column, "%50s", "");
-    mvwprintw(window, row + 1, column, "  Id: %d", id);
+    mvwprintw(window, row + 1, column, "  Id: %d",id);
     mvwprintw(window, row + 2, column, "  Health: %d", health_points);
     mvwprintw(window, row + 3, column, "  Position: (%d,%d)", location_row, location_column);
     mvwprintw(window, row + 4, column, "  Home pos: (%d,%d)", home_row, home_column);
