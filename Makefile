@@ -119,4 +119,4 @@ clean:
 	rm -f src/spy_simulation/*.o src/monitor/*.o src/common/*.o src/timer/*.o src/citizen_manager/*.o src/enemy_spy_network/*.o src/counter_intelligence/*.o
 
 distclean: clean
-	rm -f bin/*
+	rm -f ./bin/*
