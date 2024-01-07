@@ -1,3 +1,12 @@
+/**
+ * @file citizen_manager.c
+ * @brief Managing the citizens in the simulation.
+ *
+ * This file implements the necessary functions for managing citizens
+ * in the context of a spy simulation. It handles initialization,
+ * updates, and state management of citizens.
+ */
+
 #include <stdio.h>
 #include "citizen_manager.h"
 #include <pthread.h>
@@ -43,6 +52,7 @@ memory_t open_shared_memory() {
         }
     }
 }
+
 
 double distance(unsigned int pos1[2], unsigned int pos2[2]) {
     return abs((int)pos1[0] - (int)pos2[0]) + abs((int)pos1[1] - (int)pos2[1]);
@@ -104,6 +114,7 @@ void init_house(memory_t *memory){
     }
 }
 
+
 void init_building(memory_t *memory){
     for(int i = 0; i < NB_WORKPLACES; i++){
         memory->companies[i].nb_workers = 0;
@@ -147,6 +158,7 @@ void init_building(memory_t *memory){
         }
     }
 }
+
 
 void init_citizens(memory_t *memory) {
 
@@ -236,6 +248,7 @@ void init_citizens(memory_t *memory) {
            
 }
 
+
 void assign_home_to_citizen(memory_t* memory, citizen_t* citizen){
 
     home_t *houses = memory->homes;
@@ -252,6 +265,7 @@ void assign_home_to_citizen(memory_t* memory, citizen_t* citizen){
         attempts++;
     }
 }
+
 
 void assign_company_to_citizen(memory_t* memory, citizen_t* citizen){
     building_t *company_list = memory->companies;
@@ -316,6 +330,7 @@ state_t *new_state(int id, state_t *(*action)(citizen_t *)) {
     return state;
 }
 
+
 state_t *rest_at_home(citizen_t *c) {
     c->is_coming_from_company = 0;
     c->current_step = 0;
@@ -335,8 +350,8 @@ state_t *rest_at_home(citizen_t *c) {
     }
 }
 
+
 state_t *go_to_company(citizen_t *c) {
-    // printf("je vais vers mon boulot\n");
     
     if (c->position[0] == c->path_to_work->nodes[c->path_to_work->length -1]->position[0] && c->position[1] == c->path_to_work->nodes[c->path_to_work->length -1]->position[1]){
         c->current_step = 0;
@@ -366,6 +381,7 @@ state_t *go_to_company(citizen_t *c) {
     }
 
 }
+
 
 state_t *work(citizen_t *c) {
     if(c->workplace->cell_type == SUPERMARKET){
@@ -454,7 +470,6 @@ state_t *go_to_supermarket(citizen_t *c) {
 }
 
 
-
 state_t *go_back_home(citizen_t *c) {
     // printf("je rentre chez oim\n");
 
@@ -517,7 +532,6 @@ state_t *go_back_home(citizen_t *c) {
     
 }
 
-    
 
 state_t *do_some_shopping(citizen_t *c) {
     if(c->time_spent_shopping >= 30 || (memory->timer.hours == 19 && memory->timer.minutes >= 30)){
@@ -536,6 +550,7 @@ state_t *do_some_shopping(citizen_t *c) {
     }
     
 }
+
 
 state_t *dying(citizen_t *c){
     return c->dying;

@@ -1,3 +1,15 @@
+/**
+ * @file enemy_spy_network.c
+ * @brief Spy Network and Case Officer Management for Espionage Operations.
+ *
+ * This file contains the code for managing the spy network and the case officer
+ * in espionage operations. Spies are responsible for stealing messages and
+ * leaving them in mailboxes, which are later retrieved by the case officer.
+ * The case officer sends these messages to the enemy country via message queues.
+ *
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -608,7 +620,7 @@ state_t *do_some_shopping_officer(case_officer_t *officer){
     }
 }
 
-bool is_at_mailbox_officer(case_officer_t* officer){
+int is_at_mailbox_officer(case_officer_t* officer){
     return officer->location_column == officer->mailbox_column && officer->location_row == officer->mailbox_row;
 }
 

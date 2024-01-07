@@ -1,3 +1,15 @@
+/**
+ * @file timer.c
+ * @brief Timer Utility for Spy Simulation Control.
+ *
+ * This file contains the code for the timer utility used in the spy simulation
+ * control. It manages time, rounds, and signal handling to synchronize and
+ * control various processes within the simulation. When the maximum round limit
+ * is reached, it triggers termination of all related processes.
+ *
+ */
+
+
 #include "timer.h"
 #include "spy_simulation.h"
 #define SHARED_MEMORY "/SharedMemory"
@@ -80,7 +92,7 @@ int main() {
         close(shm_fd);
         exit(EXIT_FAILURE);
     }
-    
+
     sem_memory = sem_open("/semMemory",0);
     if (sem_memory == SEM_FAILED) {
         perror("sem_open failed in timer process");
@@ -89,7 +101,6 @@ int main() {
 
 
     // printf("sem_open timer\n");
-
     // Initialiser le timer
     simulated_clock_t timer = new_timer();
 
@@ -118,7 +129,7 @@ int main() {
             && memory->timer.round >= MAX_ROUNDS) {
             
             for(int i = 0; i < NB_PROCESS - 1; i++){
-                kill(memory->pids[i], SIGUSR1);
+                kill(memory->pids[i], SIGINT);
             }
         }
             

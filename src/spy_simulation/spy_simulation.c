@@ -1,3 +1,14 @@
+/**
+ * @file spy_simulation.c
+ * @brief Spy Simulation Control and Process Launcher.
+ *
+ * This file contains the code for controlling the spy simulation, including
+ * map creation, process launching, and shared memory segment initialization.
+ * It serves as a central component for orchestrating the entire espionage
+ * simulation and intelligence operations.
+ *
+ */
+
 #include "citizen_manager.h"
 #include <time.h>
 #include <stdbool.h>

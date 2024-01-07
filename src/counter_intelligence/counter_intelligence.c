@@ -1,3 +1,13 @@
+/**
+ * @file counter_intelligence.c
+ * @brief Implementation of counterintelligence operations.
+ *
+ * This file contains the implementation of counterintelligence operations
+ * within the spy simulation. It includes functions for monitoring,
+ * tracking suspicious activity, and responding to espionage threats.
+ *
+ */
+
 #include "counter_intelligence.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -237,8 +247,6 @@ void update_movement_history(characterMovement *movement, int newX, int newY) {
 
 void detect_suspicious_person(memory_t *memory) {
     // printf("Détection des personnes suspectes...\n");
-
-
 
     // Vérification pour chaque citoyen
     for (int i = 0; i < NUM_CITIZENS; i++) {

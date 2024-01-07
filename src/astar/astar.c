@@ -1,6 +1,18 @@
+/**
+ * \file astar.c
+ * \brief Implementation of the A* algorithm.
+ * 
+ * Implementation of the A* algorithm for finding the shortest path between two points on a map
+ * and returning the next node to reach in the case of random movement.
+ * 
+ * \author Belghomari Abdelmalek 
+ * @email: abdelmalek.belghomari@ecole.ensicaen.fr
+ */
+
 #include "astar.h"
 #include <stdlib.h>
 #include <math.h>
+
 
 int DIRECTIONS[NUM_DIRECTIONS][2] = {{-1, 0},
                                      {1,  0},
@@ -24,7 +36,7 @@ Node *create_node(int row, int column, double g, double h) {
     new_node->g = g;
     new_node->h = h;
     new_node->f = g + h;
-    new_node->parent = NULL; // Initialisation du parent à NULL
+    new_node->parent = NULL;
 
     return new_node;
 }
@@ -59,7 +71,6 @@ void destroy_heap(heap_t *heap) {
 
 bool insert_heap(heap_t *heap, Node *node) {
     if (is_heap_full(heap)) {
-        // Vous pouvez choisir d'augmenter la capacité du tas ici
         return false;
     }
 
@@ -93,7 +104,6 @@ bool delete_root(heap_t *heap, Node **deleted_node) {
         }
 
         if (heap->nodes[current]->f > heap->nodes[child]->f) {
-            // Échanger avec le plus petit enfant
             Node *temp = heap->nodes[current];
             heap->nodes[current] = heap->nodes[child];
             heap->nodes[child] = temp;
@@ -190,10 +200,10 @@ Node* get_random_neighbours_spy(map_t* map, spy_t* spy) {
         int column = spy->location_column + DIRECTIONS[i][1];
 
         if (row < 0 || row >= MAX_ROWS || column < 0 || column >= MAX_COLUMNS) {
-            continue; // Ignorer les voisins non valides
+            continue;
         }
         
-        // Ajouter des voisins si c'est du type WASTELAND ou un autre type spécifique (par exemple, une entreprise)
+        // Ajouter des voisins si c'est du type WASTELAND
         if (map->cells[row][column].type != WASTELAND) {
             continue;
         }
@@ -235,7 +245,6 @@ Node* get_random_neighbours(map_t* map, int row, int column){
             continue; // Ignorer les voisins non valides
         }
         
-        // Ajouter des voisins si c'est du type WASTELAND ou un autre type spécifique (par exemple, une entreprise)
         if (map->cells[row][column].type != WASTELAND) {
             continue;
         }
@@ -298,15 +307,12 @@ Node *astar_search(map_t *map, int start_row, int start_column, int goal_row, in
                 printf("Neighbor is NULL\n");
                 continue;
             }
-
-            //printf("Neighbor position: (%d, %d)\n", neighbor->position[0], neighbor->position[1]);
             
             if (neighbor->position[0] < 0 || neighbor->position[0] >= MAX_ROWS ||
                 neighbor->position[1] < 0 || neighbor->position[1] >= MAX_COLUMNS) {
                 free(neighbor); 
                 continue;
             }
-            //printf("oui\n");
             if (closed_set[neighbor->position[0]][neighbor->position[1]]) {
                 free(neighbor);
                 continue;
@@ -323,9 +329,7 @@ Node *astar_search(map_t *map, int start_row, int start_column, int goal_row, in
                 if (!is_in_heap(open_set, neighbor)) {
                     insert_heap(open_set, neighbor);
                 }
-            }
-            // Libérer les voisins marqués
-        
+            }        
         }
         for (int i = 0; i < NUM_DIRECTIONS; i++) {
             if (neighbors_to_free[i]) {
@@ -336,7 +340,6 @@ Node *astar_search(map_t *map, int start_row, int start_column, int goal_row, in
         free(neighbors);
     }
 
-    // Chemin non trouvé
     destroy_heap(open_set);
     return NULL;
 }
@@ -348,13 +351,11 @@ Path *reconstruct_path(Node *goal_node) {
     Node *current = goal_node;
     Path *path = NULL;
 
-    // Compter le nombre de nœuds dans le chemin
     while (current != NULL) {
         path_length++;
         current = current->parent;
     }
 
-    // Allocation de mémoire pour le chemin
     path = malloc(sizeof(Path));
     if (path == NULL) {
         perror("Unable to allocate memory for path");
@@ -370,7 +371,6 @@ Path *reconstruct_path(Node *goal_node) {
 
     path->length = path_length;
 
-    // Reconstruire le chemin
     current = goal_node;
     for (int i = path_length - 1; i >= 0; i--) {
         if (current == NULL) {
@@ -410,11 +410,8 @@ Node *calculate_next_step(int current_row, int current_column, int goal_row, int
         return NULL; // Aucun mouvement nécessaire
     }
 
-    // Exécuter l'algorithme A* pour trouver le chemin complet
     Node *goal_node = astar_search(map, current_row, current_column, goal_row, goal_column);
 
-
-    // Si aucun chemin trouvé, retourner NULL
     if (goal_node == NULL) {
         return NULL;
     }
@@ -426,10 +423,8 @@ Node *calculate_next_step(int current_row, int current_column, int goal_row, int
     }
     int h = next_step->h;
     int g = next_step->g;
-    // Créer un nouveau nœud pour la prochaine étape
     Node *next_step_node = create_node(next_step->position[0], next_step->position[1], h, g);
 
-    // Libérer les nœuds alloués par astar_search
     Node *current = goal_node;
     while (current != NULL) {
         Node *temp = current;

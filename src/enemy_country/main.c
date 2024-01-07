@@ -1,3 +1,14 @@
+/**
+ * @file main.c
+ * @brief Message Queue-Based Message Receiver and Decrypter for Enemy Country.
+ *
+ * This file contains the code for the "Enemy Country" component responsible
+ * for receiving encrypted messages using a message queue, decrypting them,
+ * and displaying the content.
+ * 
+ */
+
+
 #include "memory.h"
 
 memory_t *memory;

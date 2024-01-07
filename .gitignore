@@ -2,9 +2,6 @@
 *.test
 
 # Directories
-./bin/
-./doc/html/
-./doc/latex/
 .idea
 
 ### VisualStudioCode template

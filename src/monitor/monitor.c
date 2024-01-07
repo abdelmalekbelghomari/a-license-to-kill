@@ -394,24 +394,9 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     }
     mvwprintw(window, row + 8, column, "  State: %s", state);
 
-
-    wmove(window, row + 8, column);
     wclrtoeol(window);
 
-    // Print the state based on the value of state_id
-    // if (state_id == 0) {
-    //     mvwprintw(window, row + 8, column, "  State: %s", "resting at home");
-    // } else {
-    //     mvwprintw(window, row + 8, column, "  State: %s", "resting at home");
-    // }
-
-    // Refresh the window to display the changes
     wrefresh(window);
-
-    // switch (spy->current_state->id) {
-    //     case 0: mvwprintw(window, row + 8, column + 9, "Resting at Home"); break;
-    wrefresh(window);
-    // sem_post(sem_spy_producer);
 }
 
 // char* get_state_of_officer(memory_t *memory){

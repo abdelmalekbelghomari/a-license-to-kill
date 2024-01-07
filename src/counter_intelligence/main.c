@@ -1,3 +1,13 @@
+/**
+ * @file main.c
+ * @brief Main entry point for counterintelligence operations.
+ *
+ * This file serves as the main entry point for counterintelligence
+ * operations in the spy simulation. It initializes and manages
+ * counterintelligence officers and their activities.
+ *
+ */
+
 #include "counter_intelligence.h"
 #include "memory.h"
 #include <sys/mman.h>

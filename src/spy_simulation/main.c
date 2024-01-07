@@ -1,3 +1,15 @@
+/**
+ * @file main.c
+ * @brief Main Entry Point for Spy Simulation.
+ *
+ * This file serves as the main entry point for the spy simulation, responsible
+ * for creating the map, launching various processes, initializing shared memory
+ * segments, and coordinating the execution of all components involved in espionage
+ * activities and intelligence operations.
+ *
+ */
+
+
 #include <stdio.h>
 #include "spy_simulation.h"
 #include "memory.h"

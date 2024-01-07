@@ -1,3 +1,14 @@
+/**
+ * @file main.c
+ * @brief Main Thread Management for Enemy Spy Network.
+ *
+ * This file serves as the main entry point for the "Enemy Spy Network" component,
+ * responsible for managing the threads of spies and the case officer. It coordinates
+ * espionage activities, including message theft, mailbox interactions, and message
+ * exchange with the enemy country.
+ * 
+ */
+
 #include "memory.h"
 #include "enemy_spy_network.h"
 #include <stdio.h>

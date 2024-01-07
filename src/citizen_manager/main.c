@@ -1,3 +1,12 @@
+/**
+ * @file main.c
+ * @brief Main entry point for the spy simulation.
+ *
+ * This file contains the main entry point (the `main` function) for
+ * creating and managing citizens in the spy simulation. It initializes
+ * the necessary threads for handling citizens in the simulation.
+ */
+
 #include "memory.h"
 #include "citizen_manager.h"
 #include <stdio.h>
@@ -20,6 +29,16 @@ pthread_mutex_t shared_memory_mutex;
 pthread_barrier_t turn_barrier;
 int threads_at_barrier = 0;
 
+/**
+ * @brief Fonction exécutée par chaque thread de citoyen.
+ *
+ * Gère le comportement d'un citoyen dans la simulation. Cette fonction est assignée à chaque
+ * thread créé pour un citoyen et s'exécute tant que la simulation n'est pas terminée.
+ *
+ * @param arg Pointeur vers l'identifiant du citoyen.
+ * @return Pointeur void* retourné à la fin de l'exécution du thread.
+ */
+
 void* citizen_thread(void* arg) {
     unsigned int citizen_id = *(int*)arg;
     int last_round_checked = -1;
@@ -33,39 +52,28 @@ void* citizen_thread(void* arg) {
 
         if (last_round_checked != current_round) {
             pthread_mutex_lock(&shared_memory_mutex);
-            //modifie ca pour implémenter le patron état
-            // printf("current timer round : %d\n", memory->timer.round);
-            // printf("citizen id : %d , current state : %d\n", citizen_id, memory->citizens[citizen_id].current_state->id);
-            //sem_wait(sem_);
             state_t *next_state = memory->citizens[citizen_id].current_state->action(&memory->citizens[citizen_id]);
             memory->citizens[citizen_id].current_state = next_state;
-            // printf("Time : %d:%d\n", memory->timer.hours, memory->timer.minutes);
-            // printf("citizen id : %d , current state : %d\n", citizen_id, memory->citizens[citizen_id].current_state->id);
-            // printf("Citizen Position : %d, %d\n", memory->citizens[citizen_id].position[0], memory->citizens[citizen_id].position[1]);
-            // printf("Citizen Home : %d, %d\n", memory->citizens[citizen_id].home->position[0], memory->citizens[citizen_id].home->position[1]);
-            // printf("Citizen Work : %d, %d\n", memory->citizens[citizen_id].workplace->position[0], memory->citizens[citizen_id].workplace->position[1]);
-            // printf("Citizen Current Step : %d\n", memory->citizens[citizen_id].current_step);
-            //sem_post(sem);
             last_round_checked = current_round;
             threads_at_barrier++;
-            // printf("Threads à la barrière: %d\n", threads_at_barrier);
             pthread_mutex_unlock(&shared_memory_mutex);
-
-            //printf("heure dans la simulation : %d\n", memory->timer.hours);
-            //printf ("\ncitizen id : %d , state id : %d, walking_citizens : %d , at_home_citizens : %d at_work_citizens : %d\n",citizen_id, memory->citizens[citizen_id].current_state->id, memory->walking_citizens , memory->at_home_citizens, memory->at_work_citizens);
         }
         pthread_barrier_wait(&turn_barrier);
-        // if(threads_at_barrier == CITIZENS_COUNT) {
-        //     threads_at_barrier = 0;
-        //     pthread_barrier_wait(&turn_barrier);
-        // }
         usleep(100000); // 100 ms pour réduire la consommation CPU
     }
     return NULL;
 }
 
+/**
+ * @brief Fonction principale du programme.
+ *
+ * Crée et gère les threads des citoyens, et nettoie les ressources
+ * à la fin de la simulation.
+ *
+ * @return int Code de sortie du programme.
+ */
+
 int main() {
-    //printf("\n");
     srand(time(NULL) ^ getpid()	);
     pthread_t threads[CITIZENS_COUNT];
     int shm_fd;
@@ -132,39 +140,3 @@ int main() {
 
     return 0;
 }
-
-// int main() {
-    // // Ouvrir la mémoire partagée
-    //memory_t memory = open_shared_memory();
-    // // Initialiser les outils de synchronisation
-    // initialize_synchronization_tools();
-
-    // // Lancer les threads des citoyens
-    // manage_citizens(memory->citizens);
-
-    // // Boucle principale de gestion des citoyens
-    // while (!memory->simulation_has_ended) {
-    //     pthread_barrier_wait(&start_barrier);
-
-    //     // Logique de gestion des actions des citoyens
-
-    //     pthread_barrier_wait(&end_barrier);
-    //     sleep(1); // Pause pour simuler le temps de simulation
-    // }
-
-    // // Nettoyer et fermer le programme proprement
-    // // Attendre la fin des threads
-
-    // // Destruction des outils de synchronisation
-    // pthread_barrier_destroy(&start_barrier);
-    // pthread_barrier_destroy(&end_barrier);
-    // pthread_mutex_destroy(&mutex);
-
-    // // Libération de la mémoire partagée
-    // munmap(memory, sizeof(memory_t));  // Assurez-vous que la taille est correcte
-
-    // // Fermeture du descripteur de mémoire partagée
-    // close(shmd);
-
-    //return 0;
-// }

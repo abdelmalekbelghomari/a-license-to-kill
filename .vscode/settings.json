@@ -58,6 +58,7 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "*.py": "python",
-    "typeinfo": "c"
+    "typeinfo": "c",
+    "memory.h": "c"
   }
 }
