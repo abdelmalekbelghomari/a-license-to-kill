@@ -395,7 +395,7 @@ void display_spy_information(WINDOW *window, memory_t *mem, int row, int column,
     mvwprintw(window, row + 8, column, "  State: %s", state);
 
 
-    // wmove(window, row + 8, column);
+    wmove(window, row + 8, column);
     wclrtoeol(window);
 
     // Print the state based on the value of state_id

@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/mman.h>
-#include <fcntl.h>
-#include <unistd.h>
 #include "memory.h"
-#include <semaphore.h>
 
 memory_t *memory;
 sem_t *sem_consumer, *sem_producer;

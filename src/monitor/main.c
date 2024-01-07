@@ -120,8 +120,6 @@ int main()
     set_timer();
     set_signals();
 
-    setlocale(LC_ALL, "");
-
     
     if ((main_window = initscr()) == NULL) {
         quit_after_error("Error initializing library ncurses!");

@@ -835,7 +835,7 @@ void init_officer(memory_t * memory){
     officer->recovering_messages->description = "recovering_messages";
 
     officer->current_state = officer->resting_at_home;
-    officer->message_count = 0;
+    officer->message_count = 0 ;
     officer->turns_spent_shopping = 0;
 
     assign_home_to_officer(memory, officer);
