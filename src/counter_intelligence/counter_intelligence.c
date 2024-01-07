@@ -34,41 +34,34 @@ state_t *monitor(counter_intelligence_officer_t *officer) {
     if (((officer->leaving_time.leaving_hour == memory->timer.hours 
         && officer->leaving_time.leaving_minute == memory->timer.minutes) 
         && officer->new_day) && officer->has_found_mailbox_location){
-        // printf("===============================il est temps que je retente de chercher la boite aux lettres\n");
         officer->new_day = false; // avoid searching twice the same day
         return officer->going_to_search_for_mailbox;
-    }
-    if (memory->surveillanceNetwork.surveillanceAI.suspicious_movement){
-
-        // printf("suspicious movement detected , i'm going to investigate\n");
-        // ================= ABDEL N'IGNORE PAS CES COMMENTAIRES J'AI FAIT CA POUR TOI ===========================
-        // go to the location of the suspect
-        // here's how to get the location of the suspect :
-        // switch (memory->surveillanceNetwork.surveillanceAI.suspect_type) {
-        //     case SUSPECT_CITIZEN:
-        //         // Accéder à la position du citizen suspect
-        //         int suspectX = memory->surveillanceNetwork.surveillanceAI.suspect.citizen->position[0];
-        //         int suspectY = memory->surveillanceNetwork.surveillanceAI.suspect.citizen->position[1];
-        //         break;
-        //     case SUSPECT_SPY:
-        //         // Accéder à la position du spy suspect
-        //         suspectX = memory->surveillanceNetwork.surveillanceAI.suspect.spy->location_row;
-        //         suspectY = memory->surveillanceNetwork.surveillanceAI.suspect.spy->location_column;
-        //         break;
-        //     case SUSPECT_CASE_OFFICER:
-        //         // Accéder à la position du case officer suspect
-        //         suspectX = memory->surveillanceNetwork.surveillanceAI.suspect.case_officer->location_row;
-        //         suspectY = memory->surveillanceNetwork.surveillanceAI.suspect.case_officer->location_column;
-        //         break;
-        //     default:
-        // break;
-    // }
+    } else if (memory->surveillanceNetwork.surveillanceAI.suspicious_movement){
+        int suspectColumn, suspectRow;
+        switch (memory->surveillanceNetwork.surveillanceAI.suspect_type) {
+            case SUSPECT_CITIZEN:
+                suspectRow = memory->surveillanceNetwork.surveillanceAI.suspect.citizen->position[0];
+                suspectColumn = memory->surveillanceNetwork.surveillanceAI.suspect.citizen->position[1];
+                break;
+            case SUSPECT_SPY:
+                suspectRow = memory->surveillanceNetwork.surveillanceAI.suspect.spy->location_row;
+                suspectColumn = memory->surveillanceNetwork.surveillanceAI.suspect.spy->location_column;
+                break;
+            case SUSPECT_CASE_OFFICER:
+                suspectRow = memory->surveillanceNetwork.surveillanceAI.suspect.case_officer->location_row;
+                suspectColumn = memory->surveillanceNetwork.surveillanceAI.suspect.case_officer->location_column;
+                break;
+            default:
+                break;
+        }
         memory->surveillanceNetwork.cameras.infrared_camera = 0;
         memory->surveillanceNetwork.cameras.standard_camera = 0;
+        officer->targeted_character_row = suspectRow;
+        officer->targeted_character_column = suspectColumn;
         return officer->going_to_suspect_place; 
+    } else {
+        return officer->monitoring;
     }
-
-    return officer->monitoring;  // Prochain état
 }
 
 
@@ -85,35 +78,57 @@ state_t *go_to_search_for_mailbox(counter_intelligence_officer_t *officer){
         Node* next_step = calculate_next_step(officer->location_row, officer->location_column, 
             memory->map.mailbox_row, memory->map.mailbox_column, &memory->map);
         if (next_step != NULL){
-            // printf("je me déplace vers la position (%d,%d)\n", next_step->x, next_step->y);
             officer->location_row = next_step->position[0];
             officer->location_column = next_step->position[1];
+            free(next_step);
             return officer->going_to_search_for_mailbox;
         } else {
-            return officer->monitoring;
+            return officer->searching_for_mailbox;
         }
     }
+}
+
+int at_suspect_place(counter_intelligence_officer_t *officer){
+    return (officer->location_row == officer->targeted_character_row && officer->location_column == officer->targeted_character_column);
 }
 
 state_t *go_to_suspect_place(counter_intelligence_officer_t *officer) {
     // printf("the impostor is sus\n");
     strcpy(officer->description, "Going to suspect place");
-    if ((officer->leaving_time.leaving_hour == memory->timer.hours && officer->leaving_time.leaving_minute == memory->timer.minutes) && officer->new_day){
-        // printf("===============================il est temps que je retente de chercher la boite aux lettres\n");
-        officer->new_day = false; // avoid searching twice the same day
-        return officer->going_to_search_for_mailbox;
+    if ((officer->leaving_time.leaving_hour == memory->timer.hours 
+        && officer->leaving_time.leaving_minute == memory->timer.minutes) 
+        && officer->new_day){
+        
+        if(at_suspect_place(officer)){
+            officer->new_day = false;
+            return officer->going_to_search_for_mailbox;
+        } else {
+            Node* next_step = calculate_next_step(officer->location_row, officer->location_column, 
+                officer->targeted_character_row, officer->targeted_character_column, &memory->map);
+            if (next_step != NULL){
+                officer->location_row = next_step->position[0];
+                officer->location_column = next_step->position[1];
+                free(next_step);
+                return officer->going_to_suspect_place;
+            } else {
+                officer->new_day = false;
+                return officer->searching_for_mailbox;
+            }
+        }
     } else {
         return officer->hiding; 
     }
 }
 
+int is_at_monitor(counter_intelligence_officer_t *officer){
+    return (officer->location_row == officer->city_hall_row && officer->location_column == officer->city_hall_column);
+}
+
 state_t *hide(counter_intelligence_officer_t *officer) {
-    // printf("je regarde l'imposteur dans un coin : ");
-    // remplacer cette logique par le fait que l'espion rentre dans le batiment
     strcpy(officer->description, "Hiding");
     int value = rand()%2;
     if (value == 1){
-        // printf("au final il est pas si suspect que ca\n");
+        
         return officer->going_back_to_monitor;
     }
     // printf("c'est un suspect !!! il faut que je le suit apres qu'il fini de voler\n");
@@ -134,15 +149,15 @@ state_t *go_back_to_monitor(counter_intelligence_officer_t *officer) {
         return officer->going_to_search_for_mailbox;
     }
 
-    if(officer->location_column == memory->companies[2].position[1] && officer->location_row == memory->companies[2].position[0]){
-        return officer->monitoring;
+    if(is_at_monitor(officer)){
+        return officer->going_back_to_monitor;
     } else {
         Node* next_step = calculate_next_step(officer->location_row, officer->location_column, 
-            memory->companies[2].position[0], memory->companies[2].position[1], &memory->map);
+            officer->city_hall_row, officer->city_hall_column, &memory->map);
         if (next_step != NULL){
-            // printf("je me déplace vers la position (%d,%d)\n", next_step->x, next_step->y);
             officer->location_row = next_step->position[0];
             officer->location_column = next_step->position[1];
+            free(next_step);
             return officer->going_back_to_monitor;
         } else {
             return officer->monitoring;
@@ -185,14 +200,11 @@ state_t *search_for_mailbox(counter_intelligence_officer_t *officer) {
         return officer->recovering_messages;
     }
     assign_officer_time(officer);
-    // printf("j'ai pas réussi , je reviendrais demain à  %d:%d\n", officer->leaving_time.leaving_hour , officer->leaving_time.leaving_minute);
     return officer->going_back_to_monitor;  
 }
 
 state_t *recover_message(counter_intelligence_officer_t *officer) {
-    // printf("je prends les messages dans la boite aux lettres\n");
     strcpy(officer->description, "Recovering messages");
-    // Logique de l'état "recover_message"
     return officer->going_back_to_monitor;  
 }
 
