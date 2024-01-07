@@ -17,7 +17,6 @@
  */
 #include <string.h>
 #include <ncurses.h>
-#include <ncursesw/ncurses.h>
 
 
 #include "monitor.h"
@@ -150,6 +149,7 @@ void set_city_legend(WINDOW *window, int row, int col)
     mvwprintw(window, row + 18, col + 2, "* - Citizen");
     mvwprintw(window, row + 19, col + 2, "I - Counter Intelligence Officer");
     mvwprintw(window, row + 20, col + 2, "O - Case Officer");
+    mvwprintw(window, row + 21, col + 2, "M - Mailbox");
 }
 
 
@@ -196,6 +196,11 @@ void display_city(WINDOW *window, map_t map, int rows, int columns, memory_t *me
                     break;
             }
 
+            if(memory->map.mailbox_column == j && memory->map.mailbox_row == i){
+                wattron(window, colored_text[COLOR_WHITE]);
+                mvwaddstr(window, row_offset, col_offset+2, "M");
+                wattroff(window, colored_text[COLOR_WHITE]);
+            }
             // les boucles for ici faisaient beuguer la map
             if (memory->citizens[52].position[1] == j && memory->citizens[52].position[0] == i){
                 mvwaddstr(window, row_offset, col_offset, "*"); // Symbole pour le citoyen
@@ -499,6 +504,7 @@ void display_counterintelligence_officer_information(WINDOW *window, memory_t *m
     int mailbox_row;
     int mailbox_column;
     int targeted_character_id;
+    char state_description[40];
 
     id                    = officer->id;
     health_points         = officer->health_point;
@@ -506,12 +512,11 @@ void display_counterintelligence_officer_information(WINDOW *window, memory_t *m
     location_column       = officer->location_column;
     city_hall_row         = officer->city_hall_row;
     city_hall_column      = officer->city_hall_column;
-    mailbox_row           = officer->mailbox_row;
-    mailbox_column        = officer->mailbox_column;
+    mailbox_row           = officer->mailbox_column;
+    mailbox_column        = officer->mailbox_row;
     targeted_character_id = officer->targeted_character_id;
+    strcpy(state_description, officer->description);
    /* ---------------------------------------------------------------------- */
-
-    char *state_description;
 
 	
     wattron(window, A_BOLD);
@@ -527,7 +532,8 @@ void display_counterintelligence_officer_information(WINDOW *window, memory_t *m
         mvwprintw(window, row + 5, col, "  Mailbox pos: not found");
     }
     mvwprintw(window, row + 6, col, "  Target:     ");
-    mvwprintw(window, row + 7, col, "  State: %s", "in the matrix");
+    mvwprintw(window, row + 7, col, "%50s", "");
+    mvwprintw(window, row + 7, col, "  State: %s", state_description);
 
     wrefresh(window);
 }
@@ -585,7 +591,7 @@ void display_mailbox_content(WINDOW *window, memory_t *mem)
 
         // Afficher le message
         if (strcmp(content, "Ghfhswlyh") == 0) {
-            mvwprintw(window, nb_lines, 2, ">> [%d] FAKE MESSAGE (P%d)", i + 1, priority);
+            mvwprintw(window, nb_lines, 2, ">> [%d] FAKE NEWS (P%d)", i + 1, priority);
         } else {
             mvwprintw(window, nb_lines, 2, ">> [%d] %s (P%d)", i + 1, content, priority);
         }
@@ -642,11 +648,6 @@ void update_values(memory_t *mem) {
     display_character_information(character_window, mem);
     display_mailbox_content(mailbox_content_window, mem);
     display_enemy_country_monitor(enemy_country_monitor, mem);
-    // sem_wait(sem_producer);
-    // sem_wait(sem_spy_producer);
-	// mem->memory_has_changed = 0;
-    // sem_wait(sem_spy_consumer);
-    // // sem_post(sem_consumer);
 
 }
 

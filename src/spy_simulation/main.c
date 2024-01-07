@@ -34,6 +34,12 @@ int main(int argc, char **argv)
         perror("sem_open timer");
         exit(EXIT_FAILURE);
     }
+    sem_t *sem_memory = sem_open("/semMemory", O_CREAT, 0644, 1);
+    if (sem_memory == SEM_FAILED) {
+        perror("sem_open failed");
+        exit(EXIT_FAILURE);
+    }
+
     start_simulation_processes(memory);
     
     sem_close(semp_producer_timer);

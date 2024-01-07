@@ -80,30 +80,10 @@ int main() {
         close(shm_fd);
         exit(EXIT_FAILURE);
     }
-
-    sem_producer = sem_open(SEMAPHORE_PRODUCER, 0);
-    if (sem_producer == SEM_FAILED) {
-        perror("sem_open failed in timer process");
-        exit(EXIT_FAILURE);
-    }
-    sem_consumer = sem_open(SEMAPHORE_CONSUMER, 0);
-    if (sem_consumer == SEM_FAILED) {
-        perror("sem_open failed in timer process");
-        exit(EXIT_FAILURE);
-    }
-    sem_spy_consumer = sem_open("/semSpyConsumer", 0);
-    if (sem_spy_consumer == SEM_FAILED) {
-        perror("sem_open failed in timer process");
-        exit(EXIT_FAILURE);
-    }
-    sem_spy_producer = sem_open("/semSpyProducer", 0);
-    if (sem_spy_producer == SEM_FAILED) {
-        perror("sem_open failed in timer process");
-        exit(EXIT_FAILURE);
-    }
-    sem_memory = sem_open("/semMemory", O_CREAT, 0644, 1);
+    
+    sem_memory = sem_open("/semMemory",0);
     if (sem_memory == SEM_FAILED) {
-        perror("sem_open failed");
+        perror("sem_open failed in timer process");
         exit(EXIT_FAILURE);
     }
 

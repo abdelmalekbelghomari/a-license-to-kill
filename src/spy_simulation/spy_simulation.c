@@ -246,6 +246,19 @@ void start_simulation_processes(memory_t *memory){
 
     memory->pids[num_children] = fork();
     if (memory->pids[num_children] == -1) {
+        perror("Error [fork()] timer: ");
+        exit(EXIT_FAILURE);
+    }
+    if (memory->pids[num_children] == 0) {
+        if (execl("./bin/timer", "timer", NULL) == -1) {
+            perror("Error [execl] timer: ");
+            exit(EXIT_FAILURE);
+        }
+    }
+    num_children++;
+
+    memory->pids[num_children] = fork();
+    if (memory->pids[num_children] == -1) {
         perror("Error [fork()] citizen_manager: ");
         exit(EXIT_FAILURE);
     }
@@ -295,20 +308,7 @@ void start_simulation_processes(memory_t *memory){
         }
     }
 
-    num_children++;
 
-    memory->pids[num_children] = fork();
-    if (memory->pids[num_children] == -1) {
-        perror("Error [fork()] timer: ");
-        exit(EXIT_FAILURE);
-    }
-    if (memory->pids[num_children] == 0) {
-        if (execl("./bin/timer", "timer", NULL) == -1) {
-            perror("Error [execl] timer: ");
-            exit(EXIT_FAILURE);
-        }
-    }
-    
     num_children++;
 
     memory->pids[num_children] = fork();

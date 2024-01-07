@@ -79,10 +79,9 @@ int main() {
 
 
     // Nettoyage
-
+    free(memory);
     sem_close(sem_consumer);
     sem_close(sem_producer);
-    
     munmap(memory, sizeof(memory_t));
     close(shm_fd);
 

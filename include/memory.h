@@ -319,6 +319,7 @@ struct counter_intelligence_officer_s {
     int mailbox_column;                                   /*!< The counterintelligence_officer home column.*/
     int targeted_character_id;                            /*!< The targeted character id.*/
 
+    char description[40];
     state_t *monitoring;
     state_t *going_to_suspect_place;
     state_t *hiding;

@@ -601,7 +601,7 @@ state_t *do_some_shopping_officer(case_officer_t *officer){
     // printf(" officier traitant : je fais du shoppinje \n");
     if(officer->turns_spent_shopping >= 6){
         officer->turns_spent_shopping = 0;
-        return officer->going_to_mailbox;
+        return officer->going_back_home;
     } else {
         officer->turns_spent_shopping++;
         return officer->doing_some_shopping;
@@ -798,7 +798,8 @@ void assign_home_to_spy(memory_t* memory, spy_t* s){
     int attempts = 0;
     while (1) {
         house_index = rand() % NB_HOMES;
-        if (houses[house_index].nb_citizen < houses[house_index].max_capacity) {
+        if (houses[house_index].nb_citizen < houses[house_index].max_capacity 
+            && (houses[house_index].position[0] != memory->map.mailbox_row&& houses[house_index].position[1] != memory->map.mailbox_column)){
             s->home_row = houses[house_index].position[0];
             s->home_column = houses[house_index].position[1];
             // printf("Position Maison du Spy n°%d: (%d, %d)\n", s->id, s->home_row, s->home_column);
@@ -855,7 +856,8 @@ void assign_home_to_officer(memory_t* memory, case_officer_t* c){
     int attempts = 0;
     while (1) {
         house_index = rand() % NB_HOMES;
-        if (houses[house_index].nb_citizen < houses[house_index].max_capacity) {
+        if (houses[house_index].nb_citizen < houses[house_index].max_capacity
+            && (houses[house_index].position[0] != memory->map.mailbox_row&& houses[house_index].position[1] != memory->map.mailbox_column)) {
             c->home_row = houses[house_index].position[0];
             c->home_column = houses[house_index].position[1];
             // printf("Position Maison de l'officier: (%d, %d)\n", c->home_row, c->home_column);
