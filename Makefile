@@ -1,5 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -pedantic -O2 -g -DMUTEX
+BINDIR=bin
 
 # Compilation under MacOS X or Linux
 UNAME=$(shell uname -s)
@@ -14,8 +15,11 @@ endif
 
 .PHONY: all clean distclean
 
-all: bin/spy_simulation bin/monitor bin/timer bin/citizen_manager bin/enemy_spy_network bin/enemy_country bin/counter_intelligence
+all: $(BINDIR) bin/spy_simulation bin/monitor bin/timer bin/citizen_manager bin/enemy_spy_network bin/enemy_country bin/counter_intelligence
 
+# Create the "bin" directory if it doesn't exist
+$(BINDIR):
+	mkdir -p $(BINDIR)
 # ----------------------------------------------------------------------------
 # SPY SIMULATION
 # ----------------------------------------------------------------------------
