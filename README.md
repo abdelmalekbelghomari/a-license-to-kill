@@ -13,6 +13,15 @@ To launch the project, follow these simple steps:
 1. Compile the project using the `make` command.
 2. Run the executable with `./bin/spy_simulation`.
 
+### Documentation
+
+You can have access to the Web Documentation, generated using doxygen. 
+
+To use read it : 
+1. Go to the doc Folder
+2. Go to documentation Folder
+3. You can launch the shortcut on your default web browser
+
 ### Initialization
 
 - The simulation initialization takes approximately 2 seconds, mainly for setting up the map. 
