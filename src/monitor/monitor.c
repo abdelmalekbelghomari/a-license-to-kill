@@ -117,7 +117,7 @@ void set_monitor_title(WINDOW *window, const char *title)
 {
     int title_column;
 
-    title_column = main_window->_maxx / 2 - strlen(title) / 2;
+    title_column = getmaxx(main_window) / 2 - strlen(title) / 2;
     wattron(window, A_BOLD);
     mvwprintw(main_window, 0, title_column, "%s", title);
     wattroff(window, A_BOLD);
@@ -254,7 +254,7 @@ void show_general_information(WINDOW *window)
     int title_column;
     char *title = "CITY MAP AND GENERAL INFORMATION";
 
-    title_column = window->_maxx / 2 - strlen(title) / 2;
+    title_column =  getmaxx(window) / 2 - strlen(title) / 2;
 
     wattron(window, A_BOLD | A_UNDERLINE);
     mvwprintw(window, 1, title_column, "%s", title);
@@ -522,9 +522,9 @@ void display_character_information(WINDOW *window, memory_t *mem)
     int second_column;
     char *title = "CHARACTERS";
 
-    title_column = window->_maxx / 2 - strlen(title) / 2;
+    title_column =  getmaxx(window) / 2 - strlen(title) / 2;
     first_column = 2;
-    second_column = window->_maxx / 2;
+    second_column =  getmaxx(window) / 2;
 
     wattron(window, A_BOLD | A_UNDERLINE);
     mvwprintw(window, 1, title_column, "%s", title);
@@ -545,7 +545,7 @@ void display_mailbox_content(WINDOW *window, memory_t *mem)
     int mailbox_nb_of_msgs = mem->homes->mailbox.message_count;
 
     // Afficher le titre
-    int title_column = window->_maxx / 2 - strlen("MAILBOX CONTENT") / 2;
+    int title_column =  getmaxx(window) / 2 - strlen("MAILBOX CONTENT") / 2;
     wattron(window, A_BOLD | A_UNDERLINE);
     mvwprintw(window, 1, title_column, "MAILBOX CONTENT");
     wattroff(window, A_BOLD | A_UNDERLINE);
@@ -585,7 +585,7 @@ void display_enemy_country_monitor(WINDOW *window, memory_t *mem) {
     char *title = "ENEMY COUNTRY MONITOR";
 
     // Afficher le titre
-    title_column = window->_maxx / 2 - strlen(title) / 2;
+    title_column =  getmaxx(window) / 2 - strlen(title) / 2;
     wattron(window, A_BOLD | A_UNDERLINE);
     mvwprintw(window, 1, title_column, "%s", title);
     wattroff(window, A_BOLD | A_UNDERLINE);
